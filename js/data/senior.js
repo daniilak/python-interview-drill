@@ -7307,5 +7307,3435 @@ window.QUESTIONS_SENIOR = [
     "explain": "Ускорение без смены языка.",
     "group": "CPython и память",
     "id": "s521"
+  },
+  {
+    "topic": "CPython",
+    "q": "Что такое PyObject заголовок (упрощённо)?",
+    "options": [
+      "refcount + указатель на тип (и ещё поля)",
+      "только данные без типа",
+      "только GIL token",
+      "только hash"
+    ],
+    "answer": 0,
+    "explain": "Любой объект в CPython — PyObject*.",
+    "group": "CPython и память",
+    "id": "s522"
+  },
+  {
+    "topic": "CPython",
+    "q": "interning маленьких int (−5…256) зачем?",
+    "options": [
+      "переиспользование объектов, меньше аллокаций",
+      "обязательная математика",
+      "безопасность",
+      "убрать =="
+    ],
+    "answer": 0,
+    "explain": "Поэтому is для таких int может «случайно» работать.",
+    "group": "CPython и память",
+    "id": "s523"
+  },
+  {
+    "topic": "память",
+    "q": "цикл ссылок A→B→A собирает…",
+    "options": [
+      "generational GC (detect cycles)",
+      "только refcount",
+      "never",
+      "OS OOM killer only"
+    ],
+    "answer": 0,
+    "explain": "refcount сам цикл не разорвёт.",
+    "group": "CPython и память",
+    "id": "s524"
+  },
+  {
+    "topic": "байткод",
+    "q": "LOAD_FAST vs LOAD_GLOBAL по стоимости?",
+    "options": [
+      "локальные быстрее глобальных/builtins lookup",
+      "одинаково",
+      "global быстрее",
+      "только PyPy"
+    ],
+    "answer": 0,
+    "explain": "Локальные — массив быстрого доступа.",
+    "group": "CPython и память",
+    "id": "s525"
+  },
+  {
+    "topic": "import",
+    "q": "sys.modules кэширует…",
+    "options": [
+      "уже загруженные модули по имени",
+      "только bytecode файлы",
+      "pip packages",
+      "типы"
+    ],
+    "answer": 0,
+    "explain": "Повторный import берёт из кэша.",
+    "group": "Stdlib и производительность",
+    "id": "s526"
+  },
+  {
+    "topic": "import",
+    "q": "circular import типичный симптом…",
+    "options": [
+      "AttributeError: partially initialized module",
+      "SyntaxError всегда",
+      "GIL deadlock only",
+      "segfault"
+    ],
+    "answer": 0,
+    "explain": "Лечится локальными import / перестройкой зависимостей.",
+    "group": "Stdlib и производительность",
+    "id": "s527"
+  },
+  {
+    "topic": "метаклассы",
+    "q": "type(name, bases, namespace) создаёт…",
+    "options": [
+      "новый класс",
+      "экземпляр only",
+      "модуль",
+      "функцию"
+    ],
+    "answer": 0,
+    "explain": "class statement — синтаксический сахар над этим.",
+    "group": "Метаклассы и типы",
+    "id": "s528"
+  },
+  {
+    "topic": "метаклассы",
+    "q": "__init_subclass__ вызывается…",
+    "options": [
+      "при создании подкласса",
+      "при import любого модуля",
+      "при del",
+      "только metaclass"
+    ],
+    "answer": 0,
+    "explain": "Хуки регистрации без своего metaclass.",
+    "group": "Метаклассы и типы",
+    "id": "s529"
+  },
+  {
+    "topic": "метаклассы",
+    "q": "__set_name__ у дескриптора…",
+    "options": [
+      "узнаёт имя атрибута в классе-владельце",
+      "ставит __name__ функции",
+      "GIL name",
+      "pickle name"
+    ],
+    "answer": 0,
+    "explain": "PEP 487.",
+    "group": "Метаклассы и типы",
+    "id": "s530"
+  },
+  {
+    "topic": "дескрипторы",
+    "q": "data descriptor (с __set__) побеждает…",
+    "options": [
+      "instance __dict__",
+      "всегда non-data",
+      "только slots",
+      "ничего"
+    ],
+    "answer": 0,
+    "explain": "Порядок поиска атрибутов важен.",
+    "group": "Метаклассы и типы",
+    "id": "s531"
+  },
+  {
+    "topic": "typing",
+    "q": "ParamSpec / Concatenate нужны для…",
+    "options": [
+      "типизации декораторов, сохраняющих сигнатуру",
+      "только dataclasses",
+      "SQL",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "PEP 612.",
+    "group": "Typing и dataclasses",
+    "id": "s532"
+  },
+  {
+    "topic": "typing",
+    "q": "TypeGuard / TypeIs помогают…",
+    "options": [
+      "сузить тип после user-defined проверки",
+      "ускорить runtime",
+      "заменить isinstance ban",
+      "GC"
+    ],
+    "answer": 0,
+    "explain": "Для чекеров типов.",
+    "group": "Typing и dataclasses",
+    "id": "s533"
+  },
+  {
+    "topic": "concurrency",
+    "q": "free-threaded CPython (3.13+) меняет…",
+    "options": [
+      "опциональная сборка без GIL",
+      "удаляет потоки",
+      "запрещает multiprocessing",
+      "только asyncio"
+    ],
+    "answer": 0,
+    "explain": "Новая модель памяти/потокобезопасности расширений.",
+    "group": "Потоки, процессы, GIL",
+    "id": "s534"
+  },
+  {
+    "topic": "asyncio",
+    "q": "TaskGroup (3.11) при ошибке в задаче…",
+    "options": [
+      "отменяет siblings и поднимает ExceptionGroup",
+      "глотает",
+      "убивает процесс",
+      "игнорит cancel"
+    ],
+    "answer": 0,
+    "explain": "Структурная конкурентность.",
+    "group": "Asyncio",
+    "id": "s535"
+  },
+  {
+    "topic": "asyncio",
+    "q": "почему нельзя вызывать blocking time.sleep в корутине?",
+    "options": [
+      "блокирует event loop целиком",
+      "ломает только эту task",
+      "запрещено синтаксисом",
+      "нужен GIL off"
+    ],
+    "answer": 0,
+    "explain": "asyncio.sleep / to_thread / executor.",
+    "group": "Asyncio",
+    "id": "s536"
+  },
+  {
+    "topic": "multiprocessing",
+    "q": "fork без exec на macOS/spawn — риск…",
+    "options": [
+      "небезопасное состояние lock/threads после fork",
+      "только медленнее",
+      "нет риска",
+      "только Windows"
+    ],
+    "answer": 0,
+    "explain": "Поэтому default start method часто spawn.",
+    "group": "Потоки, процессы, GIL",
+    "id": "s537"
+  },
+  {
+    "topic": "signals",
+    "q": "обработчик сигнала в CPython выполняется…",
+    "options": [
+      "между байткод-инструкциями основного потока",
+      "мгновенно в любом потоке",
+      "только в C",
+      "в GC"
+    ],
+    "answer": 0,
+    "explain": "Ограничения на то, что безопасно делать в handler.",
+    "group": "Потоки, процессы, GIL",
+    "id": "s538"
+  },
+  {
+    "topic": "security",
+    "q": "pickle.loads из недоверенного источника?",
+    "options": [
+      "RCE-риск — нельзя",
+      "безопасно как json",
+      "только DoS",
+      "ok с HTTPS"
+    ],
+    "answer": 0,
+    "explain": "pickle выполняет код при десериализации.",
+    "group": "Безопасность",
+    "id": "s539"
+  },
+  {
+    "topic": "security",
+    "q": "sql injection лечится…",
+    "options": [
+      "параметризованными запросами / ORM bind",
+      "экранированием вручную через replace",
+      "uppercase SQL",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Никогда не склеивай SQL строками с user input.",
+    "group": "Безопасность",
+    "id": "s540"
+  },
+  {
+    "topic": "security",
+    "q": "timing attack на сравнение секретов — защита?",
+    "options": [
+      "hmac.compare_digest / secrets.compare_digest",
+      "обычный ==",
+      "len() check only",
+      "hash() =="
+    ],
+    "answer": 0,
+    "explain": "Константное по времени сравнение.",
+    "group": "Безопасность",
+    "id": "s541"
+  },
+  {
+    "topic": "security",
+    "q": "SSRF — это…",
+    "options": [
+      "сервер ходит по URL от пользователя во внутреннюю сеть",
+      "XSS в браузере",
+      "SQL inject",
+      "CSRF form"
+    ],
+    "answer": 0,
+    "explain": "Валидируй/проксируй исходящие запросы.",
+    "group": "Безопасность",
+    "id": "s542"
+  },
+  {
+    "topic": "api",
+    "q": "идемпотентный ключ в платежах зачем?",
+    "options": [
+      "безопасный retry без двойного списания",
+      "ускорение CPU",
+      "шифрование",
+      "пагинация"
+    ],
+    "answer": 0,
+    "explain": "Клиент присылает уникальный ключ операции.",
+    "group": "Веб и API",
+    "id": "s543"
+  },
+  {
+    "topic": "api",
+    "q": "rate limit 429 — клиенту стоит…",
+    "options": [
+      "backoff + Retry-After",
+      "долбить без паузы",
+      "сменить на POST",
+      "игнор"
+    ],
+    "answer": 0,
+    "explain": "Иначе бан/шторм.",
+    "group": "Веб и API",
+    "id": "s544"
+  },
+  {
+    "topic": "api",
+    "q": "проблема lost update при concurrent PUT?",
+    "options": [
+      "нужны ETag/version / if-match / транзакции",
+      "только HTTPS",
+      "больше CPU",
+      "pickle"
+    ],
+    "answer": 0,
+    "explain": "Оптимистичные блокировки.",
+    "group": "Веб и API",
+    "id": "s545"
+  },
+  {
+    "topic": "architecture",
+    "q": "outbox pattern решает…",
+    "options": [
+      "атомарность записи в БД + публикации события",
+      "только кэш",
+      "GIL",
+      "UI state"
+    ],
+    "answer": 0,
+    "explain": "Событие пишется в outbox-таблицу в той же транзакции.",
+    "group": "Архитектура и дизайн",
+    "id": "s546"
+  },
+  {
+    "topic": "architecture",
+    "q": "saga vs 2PC?",
+    "options": [
+      "saga — локальные транзакции + компенсации; 2PC — распределённый commit",
+      "одно и то же",
+      "saga только monolith",
+      "2PC без координатора"
+    ],
+    "answer": 0,
+    "explain": "В микросервисах чаще saga.",
+    "group": "Архитектура и дизайн",
+    "id": "s547"
+  },
+  {
+    "topic": "architecture",
+    "q": "backpressure означает…",
+    "options": [
+      "потребитель сигналит замедлить производителя",
+      "больше RAM always",
+      "drop all metrics",
+      "только TCP window в Python"
+    ],
+    "answer": 0,
+    "explain": "Очереди, async streams, HTTP/2 windows…",
+    "group": "Архитектура и дизайн",
+    "id": "s548"
+  },
+  {
+    "topic": "distributed",
+    "q": "exactly-once в реальности часто…",
+    "options": [
+      "at-least-once + идемпотентность на приёме",
+      "бесплатно в любой очереди",
+      "только UDP",
+      "GIL guarantee"
+    ],
+    "answer": 0,
+    "explain": "Энд-ту-энд exactly-once дорог/условен.",
+    "group": "Данные и распределёнка",
+    "id": "s549"
+  },
+  {
+    "topic": "distributed",
+    "q": "clock skew ломает…",
+    "options": [
+      "логику по wall-clock без NTP/logical clocks",
+      "только SSD",
+      "только GIL",
+      "hash()"
+    ],
+    "answer": 0,
+    "explain": "Лучше monotonic / version vectors где нужно.",
+    "group": "Данные и распределёнка",
+    "id": "s550"
+  },
+  {
+    "topic": "db",
+    "q": "covering index — это…",
+    "options": [
+      "индекс, из которого можно ответить без обращения к таблице",
+      "полный table scan",
+      "только PK",
+      "foreign key"
+    ],
+    "answer": 0,
+    "explain": "Index-only scan.",
+    "group": "Данные и распределёнка",
+    "id": "s551"
+  },
+  {
+    "topic": "cache",
+    "q": "stampede / thundering herd — это…",
+    "options": [
+      "масса запросов одновременно пересчитывает один ключ",
+      "OOM от одного ключа",
+      "DNS fail",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Lock/singleflight, soft TTL, jitter.",
+    "group": "Данные и распределёнка",
+    "id": "s552"
+  },
+  {
+    "topic": "cache",
+    "q": "negative caching кэширует…",
+    "options": [
+      "факт отсутствия (404/miss) на короткое время",
+      "только hits",
+      "пароли",
+      "байткод"
+    ],
+    "answer": 0,
+    "explain": "Против повторных дорогих miss.",
+    "group": "Данные и распределёнка",
+    "id": "s553"
+  },
+  {
+    "topic": "serialization",
+    "q": "почему protobuf/schema evolution важны?",
+    "options": [
+      "совместимость клиентов при изменении полей",
+      "красивый JSON",
+      "GIL",
+      "только скорость"
+    ],
+    "answer": 0,
+    "explain": "Правила reserved/optional/default.",
+    "group": "Данные и распределёнка",
+    "id": "s554"
+  },
+  {
+    "topic": "observability",
+    "q": "trace vs log vs metric?",
+    "options": [
+      "trace — путь запроса; log — события; metric — агрегаты",
+      "одно и то же",
+      "metric = stacktrace",
+      "log заменяет SLO"
+    ],
+    "answer": 0,
+    "explain": "Три столпа observability.",
+    "group": "Observability и качество",
+    "id": "s555"
+  },
+  {
+    "topic": "observability",
+    "q": "cardinality взрыв в метках — риск…",
+    "options": [
+      "миллионы time series → дорого/медленно",
+      "только prettier graphs",
+      "безопасность",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Не клади user_id в label Prometheus без нужды.",
+    "group": "Observability и качество",
+    "id": "s556"
+  },
+  {
+    "topic": "packaging",
+    "q": "abi3 / stable ABI wheels зачем?",
+    "options": [
+      "один wheel на несколько версий CPython",
+      "быстрее pure python",
+      "убрать mypy",
+      "Docker only"
+    ],
+    "answer": 0,
+    "explain": "Limited API.",
+    "group": "Packaging и CI",
+    "id": "s557"
+  },
+  {
+    "topic": "C-API",
+    "q": "PyErr_SetString + return NULL — паттерн…",
+    "options": [
+      "сообщить об ошибке в Python из C",
+      "успех",
+      "отключить GC",
+      "release GIL"
+    ],
+    "answer": 0,
+    "explain": "Вызывающая сторона проверяет ошибку.",
+    "group": "Нативные расширения",
+    "id": "s558"
+  },
+  {
+    "topic": "ctypes",
+    "q": "главный риск ctypes?",
+    "options": [
+      "segfault/UB при неверных типах/lifetime",
+      "только медленно",
+      "нет риска",
+      "ломает pip"
+    ],
+    "answer": 0,
+    "explain": "Нет защиты памяти Python.",
+    "group": "Нативные расширения",
+    "id": "s559"
+  },
+  {
+    "topic": "performance",
+    "q": "когда профилировать преждевременно — плохо; но первый инструмент?",
+    "options": [
+      "cProfile / py-spy / scalene — по задаче",
+      "сразу переписать на C",
+      "отключить GC навсегда",
+      "больше print"
+    ],
+    "answer": 0,
+    "explain": "Измеряй, потом оптимизируй.",
+    "group": "Stdlib и производительность",
+    "id": "s560"
+  },
+  {
+    "topic": "performance",
+    "q": "vectorization (numpy) выигрывает за счёт…",
+    "options": [
+      "C-циклов без GIL-питона на элемент",
+      "большего числа потоков Python always",
+      "pickle",
+      "f-string"
+    ],
+    "answer": 0,
+    "explain": "Меньше интерпретации байткода.",
+    "group": "Stdlib и производительность",
+    "id": "s561"
+  },
+  {
+    "topic": "testing",
+    "q": "mutation testing проверяет…",
+    "options": [
+      "ловят ли тесты намеренно испорченный код",
+      "только coverage %",
+      "perf",
+      "типы"
+    ],
+    "answer": 0,
+    "explain": "Дополнение к coverage.",
+    "group": "Тесты и качество",
+    "id": "s562"
+  },
+  {
+    "topic": "testing",
+    "q": "contract / consumer-driven tests полезны когда…",
+    "options": [
+      "много сервисов и независимые релизы",
+      "один монолит без API",
+      "только UI",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Фиксируют ожидания потребителя API.",
+    "group": "Тесты и качество",
+    "id": "s563"
+  },
+  {
+    "topic": "design",
+    "q": "anti-corruption layer — это…",
+    "options": [
+      "адаптер, изолирующий домен от чужой модели/legacy",
+      "firewall OS",
+      "GIL wrapper",
+      "кэш Redis"
+    ],
+    "answer": 0,
+    "explain": "DDD: не протекает внешняя модель.",
+    "group": "Архитектура и дизайн",
+    "id": "s564"
+  },
+  {
+    "topic": "design",
+    "q": "feature flag риск без дисциплины?",
+    "options": [
+      "мертвый код, комбинаторный взрыв состояний",
+      "только ускорение",
+      "бесплатная A/B без цены",
+      "безопасность always"
+    ],
+    "answer": 0,
+    "explain": "Нужны TTL флагов и уборка.",
+    "group": "Архитектура и дизайн",
+    "id": "s565"
+  },
+  {
+    "topic": "errors",
+    "q": "except* (3.11) работает с…",
+    "options": [
+      "ExceptionGroup",
+      "любым Exception одинаково как except",
+      "только BaseExceptionGroup ban",
+      "warnings"
+    ],
+    "answer": 0,
+    "explain": "Распаковка групп ошибок.",
+    "group": "Исключения и контекст",
+    "id": "s566"
+  },
+  {
+    "topic": "python",
+    "q": "PEP 703 связан с…",
+    "options": [
+      "делает GIL опциональным",
+      "pattern matching",
+      "tomllib",
+      "dataclasses"
+    ],
+    "answer": 0,
+    "explain": "Free-threading initiative.",
+    "group": "CPython и память",
+    "id": "s567"
+  },
+  {
+    "topic": "runtime",
+    "q": "faulthandler полезен чтобы…",
+    "options": [
+      "дампить трейсбеки при крашах/сигналах",
+      "ускорить код",
+      "типизировать",
+      "убрать GC"
+    ],
+    "answer": 0,
+    "explain": "Отладка зависаний и фатальных ошибок.",
+    "group": "Метаклассы и типы",
+    "id": "s568"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность list.append?",
+    "options": [
+      "O(1) амортизированно",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Большая O для list.append.",
+    "group": "Stdlib и производительность",
+    "id": "s569"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность list.insert(0, x)?",
+    "options": [
+      "O(n)",
+      "O(1)",
+      "O(log n)",
+      "O(n log n)"
+    ],
+    "answer": 0,
+    "explain": "Большая O для list.insert(0, x).",
+    "group": "Stdlib и производительность",
+    "id": "s570"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность dict[key]?",
+    "options": [
+      "O(1) амортизированно",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Большая O для dict[key].",
+    "group": "Stdlib и производительность",
+    "id": "s571"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность set.add?",
+    "options": [
+      "O(1) амортизированно",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Большая O для set.add.",
+    "group": "Stdlib и производительность",
+    "id": "s572"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность sorted(list)?",
+    "options": [
+      "O(n log n)",
+      "O(n)",
+      "O(1)",
+      "O(n²) всегда"
+    ],
+    "answer": 0,
+    "explain": "Большая O для sorted(list).",
+    "group": "Stdlib и производительность",
+    "id": "s573"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность heapq.heappush?",
+    "options": [
+      "O(log n)",
+      "O(1)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "answer": 0,
+    "explain": "Большая O для heapq.heappush.",
+    "group": "Stdlib и производительность",
+    "id": "s574"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность bisect.bisect_left?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(1)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Большая O для bisect.bisect_left.",
+    "group": "Stdlib и производительность",
+    "id": "s575"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность deque.popleft?",
+    "options": [
+      "O(1)",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Большая O для deque.popleft.",
+    "group": "Stdlib и производительность",
+    "id": "s576"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность str += в цикле n раз?",
+    "options": [
+      "O(n²) типично",
+      "O(n)",
+      "O(1)",
+      "O(log n)"
+    ],
+    "answer": 0,
+    "explain": "Большая O для str += в цикле n раз.",
+    "group": "Stdlib и производительность",
+    "id": "s577"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность ''.join(parts)?",
+    "options": [
+      "O(n)",
+      "O(n²)",
+      "O(1)",
+      "O(n log n)"
+    ],
+    "answer": 0,
+    "explain": "Большая O для ''.join(parts).",
+    "group": "Stdlib и производительность",
+    "id": "s578"
+  },
+  {
+    "topic": "cache",
+    "q": "TTL=30s без jitter — риск…",
+    "options": [
+      "синхронный stampede при массовом истечении",
+      "только больше RAM",
+      "невозможность hit",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Добавляй jitter / soft TTL / singleflight.",
+    "group": "Данные и распределёнка",
+    "id": "s579"
+  },
+  {
+    "topic": "cache",
+    "q": "negative cache TTL=3s зачем?",
+    "options": [
+      "не долбить origin на повторных miss/404",
+      "хранить пароли",
+      "увеличить hit forever",
+      "отключить Redis"
+    ],
+    "answer": 0,
+    "explain": "Короткий TTL на отсутствие.",
+    "group": "Данные и распределёнка",
+    "id": "s580"
+  },
+  {
+    "topic": "cache",
+    "q": "TTL=60s без jitter — риск…",
+    "options": [
+      "синхронный stampede при массовом истечении",
+      "только больше RAM",
+      "невозможность hit",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Добавляй jitter / soft TTL / singleflight.",
+    "group": "Данные и распределёнка",
+    "id": "s581"
+  },
+  {
+    "topic": "cache",
+    "q": "negative cache TTL=6s зачем?",
+    "options": [
+      "не долбить origin на повторных miss/404",
+      "хранить пароли",
+      "увеличить hit forever",
+      "отключить Redis"
+    ],
+    "answer": 0,
+    "explain": "Короткий TTL на отсутствие.",
+    "group": "Данные и распределёнка",
+    "id": "s582"
+  },
+  {
+    "topic": "cache",
+    "q": "TTL=120s без jitter — риск…",
+    "options": [
+      "синхронный stampede при массовом истечении",
+      "только больше RAM",
+      "невозможность hit",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Добавляй jitter / soft TTL / singleflight.",
+    "group": "Данные и распределёнка",
+    "id": "s583"
+  },
+  {
+    "topic": "cache",
+    "q": "negative cache TTL=12s зачем?",
+    "options": [
+      "не долбить origin на повторных miss/404",
+      "хранить пароли",
+      "увеличить hit forever",
+      "отключить Redis"
+    ],
+    "answer": 0,
+    "explain": "Короткий TTL на отсутствие.",
+    "group": "Данные и распределёнка",
+    "id": "s584"
+  },
+  {
+    "topic": "cache",
+    "q": "TTL=300s без jitter — риск…",
+    "options": [
+      "синхронный stampede при массовом истечении",
+      "только больше RAM",
+      "невозможность hit",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Добавляй jitter / soft TTL / singleflight.",
+    "group": "Данные и распределёнка",
+    "id": "s585"
+  },
+  {
+    "topic": "cache",
+    "q": "negative cache TTL=30s зачем?",
+    "options": [
+      "не долбить origin на повторных miss/404",
+      "хранить пароли",
+      "увеличить hit forever",
+      "отключить Redis"
+    ],
+    "answer": 0,
+    "explain": "Короткий TTL на отсутствие.",
+    "group": "Данные и распределёнка",
+    "id": "s586"
+  },
+  {
+    "topic": "cache",
+    "q": "TTL=600s без jitter — риск…",
+    "options": [
+      "синхронный stampede при массовом истечении",
+      "только больше RAM",
+      "невозможность hit",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Добавляй jitter / soft TTL / singleflight.",
+    "group": "Данные и распределёнка",
+    "id": "s587"
+  },
+  {
+    "topic": "cache",
+    "q": "negative cache TTL=60s зачем?",
+    "options": [
+      "не долбить origin на повторных miss/404",
+      "хранить пароли",
+      "увеличить hit forever",
+      "отключить Redis"
+    ],
+    "answer": 0,
+    "explain": "Короткий TTL на отсутствие.",
+    "group": "Данные и распределёнка",
+    "id": "s588"
+  },
+  {
+    "topic": "cache",
+    "q": "hot key split на 2 шардов идея…",
+    "options": [
+      "размазать нагрузку популярного ключа",
+      "уменьшить TTL до 0",
+      "один box сильнее",
+      "запретить cache"
+    ],
+    "answer": 0,
+    "explain": "Перекос ключей.",
+    "group": "Данные и распределёнка",
+    "id": "s589"
+  },
+  {
+    "topic": "cache",
+    "q": "hot key split на 4 шардов идея…",
+    "options": [
+      "размазать нагрузку популярного ключа",
+      "уменьшить TTL до 0",
+      "один box сильнее",
+      "запретить cache"
+    ],
+    "answer": 0,
+    "explain": "Перекос ключей.",
+    "group": "Данные и распределёнка",
+    "id": "s590"
+  },
+  {
+    "topic": "cache",
+    "q": "hot key split на 8 шардов идея…",
+    "options": [
+      "размазать нагрузку популярного ключа",
+      "уменьшить TTL до 0",
+      "один box сильнее",
+      "запретить cache"
+    ],
+    "answer": 0,
+    "explain": "Перекос ключей.",
+    "group": "Данные и распределёнка",
+    "id": "s591"
+  },
+  {
+    "topic": "cache",
+    "q": "hot key split на 16 шардов идея…",
+    "options": [
+      "размазать нагрузку популярного ключа",
+      "уменьшить TTL до 0",
+      "один box сильнее",
+      "запретить cache"
+    ],
+    "answer": 0,
+    "explain": "Перекос ключей.",
+    "group": "Данные и распределёнка",
+    "id": "s592"
+  },
+  {
+    "topic": "api",
+    "q": "Клиент получил 429 — разумная стратегия?",
+    "options": [
+      "exponential backoff + jitter (+ Retry-After)",
+      "сразу 100 ретраев",
+      "сменить на POST",
+      "игнор"
+    ],
+    "answer": 0,
+    "explain": "Не усиливай шторм.",
+    "group": "Веб и API",
+    "id": "s593"
+  },
+  {
+    "topic": "api",
+    "q": "Клиент получил 503 — разумная стратегия?",
+    "options": [
+      "exponential backoff + jitter (+ Retry-After)",
+      "сразу 100 ретраев",
+      "сменить на POST",
+      "игнор"
+    ],
+    "answer": 0,
+    "explain": "Не усиливай шторм.",
+    "group": "Веб и API",
+    "id": "s594"
+  },
+  {
+    "topic": "api",
+    "q": "Клиент получил 408 — разумная стратегия?",
+    "options": [
+      "exponential backoff + jitter (+ Retry-After)",
+      "сразу 100 ретраев",
+      "сменить на POST",
+      "игнор"
+    ],
+    "answer": 0,
+    "explain": "Не усиливай шторм.",
+    "group": "Веб и API",
+    "id": "s595"
+  },
+  {
+    "topic": "api",
+    "q": "Клиент получил 502 — разумная стратегия?",
+    "options": [
+      "exponential backoff + jitter (+ Retry-After)",
+      "сразу 100 ретраев",
+      "сменить на POST",
+      "игнор"
+    ],
+    "answer": 0,
+    "explain": "Не усиливай шторм.",
+    "group": "Веб и API",
+    "id": "s596"
+  },
+  {
+    "topic": "api",
+    "q": "offset-пагинация page_size=20 минус…",
+    "options": [
+      "«прыжки» при вставках; глубокий offset дорог",
+      "нельзя реализовать в SQL",
+      "всегда лучше cursor",
+      "запрещена REST"
+    ],
+    "answer": 0,
+    "explain": "Для лент чаще cursor.",
+    "group": "Веб и API",
+    "id": "s597"
+  },
+  {
+    "topic": "api",
+    "q": "offset-пагинация page_size=50 минус…",
+    "options": [
+      "«прыжки» при вставках; глубокий offset дорог",
+      "нельзя реализовать в SQL",
+      "всегда лучше cursor",
+      "запрещена REST"
+    ],
+    "answer": 0,
+    "explain": "Для лент чаще cursor.",
+    "group": "Веб и API",
+    "id": "s598"
+  },
+  {
+    "topic": "api",
+    "q": "offset-пагинация page_size=100 минус…",
+    "options": [
+      "«прыжки» при вставках; глубокий offset дорог",
+      "нельзя реализовать в SQL",
+      "всегда лучше cursor",
+      "запрещена REST"
+    ],
+    "answer": 0,
+    "explain": "Для лент чаще cursor.",
+    "group": "Веб и API",
+    "id": "s599"
+  },
+  {
+    "topic": "api",
+    "q": "Версия API `v1` в URL/заголовке зачем?",
+    "options": [
+      "эволюция контракта без ломания клиентов",
+      "ускорение CPU",
+      "замена auth",
+      "только документация"
+    ],
+    "answer": 0,
+    "explain": "Совместимость.",
+    "group": "Веб и API",
+    "id": "s600"
+  },
+  {
+    "topic": "api",
+    "q": "Версия API `v2` в URL/заголовке зачем?",
+    "options": [
+      "эволюция контракта без ломания клиентов",
+      "ускорение CPU",
+      "замена auth",
+      "только документация"
+    ],
+    "answer": 0,
+    "explain": "Совместимость.",
+    "group": "Веб и API",
+    "id": "s601"
+  },
+  {
+    "topic": "api",
+    "q": "Версия API `2024-01-01` в URL/заголовке зачем?",
+    "options": [
+      "эволюция контракта без ломания клиентов",
+      "ускорение CPU",
+      "замена auth",
+      "только документация"
+    ],
+    "answer": 0,
+    "explain": "Совместимость.",
+    "group": "Веб и API",
+    "id": "s602"
+  },
+  {
+    "topic": "db",
+    "q": "N+1: 1 запрос списка + 1 связанных — симптом…",
+    "options": [
+      "лишние round-trip в БД (ORM lazy)",
+      "слишком большой JOIN всегда",
+      "только отсутствие индекса PK",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Лечится eager/join/IN.",
+    "group": "Данные и распределёнка",
+    "id": "s603"
+  },
+  {
+    "topic": "db",
+    "q": "N+1: 1 запрос списка + 10 связанных — симптом…",
+    "options": [
+      "лишние round-trip в БД (ORM lazy)",
+      "слишком большой JOIN всегда",
+      "только отсутствие индекса PK",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Лечится eager/join/IN.",
+    "group": "Данные и распределёнка",
+    "id": "s604"
+  },
+  {
+    "topic": "db",
+    "q": "N+1: 1 запрос списка + 100 связанных — симптом…",
+    "options": [
+      "лишние round-trip в БД (ORM lazy)",
+      "слишком большой JOIN всегда",
+      "только отсутствие индекса PK",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Лечится eager/join/IN.",
+    "group": "Данные и распределёнка",
+    "id": "s605"
+  },
+  {
+    "topic": "db",
+    "q": "N+1: 1 запрос списка + 1000 связанных — симптом…",
+    "options": [
+      "лишние round-trip в БД (ORM lazy)",
+      "слишком большой JOIN всегда",
+      "только отсутствие индекса PK",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Лечится eager/join/IN.",
+    "group": "Данные и распределёнка",
+    "id": "s606"
+  },
+  {
+    "topic": "db",
+    "q": "При READ COMMITTED write skew…",
+    "options": [
+      "возможен или нет в зависимости от СУБД/реализации — проверяй документацию",
+      "невозможен никогда нигде",
+      "только в MyISAM",
+      "только NoSQL"
+    ],
+    "answer": 0,
+    "explain": "Теория изоляций ≠ конкретный движок.",
+    "group": "Данные и распределёнка",
+    "id": "s607"
+  },
+  {
+    "topic": "db",
+    "q": "При REPEATABLE READ write skew…",
+    "options": [
+      "возможен или нет в зависимости от СУБД/реализации — проверяй документацию",
+      "невозможен никогда нигде",
+      "только в MyISAM",
+      "только NoSQL"
+    ],
+    "answer": 0,
+    "explain": "Теория изоляций ≠ конкретный движок.",
+    "group": "Данные и распределёнка",
+    "id": "s608"
+  },
+  {
+    "topic": "db",
+    "q": "При SERIALIZABLE write skew…",
+    "options": [
+      "возможен или нет в зависимости от СУБД/реализации — проверяй документацию",
+      "невозможен никогда нигде",
+      "только в MyISAM",
+      "только NoSQL"
+    ],
+    "answer": 0,
+    "explain": "Теория изоляций ≠ конкретный движок.",
+    "group": "Данные и распределёнка",
+    "id": "s609"
+  },
+  {
+    "topic": "db",
+    "q": "pool_size=5 исчерпан — симптом…",
+    "options": [
+      "запросы ждут коннект / таймауты",
+      "CPU 100% всегда",
+      "только disk full",
+      "GIL deadlock only"
+    ],
+    "answer": 0,
+    "explain": "Утечки, длинные транзакции, мало пула.",
+    "group": "Данные и распределёнка",
+    "id": "s610"
+  },
+  {
+    "topic": "db",
+    "q": "pool_size=10 исчерпан — симптом…",
+    "options": [
+      "запросы ждут коннект / таймауты",
+      "CPU 100% всегда",
+      "только disk full",
+      "GIL deadlock only"
+    ],
+    "answer": 0,
+    "explain": "Утечки, длинные транзакции, мало пула.",
+    "group": "Данные и распределёнка",
+    "id": "s611"
+  },
+  {
+    "topic": "db",
+    "q": "pool_size=20 исчерпан — симптом…",
+    "options": [
+      "запросы ждут коннект / таймауты",
+      "CPU 100% всегда",
+      "только disk full",
+      "GIL deadlock only"
+    ],
+    "answer": 0,
+    "explain": "Утечки, длинные транзакции, мало пула.",
+    "group": "Данные и распределёнка",
+    "id": "s612"
+  },
+  {
+    "topic": "db",
+    "q": "pool_size=50 исчерпан — симптом…",
+    "options": [
+      "запросы ждут коннект / таймауты",
+      "CPU 100% всегда",
+      "только disk full",
+      "GIL deadlock only"
+    ],
+    "answer": 0,
+    "explain": "Утечки, длинные транзакции, мало пула.",
+    "group": "Данные и распределёнка",
+    "id": "s613"
+  },
+  {
+    "topic": "distributed",
+    "q": "Семантика доставки at-most-once:",
+    "options": [
+      "можно потерять; без дублей",
+      "всегда бесплатна в любой очереди",
+      "только UDP",
+      "гарантируется GIL"
+    ],
+    "answer": 0,
+    "explain": "можно потерять; без дублей",
+    "group": "Данные и распределёнка",
+    "id": "s614"
+  },
+  {
+    "topic": "distributed",
+    "q": "Семантика доставки at-least-once:",
+    "options": [
+      "дубли возможны → идемпотентность",
+      "всегда бесплатна в любой очереди",
+      "только UDP",
+      "гарантируется GIL"
+    ],
+    "answer": 0,
+    "explain": "дубли возможны → идемпотентность",
+    "group": "Данные и распределёнка",
+    "id": "s615"
+  },
+  {
+    "topic": "distributed",
+    "q": "Семантика доставки exactly-once:",
+    "options": [
+      "на практике часто = at-least-once + идемпотентный приём",
+      "всегда бесплатна в любой очереди",
+      "только UDP",
+      "гарантируется GIL"
+    ],
+    "answer": 0,
+    "explain": "на практике часто = at-least-once + идемпотентный приём",
+    "group": "Данные и распределёнка",
+    "id": "s616"
+  },
+  {
+    "topic": "distributed",
+    "q": "Кворум в Raft/Consul-подобном кластере из 3 узлов…",
+    "options": [
+      "большинство: 2",
+      "3",
+      "1",
+      "2"
+    ],
+    "answer": 0,
+    "explain": "Большинство для выбора лидера/коммита.",
+    "group": "Данные и распределёнка",
+    "id": "s617"
+  },
+  {
+    "topic": "distributed",
+    "q": "Кворум в Raft/Consul-подобном кластере из 5 узлов…",
+    "options": [
+      "большинство: 3",
+      "5",
+      "1",
+      "4"
+    ],
+    "answer": 0,
+    "explain": "Большинство для выбора лидера/коммита.",
+    "group": "Данные и распределёнка",
+    "id": "s618"
+  },
+  {
+    "topic": "distributed",
+    "q": "Кворум в Raft/Consul-подобном кластере из 7 узлов…",
+    "options": [
+      "большинство: 4",
+      "7",
+      "1",
+      "6"
+    ],
+    "answer": 0,
+    "explain": "Большинство для выбора лидера/коммита.",
+    "group": "Данные и распределёнка",
+    "id": "s619"
+  },
+  {
+    "topic": "distributed",
+    "q": "heartbeat timeout ~50ms слишком маленький риск…",
+    "options": [
+      "ложные failover при GC/сети",
+      "только быстрее recovery без минусов",
+      "не влияет",
+      "ломает TLS"
+    ],
+    "answer": 0,
+    "explain": "Баланс sensitivity vs stability.",
+    "group": "Данные и распределёнка",
+    "id": "s620"
+  },
+  {
+    "topic": "distributed",
+    "q": "heartbeat timeout ~100ms слишком маленький риск…",
+    "options": [
+      "ложные failover при GC/сети",
+      "только быстрее recovery без минусов",
+      "не влияет",
+      "ломает TLS"
+    ],
+    "answer": 0,
+    "explain": "Баланс sensitivity vs stability.",
+    "group": "Данные и распределёнка",
+    "id": "s621"
+  },
+  {
+    "topic": "distributed",
+    "q": "heartbeat timeout ~200ms слишком маленький риск…",
+    "options": [
+      "ложные failover при GC/сети",
+      "только быстрее recovery без минусов",
+      "не влияет",
+      "ломает TLS"
+    ],
+    "answer": 0,
+    "explain": "Баланс sensitivity vs stability.",
+    "group": "Данные и распределёнка",
+    "id": "s622"
+  },
+  {
+    "topic": "distributed",
+    "q": "heartbeat timeout ~500ms слишком маленький риск…",
+    "options": [
+      "ложные failover при GC/сети",
+      "только быстрее recovery без минусов",
+      "не влияет",
+      "ломает TLS"
+    ],
+    "answer": 0,
+    "explain": "Баланс sensitivity vs stability.",
+    "group": "Данные и распределёнка",
+    "id": "s623"
+  },
+  {
+    "topic": "security",
+    "q": "Десериализация через pickle из недоверенного источника?",
+    "options": [
+      "риск RCE / выполнения кода — нельзя",
+      "безопасно как json",
+      "только DoS",
+      "ok за HTTPS"
+    ],
+    "answer": 0,
+    "explain": "Не доверяй бинарным/пайтон-десериализаторам.",
+    "group": "Безопасность",
+    "id": "s624"
+  },
+  {
+    "topic": "security",
+    "q": "Десериализация через yaml.load (unsafe) из недоверенного источника?",
+    "options": [
+      "риск RCE / выполнения кода — нельзя",
+      "безопасно как json",
+      "только DoS",
+      "ok за HTTPS"
+    ],
+    "answer": 0,
+    "explain": "Не доверяй бинарным/пайтон-десериализаторам.",
+    "group": "Безопасность",
+    "id": "s625"
+  },
+  {
+    "topic": "security",
+    "q": "Десериализация через marshal из недоверенного источника?",
+    "options": [
+      "риск RCE / выполнения кода — нельзя",
+      "безопасно как json",
+      "только DoS",
+      "ok за HTTPS"
+    ],
+    "answer": 0,
+    "explain": "Не доверяй бинарным/пайтон-десериализаторам.",
+    "group": "Безопасность",
+    "id": "s626"
+  },
+  {
+    "topic": "security",
+    "q": "Десериализация через shelve из недоверенного источника?",
+    "options": [
+      "риск RCE / выполнения кода — нельзя",
+      "безопасно как json",
+      "только DoS",
+      "ok за HTTPS"
+    ],
+    "answer": 0,
+    "explain": "Не доверяй бинарным/пайтон-десериализаторам.",
+    "group": "Безопасность",
+    "id": "s627"
+  },
+  {
+    "topic": "security",
+    "q": "Логировать сырой заголовок Authorization?",
+    "options": [
+      "осторожно: секреты/PII — редактируй",
+      "всегда полностью",
+      "никогда никакие заголовки",
+      "только в debug print"
+    ],
+    "answer": 0,
+    "explain": "Redaction в логах.",
+    "group": "Безопасность",
+    "id": "s628"
+  },
+  {
+    "topic": "security",
+    "q": "Логировать сырой заголовок Cookie?",
+    "options": [
+      "осторожно: секреты/PII — редактируй",
+      "всегда полностью",
+      "никогда никакие заголовки",
+      "только в debug print"
+    ],
+    "answer": 0,
+    "explain": "Redaction в логах.",
+    "group": "Безопасность",
+    "id": "s629"
+  },
+  {
+    "topic": "security",
+    "q": "Логировать сырой заголовок X-API-Key?",
+    "options": [
+      "осторожно: секреты/PII — редактируй",
+      "всегда полностью",
+      "никогда никакие заголовки",
+      "только в debug print"
+    ],
+    "answer": 0,
+    "explain": "Redaction в логах.",
+    "group": "Безопасность",
+    "id": "s630"
+  },
+  {
+    "topic": "security",
+    "q": "Логировать сырой заголовок X-Forwarded-For?",
+    "options": [
+      "осторожно: секреты/PII — редактируй",
+      "всегда полностью",
+      "никогда никакие заголовки",
+      "только в debug print"
+    ],
+    "answer": 0,
+    "explain": "Redaction в логах.",
+    "group": "Безопасность",
+    "id": "s631"
+  },
+  {
+    "topic": "security",
+    "q": "Антипаттерн: SQL f-string",
+    "options": [
+      "инъекции / path traversal / open redirect — валидируй и параметризуй",
+      "ускоряет код",
+      "требуется PEP 8",
+      "безопасно в FastAPI всегда"
+    ],
+    "answer": 0,
+    "explain": "Классика AppSec.",
+    "group": "Безопасность",
+    "id": "s632"
+  },
+  {
+    "topic": "security",
+    "q": "Антипаттерн: shell=True + user input",
+    "options": [
+      "инъекции / path traversal / open redirect — валидируй и параметризуй",
+      "ускоряет код",
+      "требуется PEP 8",
+      "безопасно в FastAPI всегда"
+    ],
+    "answer": 0,
+    "explain": "Классика AppSec.",
+    "group": "Безопасность",
+    "id": "s633"
+  },
+  {
+    "topic": "security",
+    "q": "Антипаттерн: open(user_path)",
+    "options": [
+      "инъекции / path traversal / open redirect — валидируй и параметризуй",
+      "ускоряет код",
+      "требуется PEP 8",
+      "безопасно в FastAPI всегда"
+    ],
+    "answer": 0,
+    "explain": "Классика AppSec.",
+    "group": "Безопасность",
+    "id": "s634"
+  },
+  {
+    "topic": "security",
+    "q": "Антипаттерн: redirect=user_url",
+    "options": [
+      "инъекции / path traversal / open redirect — валидируй и параметризуй",
+      "ускоряет код",
+      "требуется PEP 8",
+      "безопасно в FastAPI всегда"
+    ],
+    "answer": 0,
+    "explain": "Классика AppSec.",
+    "group": "Безопасность",
+    "id": "s635"
+  },
+  {
+    "topic": "observability",
+    "q": "Сэмплирование трейсов 1% риск…",
+    "options": [
+      "можно пропустить редкие ошибки — нужен tail-based/error sampling",
+      "полная картина всегда",
+      "ломает метрики RED",
+      "запрещено"
+    ],
+    "answer": 0,
+    "explain": "Комбинируй head + tail sampling.",
+    "group": "Observability и качество",
+    "id": "s636"
+  },
+  {
+    "topic": "observability",
+    "q": "Сэмплирование трейсов 5% риск…",
+    "options": [
+      "можно пропустить редкие ошибки — нужен tail-based/error sampling",
+      "полная картина всегда",
+      "ломает метрики RED",
+      "запрещено"
+    ],
+    "answer": 0,
+    "explain": "Комбинируй head + tail sampling.",
+    "group": "Observability и качество",
+    "id": "s637"
+  },
+  {
+    "topic": "observability",
+    "q": "Сэмплирование трейсов 10% риск…",
+    "options": [
+      "можно пропустить редкие ошибки — нужен tail-based/error sampling",
+      "полная картина всегда",
+      "ломает метрики RED",
+      "запрещено"
+    ],
+    "answer": 0,
+    "explain": "Комбинируй head + tail sampling.",
+    "group": "Observability и качество",
+    "id": "s638"
+  },
+  {
+    "topic": "observability",
+    "q": "Сэмплирование трейсов 25% риск…",
+    "options": [
+      "можно пропустить редкие ошибки — нужен tail-based/error sampling",
+      "полная картина всегда",
+      "ломает метрики RED",
+      "запрещено"
+    ],
+    "answer": 0,
+    "explain": "Комбинируй head + tail sampling.",
+    "group": "Observability и качество",
+    "id": "s639"
+  },
+  {
+    "topic": "observability",
+    "q": "Метка Prometheus `user_id` на высококардинальном трафике?",
+    "options": [
+      "опасно взрывом time series",
+      "всегда обязательно",
+      "ускоряет PromQL",
+      "заменяет логи"
+    ],
+    "answer": 0,
+    "explain": "Cardinality — главный враг метрик.",
+    "group": "Observability и качество",
+    "id": "s640"
+  },
+  {
+    "topic": "observability",
+    "q": "Метка Prometheus `request_id` на высококардинальном трафике?",
+    "options": [
+      "обычно ок как low-cardinality/trace id не в metric labels",
+      "всегда обязательно",
+      "ускоряет PromQL",
+      "заменяет логи"
+    ],
+    "answer": 0,
+    "explain": "Cardinality — главный враг метрик.",
+    "group": "Observability и качество",
+    "id": "s641"
+  },
+  {
+    "topic": "observability",
+    "q": "Метка Prometheus `email` на высококардинальном трафике?",
+    "options": [
+      "опасно взрывом time series",
+      "всегда обязательно",
+      "ускоряет PromQL",
+      "заменяет логи"
+    ],
+    "answer": 0,
+    "explain": "Cardinality — главный враг метрик.",
+    "group": "Observability и качество",
+    "id": "s642"
+  },
+  {
+    "topic": "observability",
+    "q": "Метка Prometheus `session_id` на высококардинальном трафике?",
+    "options": [
+      "опасно взрывом time series",
+      "всегда обязательно",
+      "ускоряет PromQL",
+      "заменяет логи"
+    ],
+    "answer": 0,
+    "explain": "Cardinality — главный враг метрик.",
+    "group": "Observability и качество",
+    "id": "s643"
+  },
+  {
+    "topic": "packaging",
+    "q": "CI matrix с Python 3.10 зачем?",
+    "options": [
+      "ловить несовместимости версий",
+      "только ради бейджа",
+      "заменяет тесты",
+      "нужен только latest"
+    ],
+    "answer": 0,
+    "explain": "Совместимость пакета.",
+    "group": "Packaging и CI",
+    "id": "s644"
+  },
+  {
+    "topic": "packaging",
+    "q": "CI matrix с Python 3.11 зачем?",
+    "options": [
+      "ловить несовместимости версий",
+      "только ради бейджа",
+      "заменяет тесты",
+      "нужен только latest"
+    ],
+    "answer": 0,
+    "explain": "Совместимость пакета.",
+    "group": "Packaging и CI",
+    "id": "s645"
+  },
+  {
+    "topic": "packaging",
+    "q": "CI matrix с Python 3.12 зачем?",
+    "options": [
+      "ловить несовместимости версий",
+      "только ради бейджа",
+      "заменяет тесты",
+      "нужен только latest"
+    ],
+    "answer": 0,
+    "explain": "Совместимость пакета.",
+    "group": "Packaging и CI",
+    "id": "s646"
+  },
+  {
+    "topic": "packaging",
+    "q": "CI matrix с Python 3.13 зачем?",
+    "options": [
+      "ловить несовместимости версий",
+      "только ради бейджа",
+      "заменяет тесты",
+      "нужен только latest"
+    ],
+    "answer": 0,
+    "explain": "Совместимость пакета.",
+    "group": "Packaging и CI",
+    "id": "s647"
+  },
+  {
+    "topic": "байткод",
+    "q": "Опкод LOAD_FAST связан с…",
+    "options": [
+      "локальная переменная — быстрый доступ",
+      "сетевым I/O",
+      "только GC",
+      "импортом pip"
+    ],
+    "answer": 0,
+    "explain": "LOAD_FAST: локальная переменная — быстрый доступ.",
+    "group": "CPython и память",
+    "id": "s648"
+  },
+  {
+    "topic": "байткод",
+    "q": "Опкод LOAD_GLOBAL связан с…",
+    "options": [
+      "глобальная / должее lookup",
+      "сетевым I/O",
+      "только GC",
+      "импортом pip"
+    ],
+    "answer": 0,
+    "explain": "LOAD_GLOBAL: глобальная / должее lookup.",
+    "group": "CPython и память",
+    "id": "s649"
+  },
+  {
+    "topic": "байткод",
+    "q": "Опкод CALL связан с…",
+    "options": [
+      "вызов функции",
+      "сетевым I/O",
+      "только GC",
+      "импортом pip"
+    ],
+    "answer": 0,
+    "explain": "CALL: вызов функции.",
+    "group": "CPython и память",
+    "id": "s650"
+  },
+  {
+    "topic": "байткод",
+    "q": "Опкод BINARY_OP связан с…",
+    "options": [
+      "арифметика/операции",
+      "сетевым I/O",
+      "только GC",
+      "импортом pip"
+    ],
+    "answer": 0,
+    "explain": "BINARY_OP: арифметика/операции.",
+    "group": "CPython и память",
+    "id": "s651"
+  },
+  {
+    "topic": "CPython",
+    "q": "Для int 0: надёжно ли `a is b` при равных значениях?",
+    "options": [
+      "может быть True из‑за интернирования",
+      "всегда True по языку",
+      "всегда False по языку",
+      "SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "часто один и тот же объект (intern маленьких int)",
+    "group": "CPython и память",
+    "id": "s652"
+  },
+  {
+    "topic": "CPython",
+    "q": "Для int 1: надёжно ли `a is b` при равных значениях?",
+    "options": [
+      "может быть True из‑за интернирования",
+      "всегда True по языку",
+      "всегда False по языку",
+      "SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "часто один и тот же объект (intern маленьких int)",
+    "group": "CPython и память",
+    "id": "s653"
+  },
+  {
+    "topic": "CPython",
+    "q": "Для int 2: надёжно ли `a is b` при равных значениях?",
+    "options": [
+      "может быть True из‑за интернирования",
+      "всегда True по языку",
+      "всегда False по языку",
+      "SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "часто один и тот же объект (intern маленьких int)",
+    "group": "CPython и память",
+    "id": "s654"
+  },
+  {
+    "topic": "CPython",
+    "q": "Для int 5: надёжно ли `a is b` при равных значениях?",
+    "options": [
+      "может быть True из‑за интернирования",
+      "всегда True по языку",
+      "всегда False по языку",
+      "SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "часто один и тот же объект (intern маленьких int)",
+    "group": "CPython и память",
+    "id": "s655"
+  },
+  {
+    "topic": "CPython",
+    "q": "Для int 100: надёжно ли `a is b` при равных значениях?",
+    "options": [
+      "может быть True из‑за интернирования",
+      "всегда True по языку",
+      "всегда False по языку",
+      "SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "часто один и тот же объект (intern маленьких int)",
+    "group": "CPython и память",
+    "id": "s656"
+  },
+  {
+    "topic": "CPython",
+    "q": "Для int 256: надёжно ли `a is b` при равных значениях?",
+    "options": [
+      "может быть True из‑за интернирования",
+      "всегда True по языку",
+      "всегда False по языку",
+      "SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "часто один и тот же объект (intern маленьких int)",
+    "group": "CPython и память",
+    "id": "s657"
+  },
+  {
+    "topic": "CPython",
+    "q": "Для int 257: надёжно ли `a is b` при равных значениях?",
+    "options": [
+      "is может быть False; сравнивай через ==",
+      "всегда True по языку",
+      "всегда False по языку",
+      "SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "не полагайся на is — интернирование не контракт для больших int",
+    "group": "CPython и память",
+    "id": "s658"
+  },
+  {
+    "topic": "architecture",
+    "q": "strangler fig pattern…",
+    "options": [
+      "постепенно заменять легаси новым вокруг",
+      "big-bang rewrite",
+      "только monolith forever",
+      "удалить тесты"
+    ],
+    "answer": 0,
+    "explain": "Эволюционная миграция.",
+    "group": "Архитектура и дизайн",
+    "id": "s659"
+  },
+  {
+    "topic": "security",
+    "q": "content-type confusion / desync…",
+    "options": [
+      "разное толкование запроса proxy vs app",
+      "только XSS",
+      "только SQLi",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "HTTP request smuggling рядом.",
+    "group": "Безопасность",
+    "id": "s660"
+  },
+  {
+    "topic": "performance",
+    "q": "zero-copy / buffer protocol польза…",
+    "options": [
+      "меньше копий памяти между слоями",
+      "убирает GC",
+      "запрещает bytes",
+      "только asyncio"
+    ],
+    "answer": 0,
+    "explain": "memoryview / PEP 3118.",
+    "group": "Stdlib и производительность",
+    "id": "s661"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность list.pop()?",
+    "options": [
+      "O(1) с конца",
+      "O(n) с конца",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Большая O: list.pop().",
+    "group": "Stdlib и производительность",
+    "id": "s662"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность list.pop(0)?",
+    "options": [
+      "O(n)",
+      "O(1)",
+      "O(log n)",
+      "O(n log n)"
+    ],
+    "answer": 0,
+    "explain": "Большая O: list.pop(0).",
+    "group": "Stdlib и производительность",
+    "id": "s663"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность dict.popitem()?",
+    "options": [
+      "O(1)",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Большая O: dict.popitem().",
+    "group": "Stdlib и производительность",
+    "id": "s664"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность heapq.heappop?",
+    "options": [
+      "O(log n)",
+      "O(1)",
+      "O(n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Большая O: heapq.heappop.",
+    "group": "Stdlib и производительность",
+    "id": "s665"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность set.remove?",
+    "options": [
+      "O(1) амортизированно",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Большая O: set.remove.",
+    "group": "Stdlib и производительность",
+    "id": "s666"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность str.join n кусков?",
+    "options": [
+      "O(суммарная длина)",
+      "O(n²) всегда",
+      "O(1)",
+      "O(n!)"
+    ],
+    "answer": 0,
+    "explain": "Большая O: str.join n кусков.",
+    "group": "Stdlib и производительность",
+    "id": "s667"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность bytearray extend?",
+    "options": [
+      "O(k) амортизированно",
+      "O(n²)",
+      "O(log n)",
+      "O(1) всегда точно"
+    ],
+    "answer": 0,
+    "explain": "Большая O: bytearray extend.",
+    "group": "Stdlib и производительность",
+    "id": "s668"
+  },
+  {
+    "topic": "performance",
+    "q": "Сложность bisect.insort?",
+    "options": [
+      "O(n) из‑за сдвига списка",
+      "O(log n) полностью",
+      "O(1)",
+      "O(n log n)"
+    ],
+    "answer": 0,
+    "explain": "Большая O: bisect.insort.",
+    "group": "Stdlib и производительность",
+    "id": "s669"
+  },
+  {
+    "topic": "performance",
+    "q": "n=10: что важнее микрооптимизаций f-string?",
+    "options": [
+      "алгоритм/I/O/аллокации — профилируй",
+      "всегда переписать на C",
+      "отключить GC",
+      "больше print"
+    ],
+    "answer": 0,
+    "explain": "Сначала измерь bottleneck.",
+    "group": "Stdlib и производительность",
+    "id": "s670"
+  },
+  {
+    "topic": "performance",
+    "q": "n=100: что важнее микрооптимизаций f-string?",
+    "options": [
+      "алгоритм/I/O/аллокации — профилируй",
+      "всегда переписать на C",
+      "отключить GC",
+      "больше print"
+    ],
+    "answer": 0,
+    "explain": "Сначала измерь bottleneck.",
+    "group": "Stdlib и производительность",
+    "id": "s671"
+  },
+  {
+    "topic": "performance",
+    "q": "n=1000: что важнее микрооптимизаций f-string?",
+    "options": [
+      "алгоритм/I/O/аллокации — профилируй",
+      "всегда переписать на C",
+      "отключить GC",
+      "больше print"
+    ],
+    "answer": 0,
+    "explain": "Сначала измерь bottleneck.",
+    "group": "Stdlib и производительность",
+    "id": "s672"
+  },
+  {
+    "topic": "performance",
+    "q": "n=10000: что важнее микрооптимизаций f-string?",
+    "options": [
+      "алгоритм/I/O/аллокации — профилируй",
+      "всегда переписать на C",
+      "отключить GC",
+      "больше print"
+    ],
+    "answer": 0,
+    "explain": "Сначала измерь bottleneck.",
+    "group": "Stdlib и производительность",
+    "id": "s673"
+  },
+  {
+    "topic": "cache",
+    "q": "Паттерн cache-aside:",
+    "options": [
+      "приложение само читает/пишет кэш",
+      "только Redis Cluster",
+      "запрещён",
+      "равен TTL=0"
+    ],
+    "answer": 0,
+    "explain": "приложение само читает/пишет кэш",
+    "group": "Данные и распределёнка",
+    "id": "s674"
+  },
+  {
+    "topic": "cache",
+    "q": "Паттерн read-through:",
+    "options": [
+      "кэш сам ходит в store при miss",
+      "только Redis Cluster",
+      "запрещён",
+      "равен TTL=0"
+    ],
+    "answer": 0,
+    "explain": "кэш сам ходит в store при miss",
+    "group": "Данные и распределёнка",
+    "id": "s675"
+  },
+  {
+    "topic": "cache",
+    "q": "Паттерн write-through:",
+    "options": [
+      "запись в кэш и store синхронно",
+      "только Redis Cluster",
+      "запрещён",
+      "равен TTL=0"
+    ],
+    "answer": 0,
+    "explain": "запись в кэш и store синхронно",
+    "group": "Данные и распределёнка",
+    "id": "s676"
+  },
+  {
+    "topic": "cache",
+    "q": "Паттерн write-back:",
+    "options": [
+      "запись в кэш, store отложенно",
+      "только Redis Cluster",
+      "запрещён",
+      "равен TTL=0"
+    ],
+    "answer": 0,
+    "explain": "запись в кэш, store отложенно",
+    "group": "Данные и распределёнка",
+    "id": "s677"
+  },
+  {
+    "topic": "cache",
+    "q": "Паттерн write-around:",
+    "options": [
+      "запись в store, минуя кэш",
+      "только Redis Cluster",
+      "запрещён",
+      "равен TTL=0"
+    ],
+    "answer": 0,
+    "explain": "запись в store, минуя кэш",
+    "group": "Данные и распределёнка",
+    "id": "s678"
+  },
+  {
+    "topic": "cache",
+    "q": "soft TTL ≈5s + background refresh идея…",
+    "options": [
+      "отдавать stale и обновлять асинхронно",
+      "удалить ключ навсегда",
+      "удвоить RAM",
+      "отключить app"
+    ],
+    "answer": 0,
+    "explain": "Против stampede.",
+    "group": "Данные и распределёнка",
+    "id": "s679"
+  },
+  {
+    "topic": "cache",
+    "q": "soft TTL ≈15s + background refresh идея…",
+    "options": [
+      "отдавать stale и обновлять асинхронно",
+      "удалить ключ навсегда",
+      "удвоить RAM",
+      "отключить app"
+    ],
+    "answer": 0,
+    "explain": "Против stampede.",
+    "group": "Данные и распределёнка",
+    "id": "s680"
+  },
+  {
+    "topic": "cache",
+    "q": "soft TTL ≈60s + background refresh идея…",
+    "options": [
+      "отдавать stale и обновлять асинхронно",
+      "удалить ключ навсегда",
+      "удвоить RAM",
+      "отключить app"
+    ],
+    "answer": 0,
+    "explain": "Против stampede.",
+    "group": "Данные и распределёнка",
+    "id": "s681"
+  },
+  {
+    "topic": "cache",
+    "q": "soft TTL ≈300s + background refresh идея…",
+    "options": [
+      "отдавать stale и обновлять асинхронно",
+      "удалить ключ навсегда",
+      "удвоить RAM",
+      "отключить app"
+    ],
+    "answer": 0,
+    "explain": "Против stampede.",
+    "group": "Данные и распределёнка",
+    "id": "s682"
+  },
+  {
+    "topic": "cache",
+    "q": "soft TTL ≈3600s + background refresh идея…",
+    "options": [
+      "отдавать stale и обновлять асинхронно",
+      "удалить ключ навсегда",
+      "удвоить RAM",
+      "отключить app"
+    ],
+    "answer": 0,
+    "explain": "Против stampede.",
+    "group": "Данные и распределёнка",
+    "id": "s683"
+  },
+  {
+    "topic": "db",
+    "q": "READ UNCOMMITTED и аномалия «dirty read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s684"
+  },
+  {
+    "topic": "db",
+    "q": "READ UNCOMMITTED и аномалия «non-repeatable read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s685"
+  },
+  {
+    "topic": "db",
+    "q": "READ UNCOMMITTED и аномалия «phantom read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s686"
+  },
+  {
+    "topic": "db",
+    "q": "READ UNCOMMITTED и аномалия «write skew»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s687"
+  },
+  {
+    "topic": "db",
+    "q": "READ COMMITTED и аномалия «dirty read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s688"
+  },
+  {
+    "topic": "db",
+    "q": "READ COMMITTED и аномалия «non-repeatable read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s689"
+  },
+  {
+    "topic": "db",
+    "q": "READ COMMITTED и аномалия «phantom read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s690"
+  },
+  {
+    "topic": "db",
+    "q": "READ COMMITTED и аномалия «write skew»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s691"
+  },
+  {
+    "topic": "db",
+    "q": "REPEATABLE READ и аномалия «dirty read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s692"
+  },
+  {
+    "topic": "db",
+    "q": "REPEATABLE READ и аномалия «non-repeatable read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s693"
+  },
+  {
+    "topic": "db",
+    "q": "REPEATABLE READ и аномалия «phantom read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s694"
+  },
+  {
+    "topic": "db",
+    "q": "REPEATABLE READ и аномалия «write skew»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s695"
+  },
+  {
+    "topic": "db",
+    "q": "SERIALIZABLE и аномалия «dirty read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s696"
+  },
+  {
+    "topic": "db",
+    "q": "SERIALIZABLE и аномалия «non-repeatable read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s697"
+  },
+  {
+    "topic": "db",
+    "q": "SERIALIZABLE и аномалия «phantom read»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s698"
+  },
+  {
+    "topic": "db",
+    "q": "SERIALIZABLE и аномалия «write skew»?",
+    "options": [
+      "зависит от СУБД — сверяй документацию/стандарт",
+      "всегда разрешена везде",
+      "всегда запрещена везде",
+      "только в SQLite"
+    ],
+    "answer": 0,
+    "explain": "Не путай SQL-standard и реализацию.",
+    "group": "Данные и распределёнка",
+    "id": "s699"
+  },
+  {
+    "topic": "db",
+    "q": "Повторять транзакцию до 2 раз при serialization failure?",
+    "options": [
+      "да, типичный паттерн retry",
+      "никогда",
+      "только DROP TABLE",
+      "переключить на MyISAM"
+    ],
+    "answer": 0,
+    "explain": "40001 / serialization_failure → retry.",
+    "group": "Данные и распределёнка",
+    "id": "s700"
+  },
+  {
+    "topic": "db",
+    "q": "Повторять транзакцию до 3 раз при serialization failure?",
+    "options": [
+      "да, типичный паттерн retry",
+      "никогда",
+      "только DROP TABLE",
+      "переключить на MyISAM"
+    ],
+    "answer": 0,
+    "explain": "40001 / serialization_failure → retry.",
+    "group": "Данные и распределёнка",
+    "id": "s701"
+  },
+  {
+    "topic": "db",
+    "q": "Повторять транзакцию до 5 раз при serialization failure?",
+    "options": [
+      "да, типичный паттерн retry",
+      "никогда",
+      "только DROP TABLE",
+      "переключить на MyISAM"
+    ],
+    "answer": 0,
+    "explain": "40001 / serialization_failure → retry.",
+    "group": "Данные и распределёнка",
+    "id": "s702"
+  },
+  {
+    "topic": "db",
+    "q": "Повторять транзакцию до 10 раз при serialization failure?",
+    "options": [
+      "да, типичный паттерн retry",
+      "никогда",
+      "только DROP TABLE",
+      "переключить на MyISAM"
+    ],
+    "answer": 0,
+    "explain": "40001 / serialization_failure → retry.",
+    "group": "Данные и распределёнка",
+    "id": "s703"
+  },
+  {
+    "topic": "distributed",
+    "q": "«retry storm» — это…",
+    "options": [
+      "ретраи без jitter усиливают сбой",
+      "только про GIL",
+      "только SQL index",
+      "HTTP 200 always"
+    ],
+    "answer": 0,
+    "explain": "ретраи без jitter усиливают сбой",
+    "group": "Данные и распределёнка",
+    "id": "s704"
+  },
+  {
+    "topic": "distributed",
+    "q": "«bulkhead» — это…",
+    "options": [
+      "изоляция пулов/ресурсов по частям системы",
+      "только про GIL",
+      "только SQL index",
+      "HTTP 200 always"
+    ],
+    "answer": 0,
+    "explain": "изоляция пулов/ресурсов по частям системы",
+    "group": "Данные и распределёнка",
+    "id": "s705"
+  },
+  {
+    "topic": "distributed",
+    "q": "«circuit breaker» — это…",
+    "options": [
+      "временно не звать падающий dependency",
+      "только про GIL",
+      "только SQL index",
+      "HTTP 200 always"
+    ],
+    "answer": 0,
+    "explain": "временно не звать падающий dependency",
+    "group": "Данные и распределёнка",
+    "id": "s706"
+  },
+  {
+    "topic": "distributed",
+    "q": "«timeout budget» — это…",
+    "options": [
+      "общий дедлайн на цепочку вызовов",
+      "только про GIL",
+      "только SQL index",
+      "HTTP 200 always"
+    ],
+    "answer": 0,
+    "explain": "общий дедлайн на цепочку вызовов",
+    "group": "Данные и распределёнка",
+    "id": "s707"
+  },
+  {
+    "topic": "distributed",
+    "q": "«hedged requests» — это…",
+    "options": [
+      "параллельный дубль запроса к реплике",
+      "только про GIL",
+      "только SQL index",
+      "HTTP 200 always"
+    ],
+    "answer": 0,
+    "explain": "параллельный дубль запроса к реплике",
+    "group": "Данные и распределёнка",
+    "id": "s708"
+  },
+  {
+    "topic": "distributed",
+    "q": "«load shedding» — это…",
+    "options": [
+      "отбрасывать лишнее под перегрузкой",
+      "только про GIL",
+      "только SQL index",
+      "HTTP 200 always"
+    ],
+    "answer": 0,
+    "explain": "отбрасывать лишнее под перегрузкой",
+    "group": "Данные и распределёнка",
+    "id": "s709"
+  },
+  {
+    "topic": "distributed",
+    "q": "«graceful degradation» — это…",
+    "options": [
+      "урезать функции, но жить",
+      "только про GIL",
+      "только SQL index",
+      "HTTP 200 always"
+    ],
+    "answer": 0,
+    "explain": "урезать функции, но жить",
+    "group": "Данные и распределёнка",
+    "id": "s710"
+  },
+  {
+    "topic": "distributed",
+    "q": "«poison message» — это…",
+    "options": [
+      "сообщение, которое вечно валит воркер",
+      "только про GIL",
+      "только SQL index",
+      "HTTP 200 always"
+    ],
+    "answer": 0,
+    "explain": "сообщение, которое вечно валит воркер",
+    "group": "Данные и распределёнка",
+    "id": "s711"
+  },
+  {
+    "topic": "security",
+    "q": "XSS (API) кратко:",
+    "options": [
+      "внедрение скрипта в браузер жертвы",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "внедрение скрипта в браузер жертвы",
+    "group": "Безопасность",
+    "id": "s712"
+  },
+  {
+    "topic": "security",
+    "q": "XSS (web) кратко:",
+    "options": [
+      "внедрение скрипта в браузер жертвы",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "внедрение скрипта в браузер жертвы",
+    "group": "Безопасность",
+    "id": "s713"
+  },
+  {
+    "topic": "security",
+    "q": "CSRF (API) кратко:",
+    "options": [
+      "запрос от имени пользователя без его намерения",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "запрос от имени пользователя без его намерения",
+    "group": "Безопасность",
+    "id": "s714"
+  },
+  {
+    "topic": "security",
+    "q": "CSRF (web) кратко:",
+    "options": [
+      "запрос от имени пользователя без его намерения",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "запрос от имени пользователя без его намерения",
+    "group": "Безопасность",
+    "id": "s715"
+  },
+  {
+    "topic": "security",
+    "q": "SSRF (API) кратко:",
+    "options": [
+      "сервер ходит на внутренние URL по указке",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "сервер ходит на внутренние URL по указке",
+    "group": "Безопасность",
+    "id": "s716"
+  },
+  {
+    "topic": "security",
+    "q": "SSRF (web) кратко:",
+    "options": [
+      "сервер ходит на внутренние URL по указке",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "сервер ходит на внутренние URL по указке",
+    "group": "Безопасность",
+    "id": "s717"
+  },
+  {
+    "topic": "security",
+    "q": "SQLi (API) кратко:",
+    "options": [
+      "инъекция в SQL",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "инъекция в SQL",
+    "group": "Безопасность",
+    "id": "s718"
+  },
+  {
+    "topic": "security",
+    "q": "SQLi (web) кратко:",
+    "options": [
+      "инъекция в SQL",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "инъекция в SQL",
+    "group": "Безопасность",
+    "id": "s719"
+  },
+  {
+    "topic": "security",
+    "q": "path traversal (API) кратко:",
+    "options": [
+      "доступ к файлам через ../",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "доступ к файлам через ../",
+    "group": "Безопасность",
+    "id": "s720"
+  },
+  {
+    "topic": "security",
+    "q": "path traversal (web) кратко:",
+    "options": [
+      "доступ к файлам через ../",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "доступ к файлам через ../",
+    "group": "Безопасность",
+    "id": "s721"
+  },
+  {
+    "topic": "security",
+    "q": "RCE (API) кратко:",
+    "options": [
+      "удалённое исполнение кода",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "удалённое исполнение кода",
+    "group": "Безопасность",
+    "id": "s722"
+  },
+  {
+    "topic": "security",
+    "q": "RCE (web) кратко:",
+    "options": [
+      "удалённое исполнение кода",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "удалённое исполнение кода",
+    "group": "Безопасность",
+    "id": "s723"
+  },
+  {
+    "topic": "security",
+    "q": "IDOR (API) кратко:",
+    "options": [
+      "доступ к чужим объектам по угадываемому id",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "доступ к чужим объектам по угадываемому id",
+    "group": "Безопасность",
+    "id": "s724"
+  },
+  {
+    "topic": "security",
+    "q": "IDOR (web) кратко:",
+    "options": [
+      "доступ к чужим объектам по угадываемому id",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "доступ к чужим объектам по угадываемому id",
+    "group": "Безопасность",
+    "id": "s725"
+  },
+  {
+    "topic": "security",
+    "q": "open redirect (API) кратко:",
+    "options": [
+      "редирект на вредоносный URL",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "редирект на вредоносный URL",
+    "group": "Безопасность",
+    "id": "s726"
+  },
+  {
+    "topic": "security",
+    "q": "open redirect (web) кратко:",
+    "options": [
+      "редирект на вредоносный URL",
+      "ускорение Python",
+      "тип в typing",
+      "только DevOps"
+    ],
+    "answer": 0,
+    "explain": "редирект на вредоносный URL",
+    "group": "Безопасность",
+    "id": "s727"
+  },
+  {
+    "topic": "observability",
+    "q": "RED: буква R?",
+    "options": [
+      "Rate",
+      "RAM",
+      "EOF",
+      "DNS"
+    ],
+    "answer": 0,
+    "explain": "RED → Rate.",
+    "group": "Observability и качество",
+    "id": "s728"
+  },
+  {
+    "topic": "observability",
+    "q": "RED: буква E?",
+    "options": [
+      "Errors",
+      "RAM",
+      "EOF",
+      "DNS"
+    ],
+    "answer": 0,
+    "explain": "RED → Errors.",
+    "group": "Observability и качество",
+    "id": "s729"
+  },
+  {
+    "topic": "observability",
+    "q": "RED: буква D?",
+    "options": [
+      "Duration",
+      "RAM",
+      "EOF",
+      "DNS"
+    ],
+    "answer": 0,
+    "explain": "RED → Duration.",
+    "group": "Observability и качество",
+    "id": "s730"
+  },
+  {
+    "topic": "observability",
+    "q": "USE: буква U?",
+    "options": [
+      "Utilization",
+      "UUID",
+      "SQL",
+      "ETA"
+    ],
+    "answer": 0,
+    "explain": "USE → Utilization.",
+    "group": "Observability и качество",
+    "id": "s731"
+  },
+  {
+    "topic": "observability",
+    "q": "USE: буква S?",
+    "options": [
+      "Saturation",
+      "UUID",
+      "SQL",
+      "ETA"
+    ],
+    "answer": 0,
+    "explain": "USE → Saturation.",
+    "group": "Observability и качество",
+    "id": "s732"
+  },
+  {
+    "topic": "observability",
+    "q": "USE: буква E?",
+    "options": [
+      "Errors",
+      "UUID",
+      "SQL",
+      "ETA"
+    ],
+    "answer": 0,
+    "explain": "USE → Errors.",
+    "group": "Observability и качество",
+    "id": "s733"
+  },
+  {
+    "topic": "architecture",
+    "q": "Паттерн CQRS:",
+    "options": [
+      "разделить пути чтения и записи",
+      "удалить тесты",
+      "только monolith ban",
+      "GIL pattern"
+    ],
+    "answer": 0,
+    "explain": "разделить пути чтения и записи",
+    "group": "Архитектура и дизайн",
+    "id": "s734"
+  },
+  {
+    "topic": "architecture",
+    "q": "Паттерн Event Sourcing:",
+    "options": [
+      "состояние как поток событий",
+      "удалить тесты",
+      "только monolith ban",
+      "GIL pattern"
+    ],
+    "answer": 0,
+    "explain": "состояние как поток событий",
+    "group": "Архитектура и дизайн",
+    "id": "s735"
+  },
+  {
+    "topic": "architecture",
+    "q": "Паттерн Outbox:",
+    "options": [
+      "событие в одной транзакции с записью",
+      "удалить тесты",
+      "только monolith ban",
+      "GIL pattern"
+    ],
+    "answer": 0,
+    "explain": "событие в одной транзакции с записью",
+    "group": "Архитектура и дизайн",
+    "id": "s736"
+  },
+  {
+    "topic": "architecture",
+    "q": "Паттерн Saga:",
+    "options": [
+      "распределённый процесс + компенсации",
+      "удалить тесты",
+      "только monolith ban",
+      "GIL pattern"
+    ],
+    "answer": 0,
+    "explain": "распределённый процесс + компенсации",
+    "group": "Архитектура и дизайн",
+    "id": "s737"
+  },
+  {
+    "topic": "architecture",
+    "q": "Паттерн BFF:",
+    "options": [
+      "backend for frontend — API под клиент",
+      "удалить тесты",
+      "только monolith ban",
+      "GIL pattern"
+    ],
+    "answer": 0,
+    "explain": "backend for frontend — API под клиент",
+    "group": "Архитектура и дизайн",
+    "id": "s738"
+  },
+  {
+    "topic": "architecture",
+    "q": "Паттерн ACL:",
+    "options": [
+      "anti-corruption layer к легаси",
+      "удалить тесты",
+      "только monolith ban",
+      "GIL pattern"
+    ],
+    "answer": 0,
+    "explain": "anti-corruption layer к легаси",
+    "group": "Архитектура и дизайн",
+    "id": "s739"
+  },
+  {
+    "topic": "architecture",
+    "q": "Паттерн Strangler:",
+    "options": [
+      "постепенная замена легаси",
+      "удалить тесты",
+      "только monolith ban",
+      "GIL pattern"
+    ],
+    "answer": 0,
+    "explain": "постепенная замена легаси",
+    "group": "Архитектура и дизайн",
+    "id": "s740"
+  },
+  {
+    "topic": "architecture",
+    "q": "Паттерн Sidecar:",
+    "options": [
+      "вспомогательный процесс рядом с сервисом",
+      "удалить тесты",
+      "только monolith ban",
+      "GIL pattern"
+    ],
+    "answer": 0,
+    "explain": "вспомогательный процесс рядом с сервисом",
+    "group": "Архитектура и дизайн",
+    "id": "s741"
+  },
+  {
+    "topic": "packaging",
+    "q": "Классификатор Programming Language :: Python :: 3.9 зачем?",
+    "options": [
+      "заявить поддержку версии для PyPI/инструментов",
+      "ускорить интерпретатор",
+      "включить GIL",
+      "заменить mypy"
+    ],
+    "answer": 0,
+    "explain": "Метаданные дистрибутива.",
+    "group": "Packaging и CI",
+    "id": "s742"
+  },
+  {
+    "topic": "packaging",
+    "q": "Классификатор Programming Language :: Python :: 3.10 зачем?",
+    "options": [
+      "заявить поддержку версии для PyPI/инструментов",
+      "ускорить интерпретатор",
+      "включить GIL",
+      "заменить mypy"
+    ],
+    "answer": 0,
+    "explain": "Метаданные дистрибутива.",
+    "group": "Packaging и CI",
+    "id": "s743"
+  },
+  {
+    "topic": "packaging",
+    "q": "Классификатор Programming Language :: Python :: 3.11 зачем?",
+    "options": [
+      "заявить поддержку версии для PyPI/инструментов",
+      "ускорить интерпретатор",
+      "включить GIL",
+      "заменить mypy"
+    ],
+    "answer": 0,
+    "explain": "Метаданные дистрибутива.",
+    "group": "Packaging и CI",
+    "id": "s744"
+  },
+  {
+    "topic": "packaging",
+    "q": "Классификатор Programming Language :: Python :: 3.12 зачем?",
+    "options": [
+      "заявить поддержку версии для PyPI/инструментов",
+      "ускорить интерпретатор",
+      "включить GIL",
+      "заменить mypy"
+    ],
+    "answer": 0,
+    "explain": "Метаданные дистрибутива.",
+    "group": "Packaging и CI",
+    "id": "s745"
+  },
+  {
+    "topic": "packaging",
+    "q": "Классификатор Programming Language :: Python :: 3.13 зачем?",
+    "options": [
+      "заявить поддержку версии для PyPI/инструментов",
+      "ускорить интерпретатор",
+      "включить GIL",
+      "заменить mypy"
+    ],
+    "answer": 0,
+    "explain": "Метаданные дистрибутива.",
+    "group": "Packaging и CI",
+    "id": "s746"
+  },
+  {
+    "topic": "packaging",
+    "q": "Классификатор Programming Language :: Python :: 3.14 зачем?",
+    "options": [
+      "заявить поддержку версии для PyPI/инструментов",
+      "ускорить интерпретатор",
+      "включить GIL",
+      "заменить mypy"
+    ],
+    "answer": 0,
+    "explain": "Метаданные дистрибутива.",
+    "group": "Packaging и CI",
+    "id": "s747"
+  },
+  {
+    "topic": "CPython",
+    "q": "ob_refcnt — про что?",
+    "options": [
+      "счётчик ссылок объекта",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "счётчик ссылок объекта",
+    "group": "CPython и память",
+    "id": "s748"
+  },
+  {
+    "topic": "CPython",
+    "q": "ob_type — про что?",
+    "options": [
+      "указатель на тип",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "указатель на тип",
+    "group": "CPython и память",
+    "id": "s749"
+  },
+  {
+    "topic": "CPython",
+    "q": "tp_dealloc — про что?",
+    "options": [
+      "слот деаллокации типа",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "слот деаллокации типа",
+    "group": "CPython и память",
+    "id": "s750"
+  },
+  {
+    "topic": "CPython",
+    "q": "Py_INCREF/DECREF — про что?",
+    "options": [
+      "ручное управление refcnt в C-API",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "ручное управление refcnt в C-API",
+    "group": "CPython и память",
+    "id": "s751"
+  },
+  {
+    "topic": "CPython",
+    "q": "pymalloc — про что?",
+    "options": [
+      "аллокатор мелких объектов",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "аллокатор мелких объектов",
+    "group": "CPython и память",
+    "id": "s752"
+  },
+  {
+    "topic": "CPython",
+    "q": "arenas/pools — про что?",
+    "options": [
+      "структура pymalloc",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "структура pymalloc",
+    "group": "CPython и память",
+    "id": "s753"
+  },
+  {
+    "topic": "CPython",
+    "q": "GC generations — про что?",
+    "options": [
+      "поколения циклического GC",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "поколения циклического GC",
+    "group": "CPython и память",
+    "id": "s754"
+  },
+  {
+    "topic": "CPython",
+    "q": "interned strings — про что?",
+    "options": [
+      "переиспользование некоторых str",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "переиспользование некоторых str",
+    "group": "CPython и память",
+    "id": "s755"
+  },
+  {
+    "topic": "CPython",
+    "q": "dict insertion order — про что?",
+    "options": [
+      "сохранение порядка с 3.7+ как язык. контракт",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "сохранение порядка с 3.7+ как язык. контракт",
+    "group": "CPython и память",
+    "id": "s756"
+  },
+  {
+    "topic": "CPython",
+    "q": "adaptive specializing interpreter — про что?",
+    "options": [
+      "ускорение hot path с 3.11+",
+      "только pip",
+      "HTTP header",
+      "pytest fixture"
+    ],
+    "answer": 0,
+    "explain": "ускорение hot path с 3.11+",
+    "group": "CPython и память",
+    "id": "s757"
+  },
+  {
+    "topic": "память",
+    "q": "gc.get_threshold()[0] влияет на…",
+    "options": [
+      "частоту/пороги сбора поколений GC",
+      "GIL timeout",
+      "TCP window",
+      "pip cache"
+    ],
+    "answer": 0,
+    "explain": "Пороги генерационного GC.",
+    "group": "CPython и память",
+    "id": "s758"
+  },
+  {
+    "topic": "память",
+    "q": "gc.get_threshold()[1] влияет на…",
+    "options": [
+      "частоту/пороги сбора поколений GC",
+      "GIL timeout",
+      "TCP window",
+      "pip cache"
+    ],
+    "answer": 0,
+    "explain": "Пороги генерационного GC.",
+    "group": "CPython и память",
+    "id": "s759"
+  },
+  {
+    "topic": "память",
+    "q": "gc.get_threshold()[2] влияет на…",
+    "options": [
+      "частоту/пороги сбора поколений GC",
+      "GIL timeout",
+      "TCP window",
+      "pip cache"
+    ],
+    "answer": 0,
+    "explain": "Пороги генерационного GC.",
+    "group": "CPython и память",
+    "id": "s760"
+  },
+  {
+    "topic": "память",
+    "q": "gc.get_threshold()[3] влияет на…",
+    "options": [
+      "частоту/пороги сбора поколений GC",
+      "GIL timeout",
+      "TCP window",
+      "pip cache"
+    ],
+    "answer": 0,
+    "explain": "Пороги генерационного GC.",
+    "group": "CPython и память",
+    "id": "s761"
+  },
+  {
+    "topic": "CPython",
+    "q": "Флаг интерпретатора -O:",
+    "options": [
+      "убирает assert, __debug__=False",
+      "включает JIT всегда",
+      "отключает GC навсегда",
+      "только Windows"
+    ],
+    "answer": 0,
+    "explain": "убирает assert, __debug__=False",
+    "group": "CPython и память",
+    "id": "s762"
+  },
+  {
+    "topic": "CPython",
+    "q": "Флаг интерпретатора -OO:",
+    "options": [
+      "как -O плюс выкидывает docstrings",
+      "включает JIT всегда",
+      "отключает GC навсегда",
+      "только Windows"
+    ],
+    "answer": 0,
+    "explain": "как -O плюс выкидывает docstrings",
+    "group": "CPython и память",
+    "id": "s763"
+  },
+  {
+    "topic": "CPython",
+    "q": "Флаг интерпретатора -X faulthandler:",
+    "options": [
+      "дамп трейсов при фатальных сбоях",
+      "включает JIT всегда",
+      "отключает GC навсегда",
+      "только Windows"
+    ],
+    "answer": 0,
+    "explain": "дамп трейсов при фатальных сбоях",
+    "group": "CPython и память",
+    "id": "s764"
+  },
+  {
+    "topic": "CPython",
+    "q": "Флаг интерпретатора -X dev:",
+    "options": [
+      "режим разработки с доп. проверками",
+      "включает JIT всегда",
+      "отключает GC навсегда",
+      "только Windows"
+    ],
+    "answer": 0,
+    "explain": "режим разработки с доп. проверками",
+    "group": "CPython и память",
+    "id": "s765"
+  },
+  {
+    "topic": "CPython",
+    "q": "Флаг интерпретатора -S:",
+    "options": [
+      "не импортировать site автоматически",
+      "включает JIT всегда",
+      "отключает GC навсегда",
+      "только Windows"
+    ],
+    "answer": 0,
+    "explain": "не импортировать site автоматически",
+    "group": "CPython и память",
+    "id": "s766"
   }
 ];

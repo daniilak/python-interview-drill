@@ -8,6 +8,9 @@ from pathlib import Path
 from bulk_extra import JUNIOR_EXTRA, MIDDLE_EXTRA, SENIOR_EXTRA
 from code_output_extra import CODE_JUNIOR, CODE_MIDDLE, CODE_SENIOR
 from wave2_extra import JUNIOR_W2, MIDDLE_W2, SENIOR_W2
+from wave3_extra import JUNIOR_W3, MIDDLE_W3, SENIOR_W3
+from variants_extra import JUNIOR_VARIANTS, MIDDLE_VARIANTS, SENIOR_VARIANTS
+from variants2_extra import JUNIOR_VARIANTS2, MIDDLE_VARIANTS2, SENIOR_VARIANTS2
 
 OUT = Path(__file__).resolve().parent / "js" / "data"
 
@@ -913,15 +916,13 @@ def main() -> None:
             out.append(it)
         return out
 
-    write_js("junior", "QUESTIONS_JUNIOR", dedupe(JUNIOR + JUNIOR_EXTRA + CODE_JUNIOR + JUNIOR_W2))
-    write_js("middle", "QUESTIONS_MIDDLE", dedupe(MIDDLE + MIDDLE_EXTRA + CODE_MIDDLE + MIDDLE_W2))
-    write_js("senior", "QUESTIONS_SENIOR", dedupe(SENIOR + SENIOR_EXTRA + CODE_SENIOR + SENIOR_W2))
-    total = (
-        len(dedupe(JUNIOR + JUNIOR_EXTRA + CODE_JUNIOR + JUNIOR_W2))
-        + len(dedupe(MIDDLE + MIDDLE_EXTRA + CODE_MIDDLE + MIDDLE_W2))
-        + len(dedupe(SENIOR + SENIOR_EXTRA + CODE_SENIOR + SENIOR_W2))
-    )
-    print("TOTAL", total)
+    j = dedupe(JUNIOR + JUNIOR_EXTRA + CODE_JUNIOR + JUNIOR_W2 + JUNIOR_W3 + JUNIOR_VARIANTS + JUNIOR_VARIANTS2)
+    m = dedupe(MIDDLE + MIDDLE_EXTRA + CODE_MIDDLE + MIDDLE_W2 + MIDDLE_W3 + MIDDLE_VARIANTS + MIDDLE_VARIANTS2)
+    s = dedupe(SENIOR + SENIOR_EXTRA + CODE_SENIOR + SENIOR_W2 + SENIOR_W3 + SENIOR_VARIANTS + SENIOR_VARIANTS2)
+    write_js("junior", "QUESTIONS_JUNIOR", j)
+    write_js("middle", "QUESTIONS_MIDDLE", m)
+    write_js("senior", "QUESTIONS_SENIOR", s)
+    print("TOTAL", len(j) + len(m) + len(s))
 
 
 if __name__ == "__main__":

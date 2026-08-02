@@ -7922,5 +7922,3763 @@ window.QUESTIONS_MIDDLE = [
     "code": "print('X'.casefold() == 'x')",
     "group": "Stdlib и производительность",
     "id": "m563"
+  },
+  {
+    "topic": "декораторы",
+    "q": "Что делает @functools.wraps(f)?",
+    "options": [
+      "копирует __name__/__doc__ с обёрнутой функции",
+      "ускоряет вызов",
+      "делает async",
+      "убирает GIL"
+    ],
+    "answer": 0,
+    "explain": "Иначе инспекция видит wrapper.",
+    "group": "Декораторы и замыкания",
+    "id": "m564"
+  },
+  {
+    "topic": "замыкания",
+    "q": "Что выведет код?",
+    "options": [
+      "10",
+      "0",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "nonlocal n позволяет менять enclosing переменную.",
+    "code": "def make():\n    n = 0\n    def inc():\n        nonlocal n\n        n += 10\n        return n\n    return inc\nprint(make()())",
+    "group": "Декораторы и замыкания",
+    "id": "m565"
+  },
+  {
+    "topic": "декораторы",
+    "q": "Что выведет код (по порядку)?",
+    "options": [
+      "before, затем 1",
+      "только 1",
+      "ошибка",
+      "только before"
+    ],
+    "answer": 0,
+    "explain": "Обёртка печатает before, затем возвращает 1 — print(f()) печатает 1.",
+    "code": "def deco(f):\n    def wrap():\n        print('before')\n        return f()\n    return wrap\n@deco\ndef f():\n    return 1\nprint(f())",
+    "group": "Декораторы и замыкания",
+    "id": "m566"
+  },
+  {
+    "topic": "генераторы",
+    "q": "Что выведет код?",
+    "options": [
+      "1 2",
+      "1 2 3",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Два next() забирают оба элемента генератора.",
+    "code": "g = (x for x in [1, 2])\nprint(next(g), next(g))",
+    "group": "Генераторы и итераторы",
+    "id": "m567"
+  },
+  {
+    "topic": "генераторы",
+    "q": "yield from делегирует…",
+    "options": [
+      "итерацию/yield во вложенный итератор/генератор",
+      "только return",
+      "в другой процесс",
+      "в C API"
+    ],
+    "answer": 0,
+    "explain": "Также пробрасывает send/throw.",
+    "group": "Генераторы и итераторы",
+    "id": "m568"
+  },
+  {
+    "topic": "генераторы",
+    "q": "Что вернёт gen.send(x) до первого yield?",
+    "options": [
+      "нужно сначала next()/send(None)",
+      "сразу x",
+      "None",
+      "ошибка всегда"
+    ],
+    "answer": 0,
+    "explain": "Генератор должен дойти до yield.",
+    "group": "Генераторы и итераторы",
+    "id": "m569"
+  },
+  {
+    "topic": "итераторы",
+    "q": "iter(callable, sentinel) вызывает callable пока…",
+    "options": [
+      "результат != sentinel",
+      "пока True",
+      "один раз",
+      "бесконечно без sentinel"
+    ],
+    "answer": 0,
+    "explain": "Классика: iter(f.readline, '').",
+    "group": "Генераторы и итераторы",
+    "id": "m570"
+  },
+  {
+    "topic": "generators",
+    "q": "Что выведет код?",
+    "options": [
+      "[1]",
+      "[1, 0]",
+      "ошибка",
+      "[0]"
+    ],
+    "answer": 0,
+    "explain": "return в генераторе становится StopIteration.value; list() его не включает — только yield.",
+    "code": "def g():\n    yield 1\n    return 0\nprint(list(g()))",
+    "group": "Генераторы и итераторы",
+    "id": "m571"
+  },
+  {
+    "topic": "магические",
+    "q": "Что вызовет a + b?",
+    "options": [
+      "a.__add__(b) или b.__radd__(a)",
+      "только __iadd__",
+      "len(a)",
+      "hash(a)"
+    ],
+    "answer": 0,
+    "explain": "Отражённые методы для правого операнда.",
+    "group": "Контекст и магические методы",
+    "id": "m572"
+  },
+  {
+    "topic": "property",
+    "q": "@property.setter нужен чтобы…",
+    "options": [
+      "разрешить присваивание атрибуту-property",
+      "сделать classmethod",
+      "удалить атрибут",
+      "ускорить"
+    ],
+    "answer": 0,
+    "explain": "Иначе AttributeError: can't set attribute.",
+    "group": "Контекст и магические методы",
+    "id": "m573"
+  },
+  {
+    "topic": "classmethod",
+    "q": "classmethod получает первым аргументом…",
+    "options": [
+      "класс (cls), не экземпляр",
+      "self",
+      "модуль",
+      "metaclass всегда"
+    ],
+    "answer": 0,
+    "explain": "Удобно для альтернативных конструкторов.",
+    "group": "Контекст и магические методы",
+    "id": "m574"
+  },
+  {
+    "topic": "staticmethod",
+    "q": "staticmethod отличается тем, что…",
+    "options": [
+      "нет авто-self/cls — обычная функция в классе",
+      "всегда виртуальный",
+      "только в ABC",
+      "быстрее C"
+    ],
+    "answer": 0,
+    "explain": "Не получает ни экземпляр, ни класс.",
+    "group": "Контекст и магические методы",
+    "id": "m575"
+  },
+  {
+    "topic": "typing",
+    "q": "list[int] в runtime (3.9+) — это…",
+    "options": [
+      "generic alias; isinstance ограниченно",
+      "точный runtime gate всегда",
+      "удаляется",
+      "только mypy"
+    ],
+    "answer": 0,
+    "explain": "Аннотации не проверяются CPython сам по себе.",
+    "group": "Typing и dataclasses",
+    "id": "m576"
+  },
+  {
+    "topic": "typing",
+    "q": "TypeVar(bound=...) ограничивает…",
+    "options": [
+      "верхнюю границу допустимых типов",
+      "только литералы",
+      "длину списка",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "T должен быть subtype bound.",
+    "group": "Typing и dataclasses",
+    "id": "m577"
+  },
+  {
+    "topic": "typing",
+    "q": "Protocol (structural) vs ABC?",
+    "options": [
+      "Protocol — утиная типизация; ABC — номинальная",
+      "одно и то же",
+      "Protocol только runtime",
+      "ABC только stubs"
+    ],
+    "answer": 0,
+    "explain": "typing.Protocol / runtime_checkable.",
+    "group": "Typing и dataclasses",
+    "id": "m578"
+  },
+  {
+    "topic": "dataclasses",
+    "q": "Что даёт frozen=True?",
+    "options": [
+      "неизменяемые экземпляры (приблизительно)",
+      "быстрее всегда",
+      "slots автоматически до 3.9",
+      "JSON"
+    ],
+    "answer": 0,
+    "explain": "Присваивание полей → FrozenInstanceError.",
+    "group": "Typing и dataclasses",
+    "id": "m579"
+  },
+  {
+    "topic": "enum",
+    "q": "Enum члены сравниваются…",
+    "options": [
+      "по идентичности/значению члена, не как «сырые» int без mixin",
+      "всегда как int",
+      "только по имени str",
+      "нельзя"
+    ],
+    "answer": 0,
+    "explain": "IntEnum — отдельный случай, совместим с int.",
+    "group": "Typing и dataclasses",
+    "id": "m580"
+  },
+  {
+    "topic": "match",
+    "q": "case [x, *rest]: матчит…",
+    "options": [
+      "последовательность ≥1 с хвостом",
+      "только list длины 2",
+      "dict",
+      "set"
+    ],
+    "answer": 0,
+    "explain": "Sequence pattern.",
+    "group": "Typing и dataclasses",
+    "id": "m581"
+  },
+  {
+    "topic": "threading",
+    "q": "Lock vs RLock?",
+    "options": [
+      "RLock можно захватывать тем же потоком повторно",
+      "Lock быстрее всегда и reentrant",
+      "одно и то же",
+      "RLock только async"
+    ],
+    "answer": 0,
+    "explain": "Обычный Lock — deadlock при повторном acquire.",
+    "group": "Потоки, процессы, GIL",
+    "id": "m582"
+  },
+  {
+    "topic": "asyncio",
+    "q": "create_task vs await coro напрямую?",
+    "options": [
+      "task планирует конкурентно; await — последовательно",
+      "одинаково",
+      "create_task блокирует",
+      "await запрещён"
+    ],
+    "answer": 0,
+    "explain": "Task позволяет параллелить await-точки.",
+    "group": "Asyncio",
+    "id": "m583"
+  },
+  {
+    "topic": "asyncio",
+    "q": "Что будет при необработанном исключении в Task?",
+    "options": [
+      "логируется при GC task (и в 3.11+ лучше видно)",
+      "тихо глотается навсегда",
+      "роняет процесс всегда",
+      "чинит само"
+    ],
+    "answer": 0,
+    "explain": "Храни ссылку / await / callbacks.",
+    "group": "Asyncio",
+    "id": "m584"
+  },
+  {
+    "topic": "asyncio",
+    "q": "async with vs обычный with для lock?",
+    "options": [
+      "нужен async CM с __aenter__/__aexit__",
+      "можно смешивать свободно",
+      "with быстрее",
+      "запрещено"
+    ],
+    "answer": 0,
+    "explain": "asyncio.Lock — async context manager.",
+    "group": "Asyncio",
+    "id": "m585"
+  },
+  {
+    "topic": "async",
+    "q": "gather(..., return_exceptions=True)…",
+    "options": [
+      "кладёт исключения в результаты вместо raise",
+      "игнорит все задачи",
+      "отменяет всегда",
+      "только sync"
+    ],
+    "answer": 0,
+    "explain": "Удобно собрать частичные успехи.",
+    "group": "Asyncio",
+    "id": "m586"
+  },
+  {
+    "topic": "collections",
+    "q": "deque.appendleft — амортизированно…",
+    "options": [
+      "O(1)",
+      "O(n)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Двусторонняя очередь.",
+    "group": "Collections и itertools",
+    "id": "m587"
+  },
+  {
+    "topic": "collections",
+    "q": "Counter.most_common(2) вернёт…",
+    "options": [
+      "список пар (элемент, счёт) топ-2",
+      "только ключи",
+      "dict",
+      "set"
+    ],
+    "answer": 0,
+    "explain": "По убыванию частоты.",
+    "group": "Collections и itertools",
+    "id": "m588"
+  },
+  {
+    "topic": "collections",
+    "q": "defaultdict(list): d['k'].append(1) — если ключа не было?",
+    "options": [
+      "создаст [] и append",
+      "KeyError",
+      "NoneType error",
+      "игнор"
+    ],
+    "answer": 0,
+    "explain": "default_factory вызывается.",
+    "group": "Collections и itertools",
+    "id": "m589"
+  },
+  {
+    "topic": "itertools",
+    "q": "islice(it, 2, 5) берёт…",
+    "options": [
+      "элементы с 2 по 4 (как range)",
+      "первые 5",
+      "с 2 до конца",
+      "только 2 и 5"
+    ],
+    "answer": 0,
+    "explain": "Ленивый срез итератора.",
+    "group": "Collections и itertools",
+    "id": "m590"
+  },
+  {
+    "topic": "functools",
+    "q": "lru_cache(maxsize=None) это…",
+    "options": [
+      "безлимитный кэш (осторожно с памятью)",
+      "без кэша",
+      "TTL cache",
+      "disk cache"
+    ],
+    "answer": 0,
+    "explain": "Эквивалент unbounded memoization.",
+    "group": "Collections и itertools",
+    "id": "m591"
+  },
+  {
+    "topic": "functools",
+    "q": "partial(f, 1)(2) эквивалентно…",
+    "options": [
+      "f(1, 2)",
+      "f(2, 1)",
+      "f(1)",
+      "f()"
+    ],
+    "answer": 0,
+    "explain": "Фиксирует позиционные/keyword аргументы.",
+    "group": "Collections и itertools",
+    "id": "m592"
+  },
+  {
+    "topic": "pathlib",
+    "q": "Path('a') / 'b' / 'c' даст…",
+    "options": [
+      "Path с платформенными разделителями",
+      "строку 'a/b/c' всегда",
+      "ошибку",
+      "bytes"
+    ],
+    "answer": 0,
+    "explain": "Оператор / у Path.",
+    "group": "Stdlib и производительность",
+    "id": "m593"
+  },
+  {
+    "topic": "regex",
+    "q": "re.search vs re.match?",
+    "options": [
+      "search — в любом месте; match — с начала строки",
+      "одинаково",
+      "match быстрее всегда",
+      "search только bytes"
+    ],
+    "answer": 0,
+    "explain": "Ещё есть fullmatch.",
+    "group": "Stdlib и производительность",
+    "id": "m594"
+  },
+  {
+    "topic": "logging",
+    "q": "Почему logger = logging.getLogger(__name__)?",
+    "options": [
+      "иерархия логгеров по модулю",
+      "обязательный синтаксис",
+      "быстрее print",
+      "отключает root"
+    ],
+    "answer": 0,
+    "explain": "Удобно фильтровать по имени пакета.",
+    "group": "Тесты и качество",
+    "id": "m595"
+  },
+  {
+    "topic": "тесты",
+    "q": "pytest fixture с scope='module'…",
+    "options": [
+      "один раз на модуль тестов",
+      "на каждый assert",
+      "на весь CI",
+      "только class"
+    ],
+    "answer": 0,
+    "explain": "Экономия дорогой подготовки.",
+    "group": "Тесты и качество",
+    "id": "m596"
+  },
+  {
+    "topic": "тесты",
+    "q": "monkeypatch / mock патчат…",
+    "options": [
+      "атрибуты/окружение на время теста",
+      "продакшен БД",
+      "GIL",
+      "байткод"
+    ],
+    "answer": 0,
+    "explain": "Изоляция побочных эффектов.",
+    "group": "Тесты и качество",
+    "id": "m597"
+  },
+  {
+    "topic": "mock",
+    "q": "assert_called_once_with(...) проверяет…",
+    "options": [
+      "ровно один вызов с аргументами",
+      "любое число вызовов",
+      "только тип",
+      "время"
+    ],
+    "answer": 0,
+    "explain": "Из unittest.mock.",
+    "group": "Тесты и качество",
+    "id": "m598"
+  },
+  {
+    "topic": "HTTP",
+    "q": "идемпотентный HTTP-метод пример…",
+    "options": [
+      "GET / PUT (в идеале)",
+      "POST всегда",
+      "только CONNECT",
+      "TRACE обязателен"
+    ],
+    "answer": 0,
+    "explain": "Повтор не должен менять состояние (семантика).",
+    "group": "Веб и API",
+    "id": "m599"
+  },
+  {
+    "topic": "FastAPI",
+    "q": "Depends() нужен для…",
+    "options": [
+      "внедрения зависимостей (DI) в эндпоинты",
+      "SQL only",
+      "GIL",
+      "замены pydantic"
+    ],
+    "answer": 0,
+    "explain": "Переиспользование auth/db session.",
+    "group": "Веб и API",
+    "id": "m600"
+  },
+  {
+    "topic": "SQL",
+    "q": "N+1 проблема — это…",
+    "options": [
+      "1 запрос списка + N запросов на связанные сущности",
+      "один огромный JOIN всегда bad",
+      "только NoSQL",
+      "индекс"
+    ],
+    "answer": 0,
+    "explain": "Лечится join/eager load/IN.",
+    "group": "Веб и API",
+    "id": "m601"
+  },
+  {
+    "topic": "weakref",
+    "q": "WeakValueDictionary забывает значение когда…",
+    "options": [
+      "не осталось сильных ссылок на объект",
+      "всегда через 1с",
+      "при hash collision",
+      "никогда"
+    ],
+    "answer": 0,
+    "explain": "Кэши без удержания объектов.",
+    "group": "Stdlib и производительность",
+    "id": "m602"
+  },
+  {
+    "topic": "ABC",
+    "q": "@abstractmethod гарантирует…",
+    "options": [
+      "нельзя инстанцировать подкласс без реализации",
+      "runtime скорость",
+      "GIL off",
+      "pickle"
+    ],
+    "answer": 0,
+    "explain": "Пока есть абстрактные методы — TypeError.",
+    "group": "ООП продвинутый",
+    "id": "m603"
+  },
+  {
+    "topic": "дескрипторы",
+    "q": "__get__/__set__/__delete__ — это…",
+    "options": [
+      "протокол дескрипторов (property так устроен)",
+      "только metaclass",
+      "GIL hooks",
+      "async only"
+    ],
+    "answer": 0,
+    "explain": "Data vs non-data descriptors.",
+    "group": "Контекст и магические методы",
+    "id": "m604"
+  },
+  {
+    "topic": "замыкания",
+    "q": "Что выведет код?",
+    "options": [
+      "[3, 3, 3, 3]",
+      "[0, 1, 2, 3]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Поздний захват i — все лямбды видят финальное значение.",
+    "code": "fs = [lambda: i for i in range(4)]\nprint([f() for f in fs])",
+    "group": "Декораторы и замыкания",
+    "id": "m605"
+  },
+  {
+    "topic": "замыкания",
+    "q": "Что выведет код?",
+    "options": [
+      "[0, 1, 2, 3]",
+      "[3, 3, 3, 3]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "default i=i фиксирует значение на итерации.",
+    "code": "fs = [lambda i=i: i for i in range(4)]\nprint([f() for f in fs])",
+    "group": "Декораторы и замыкания",
+    "id": "m606"
+  },
+  {
+    "topic": "замыкания",
+    "q": "Что выведет код?",
+    "options": [
+      "[4, 4, 4, 4, 4]",
+      "[0, 1, 2, 3, 4]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Поздний захват i — все лямбды видят финальное значение.",
+    "code": "fs = [lambda: i for i in range(5)]\nprint([f() for f in fs])",
+    "group": "Декораторы и замыкания",
+    "id": "m607"
+  },
+  {
+    "topic": "замыкания",
+    "q": "Что выведет код?",
+    "options": [
+      "[0, 1, 2, 3, 4]",
+      "[4, 4, 4, 4, 4]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "default i=i фиксирует значение на итерации.",
+    "code": "fs = [lambda i=i: i for i in range(5)]\nprint([f() for f in fs])",
+    "group": "Декораторы и замыкания",
+    "id": "m608"
+  },
+  {
+    "topic": "генераторы",
+    "q": "Что выведет код?",
+    "options": [
+      "10 20",
+      "[10, 20, 30]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Два next() забирают первые элементы.",
+    "code": "g = (x for x in [10, 20, 30])\nprint(next(g), next(g))",
+    "group": "Генераторы и итераторы",
+    "id": "m609"
+  },
+  {
+    "topic": "генераторы",
+    "q": "Что выведет код?",
+    "options": [
+      "a b",
+      "['a', 'b']",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Два next() забирают первые элементы.",
+    "code": "g = (x for x in ['a', 'b'])\nprint(next(g), next(g))",
+    "group": "Генераторы и итераторы",
+    "id": "m610"
+  },
+  {
+    "topic": "генераторы",
+    "q": "Что выведет код?",
+    "options": [
+      "0 1",
+      "[0, 1]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Два next() забирают первые элементы.",
+    "code": "g = (x for x in [0, 1])\nprint(next(g), next(g))",
+    "group": "Генераторы и итераторы",
+    "id": "m611"
+  },
+  {
+    "topic": "генераторы",
+    "q": "list((x*x for x in range(2)))?",
+    "options": [
+      "[0, 1]",
+      "[0, 1]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Generator expression материализуется через list.",
+    "code": "print(list(x * x for x in range(2)))",
+    "group": "Генераторы и итераторы",
+    "id": "m612"
+  },
+  {
+    "topic": "генераторы",
+    "q": "list((x*x for x in range(3)))?",
+    "options": [
+      "[0, 1, 4]",
+      "[0, 1, 2]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Generator expression материализуется через list.",
+    "code": "print(list(x * x for x in range(3)))",
+    "group": "Генераторы и итераторы",
+    "id": "m613"
+  },
+  {
+    "topic": "генераторы",
+    "q": "list((x*x for x in range(4)))?",
+    "options": [
+      "[0, 1, 4, 9]",
+      "[0, 1, 2, 3]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Generator expression материализуется через list.",
+    "code": "print(list(x * x for x in range(4)))",
+    "group": "Генераторы и итераторы",
+    "id": "m614"
+  },
+  {
+    "topic": "collections",
+    "q": "Counter('aab').most_common(2)?",
+    "options": [
+      "[('a', 2), ('b', 1)]",
+      "{'a': 2, 'b': 1}",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Топ-2 по частоте.",
+    "code": "from collections import Counter\nprint(Counter('aab').most_common(2))",
+    "group": "Collections и itertools",
+    "id": "m615"
+  },
+  {
+    "topic": "collections",
+    "q": "Counter('aaabb').most_common(2)?",
+    "options": [
+      "[('a', 3), ('b', 2)]",
+      "{'a': 3, 'b': 2}",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Топ-2 по частоте.",
+    "code": "from collections import Counter\nprint(Counter('aaabb').most_common(2))",
+    "group": "Collections и itertools",
+    "id": "m616"
+  },
+  {
+    "topic": "collections",
+    "q": "Counter('xyz').most_common(2)?",
+    "options": [
+      "[('x', 1), ('y', 1)]",
+      "{'x': 1, 'y': 1, 'z': 1}",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Топ-2 по частоте.",
+    "code": "from collections import Counter\nprint(Counter('xyz').most_common(2))",
+    "group": "Collections и itertools",
+    "id": "m617"
+  },
+  {
+    "topic": "collections",
+    "q": "Counter('mississippi').most_common(2)?",
+    "options": [
+      "[('i', 4), ('s', 4)]",
+      "{'m': 1, 'i': 4, 's': 4, 'p': 2}",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Топ-2 по частоте.",
+    "code": "from collections import Counter\nprint(Counter('mississippi').most_common(2))",
+    "group": "Collections и itertools",
+    "id": "m618"
+  },
+  {
+    "topic": "collections",
+    "q": "Counter('abracadabra').most_common(2)?",
+    "options": [
+      "[('a', 5), ('b', 2)]",
+      "{'a': 5, 'b': 2, 'r': 2, 'c': 1, 'd': 1}",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Топ-2 по частоте.",
+    "code": "from collections import Counter\nprint(Counter('abracadabra').most_common(2))",
+    "group": "Collections и itertools",
+    "id": "m619"
+  },
+  {
+    "topic": "collections",
+    "q": "Что делает deque.rotate(2) на 5 элементах?",
+    "options": [
+      "цикл сдвиг на 2 вправо (отриц. — влево)",
+      "сортирует",
+      "удаляет k",
+      "ошибка всегда"
+    ],
+    "answer": 0,
+    "explain": "rotate — циклический сдвиг.",
+    "group": "Collections и itertools",
+    "id": "m620"
+  },
+  {
+    "topic": "collections",
+    "q": "Что делает deque.rotate(3) на 6 элементах?",
+    "options": [
+      "цикл сдвиг на 3 вправо (отриц. — влево)",
+      "сортирует",
+      "удаляет k",
+      "ошибка всегда"
+    ],
+    "answer": 0,
+    "explain": "rotate — циклический сдвиг.",
+    "group": "Collections и itertools",
+    "id": "m621"
+  },
+  {
+    "topic": "collections",
+    "q": "Что делает deque.rotate(1) на 4 элементах?",
+    "options": [
+      "цикл сдвиг на 1 вправо (отриц. — влево)",
+      "сортирует",
+      "удаляет k",
+      "ошибка всегда"
+    ],
+    "answer": 0,
+    "explain": "rotate — циклический сдвиг.",
+    "group": "Collections и itertools",
+    "id": "m622"
+  },
+  {
+    "topic": "collections",
+    "q": "Что делает deque.rotate(4) на 7 элементах?",
+    "options": [
+      "цикл сдвиг на 4 вправо (отриц. — влево)",
+      "сортирует",
+      "удаляет k",
+      "ошибка всегда"
+    ],
+    "answer": 0,
+    "explain": "rotate — циклический сдвиг.",
+    "group": "Collections и itertools",
+    "id": "m623"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(combinations(range(3), 2)) — сколько элементов?",
+    "options": [
+      "3",
+      "6",
+      "9",
+      "6"
+    ],
+    "answer": 0,
+    "explain": "C(3,2) = 3.",
+    "code": "from itertools import combinations\nprint(len(list(combinations(range(3), 2))))",
+    "group": "Collections и itertools",
+    "id": "m624"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(combinations(range(4), 2)) — сколько элементов?",
+    "options": [
+      "6",
+      "8",
+      "16",
+      "24"
+    ],
+    "answer": 0,
+    "explain": "C(4,2) = 6.",
+    "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 2))))",
+    "group": "Collections и itertools",
+    "id": "m625"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(combinations(range(4), 3)) — сколько элементов?",
+    "options": [
+      "4",
+      "12",
+      "64",
+      "24"
+    ],
+    "answer": 0,
+    "explain": "C(4,3) = 4.",
+    "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 3))))",
+    "group": "Collections и itertools",
+    "id": "m626"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(combinations(range(5), 2)) — сколько элементов?",
+    "options": [
+      "10",
+      "10",
+      "25",
+      "120"
+    ],
+    "answer": 0,
+    "explain": "C(5,2) = 10.",
+    "code": "from itertools import combinations\nprint(len(list(combinations(range(5), 2))))",
+    "group": "Collections и itertools",
+    "id": "m627"
+  },
+  {
+    "topic": "itertools",
+    "q": "len(list(product([0,1], repeat=2)))?",
+    "options": [
+      "4",
+      "2",
+      "5",
+      "?0"
+    ],
+    "answer": 0,
+    "explain": "2^2 = 4.",
+    "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=2))))",
+    "group": "Collections и itertools",
+    "id": "m628"
+  },
+  {
+    "topic": "itertools",
+    "q": "len(list(product([0,1], repeat=3)))?",
+    "options": [
+      "8",
+      "6",
+      "3",
+      "7"
+    ],
+    "answer": 0,
+    "explain": "2^3 = 8.",
+    "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=3))))",
+    "group": "Collections и itertools",
+    "id": "m629"
+  },
+  {
+    "topic": "itertools",
+    "q": "len(list(product([0,1], repeat=4)))?",
+    "options": [
+      "16",
+      "8",
+      "4",
+      "9"
+    ],
+    "answer": 0,
+    "explain": "2^4 = 16.",
+    "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=4))))",
+    "group": "Collections и itertools",
+    "id": "m630"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(islice([1, 2, 3, 4, 5], 3))?",
+    "options": [
+      "[1, 2, 3]",
+      "[1, 2, 3, 4]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "islice — ленивый срез.",
+    "code": "from itertools import islice\nprint(list(islice([1, 2, 3, 4, 5], 3)))",
+    "group": "Collections и itertools",
+    "id": "m631"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(islice([10, 20, 30, 40], 2))?",
+    "options": [
+      "[10, 20]",
+      "[10, 20, 30]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "islice — ленивый срез.",
+    "code": "from itertools import islice\nprint(list(islice([10, 20, 30, 40], 2)))",
+    "group": "Collections и itertools",
+    "id": "m632"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(islice([0, 1, 2, 3, 4, 5], 4))?",
+    "options": [
+      "[0, 1, 2, 3]",
+      "[0, 1, 2, 3, 4]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "islice — ленивый срез.",
+    "code": "from itertools import islice\nprint(list(islice([0, 1, 2, 3, 4, 5], 4)))",
+    "group": "Collections и itertools",
+    "id": "m633"
+  },
+  {
+    "topic": "functools",
+    "q": "partial(f, 1)(2) при f=lambda x,y: x+y эквивалентно…",
+    "options": [
+      "3",
+      "2",
+      "2",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "partial фиксирует первый аргумент → f(1, 2).",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 1)(2))",
+    "group": "Collections и itertools",
+    "id": "m634"
+  },
+  {
+    "topic": "functools",
+    "q": "partial(f, 3)(4) при f=lambda x,y: x+y эквивалентно…",
+    "options": [
+      "7",
+      "12",
+      "4",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "partial фиксирует первый аргумент → f(3, 4).",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 3)(4))",
+    "group": "Collections и itertools",
+    "id": "m635"
+  },
+  {
+    "topic": "functools",
+    "q": "partial(f, 5)(5) при f=lambda x,y: x+y эквивалентно…",
+    "options": [
+      "10",
+      "25",
+      "5",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "partial фиксирует первый аргумент → f(5, 5).",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 5)(5))",
+    "group": "Collections и itertools",
+    "id": "m636"
+  },
+  {
+    "topic": "functools",
+    "q": "partial(f, 10)(1) при f=lambda x,y: x+y эквивалентно…",
+    "options": [
+      "11",
+      "10",
+      "1",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "partial фиксирует первый аргумент → f(10, 1).",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 10)(1))",
+    "group": "Collections и itertools",
+    "id": "m637"
+  },
+  {
+    "topic": "functools",
+    "q": "partial(f, 0)(7) при f=lambda x,y: x+y эквивалентно…",
+    "options": [
+      "7",
+      "0",
+      "7",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "partial фиксирует первый аргумент → f(0, 7).",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 0)(7))",
+    "group": "Collections и itertools",
+    "id": "m638"
+  },
+  {
+    "topic": "functools",
+    "q": "Сколько уникальных ключей кэша у fib(2) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "options": [
+      "примерно 3 (0..n)",
+      "4",
+      "2",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "Каждый k от 0..n кэшируется один раз.",
+    "group": "Collections и itertools",
+    "id": "m639"
+  },
+  {
+    "topic": "functools",
+    "q": "Сколько уникальных ключей кэша у fib(3) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "options": [
+      "примерно 4 (0..n)",
+      "8",
+      "3",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "Каждый k от 0..n кэшируется один раз.",
+    "group": "Collections и itertools",
+    "id": "m640"
+  },
+  {
+    "topic": "functools",
+    "q": "Сколько уникальных ключей кэша у fib(4) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "options": [
+      "примерно 5 (0..n)",
+      "16",
+      "4",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "Каждый k от 0..n кэшируется один раз.",
+    "group": "Collections и itertools",
+    "id": "m641"
+  },
+  {
+    "topic": "functools",
+    "q": "Сколько уникальных ключей кэша у fib(5) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "options": [
+      "примерно 6 (0..n)",
+      "32",
+      "5",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "Каждый k от 0..n кэшируется один раз.",
+    "group": "Collections и itertools",
+    "id": "m642"
+  },
+  {
+    "topic": "typing",
+    "q": "isinstance([1, 2], list)?",
+    "options": [
+      "True",
+      "False",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "isinstance с абстрактными/builtin типами.",
+    "code": "print(isinstance([1, 2], list))",
+    "group": "Typing и dataclasses",
+    "id": "m643"
+  },
+  {
+    "topic": "typing",
+    "q": "isinstance({'a': 1}, dict)?",
+    "options": [
+      "True",
+      "False",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "isinstance с абстрактными/builtin типами.",
+    "code": "print(isinstance({'a': 1}, dict))",
+    "group": "Typing и dataclasses",
+    "id": "m644"
+  },
+  {
+    "topic": "typing",
+    "q": "isinstance((1,), tuple)?",
+    "options": [
+      "True",
+      "False",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "isinstance с абстрактными/builtin типами.",
+    "code": "print(isinstance((1,), tuple))",
+    "group": "Typing и dataclasses",
+    "id": "m645"
+  },
+  {
+    "topic": "typing",
+    "q": "isinstance({1}, set)?",
+    "options": [
+      "True",
+      "False",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "isinstance с абстрактными/builtin типами.",
+    "code": "print(isinstance({1}, set))",
+    "group": "Typing и dataclasses",
+    "id": "m646"
+  },
+  {
+    "topic": "typing",
+    "q": "isinstance((1, 2), list)?",
+    "options": [
+      "False",
+      "True",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "isinstance с абстрактными/builtin типами.",
+    "code": "print(isinstance((1, 2), list))",
+    "group": "Typing и dataclasses",
+    "id": "m647"
+  },
+  {
+    "topic": "typing",
+    "q": "isinstance([1], dict)?",
+    "options": [
+      "False",
+      "True",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "isinstance с абстрактными/builtin типами.",
+    "code": "print(isinstance([1], dict))",
+    "group": "Typing и dataclasses",
+    "id": "m648"
+  },
+  {
+    "topic": "typing",
+    "q": "isinstance([1], list[int]) в обычном CPython?",
+    "options": [
+      "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
+      "True всегда",
+      "False всегда без ошибки",
+      "True только в 3.12+"
+    ],
+    "answer": 0,
+    "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно.",
+    "group": "Typing и dataclasses",
+    "id": "m649"
+  },
+  {
+    "topic": "typing",
+    "q": "isinstance([1], dict[str, int]) в обычном CPython?",
+    "options": [
+      "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
+      "True всегда",
+      "False всегда без ошибки",
+      "True только в 3.12+"
+    ],
+    "answer": 0,
+    "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно.",
+    "group": "Typing и dataclasses",
+    "id": "m650"
+  },
+  {
+    "topic": "typing",
+    "q": "isinstance([1], tuple[int, ...]) в обычном CPython?",
+    "options": [
+      "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
+      "True всегда",
+      "False всегда без ошибки",
+      "True только в 3.12+"
+    ],
+    "answer": 0,
+    "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно.",
+    "group": "Typing и dataclasses",
+    "id": "m651"
+  },
+  {
+    "topic": "dataclasses",
+    "q": "@dataclass class Point: x: int = 0 — экземпляры делят x?",
+    "options": [
+      "нет, int immutable default ок",
+      "да, как list",
+      "ошибка синтаксиса",
+      "только frozen"
+    ],
+    "answer": 0,
+    "explain": "Проблема mutable default; int безопасен.",
+    "group": "Typing и dataclasses",
+    "id": "m652"
+  },
+  {
+    "topic": "dataclasses",
+    "q": "@dataclass class Cell: x: int = -1 — экземпляры делят x?",
+    "options": [
+      "нет, int immutable default ок",
+      "да, как list",
+      "ошибка синтаксиса",
+      "только frozen"
+    ],
+    "answer": 0,
+    "explain": "Проблема mutable default; int безопасен.",
+    "group": "Typing и dataclasses",
+    "id": "m653"
+  },
+  {
+    "topic": "dataclasses",
+    "q": "@dataclass class Node: x: int = 1 — экземпляры делят x?",
+    "options": [
+      "нет, int immutable default ок",
+      "да, как list",
+      "ошибка синтаксиса",
+      "только frozen"
+    ],
+    "answer": 0,
+    "explain": "Проблема mutable default; int безопасен.",
+    "group": "Typing и dataclasses",
+    "id": "m654"
+  },
+  {
+    "topic": "dataclasses",
+    "q": "field(default_factory=dict) зачем?",
+    "options": [
+      "новый dict() на каждый экземпляр",
+      "общий один dict",
+      "запретить поле",
+      "только JSON"
+    ],
+    "answer": 0,
+    "explain": "Избегаем общего mutable default.",
+    "group": "Typing и dataclasses",
+    "id": "m655"
+  },
+  {
+    "topic": "dataclasses",
+    "q": "field(default_factory=set) зачем?",
+    "options": [
+      "новый set() на каждый экземпляр",
+      "общий один set",
+      "запретить поле",
+      "только JSON"
+    ],
+    "answer": 0,
+    "explain": "Избегаем общего mutable default.",
+    "group": "Typing и dataclasses",
+    "id": "m656"
+  },
+  {
+    "topic": "asyncio",
+    "q": "gather n=2 корутин без return_exceptions при одной ошибке…",
+    "options": [
+      "пробросит исключение (остальные могут продолжать до отмены политики)",
+      "вернёт частичный list тихо",
+      "убивает процесс",
+      "игнор"
+    ],
+    "answer": 0,
+    "explain": "По умолчанию первая ошибка поднимается из gather.",
+    "group": "Asyncio",
+    "id": "m657"
+  },
+  {
+    "topic": "asyncio",
+    "q": "create_task ×2 без await/ссылок риск…",
+    "options": [
+      "задачи могут быть собраны GC / потеря исключений",
+      "выполнятся надёжнее",
+      "синхронно",
+      "запрещены"
+    ],
+    "answer": 0,
+    "explain": "Держи ссылки или await TaskGroup.",
+    "group": "Asyncio",
+    "id": "m658"
+  },
+  {
+    "topic": "asyncio",
+    "q": "gather n=3 корутин без return_exceptions при одной ошибке…",
+    "options": [
+      "пробросит исключение (остальные могут продолжать до отмены политики)",
+      "вернёт частичный list тихо",
+      "убивает процесс",
+      "игнор"
+    ],
+    "answer": 0,
+    "explain": "По умолчанию первая ошибка поднимается из gather.",
+    "group": "Asyncio",
+    "id": "m659"
+  },
+  {
+    "topic": "asyncio",
+    "q": "create_task ×3 без await/ссылок риск…",
+    "options": [
+      "задачи могут быть собраны GC / потеря исключений",
+      "выполнятся надёжнее",
+      "синхронно",
+      "запрещены"
+    ],
+    "answer": 0,
+    "explain": "Держи ссылки или await TaskGroup.",
+    "group": "Asyncio",
+    "id": "m660"
+  },
+  {
+    "topic": "asyncio",
+    "q": "gather n=4 корутин без return_exceptions при одной ошибке…",
+    "options": [
+      "пробросит исключение (остальные могут продолжать до отмены политики)",
+      "вернёт частичный list тихо",
+      "убивает процесс",
+      "игнор"
+    ],
+    "answer": 0,
+    "explain": "По умолчанию первая ошибка поднимается из gather.",
+    "group": "Asyncio",
+    "id": "m661"
+  },
+  {
+    "topic": "asyncio",
+    "q": "create_task ×4 без await/ссылок риск…",
+    "options": [
+      "задачи могут быть собраны GC / потеря исключений",
+      "выполнятся надёжнее",
+      "синхронно",
+      "запрещены"
+    ],
+    "answer": 0,
+    "explain": "Держи ссылки или await TaskGroup.",
+    "group": "Asyncio",
+    "id": "m662"
+  },
+  {
+    "topic": "pathlib",
+    "q": "str(PurePosixPath('a', 'b'))?",
+    "options": [
+      "a/b",
+      "a/b/",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Path склеивает части.",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('a', 'b'))",
+    "group": "Stdlib и производительность",
+    "id": "m663"
+  },
+  {
+    "topic": "pathlib",
+    "q": "str(PurePosixPath('var', 'log', 'app.log'))?",
+    "options": [
+      "var/log/app.log",
+      "var/log/app.log/",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Path склеивает части.",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'app.log'))",
+    "group": "Stdlib и производительность",
+    "id": "m664"
+  },
+  {
+    "topic": "pathlib",
+    "q": "str(PurePosixPath('home', 'user', 'docs'))?",
+    "options": [
+      "home/user/docs",
+      "home/user/docs/",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Path склеивает части.",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('home', 'user', 'docs'))",
+    "group": "Stdlib и производительность",
+    "id": "m665"
+  },
+  {
+    "topic": "pathlib",
+    "q": "str(PurePosixPath('x', 'y', 'z', 'w'))?",
+    "options": [
+      "x/y/z/w",
+      "x/y/z/w/",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Path склеивает части.",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('x', 'y', 'z', 'w'))",
+    "group": "Stdlib и производительность",
+    "id": "m666"
+  },
+  {
+    "topic": "regex",
+    "q": "re.search('\\\\d+', 'ab12cd') group?",
+    "options": [
+      "'12'",
+      "'ab12cd'",
+      "ошибка",
+      "[]"
+    ],
+    "answer": 0,
+    "explain": "search — первое вхождение.",
+    "code": "import re\nm = re.search('\\\\d+', 'ab12cd')\nprint(None if m is None else m.group())",
+    "group": "Stdlib и производительность",
+    "id": "m667"
+  },
+  {
+    "topic": "regex",
+    "q": "re.search('[aeiou]', 'stack') group?",
+    "options": [
+      "'a'",
+      "'stack'",
+      "ошибка",
+      "[]"
+    ],
+    "answer": 0,
+    "explain": "search — первое вхождение.",
+    "code": "import re\nm = re.search('[aeiou]', 'stack')\nprint(None if m is None else m.group())",
+    "group": "Stdlib и производительность",
+    "id": "m668"
+  },
+  {
+    "topic": "regex",
+    "q": "re.search('^\\\\d+$', '42') group?",
+    "options": [
+      "'42'",
+      "'42'",
+      "ошибка",
+      "[]"
+    ],
+    "answer": 0,
+    "explain": "search — первое вхождение.",
+    "code": "import re\nm = re.search('^\\\\d+$', '42')\nprint(None if m is None else m.group())",
+    "group": "Stdlib и производительность",
+    "id": "m669"
+  },
+  {
+    "topic": "regex",
+    "q": "re.search('^\\\\d+$', '42a') group?",
+    "options": [
+      "None",
+      "'42a'",
+      "ошибка",
+      "[]"
+    ],
+    "answer": 0,
+    "explain": "search — первое вхождение.",
+    "code": "import re\nm = re.search('^\\\\d+$', '42a')\nprint(None if m is None else m.group())",
+    "group": "Stdlib и производительность",
+    "id": "m670"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Метод GET по семантике HTTP…",
+    "options": [
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
+    ],
+    "answer": 0,
+    "explain": "GET безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
+    "group": "Веб и API",
+    "id": "m671"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Метод PUT по семантике HTTP…",
+    "options": [
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
+    ],
+    "answer": 0,
+    "explain": "PUT безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
+    "group": "Веб и API",
+    "id": "m672"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Метод DELETE по семантике HTTP…",
+    "options": [
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
+    ],
+    "answer": 0,
+    "explain": "DELETE безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
+    "group": "Веб и API",
+    "id": "m673"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Метод HEAD по семантике HTTP…",
+    "options": [
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
+    ],
+    "answer": 0,
+    "explain": "HEAD безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
+    "group": "Веб и API",
+    "id": "m674"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Метод OPTIONS по семантике HTTP…",
+    "options": [
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
+    ],
+    "answer": 0,
+    "explain": "OPTIONS безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
+    "group": "Веб и API",
+    "id": "m675"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 200 обычно значит…",
+    "options": [
+      "OK",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "200 — OK.",
+    "group": "Веб и API",
+    "id": "m676"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 201 обычно значит…",
+    "options": [
+      "Created",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "201 — Created.",
+    "group": "Веб и API",
+    "id": "m677"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 204 обычно значит…",
+    "options": [
+      "No Content",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "204 — No Content.",
+    "group": "Веб и API",
+    "id": "m678"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 301 обычно значит…",
+    "options": [
+      "Moved Permanently",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "301 — Moved Permanently.",
+    "group": "Веб и API",
+    "id": "m679"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 400 обычно значит…",
+    "options": [
+      "Bad Request",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "400 — Bad Request.",
+    "group": "Веб и API",
+    "id": "m680"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 401 обычно значит…",
+    "options": [
+      "Unauthorized",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "401 — Unauthorized.",
+    "group": "Веб и API",
+    "id": "m681"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 403 обычно значит…",
+    "options": [
+      "Forbidden",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "403 — Forbidden.",
+    "group": "Веб и API",
+    "id": "m682"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 404 обычно значит…",
+    "options": [
+      "Not Found",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "404 — Not Found.",
+    "group": "Веб и API",
+    "id": "m683"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 409 обычно значит…",
+    "options": [
+      "Conflict",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "409 — Conflict.",
+    "group": "Веб и API",
+    "id": "m684"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 422 обычно значит…",
+    "options": [
+      "Unprocessable",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "422 — Unprocessable.",
+    "group": "Веб и API",
+    "id": "m685"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 429 обычно значит…",
+    "options": [
+      "Too Many Requests",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "429 — Too Many Requests.",
+    "group": "Веб и API",
+    "id": "m686"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 500 обычно значит…",
+    "options": [
+      "Server Error",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "500 — Server Error.",
+    "group": "Веб и API",
+    "id": "m687"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 502 обычно значит…",
+    "options": [
+      "Bad Gateway",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "502 — Bad Gateway.",
+    "group": "Веб и API",
+    "id": "m688"
+  },
+  {
+    "topic": "HTTP",
+    "q": "HTTP 503 обычно значит…",
+    "options": [
+      "Unavailable",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
+    ],
+    "answer": 0,
+    "explain": "503 — Unavailable.",
+    "group": "Веб и API",
+    "id": "m689"
+  },
+  {
+    "topic": "SQL",
+    "q": "Уровень изоляции READ UNCOMMITTED — что верно?",
+    "options": [
+      "разные аномалии чтения/записи; знай свою СУБД",
+      "все уровни идентичны в PostgreSQL",
+      "только про DDL",
+      "отключает индексы"
+    ],
+    "answer": 0,
+    "explain": "Изоляции отличаются допустимыми аномалиями.",
+    "group": "Веб и API",
+    "id": "m690"
+  },
+  {
+    "topic": "SQL",
+    "q": "Уровень изоляции READ COMMITTED — что верно?",
+    "options": [
+      "разные аномалии чтения/записи; знай свою СУБД",
+      "все уровни идентичны в PostgreSQL",
+      "только про DDL",
+      "отключает индексы"
+    ],
+    "answer": 0,
+    "explain": "Изоляции отличаются допустимыми аномалиями.",
+    "group": "Веб и API",
+    "id": "m691"
+  },
+  {
+    "topic": "SQL",
+    "q": "Уровень изоляции REPEATABLE READ — что верно?",
+    "options": [
+      "разные аномалии чтения/записи; знай свою СУБД",
+      "все уровни идентичны в PostgreSQL",
+      "только про DDL",
+      "отключает индексы"
+    ],
+    "answer": 0,
+    "explain": "Изоляции отличаются допустимыми аномалиями.",
+    "group": "Веб и API",
+    "id": "m692"
+  },
+  {
+    "topic": "SQL",
+    "q": "Уровень изоляции SERIALIZABLE — что верно?",
+    "options": [
+      "разные аномалии чтения/записи; знай свою СУБД",
+      "все уровни идентичны в PostgreSQL",
+      "только про DDL",
+      "отключает индексы"
+    ],
+    "answer": 0,
+    "explain": "Изоляции отличаются допустимыми аномалиями.",
+    "group": "Веб и API",
+    "id": "m693"
+  },
+  {
+    "topic": "context",
+    "q": "ExitStack.enter_context нужен когда…",
+    "options": [
+      "динамическое число CM",
+      "только один with",
+      "вместо try",
+      "async only"
+    ],
+    "answer": 0,
+    "explain": "contextlib.ExitStack.",
+    "group": "Исключения и контекст",
+    "id": "m694"
+  },
+  {
+    "topic": "MRO",
+    "q": "Что выведет C.__mro__[0].__name__?",
+    "options": [
+      "C",
+      "A",
+      "B",
+      "object"
+    ],
+    "answer": 0,
+    "explain": "Первый в MRO — сам класс.",
+    "code": "class A: pass\nclass B(A): pass\nclass C(B): pass\nprint(C.__mro__[0].__name__)",
+    "group": "ООП продвинутый",
+    "id": "m695"
+  },
+  {
+    "topic": "match",
+    "q": "case _ : это…",
+    "options": [
+      "wildcard / default ветка",
+      "ошибка синтаксиса",
+      "только для None",
+      "break"
+    ],
+    "answer": 0,
+    "explain": "Ловит всё оставшееся.",
+    "group": "Typing и dataclasses",
+    "id": "m696"
+  },
+  {
+    "topic": "тесты",
+    "q": "pytest.mark.parametrize умножает…",
+    "options": [
+      "тест на набор входных данных",
+      "потоки",
+      "процессы",
+      "coverage магически"
+    ],
+    "answer": 0,
+    "explain": "Таблица кейсов.",
+    "group": "Тесты и качество",
+    "id": "m697"
+  },
+  {
+    "topic": "json",
+    "q": "json.dumps({'a': 1})?",
+    "options": [
+      "{\"a\": 1}",
+      "ошибка",
+      "None",
+      "?0"
+    ],
+    "answer": 0,
+    "explain": "dumps → строка JSON.",
+    "code": "import json\nprint(json.dumps({'a': 1}))",
+    "group": "Stdlib и производительность",
+    "id": "m698"
+  },
+  {
+    "topic": "json",
+    "q": "json.loads('{\"a\": 1}') тип?",
+    "options": [
+      "dict",
+      "str",
+      "JSON",
+      "tuple"
+    ],
+    "answer": 0,
+    "explain": "loads парсит в объекты Python.",
+    "code": "import json\nprint(type(json.loads('{\"a\": 1}')).__name__)",
+    "group": "Stdlib и производительность",
+    "id": "m699"
+  },
+  {
+    "topic": "json",
+    "q": "json.dumps({'x': [1, 2]})?",
+    "options": [
+      "{\"x\": [1, 2]}",
+      "ошибка",
+      "None",
+      "?0"
+    ],
+    "answer": 0,
+    "explain": "dumps → строка JSON.",
+    "code": "import json\nprint(json.dumps({'x': [1, 2]}))",
+    "group": "Stdlib и производительность",
+    "id": "m700"
+  },
+  {
+    "topic": "json",
+    "q": "json.loads('{\"x\": [1, 2]}') тип?",
+    "options": [
+      "dict",
+      "str",
+      "JSON",
+      "tuple"
+    ],
+    "answer": 0,
+    "explain": "loads парсит в объекты Python.",
+    "code": "import json\nprint(type(json.loads('{\"x\": [1, 2]}')).__name__)",
+    "group": "Stdlib и производительность",
+    "id": "m701"
+  },
+  {
+    "topic": "json",
+    "q": "json.dumps({'ok': True, 'n': None})?",
+    "options": [
+      "{\"ok\": true, \"n\": null}",
+      "{\"ok\": True, \"n\": None}",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "dumps → строка JSON.",
+    "code": "import json\nprint(json.dumps({'ok': True, 'n': None}))",
+    "group": "Stdlib и производительность",
+    "id": "m702"
+  },
+  {
+    "topic": "json",
+    "q": "json.loads('{\"ok\": true, \"n\": null}') тип?",
+    "options": [
+      "dict",
+      "str",
+      "JSON",
+      "tuple"
+    ],
+    "answer": 0,
+    "explain": "loads парсит в объекты Python.",
+    "code": "import json\nprint(type(json.loads('{\"ok\": true, \"n\": null}')).__name__)",
+    "group": "Stdlib и производительность",
+    "id": "m703"
+  },
+  {
+    "topic": "json",
+    "q": "json.dumps([1, 2, 3])?",
+    "options": [
+      "[1, 2, 3]",
+      "ошибка",
+      "None",
+      "?0"
+    ],
+    "answer": 0,
+    "explain": "dumps → строка JSON.",
+    "code": "import json\nprint(json.dumps([1, 2, 3]))",
+    "group": "Stdlib и производительность",
+    "id": "m704"
+  },
+  {
+    "topic": "json",
+    "q": "json.loads('[1, 2, 3]') тип?",
+    "options": [
+      "list",
+      "str",
+      "JSON",
+      "tuple"
+    ],
+    "answer": 0,
+    "explain": "loads парсит в объекты Python.",
+    "code": "import json\nprint(type(json.loads('[1, 2, 3]')).__name__)",
+    "group": "Stdlib и производительность",
+    "id": "m705"
+  },
+  {
+    "topic": "json",
+    "q": "json.dumps('hi')?",
+    "options": [
+      "\"hi\"",
+      "hi",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "dumps → строка JSON.",
+    "code": "import json\nprint(json.dumps('hi'))",
+    "group": "Stdlib и производительность",
+    "id": "m706"
+  },
+  {
+    "topic": "json",
+    "q": "json.dumps(42)?",
+    "options": [
+      "42",
+      "ошибка",
+      "None",
+      "?0"
+    ],
+    "answer": 0,
+    "explain": "dumps → строка JSON.",
+    "code": "import json\nprint(json.dumps(42))",
+    "group": "Stdlib и производительность",
+    "id": "m707"
+  },
+  {
+    "topic": "json",
+    "q": "json.loads('{')?",
+    "options": [
+      "JSONDecodeError",
+      "None",
+      "{}",
+      "ошибка SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "Невалидный JSON → JSONDecodeError.",
+    "code": "import json\nprint(json.loads('{'))",
+    "group": "Stdlib и производительность",
+    "id": "m708"
+  },
+  {
+    "topic": "json",
+    "q": "json.loads('nullish')?",
+    "options": [
+      "JSONDecodeError",
+      "None",
+      "{}",
+      "ошибка SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "Невалидный JSON → JSONDecodeError.",
+    "code": "import json\nprint(json.loads('nullish'))",
+    "group": "Stdlib и производительность",
+    "id": "m709"
+  },
+  {
+    "topic": "json",
+    "q": "json.loads('[1, 2,')?",
+    "options": [
+      "JSONDecodeError",
+      "None",
+      "{}",
+      "ошибка SyntaxError"
+    ],
+    "answer": 0,
+    "explain": "Невалидный JSON → JSONDecodeError.",
+    "code": "import json\nprint(json.loads('[1, 2,'))",
+    "group": "Stdlib и производительность",
+    "id": "m710"
+  },
+  {
+    "topic": "heapq",
+    "q": "Что выведет код (минимум на [0])?",
+    "options": [
+      "1",
+      "1",
+      "5",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "После heapify h[0] — минимум (для min-heap).",
+    "code": "import heapq\nh = [5, 1, 3]\nheapq.heapify(h)\nprint(h[0])",
+    "group": "Collections и itertools",
+    "id": "m711"
+  },
+  {
+    "topic": "heapq",
+    "q": "heapq.nsmallest(2, [5, 1, 3])?",
+    "options": [
+      "[1, 3]",
+      "[1, 3, 5]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Два наименьших.",
+    "code": "import heapq\nprint(heapq.nsmallest(2, [5, 1, 3]))",
+    "group": "Collections и itertools",
+    "id": "m712"
+  },
+  {
+    "topic": "heapq",
+    "q": "Что выведет код (минимум на [0])?",
+    "options": [
+      "1",
+      "1",
+      "9",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "После heapify h[0] — минимум (для min-heap).",
+    "code": "import heapq\nh = [9, 2, 7, 1]\nheapq.heapify(h)\nprint(h[0])",
+    "group": "Collections и itertools",
+    "id": "m713"
+  },
+  {
+    "topic": "heapq",
+    "q": "heapq.nsmallest(2, [9, 2, 7, 1])?",
+    "options": [
+      "[1, 2]",
+      "[1, 2, 7]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Два наименьших.",
+    "code": "import heapq\nprint(heapq.nsmallest(2, [9, 2, 7, 1]))",
+    "group": "Collections и itertools",
+    "id": "m714"
+  },
+  {
+    "topic": "heapq",
+    "q": "Что выведет код (минимум на [0])?",
+    "options": [
+      "1",
+      "1",
+      "4",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "После heapify h[0] — минимум (для min-heap).",
+    "code": "import heapq\nh = [4, 4, 1]\nheapq.heapify(h)\nprint(h[0])",
+    "group": "Collections и itertools",
+    "id": "m715"
+  },
+  {
+    "topic": "heapq",
+    "q": "heapq.nsmallest(2, [4, 4, 1])?",
+    "options": [
+      "[1, 4]",
+      "[1, 4, 4]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Два наименьших.",
+    "code": "import heapq\nprint(heapq.nsmallest(2, [4, 4, 1]))",
+    "group": "Collections и itertools",
+    "id": "m716"
+  },
+  {
+    "topic": "heapq",
+    "q": "Что выведет код (минимум на [0])?",
+    "options": [
+      "5",
+      "5",
+      "10",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "После heapify h[0] — минимум (для min-heap).",
+    "code": "import heapq\nh = [10, 20, 5, 30]\nheapq.heapify(h)\nprint(h[0])",
+    "group": "Collections и itertools",
+    "id": "m717"
+  },
+  {
+    "topic": "heapq",
+    "q": "heapq.nsmallest(2, [10, 20, 5, 30])?",
+    "options": [
+      "[5, 10]",
+      "[5, 10, 20]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Два наименьших.",
+    "code": "import heapq\nprint(heapq.nsmallest(2, [10, 20, 5, 30]))",
+    "group": "Collections и itertools",
+    "id": "m718"
+  },
+  {
+    "topic": "bisect",
+    "q": "bisect_left([1, 3, 5, 7], 4)?",
+    "options": [
+      "2",
+      "0",
+      "4",
+      "?0"
+    ],
+    "answer": 0,
+    "explain": "Индекс вставки слева для сохранения порядка.",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 4))",
+    "group": "Collections и itertools",
+    "id": "m719"
+  },
+  {
+    "topic": "bisect",
+    "q": "bisect_left([1, 3, 5, 7], 1)?",
+    "options": [
+      "0",
+      "1",
+      "4",
+      "?0"
+    ],
+    "answer": 0,
+    "explain": "Индекс вставки слева для сохранения порядка.",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 1))",
+    "group": "Collections и itertools",
+    "id": "m720"
+  },
+  {
+    "topic": "bisect",
+    "q": "bisect_left([1, 3, 5, 7], 7)?",
+    "options": [
+      "3",
+      "4",
+      "0",
+      "7"
+    ],
+    "answer": 0,
+    "explain": "Индекс вставки слева для сохранения порядка.",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 7))",
+    "group": "Collections и itertools",
+    "id": "m721"
+  },
+  {
+    "topic": "bisect",
+    "q": "bisect_left([1, 3, 5, 7], 0)?",
+    "options": [
+      "0",
+      "4",
+      "?0",
+      "?1"
+    ],
+    "answer": 0,
+    "explain": "Индекс вставки слева для сохранения порядка.",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 0))",
+    "group": "Collections и itertools",
+    "id": "m722"
+  },
+  {
+    "topic": "bisect",
+    "q": "bisect_left([1, 3, 5, 7], 8)?",
+    "options": [
+      "4",
+      "0",
+      "8",
+      "?0"
+    ],
+    "answer": 0,
+    "explain": "Индекс вставки слева для сохранения порядка.",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 8))",
+    "group": "Collections и itertools",
+    "id": "m723"
+  },
+  {
+    "topic": "bisect",
+    "q": "bisect_left([2, 4, 6], 5)?",
+    "options": [
+      "2",
+      "0",
+      "3",
+      "5"
+    ],
+    "answer": 0,
+    "explain": "Индекс вставки слева для сохранения порядка.",
+    "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 5))",
+    "group": "Collections и itertools",
+    "id": "m724"
+  },
+  {
+    "topic": "bisect",
+    "q": "bisect_left([2, 4, 6], 4)?",
+    "options": [
+      "1",
+      "2",
+      "0",
+      "3"
+    ],
+    "answer": 0,
+    "explain": "Индекс вставки слева для сохранения порядка.",
+    "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 4))",
+    "group": "Collections и itertools",
+    "id": "m725"
+  },
+  {
+    "topic": "walrus",
+    "q": "Что выведет код?",
+    "options": [
+      "no",
+      "0",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": ":= присваивает и использует значение в условии.",
+    "code": "if (x := 0):\n    print(x)\nelse:\n    print('no')",
+    "group": "Typing и dataclasses",
+    "id": "m726"
+  },
+  {
+    "topic": "walrus",
+    "q": "Что выведет код?",
+    "options": [
+      "1",
+      "no",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": ":= присваивает и использует значение в условии.",
+    "code": "if (x := 1):\n    print(x)\nelse:\n    print('no')",
+    "group": "Typing и dataclasses",
+    "id": "m727"
+  },
+  {
+    "topic": "walrus",
+    "q": "Что выведет код?",
+    "options": [
+      "2",
+      "no",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": ":= присваивает и использует значение в условии.",
+    "code": "if (x := 2):\n    print(x)\nelse:\n    print('no')",
+    "group": "Typing и dataclasses",
+    "id": "m728"
+  },
+  {
+    "topic": "walrus",
+    "q": "Что выведет код?",
+    "options": [
+      "5",
+      "no",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": ":= присваивает и использует значение в условии.",
+    "code": "if (x := 5):\n    print(x)\nelse:\n    print('no')",
+    "group": "Typing и dataclasses",
+    "id": "m729"
+  },
+  {
+    "topic": "walrus",
+    "q": "Что выведет код?",
+    "options": [
+      "10",
+      "no",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": ":= присваивает и использует значение в условии.",
+    "code": "if (x := 10):\n    print(x)\nelse:\n    print('no')",
+    "group": "Typing и dataclasses",
+    "id": "m730"
+  },
+  {
+    "topic": "match",
+    "q": "Что выведет код?",
+    "options": [
+      "zero",
+      "ошибка",
+      "None",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "match/case сопоставляет значение.",
+    "code": "x = 0\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
+    "group": "Typing и dataclasses",
+    "id": "m731"
+  },
+  {
+    "topic": "match",
+    "q": "Что выведет код?",
+    "options": [
+      "one",
+      "ошибка",
+      "None",
+      "1"
+    ],
+    "answer": 0,
+    "explain": "match/case сопоставляет значение.",
+    "code": "x = 1\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
+    "group": "Typing и dataclasses",
+    "id": "m732"
+  },
+  {
+    "topic": "match",
+    "q": "Что выведет код?",
+    "options": [
+      "other",
+      "ошибка",
+      "None",
+      "2"
+    ],
+    "answer": 0,
+    "explain": "match/case сопоставляет значение.",
+    "code": "x = 2\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
+    "group": "Typing и dataclasses",
+    "id": "m733"
+  },
+  {
+    "topic": "match",
+    "q": "Что выведет код?",
+    "options": [
+      "other",
+      "ошибка",
+      "None",
+      "99"
+    ],
+    "answer": 0,
+    "explain": "match/case сопоставляет значение.",
+    "code": "x = 99\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
+    "group": "Typing и dataclasses",
+    "id": "m734"
+  },
+  {
+    "topic": "match",
+    "q": "Что выведет код?",
+    "options": [
+      "pair",
+      "ошибка",
+      "None",
+      "[1, 2]"
+    ],
+    "answer": 0,
+    "explain": "Паттерны последовательностей в match.",
+    "code": "x = [1, 2]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
+    "group": "Typing и dataclasses",
+    "id": "m735"
+  },
+  {
+    "topic": "match",
+    "q": "Что выведет код?",
+    "options": [
+      "single",
+      "ошибка",
+      "None",
+      "[1]"
+    ],
+    "answer": 0,
+    "explain": "Паттерны последовательностей в match.",
+    "code": "x = [1]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
+    "group": "Typing и dataclasses",
+    "id": "m736"
+  },
+  {
+    "topic": "match",
+    "q": "Что выведет код?",
+    "options": [
+      "many",
+      "ошибка",
+      "None",
+      "[1, 2, 3]"
+    ],
+    "answer": 0,
+    "explain": "Паттерны последовательностей в match.",
+    "code": "x = [1, 2, 3]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
+    "group": "Typing и dataclasses",
+    "id": "m737"
+  },
+  {
+    "topic": "match",
+    "q": "Что выведет код?",
+    "options": [
+      "empty",
+      "ошибка",
+      "None",
+      "[]"
+    ],
+    "answer": 0,
+    "explain": "Паттерны последовательностей в match.",
+    "code": "x = []\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
+    "group": "Typing и dataclasses",
+    "id": "m738"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(accumulate(range(1, 3)))?",
+    "options": [
+      "[1, 3]",
+      "[1, 2]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Накопительная сумма.",
+    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 3))))",
+    "group": "Collections и itertools",
+    "id": "m739"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(chain([1,2], list(range(2))))?",
+    "options": [
+      "[1, 2, 0, 1]",
+      "[[1, 2], [0, 1]]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "chain склеивает итерируемые.",
+    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(2)))))",
+    "group": "Collections и itertools",
+    "id": "m740"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(accumulate(range(1, 4)))?",
+    "options": [
+      "[1, 3, 6]",
+      "[1, 2, 3]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Накопительная сумма.",
+    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 4))))",
+    "group": "Collections и itertools",
+    "id": "m741"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(chain([1,2], list(range(3))))?",
+    "options": [
+      "[1, 2, 0, 1, 2]",
+      "[[1, 2], [0, 1, 2]]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "chain склеивает итерируемые.",
+    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(3)))))",
+    "group": "Collections и itertools",
+    "id": "m742"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(accumulate(range(1, 5)))?",
+    "options": [
+      "[1, 3, 6, 10]",
+      "[1, 2, 3, 4]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Накопительная сумма.",
+    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 5))))",
+    "group": "Collections и itertools",
+    "id": "m743"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(chain([1,2], list(range(4))))?",
+    "options": [
+      "[1, 2, 0, 1, 2, 3]",
+      "[[1, 2], [0, 1, 2, 3]]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "chain склеивает итерируемые.",
+    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(4)))))",
+    "group": "Collections и itertools",
+    "id": "m744"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(accumulate(range(1, 6)))?",
+    "options": [
+      "[1, 3, 6, 10, 15]",
+      "[1, 2, 3, 4, 5]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Накопительная сумма.",
+    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 6))))",
+    "group": "Collections и itertools",
+    "id": "m745"
+  },
+  {
+    "topic": "itertools",
+    "q": "list(chain([1,2], list(range(5))))?",
+    "options": [
+      "[1, 2, 0, 1, 2, 3, 4]",
+      "[[1, 2], [0, 1, 2, 3, 4]]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "chain склеивает итерируемые.",
+    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(5)))))",
+    "group": "Collections и itertools",
+    "id": "m746"
+  },
+  {
+    "topic": "itertools",
+    "q": "len(list(permutations(range(3), 2)))?",
+    "options": [
+      "6",
+      "3",
+      "9",
+      "?0"
+    ],
+    "answer": 0,
+    "explain": "P(3,2) = 6.",
+    "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 2))))",
+    "group": "Collections и itertools",
+    "id": "m747"
+  },
+  {
+    "topic": "itertools",
+    "q": "len(list(permutations(range(4), 2)))?",
+    "options": [
+      "12",
+      "6",
+      "8",
+      "16"
+    ],
+    "answer": 0,
+    "explain": "P(4,2) = 12.",
+    "code": "from itertools import permutations\nprint(len(list(permutations(range(4), 2))))",
+    "group": "Collections и itertools",
+    "id": "m748"
+  },
+  {
+    "topic": "itertools",
+    "q": "len(list(permutations(range(5), 2)))?",
+    "options": [
+      "20",
+      "10",
+      "25",
+      "120"
+    ],
+    "answer": 0,
+    "explain": "P(5,2) = 20.",
+    "code": "from itertools import permutations\nprint(len(list(permutations(range(5), 2))))",
+    "group": "Collections и itertools",
+    "id": "m749"
+  },
+  {
+    "topic": "itertools",
+    "q": "len(list(permutations(range(3), 3)))?",
+    "options": [
+      "6",
+      "1",
+      "9",
+      "27"
+    ],
+    "answer": 0,
+    "explain": "P(3,3) = 6.",
+    "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 3))))",
+    "group": "Collections и itertools",
+    "id": "m750"
+  },
+  {
+    "topic": "itertools",
+    "q": "groupby([1, 1, 2, 2, 3]) consecutive counts?",
+    "options": [
+      "[(1, 2), (2, 2), (3, 1)]",
+      "[1, 2, 3]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "groupby группирует только подряд идущие одинаковые.",
+    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 1, 2, 2, 3])])",
+    "group": "Collections и itertools",
+    "id": "m751"
+  },
+  {
+    "topic": "itertools",
+    "q": "groupby([5, 5, 5]) consecutive counts?",
+    "options": [
+      "[(5, 3)]",
+      "[5]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "groupby группирует только подряд идущие одинаковые.",
+    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([5, 5, 5])])",
+    "group": "Collections и itertools",
+    "id": "m752"
+  },
+  {
+    "topic": "itertools",
+    "q": "groupby([1, 2, 1]) consecutive counts?",
+    "options": [
+      "[(1, 1), (2, 1), (1, 1)]",
+      "[1, 2]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "groupby группирует только подряд идущие одинаковые.",
+    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 2, 1])])",
+    "group": "Collections и itertools",
+    "id": "m753"
+  },
+  {
+    "topic": "itertools",
+    "q": "groupby([0, 0, 1, 1, 0]) consecutive counts?",
+    "options": [
+      "[(0, 2), (1, 2), (0, 1)]",
+      "[0, 1]",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "groupby группирует только подряд идущие одинаковые.",
+    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([0, 0, 1, 1, 0])])",
+    "group": "Collections и itertools",
+    "id": "m754"
+  },
+  {
+    "topic": "functools",
+    "q": "reduce(lambda a,b: a+b, [1, 2, 3, 4])?",
+    "options": [
+      "10",
+      "11",
+      "1",
+      "4"
+    ],
+    "answer": 0,
+    "explain": "Свёртка суммы.",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [1, 2, 3, 4]))",
+    "group": "Collections и itertools",
+    "id": "m755"
+  },
+  {
+    "topic": "functools",
+    "q": "reduce(lambda a,b: a*b, [1, 2, 3, 4])?",
+    "options": [
+      "24",
+      "10",
+      "1",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "Свёртка произведения.",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [1, 2, 3, 4]))",
+    "group": "Collections и itertools",
+    "id": "m756"
+  },
+  {
+    "topic": "functools",
+    "q": "reduce(lambda a,b: a+b, [2, 2, 2])?",
+    "options": [
+      "6",
+      "7",
+      "2",
+      "3"
+    ],
+    "answer": 0,
+    "explain": "Свёртка суммы.",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [2, 2, 2]))",
+    "group": "Collections и itertools",
+    "id": "m757"
+  },
+  {
+    "topic": "functools",
+    "q": "reduce(lambda a,b: a*b, [2, 2, 2])?",
+    "options": [
+      "8",
+      "6",
+      "2",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "Свёртка произведения.",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [2, 2, 2]))",
+    "group": "Collections и itertools",
+    "id": "m758"
+  },
+  {
+    "topic": "functools",
+    "q": "reduce(lambda a,b: a+b, [5, 1, 1])?",
+    "options": [
+      "7",
+      "8",
+      "5",
+      "3"
+    ],
+    "answer": 0,
+    "explain": "Свёртка суммы.",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [5, 1, 1]))",
+    "group": "Collections и itertools",
+    "id": "m759"
+  },
+  {
+    "topic": "functools",
+    "q": "reduce(lambda a,b: a*b, [5, 1, 1])?",
+    "options": [
+      "5",
+      "7",
+      "0",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "Свёртка произведения.",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [5, 1, 1]))",
+    "group": "Collections и itertools",
+    "id": "m760"
+  },
+  {
+    "topic": "functools",
+    "q": "reduce(lambda a,b: a+b, [10, 2])?",
+    "options": [
+      "12",
+      "13",
+      "10",
+      "2"
+    ],
+    "answer": 0,
+    "explain": "Свёртка суммы.",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [10, 2]))",
+    "group": "Collections и itertools",
+    "id": "m761"
+  },
+  {
+    "topic": "functools",
+    "q": "reduce(lambda a,b: a*b, [10, 2])?",
+    "options": [
+      "20",
+      "12",
+      "10",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "Свёртка произведения.",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [10, 2]))",
+    "group": "Collections и itertools",
+    "id": "m762"
+  },
+  {
+    "topic": "functools",
+    "q": "lru_cache(maxsize=1) хранит…",
+    "options": [
+      "до 1 результатов вызовов",
+      "только последний вызов всегда",
+      "на диске",
+      "в Redis"
+    ],
+    "answer": 0,
+    "explain": "Кэш в памяти процесса.",
+    "group": "Collections и itertools",
+    "id": "m763"
+  },
+  {
+    "topic": "functools",
+    "q": "lru_cache(maxsize=2) хранит…",
+    "options": [
+      "до 2 результатов вызовов",
+      "только последний вызов всегда",
+      "на диске",
+      "в Redis"
+    ],
+    "answer": 0,
+    "explain": "Кэш в памяти процесса.",
+    "group": "Collections и itertools",
+    "id": "m764"
+  },
+  {
+    "topic": "functools",
+    "q": "lru_cache(maxsize=8) хранит…",
+    "options": [
+      "до 8 результатов вызовов",
+      "только последний вызов всегда",
+      "на диске",
+      "в Redis"
+    ],
+    "answer": 0,
+    "explain": "Кэш в памяти процесса.",
+    "group": "Collections и itertools",
+    "id": "m765"
+  },
+  {
+    "topic": "functools",
+    "q": "lru_cache(maxsize=128) хранит…",
+    "options": [
+      "до 128 результатов вызовов",
+      "только последний вызов всегда",
+      "на диске",
+      "в Redis"
+    ],
+    "answer": 0,
+    "explain": "Кэш в памяти процесса.",
+    "group": "Collections и itertools",
+    "id": "m766"
+  },
+  {
+    "topic": "functools",
+    "q": "lru_cache(maxsize=None (безлимит)) хранит…",
+    "options": [
+      "неограниченно (осторожно с RAM)",
+      "ровно 0 записей",
+      "на диске",
+      "в Redis"
+    ],
+    "answer": 0,
+    "explain": "Кэш в памяти процесса.",
+    "group": "Collections и itertools",
+    "id": "m767"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.copy: inner is same object?",
+    "options": [
+      "True (shallow)",
+      "False (deep)",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "shallow копирует верхний уровень.",
+    "code": "import copy\na = [[1], [2]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m768"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.deepcopy: inner is same object?",
+    "options": [
+      "False",
+      "True",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "deepcopy копирует вложенность.",
+    "code": "import copy\na = [[1], [2]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m769"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.copy: inner is same object?",
+    "options": [
+      "True (shallow)",
+      "False (deep)",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "shallow копирует верхний уровень.",
+    "code": "import copy\na = [[0, 0], [1]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m770"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.deepcopy: inner is same object?",
+    "options": [
+      "False",
+      "True",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "deepcopy копирует вложенность.",
+    "code": "import copy\na = [[0, 0], [1]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m771"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.copy: inner is same object?",
+    "options": [
+      "True (shallow)",
+      "False (deep)",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "shallow копирует верхний уровень.",
+    "code": "import copy\na = [{'a': 1}]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m772"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.deepcopy: inner is same object?",
+    "options": [
+      "False",
+      "True",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "deepcopy копирует вложенность.",
+    "code": "import copy\na = [{'a': 1}]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m773"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.copy: inner is same object?",
+    "options": [
+      "True (shallow)",
+      "False (deep)",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "shallow копирует верхний уровень.",
+    "code": "import copy\na = [[]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m774"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.deepcopy: inner is same object?",
+    "options": [
+      "False",
+      "True",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "deepcopy копирует вложенность.",
+    "code": "import copy\na = [[]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m775"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.copy: inner is same object?",
+    "options": [
+      "True (shallow)",
+      "False (deep)",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "shallow копирует верхний уровень.",
+    "code": "import copy\na = [[1, 2, 3]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m776"
+  },
+  {
+    "topic": "copy",
+    "q": "После copy.deepcopy: inner is same object?",
+    "options": [
+      "False",
+      "True",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "deepcopy копирует вложенность.",
+    "code": "import copy\na = [[1, 2, 3]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m777"
+  },
+  {
+    "topic": "pathlib",
+    "q": "PurePosixPath('etc', 'passwd')?",
+    "options": [
+      "etc/passwd",
+      "etc\\passwd",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Склейка частей пути.",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('etc', 'passwd'))",
+    "group": "Stdlib и производительность",
+    "id": "m778"
+  },
+  {
+    "topic": "pathlib",
+    "q": "PurePosixPath('var', 'log', 'syslog')?",
+    "options": [
+      "var/log/syslog",
+      "var\\log\\syslog",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Склейка частей пути.",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'syslog'))",
+    "group": "Stdlib и производительность",
+    "id": "m779"
+  },
+  {
+    "topic": "pathlib",
+    "q": "PurePosixPath('tmp', 'x')?",
+    "options": [
+      "tmp/x",
+      "tmp\\x",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Склейка частей пути.",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('tmp', 'x'))",
+    "group": "Stdlib и производительность",
+    "id": "m780"
+  },
+  {
+    "topic": "pathlib",
+    "q": "PurePosixPath('usr', 'bin', 'python')?",
+    "options": [
+      "usr/bin/python",
+      "usr\\bin\\python",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Склейка частей пути.",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('usr', 'bin', 'python'))",
+    "group": "Stdlib и производительность",
+    "id": "m781"
+  },
+  {
+    "topic": "pathlib",
+    "q": "Path('a.txt').suffix?",
+    "options": [
+      "'.txt'",
+      "'a.txt'",
+      "ошибка",
+      "''"
+    ],
+    "answer": 0,
+    "explain": "suffix — последний суффикс (для tar.gz это .gz).",
+    "code": "from pathlib import PurePath\nprint(PurePath('a.txt').suffix)",
+    "group": "Stdlib и производительность",
+    "id": "m782"
+  },
+  {
+    "topic": "pathlib",
+    "q": "Path('B.JSON').suffix?",
+    "options": [
+      "'.JSON'",
+      "'B.JSON'",
+      "ошибка",
+      "''"
+    ],
+    "answer": 0,
+    "explain": "suffix — последний суффикс (для tar.gz это .gz).",
+    "code": "from pathlib import PurePath\nprint(PurePath('B.JSON').suffix)",
+    "group": "Stdlib и производительность",
+    "id": "m783"
+  },
+  {
+    "topic": "pathlib",
+    "q": "Path('photo.PNG').suffix?",
+    "options": [
+      "'.PNG'",
+      "'photo.PNG'",
+      "ошибка",
+      "''"
+    ],
+    "answer": 0,
+    "explain": "suffix — последний суффикс (для tar.gz это .gz).",
+    "code": "from pathlib import PurePath\nprint(PurePath('photo.PNG').suffix)",
+    "group": "Stdlib и производительность",
+    "id": "m784"
+  },
+  {
+    "topic": "pathlib",
+    "q": "Path('archive.tar.gz').suffix?",
+    "options": [
+      "'.gz'",
+      "'archive.tar.gz'",
+      "ошибка",
+      "''"
+    ],
+    "answer": 0,
+    "explain": "suffix — последний суффикс (для tar.gz это .gz).",
+    "code": "from pathlib import PurePath\nprint(PurePath('archive.tar.gz').suffix)",
+    "group": "Stdlib и производительность",
+    "id": "m785"
+  },
+  {
+    "topic": "exceptions",
+    "q": "ValueError наследует…",
+    "options": [
+      "Exception",
+      "только object",
+      "Warning",
+      "OSError всегда"
+    ],
+    "answer": 0,
+    "explain": "ValueError → … → Exception → …",
+    "group": "Исключения и контекст",
+    "id": "m786"
+  },
+  {
+    "topic": "exceptions",
+    "q": "KeyError наследует…",
+    "options": [
+      "LookupError",
+      "только object",
+      "Warning",
+      "OSError всегда"
+    ],
+    "answer": 0,
+    "explain": "KeyError → … → LookupError → …",
+    "group": "Исключения и контекст",
+    "id": "m787"
+  },
+  {
+    "topic": "exceptions",
+    "q": "IndexError наследует…",
+    "options": [
+      "LookupError",
+      "только object",
+      "Warning",
+      "OSError всегда"
+    ],
+    "answer": 0,
+    "explain": "IndexError → … → LookupError → …",
+    "group": "Исключения и контекст",
+    "id": "m788"
+  },
+  {
+    "topic": "exceptions",
+    "q": "FileNotFoundError наследует…",
+    "options": [
+      "OSError",
+      "только object",
+      "Warning",
+      "OSError всегда"
+    ],
+    "answer": 0,
+    "explain": "FileNotFoundError → … → OSError → …",
+    "group": "Исключения и контекст",
+    "id": "m789"
+  },
+  {
+    "topic": "exceptions",
+    "q": "ZeroDivisionError наследует…",
+    "options": [
+      "ArithmeticError",
+      "только object",
+      "Warning",
+      "OSError всегда"
+    ],
+    "answer": 0,
+    "explain": "ZeroDivisionError → … → ArithmeticError → …",
+    "group": "Исключения и контекст",
+    "id": "m790"
+  },
+  {
+    "topic": "exceptions",
+    "q": "TypeError наследует…",
+    "options": [
+      "Exception",
+      "только object",
+      "Warning",
+      "OSError всегда"
+    ],
+    "answer": 0,
+    "explain": "TypeError → … → Exception → …",
+    "group": "Исключения и контекст",
+    "id": "m791"
+  },
+  {
+    "topic": "exceptions",
+    "q": "StopIteration наследует…",
+    "options": [
+      "Exception",
+      "только object",
+      "Warning",
+      "OSError всегда"
+    ],
+    "answer": 0,
+    "explain": "StopIteration → … → Exception → …",
+    "group": "Исключения и контекст",
+    "id": "m792"
+  },
+  {
+    "topic": "exceptions",
+    "q": "KeyboardInterrupt наследует…",
+    "options": [
+      "BaseException",
+      "только object",
+      "Warning",
+      "OSError всегда"
+    ],
+    "answer": 0,
+    "explain": "KeyboardInterrupt → … → BaseException → …",
+    "group": "Исключения и контекст",
+    "id": "m793"
+  },
+  {
+    "topic": "context",
+    "q": "с 1 вложенными with без ExitStack…",
+    "options": [
+      "можно вложить / или один with a, b",
+      "нельзя никогда",
+      "только async",
+      "нужен GIL"
+    ],
+    "answer": 0,
+    "explain": "with open() as a, open() as b: или ExitStack для динамики.",
+    "group": "Исключения и контекст",
+    "id": "m794"
+  },
+  {
+    "topic": "context",
+    "q": "с 2 вложенными with без ExitStack…",
+    "options": [
+      "можно вложить / или один with a, b",
+      "нельзя никогда",
+      "только async",
+      "нужен GIL"
+    ],
+    "answer": 0,
+    "explain": "with open() as a, open() as b: или ExitStack для динамики.",
+    "group": "Исключения и контекст",
+    "id": "m795"
+  },
+  {
+    "topic": "context",
+    "q": "с 3 вложенными with без ExitStack…",
+    "options": [
+      "можно вложить / или один with a, b",
+      "нельзя никогда",
+      "только async",
+      "нужен GIL"
+    ],
+    "answer": 0,
+    "explain": "with open() as a, open() as b: или ExitStack для динамики.",
+    "group": "Исключения и контекст",
+    "id": "m796"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 200 — кратко:",
+    "options": [
+      "успех с телом",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 200: успех с телом.",
+    "group": "Веб и API",
+    "id": "m797"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 201 — кратко:",
+    "options": [
+      "ресурс создан",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 201: ресурс создан.",
+    "group": "Веб и API",
+    "id": "m798"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 204 — кратко:",
+    "options": [
+      "успех без тела",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 204: успех без тела.",
+    "group": "Веб и API",
+    "id": "m799"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 304 — кратко:",
+    "options": [
+      "не изменилось / кэш",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 304: не изменилось / кэш.",
+    "group": "Веб и API",
+    "id": "m800"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 400 — кратко:",
+    "options": [
+      "ошибка клиента",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 400: ошибка клиента.",
+    "group": "Веб и API",
+    "id": "m801"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 401 — кратко:",
+    "options": [
+      "нужна аутентификация",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 401: нужна аутентификация.",
+    "group": "Веб и API",
+    "id": "m802"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 403 — кратко:",
+    "options": [
+      "запрещено",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 403: запрещено.",
+    "group": "Веб и API",
+    "id": "m803"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 404 — кратко:",
+    "options": [
+      "не найдено",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 404: не найдено.",
+    "group": "Веб и API",
+    "id": "m804"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 409 — кратко:",
+    "options": [
+      "конфликт состояния",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 409: конфликт состояния.",
+    "group": "Веб и API",
+    "id": "m805"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 429 — кратко:",
+    "options": [
+      "лимит запросов",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 429: лимит запросов.",
+    "group": "Веб и API",
+    "id": "m806"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 500 — кратко:",
+    "options": [
+      "ошибка сервера",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 500: ошибка сервера.",
+    "group": "Веб и API",
+    "id": "m807"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 502 — кратко:",
+    "options": [
+      "плохой шлюз",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 502: плохой шлюз.",
+    "group": "Веб и API",
+    "id": "m808"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 503 — кратко:",
+    "options": [
+      "сервис недоступен",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 503: сервис недоступен.",
+    "group": "Веб и API",
+    "id": "m809"
+  },
+  {
+    "topic": "HTTP",
+    "q": "Статус 504 — кратко:",
+    "options": [
+      "таймаут шлюза",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
+    ],
+    "answer": 0,
+    "explain": "HTTP 504: таймаут шлюза.",
+    "group": "Веб и API",
+    "id": "m810"
+  },
+  {
+    "topic": "SQL",
+    "q": "Типичная роль `WHERE`?",
+    "options": [
+      "фильтр строк до группировки",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
+    ],
+    "answer": 0,
+    "explain": "WHERE в SQL.",
+    "group": "Веб и API",
+    "id": "m811"
+  },
+  {
+    "topic": "SQL",
+    "q": "Типичная роль `JOIN`?",
+    "options": [
+      "связь таблиц",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
+    ],
+    "answer": 0,
+    "explain": "JOIN в SQL.",
+    "group": "Веб и API",
+    "id": "m812"
+  },
+  {
+    "topic": "SQL",
+    "q": "Типичная роль `GROUP BY`?",
+    "options": [
+      "агрегация по ключу",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
+    ],
+    "answer": 0,
+    "explain": "GROUP BY в SQL.",
+    "group": "Веб и API",
+    "id": "m813"
+  },
+  {
+    "topic": "SQL",
+    "q": "Типичная роль `HAVING`?",
+    "options": [
+      "фильтр после GROUP BY",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
+    ],
+    "answer": 0,
+    "explain": "HAVING в SQL.",
+    "group": "Веб и API",
+    "id": "m814"
+  },
+  {
+    "topic": "SQL",
+    "q": "Типичная роль `ORDER BY`?",
+    "options": [
+      "сортировка результата",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
+    ],
+    "answer": 0,
+    "explain": "ORDER BY в SQL.",
+    "group": "Веб и API",
+    "id": "m815"
+  },
+  {
+    "topic": "SQL",
+    "q": "Типичная роль `LIMIT`?",
+    "options": [
+      "ограничить число строк",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
+    ],
+    "answer": 0,
+    "explain": "LIMIT в SQL.",
+    "group": "Веб и API",
+    "id": "m816"
+  },
+  {
+    "topic": "SQL",
+    "q": "Типичная роль `OFFSET`?",
+    "options": [
+      "пропустить N строк",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
+    ],
+    "answer": 0,
+    "explain": "OFFSET в SQL.",
+    "group": "Веб и API",
+    "id": "m817"
+  },
+  {
+    "topic": "SQL",
+    "q": "Типичная роль `RETURNING`?",
+    "options": [
+      "вернуть строки после INSERT/UPDATE/DELETE (PG и др.)",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
+    ],
+    "answer": 0,
+    "explain": "RETURNING в SQL.",
+    "group": "Веб и API",
+    "id": "m818"
+  },
+  {
+    "topic": "SQL",
+    "q": "SELECT … LIMIT 1 без ORDER BY?",
+    "options": [
+      "набор из N строк без стабильного порядка",
+      "всегда первые 1 по PK",
+      "ошибка синтаксиса",
+      "полный table lock"
+    ],
+    "answer": 0,
+    "explain": "Без ORDER BY порядок не гарантирован.",
+    "group": "Веб и API",
+    "id": "m819"
+  },
+  {
+    "topic": "SQL",
+    "q": "SELECT … LIMIT 5 без ORDER BY?",
+    "options": [
+      "набор из N строк без стабильного порядка",
+      "всегда первые 5 по PK",
+      "ошибка синтаксиса",
+      "полный table lock"
+    ],
+    "answer": 0,
+    "explain": "Без ORDER BY порядок не гарантирован.",
+    "group": "Веб и API",
+    "id": "m820"
+  },
+  {
+    "topic": "SQL",
+    "q": "SELECT … LIMIT 50 без ORDER BY?",
+    "options": [
+      "набор из N строк без стабильного порядка",
+      "всегда первые 50 по PK",
+      "ошибка синтаксиса",
+      "полный table lock"
+    ],
+    "answer": 0,
+    "explain": "Без ORDER BY порядок не гарантирован.",
+    "group": "Веб и API",
+    "id": "m821"
+  },
+  {
+    "topic": "SQL",
+    "q": "SELECT … LIMIT 500 без ORDER BY?",
+    "options": [
+      "набор из N строк без стабильного порядка",
+      "всегда первые 500 по PK",
+      "ошибка синтаксиса",
+      "полный table lock"
+    ],
+    "answer": 0,
+    "explain": "Без ORDER BY порядок не гарантирован.",
+    "group": "Веб и API",
+    "id": "m822"
   }
 ];
