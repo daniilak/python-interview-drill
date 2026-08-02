@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Python Drill — подготовка к собеседованиям</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <!-- MENU -->
+  <section id="screen-menu" class="screen active">
+    <header class="brand">
+      <p class="brand-mark">Python Drill</p>
+      <h1>Быстрые ответы на собесе</h1>
+      <p class="lede">Уровень или микс → тема. Таймер, ввод ответа, повторение ошибок — всё в браузере (localStorage).</p>
+    </header>
+
+    <div class="settings-bar">
+      <label class="setting">
+        <span class="setting-label">Таймер</span>
+        <select id="setting-timer" aria-label="Секунд на ответ">
+          <option value="0">выкл</option>
+          <option value="15">15 с</option>
+          <option value="20">20 с</option>
+          <option value="25" selected>25 с</option>
+          <option value="30">30 с</option>
+          <option value="45">45 с</option>
+        </select>
+      </label>
+      <label class="setting setting-toggle" for="setting-input">
+        <span class="setting-label">Ввод ответа</span>
+        <span class="toggle">
+          <input type="checkbox" id="setting-input" />
+          <span class="toggle-track" aria-hidden="true"></span>
+        </span>
+      </label>
+    </div>
+
+    <div class="level-pick" role="group" aria-label="Уровень">
+      <button class="level-card" data-level="junior" type="button">
+        <span class="level-tag">Junior</span>
+        <span class="level-title">Основы языка</span>
+        <span class="level-meta" id="meta-junior">—</span>
+      </button>
+      <button class="level-card" data-level="middle" type="button">
+        <span class="level-tag">Middle</span>
+        <span class="level-title">Глубже в Python</span>
+        <span class="level-meta" id="meta-middle">—</span>
+      </button>
+      <button class="level-card" data-level="senior" type="button">
+        <span class="level-tag">Senior</span>
+        <span class="level-title">Архитектура и нюансы</span>
+        <span class="level-meta" id="meta-senior">—</span>
+      </button>
+      <button class="level-card level-card-mix" data-level="junior_middle" type="button">
+        <span class="level-tag">Микс</span>
+        <span class="level-title">Junior + Middle</span>
+        <span class="level-meta" id="meta-junior_middle">—</span>
+      </button>
+      <button class="level-card level-card-mix" data-level="middle_senior" type="button">
+        <span class="level-tag">Микс</span>
+        <span class="level-title">Middle + Senior</span>
+        <span class="level-meta" id="meta-middle_senior">—</span>
+      </button>
+      <button class="level-card level-card-mistakes" data-level="mistakes" type="button" id="btn-mistakes">
+        <span class="level-tag">Повтор</span>
+        <span class="level-title">Мои ошибки</span>
+        <span class="level-meta" id="meta-mistakes">Пока пусто</span>
+      </button>
+    </div>
+
+    <div class="menu-stats" id="menu-stats" hidden>
+      <p>Серия: <strong id="best-streak">0</strong> · Ответов: <strong id="total-answered">0</strong> · Ошибок в колоде: <strong id="mistakes-count">0</strong></p>
+      <button type="button" class="linkish" id="btn-clear-mistakes">Очистить ошибки</button>
+    </div>
+  </section>
+
+  <!-- GROUPS -->
+  <section id="screen-groups" class="screen">
+    <div class="groups-top">
+      <button id="btn-back-levels" class="ghost" type="button" aria-label="К уровням">←</button>
+      <div>
+        <p class="groups-level" id="groups-level-label">Junior</p>
+        <h2 class="groups-heading">Тема</h2>
+      </div>
+    </div>
+    <div id="group-list" class="group-list" role="group" aria-label="Темы"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="screen-quiz" class="screen">
+    <div class="quiz-top">
+      <button id="btn-exit" class="ghost" type="button" aria-label="Выйти">←</button>
+      <div class="progress-track" aria-hidden="true">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+      <div class="top-right">
+        <div id="timer" class="timer" hidden>
+          <span id="timer-sec">25</span>s
+        </div>
+        <div class="streak" title="Серия правильных">
+          <span class="streak-flame" aria-hidden="true">◆</span>
+          <span id="streak-count">0</span>
+        </div>
+      </div>
+    </div>
+    <div class="timer-track" id="timer-track" hidden>
+      <div id="timer-fill" class="timer-fill"></div>
+    </div>
+
+    <div class="quiz-meta">
+      <span id="topic-badge" class="topic"></span>
+      <span id="group-badge" class="group-mini"></span>
+      <span id="level-badge" class="level-mini"></span>
+      <span id="session-score" class="score-mini">0 / 0</span>
+    </div>
+
+    <article class="question-panel">
+      <div id="code-wrap" class="code-wrap" hidden>
+        <pre id="question-code" class="code-block"></pre>
+      </div>
+      <h2 id="question-text"></h2>
+    </article>
+
+    <div id="options" class="options" role="listbox" aria-label="Варианты ответа"></div>
+
+    <form id="input-form" class="input-form" hidden>
+      <label class="input-label" for="answer-input">Твой ответ</label>
+      <div class="input-shell">
+        <span class="input-prompt" aria-hidden="true">&gt;&gt;&gt;</span>
+        <input
+          id="answer-input"
+          class="answer-input"
+          type="text"
+          autocomplete="off"
+          autocapitalize="off"
+          autocorrect="off"
+          spellcheck="false"
+          placeholder="True, list, KeyError…"
+        />
+        <button class="input-submit" type="submit">Проверить</button>
+      </div>
+      <p class="input-hint">
+        <kbd>Enter</kbd> проверить · кавычки не обязательны · регистр не важен
+      </p>
+    </form>
+
+    <div id="feedback" class="feedback" hidden>
+      <p id="feedback-title" class="feedback-title"></p>
+      <p id="feedback-explain" class="feedback-explain"></p>
+      <p id="feedback-why" class="feedback-why" hidden></p>
+      <button id="btn-next" class="primary" type="button">Дальше</button>
+    </div>
+  </section>
+
+  <script src="js/data/junior.js"></script>
+  <script src="js/data/middle.js"></script>
+  <script src="js/data/senior.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
