@@ -7276,5 +7276,651 @@ window.QUESTIONS_MIDDLE = [
     "code": "from pathlib import Path\nprint(Path('a') / 'b')",
     "group": "Stdlib и производительность",
     "id": "m518"
+  },
+  {
+    "topic": "ООП",
+    "q": "Что выведет код?",
+    "options": [
+      "B",
+      "A",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Метод ищется в классе экземпляра: B.hello перекрывает A.hello.",
+    "code": "class A:\n    def hello(self):\n        return 'A'\nclass B(A):\n    def hello(self):\n        return 'B'\nprint(B().hello())",
+    "group": "ООП продвинутый",
+    "id": "m519"
+  },
+  {
+    "topic": "ООП",
+    "q": "Что выведет код?",
+    "options": [
+      "A.x",
+      "B.x",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "super().hello() вызывает реализацию родителя.",
+    "code": "class A:\n    def hello(self):\n        return 'A.x'\nclass B(A):\n    def hello(self):\n        return super().hello()\nprint(B().hello())",
+    "group": "ООП продвинутый",
+    "id": "m520"
+  },
+  {
+    "topic": "ООП",
+    "q": "@property обычно…",
+    "options": [
+      "даёт доступ как к атрибуту, считая через метод",
+      "делает метод статическим",
+      "удаляет атрибут",
+      "только для private"
+    ],
+    "answer": 0,
+    "explain": "obj.x вызывает getter без скобок.",
+    "group": "ООП продвинутый",
+    "id": "m521"
+  },
+  {
+    "topic": "ООП",
+    "q": "Что выведет код?",
+    "options": [
+      "3",
+      "ошибка",
+      "None",
+      "0"
+    ],
+    "answer": 0,
+    "explain": "property x читает _x.",
+    "code": "class C:\n    def __init__(self):\n        self._x = 3\n    @property\n    def x(self):\n        return self._x\nprint(C().x)",
+    "group": "ООП продвинутый",
+    "id": "m522"
+  },
+  {
+    "topic": "ООП",
+    "q": "__init__ vs __new__?",
+    "options": [
+      "__new__ создаёт объект, __init__ инициализирует",
+      "синонимы",
+      "__init__ создаёт, __new__ нет",
+      "только __init__ существует"
+    ],
+    "answer": 0,
+    "explain": "__new__ — конструктор (редко нужен), __init__ — инициализатор.",
+    "group": "ООП продвинутый",
+    "id": "m523"
+  },
+  {
+    "topic": "ООП",
+    "q": "MRO при diamond: C(A,B) порядок?",
+    "options": [
+      "C → A → B → object (примерно, C3)",
+      "C → B → A всегда",
+      "случайный",
+      "ошибка всегда"
+    ],
+    "answer": 0,
+    "explain": "C3 linearization; смотри Class.__mro__.",
+    "group": "ООП продвинутый",
+    "id": "m524"
+  },
+  {
+    "topic": "ООП",
+    "q": "Что выведет код?",
+    "options": [
+      "True",
+      "False",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "issubclass(bool, int) — True.",
+    "code": "print(issubclass(bool, int))",
+    "group": "ООП продвинутый",
+    "id": "m525"
+  },
+  {
+    "topic": "ООП",
+    "q": "__slots__ зачем?",
+    "options": [
+      "фиксирует атрибуты, экономит память (нет __dict__)",
+      "ускоряет import",
+      "включает GIL",
+      "нужен для async"
+    ],
+    "answer": 0,
+    "explain": "Экземпляры без произвольных атрибутов.",
+    "group": "ООП продвинутый",
+    "id": "m526"
+  },
+  {
+    "topic": "ООП",
+    "q": "classmethod получает…",
+    "options": [
+      "класс (cls), не экземпляр",
+      "только self",
+      "модуль",
+      "метакласс всегда"
+    ],
+    "answer": 0,
+    "explain": "Удобно для альтернативных конструкторов.",
+    "group": "ООП продвинутый",
+    "id": "m527"
+  },
+  {
+    "topic": "ООП",
+    "q": "staticmethod — это…",
+    "options": [
+      "функция в классе без self/cls",
+      "то же что classmethod",
+      "абстрактный метод",
+      "property"
+    ],
+    "answer": 0,
+    "explain": "Не получает ни экземпляр, ни класс автоматически.",
+    "group": "ООП продвинутый",
+    "id": "m528"
+  },
+  {
+    "topic": "декораторы",
+    "q": "Что выведет код?",
+    "options": [
+      "wrap",
+      "f",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "Без functools.wraps у обёртки остаётся имя wrap, не f.",
+    "code": "def deco(fn):\n    def wrap():\n        return fn()\n    return wrap\n@deco\ndef f():\n    pass\nprint(f.__name__)",
+    "group": "Декораторы и замыкания",
+    "id": "m529"
+  },
+  {
+    "topic": "декораторы",
+    "q": "functools.wraps помогает…",
+    "options": [
+      "сохранить __name__/__doc__ исходной функции",
+      "ускорить вызов",
+      "убрать GIL",
+      "сделать async"
+    ],
+    "answer": 0,
+    "explain": "Копирует метаданные на обёртку.",
+    "group": "Декораторы и замыкания",
+    "id": "m530"
+  },
+  {
+    "topic": "замыкания",
+    "q": "Что выведет код?",
+    "options": [
+      "[2, 2, 2]",
+      "[0, 1, 2]",
+      "[1, 1, 1]",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "Все lambda закрывают одну переменную i; после цикла i==2.",
+    "code": "fs = [lambda: i for i in range(3)]\nprint([f() for f in fs])",
+    "group": "Декораторы и замыкания",
+    "id": "m531"
+  },
+  {
+    "topic": "замыкания",
+    "q": "Как починить late binding в цикле?",
+    "options": [
+      "lambda i=i: i  (default аргумент)",
+      "только global",
+      "нельзя",
+      "использовать list обязательно"
+    ],
+    "answer": 0,
+    "explain": "Default фиксирует значение на каждой итерации.",
+    "group": "Декораторы и замыкания",
+    "id": "m532"
+  },
+  {
+    "topic": "замыкания",
+    "q": "Что выведет код?",
+    "options": [
+      "[0, 1, 2]",
+      "[2, 2, 2]",
+      "ошибка",
+      "[1, 2, 3]"
+    ],
+    "answer": 0,
+    "explain": "i=i в default сохраняет текущее i.",
+    "code": "fs = [lambda i=i: i for i in range(3)]\nprint([f() for f in fs])",
+    "group": "Декораторы и замыкания",
+    "id": "m533"
+  },
+  {
+    "topic": "генераторы",
+    "q": "Что делает next(gen) на исчерпанном генераторе?",
+    "options": [
+      "StopIteration",
+      "None",
+      "False",
+      "перезапуск"
+    ],
+    "answer": 0,
+    "explain": "Итератор закончился.",
+    "group": "Генераторы и итераторы",
+    "id": "m534"
+  },
+  {
+    "topic": "генераторы",
+    "q": "gen = (x for x in range(3)); list(gen); list(gen) второй раз?",
+    "options": [
+      "[]",
+      "[0,1,2]",
+      "ошибка",
+      "[0,1,2] снова"
+    ],
+    "answer": 0,
+    "explain": "Генератор одноразовый — после exhaust пусто.",
+    "group": "Генераторы и итераторы",
+    "id": "m535"
+  },
+  {
+    "topic": "генераторы",
+    "q": "Что выведет код?",
+    "options": [
+      "1",
+      "0",
+      "None",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "Первый next() доходит до первого yield и отдаёт 1.",
+    "code": "def g():\n    x = yield 1\n    yield x\ngen = g()\nprint(next(gen))",
+    "group": "Генераторы и итераторы",
+    "id": "m536"
+  },
+  {
+    "topic": "итераторы",
+    "q": "iter(obj) ожидает…",
+    "options": [
+      "__iter__ или __getitem__",
+      "только len",
+      "только __next__",
+      "pickle"
+    ],
+    "answer": 0,
+    "explain": "Протокол итерации.",
+    "group": "Генераторы и итераторы",
+    "id": "m537"
+  },
+  {
+    "topic": "итераторы",
+    "q": "Что выведет код?",
+    "options": [
+      "1",
+      "StopIteration сразу",
+      "None",
+      "[1,2]"
+    ],
+    "answer": 0,
+    "explain": "iter по списку; next берёт первый элемент.",
+    "code": "print(next(iter([1, 2])))",
+    "group": "Генераторы и итераторы",
+    "id": "m538"
+  },
+  {
+    "topic": "itertools",
+    "q": "Что выведет list(itertools.chain([1], [2, 3]))?",
+    "options": [
+      "[1, 2, 3]",
+      "[[1],[2,3]]",
+      "ошибка",
+      "[1]"
+    ],
+    "answer": 0,
+    "explain": "chain склеивает итерируемые подряд.",
+    "group": "Collections и itertools",
+    "id": "m539"
+  },
+  {
+    "topic": "itertools",
+    "q": "Что выведет код?",
+    "options": [
+      "[(1, 2), (3, 4)]",
+      "[1,2,3,4]",
+      "ошибка",
+      "[(1,2,3,4)]"
+    ],
+    "answer": 0,
+    "explain": "batched(n) группирует по n (3.12+). Если нет — skip? Better use classic:",
+    "code": "from itertools import islice\nit = iter([1, 2, 3, 4])\nprint([tuple(islice(it, 2)), tuple(islice(it, 2))])",
+    "group": "Collections и itertools",
+    "id": "m540"
+  },
+  {
+    "topic": "itertools",
+    "q": "product('ab', repeat=2) даёт…",
+    "options": [
+      "aa ab ba bb (как кортежи)",
+      "только ab",
+      "перестановки без повторов",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "Декартово произведение.",
+    "group": "Collections и itertools",
+    "id": "m541"
+  },
+  {
+    "topic": "collections",
+    "q": "defaultdict(list): d['x'].append(1) — что с d['x']?",
+    "options": [
+      "[1], ключ создался сам",
+      "KeyError",
+      "None",
+      "ошибка типа"
+    ],
+    "answer": 0,
+    "explain": "Фабрика list() вызывается для отсутствующего ключа.",
+    "group": "Collections и itertools",
+    "id": "m542"
+  },
+  {
+    "topic": "collections",
+    "q": "namedtuple удобен тем, что…",
+    "options": [
+      "immutable + доступ по имени поля",
+      "мутабельный dict",
+      "замена list",
+      "async queue"
+    ],
+    "answer": 0,
+    "explain": "Лёгкие записи без класса вручную.",
+    "group": "Collections и itertools",
+    "id": "m543"
+  },
+  {
+    "topic": "collections",
+    "q": "deque.popleft() сложность?",
+    "options": [
+      "O(1)",
+      "O(n) как list.pop(0)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Для очередей deque лучше list.",
+    "group": "Collections и itertools",
+    "id": "m544"
+  },
+  {
+    "topic": "typing",
+    "q": "list[int] в аннотации (3.9+) значит…",
+    "options": [
+      "подсказка типов, на runtime не проверяет сама",
+      "runtime проверка всегда",
+      "создаёт typed list",
+      "запрещает append str"
+    ],
+    "answer": 0,
+    "explain": "Проверяют mypy/pyright, не CPython по умолчанию.",
+    "group": "Typing и dataclasses",
+    "id": "m545"
+  },
+  {
+    "topic": "typing",
+    "q": "Optional[str] эквивалент…",
+    "options": [
+      "str | None",
+      "str | int",
+      "Union[str, int]",
+      "Any"
+    ],
+    "answer": 0,
+    "explain": "Значение str либо None.",
+    "group": "Typing и dataclasses",
+    "id": "m546"
+  },
+  {
+    "topic": "context",
+    "q": "Что выведет код?",
+    "options": [
+      "enter\nexit",
+      "enter",
+      "exit",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "__enter__ затем тело, затем __exit__.",
+    "code": "class CM:\n    def __enter__(self):\n        print('enter')\n        return self\n    def __exit__(self, *a):\n        print('exit')\nwith CM():\n    pass",
+    "group": "Исключения и контекст",
+    "id": "m547"
+  },
+  {
+    "topic": "исключения",
+    "q": "except Exception не ловит…",
+    "options": [
+      "BaseException вроде KeyboardInterrupt/SystemExit",
+      "ValueError",
+      "TypeError",
+      "RuntimeError"
+    ],
+    "answer": 0,
+    "explain": "Exception ⊂ BaseException; Ctrl+C не глотай без нужды.",
+    "group": "Исключения и контекст",
+    "id": "m548"
+  },
+  {
+    "topic": "asyncio",
+    "q": "asyncio.gather(*tasks) …",
+    "options": [
+      "запускает конкурентно и ждёт все",
+      "строго последовательно",
+      "только первый",
+      "убивает loop"
+    ],
+    "answer": 0,
+    "explain": "Параллельные awaitables.",
+    "group": "Asyncio",
+    "id": "m549"
+  },
+  {
+    "topic": "asyncio",
+    "q": "create_task vs await coro сразу?",
+    "options": [
+      "create_task планирует в фоне event loop",
+      "синонимы",
+      "create_task блокирует поток",
+      "запрещено"
+    ],
+    "answer": 0,
+    "explain": "Task начинает выполняться, пока ты делаешь другое.",
+    "group": "Asyncio",
+    "id": "m550"
+  },
+  {
+    "topic": "concurrency",
+    "q": "Когда threading уместен?",
+    "options": [
+      "много I/O ожидания",
+      "чистый CPU без release GIL",
+      "вместо процессов всегда",
+      "только Windows"
+    ],
+    "answer": 0,
+    "explain": "Пока ждёшь сеть/диск, другой поток может работать.",
+    "group": "Потоки, процессы, GIL",
+    "id": "m551"
+  },
+  {
+    "topic": "json",
+    "q": "json.loads('[1, 2]') вернёт…",
+    "options": [
+      "[1, 2]",
+      "'[1, 2]'",
+      "tuple",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "loads парсит JSON-строку в Python-объект.",
+    "group": "Stdlib и производительность",
+    "id": "m552"
+  },
+  {
+    "topic": "json",
+    "q": "json.dumps({1: 'a'}) ключ станет…",
+    "options": [
+      "строкой '1'",
+      "int 1 в JSON",
+      "байтами",
+      "ошибка всегда"
+    ],
+    "answer": 0,
+    "explain": "JSON keys — строки.",
+    "group": "Stdlib и производительность",
+    "id": "m553"
+  },
+  {
+    "topic": "регулярки",
+    "q": "re.findall(r'\\d+', 'a12b3')?",
+    "options": [
+      "['12', '3']",
+      "['1','2','3']",
+      "['a12b3']",
+      "[]"
+    ],
+    "answer": 0,
+    "explain": "Все группы цифр подряд.",
+    "group": "Stdlib и производительность",
+    "id": "m554"
+  },
+  {
+    "topic": "copy",
+    "q": "copy.copy vs deepcopy?",
+    "options": [
+      "shallow копирует верх, nested — ссылки; deep — рекурсивно",
+      "синонимы",
+      "copy всегда deep",
+      "deepcopy только list"
+    ],
+    "answer": 0,
+    "explain": "Для вложенных мутабельных нужен deepcopy.",
+    "group": "Stdlib и производительность",
+    "id": "m555"
+  },
+  {
+    "topic": "copy",
+    "q": "Что выведет код?",
+    "options": [
+      "[1]",
+      "[]",
+      "ошибка",
+      "[0]"
+    ],
+    "answer": 0,
+    "explain": "shallow: внутренний list общий.",
+    "code": "import copy\na = [[]]\nb = copy.copy(a)\na[0].append(1)\nprint(b[0])",
+    "group": "Stdlib и производительность",
+    "id": "m556"
+  },
+  {
+    "topic": "args",
+    "q": "def f(a, /, b, *, c): — как вызвать верно?",
+    "options": [
+      "f(1, 2, c=3) или f(1, b=2, c=3)",
+      "f(a=1, b=2, c=3)",
+      "f(1, 2, 3)",
+      "f(c=3, 1, 2)"
+    ],
+    "answer": 0,
+    "explain": "a только позиционно; c только по имени; b — оба способа.",
+    "group": "Typing и dataclasses",
+    "id": "m557"
+  },
+  {
+    "topic": "функции",
+    "q": "Что выведет код?",
+    "options": [
+      "(1, 2)",
+      "1",
+      "ошибка",
+      "[1,2]"
+    ],
+    "answer": 0,
+    "explain": "Функция возвращает кортеж.",
+    "code": "def f():\n    return 1, 2\nprint(f())",
+    "group": "Функции и область видимости",
+    "id": "m558"
+  },
+  {
+    "topic": "comprehensions",
+    "q": "[(x, y) for x in range(2) for y in range(2)] длина?",
+    "options": [
+      "4",
+      "2",
+      "3",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "Декартово 2×2.",
+    "group": "Генераторы и итераторы",
+    "id": "m559"
+  },
+  {
+    "topic": "walrus",
+    "q": "Что выведет код?",
+    "options": [
+      "5",
+      "True",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": ":= присваивает n и использует в выражении.",
+    "code": "if (n := len('hello')) > 3:\n    print(n)",
+    "group": "Typing и dataclasses",
+    "id": "m560"
+  },
+  {
+    "topic": "f-string",
+    "q": "Что выведет код?",
+    "options": [
+      "'x=10'",
+      "'10'",
+      "'x={x}'",
+      "ошибка"
+    ],
+    "answer": 0,
+    "explain": "Отладочный = в f-string (3.8+).",
+    "code": "x = 10\nprint(f'{x=}')",
+    "group": "Stdlib и производительность",
+    "id": "m561"
+  },
+  {
+    "topic": "bytes",
+    "q": "b'hi'.decode() по умолчанию…",
+    "options": [
+      "utf-8 → 'hi'",
+      "ascii only fail",
+      "latin-1 always error",
+      "возвращает bytes"
+    ],
+    "answer": 0,
+    "explain": "decode() без encoding → utf-8.",
+    "group": "Stdlib и производительность",
+    "id": "m562"
+  },
+  {
+    "topic": "строки",
+    "q": "Что выведет код?",
+    "options": [
+      "True",
+      "False",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "casefold сильнее lower для регистронезависимого сравнения (напр. немецкое ß).",
+    "code": "print('X'.casefold() == 'x')",
+    "group": "Stdlib и производительность",
+    "id": "m563"
   }
 ];

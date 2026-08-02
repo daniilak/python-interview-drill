@@ -32,7 +32,6 @@
     },
   };
 
-  let autoAdvanceTimer = null;
   let questionDeadlineTimer = null;
   let questionDeadlineRaf = null;
 
@@ -177,13 +176,14 @@
   }
 
   function shuffleOptions(question) {
-    const indexed = question.options.map((text, i) => ({ text, i }));
-    const shuffled = shuffle(indexed);
+    const opts = (question.options || []).slice();
+    const correctText = opts[question.answer];
+    const shuffled = shuffle(opts);
     return {
       ...question,
-      options: shuffled.map((o) => o.text),
-      answer: shuffled.findIndex((o) => o.i === question.answer),
-      _correctText: question.options[question.answer],
+      options: shuffled,
+      answer: Math.max(0, shuffled.indexOf(correctText)),
+      _correctText: correctText,
     };
   }
 
@@ -231,14 +231,16 @@
     state.inputMode = !!store.settings.inputMode;
   }
 
+  function syncSettingsFromUI() {
+    if (el.settingTimer) state.timerSec = Number(el.settingTimer.value) || 0;
+    if (el.settingInput) state.inputMode = !!el.settingInput.checked;
+  }
+
   function persistSettings() {
-    const timerSec = Number(el.settingTimer.value);
-    const inputMode = el.settingInput.checked;
-    state.timerSec = timerSec;
-    state.inputMode = inputMode;
+    syncSettingsFromUI();
     patchStore((s) => {
-      s.settings.timerSec = timerSec;
-      s.settings.inputMode = inputMode;
+      s.settings.timerSec = state.timerSec;
+      s.settings.inputMode = state.inputMode;
     });
   }
 
@@ -306,6 +308,8 @@
   }
 
   function startSession(group) {
+    syncSettingsFromUI();
+    persistSettings();
     state.group = group;
     state.bank = activeBank();
     if (!state.bank.length) {
@@ -426,10 +430,6 @@
   }
 
   function nextQuestion() {
-    if (autoAdvanceTimer) {
-      clearTimeout(autoAdvanceTimer);
-      autoAdvanceTimer = null;
-    }
     stopDeadline();
     state.current = drawFromDeck();
     state.answered = false;
@@ -438,9 +438,12 @@
     el.feedback.classList.remove("is-good", "is-bad");
     el.feedbackWhy.hidden = true;
     el.feedbackWhy.textContent = "";
+    el.feedbackExplain.hidden = false;
     el.btnNext.textContent = "Дальше";
     el.options.innerHTML = "";
     el.answerInput.value = "";
+    el.answerInput.disabled = false;
+    [...el.inputForm.querySelectorAll("button")].forEach((b) => (b.disabled = false));
     const shell = el.inputForm.querySelector(".input-shell");
     if (shell) shell.classList.remove("is-ok", "is-fail");
 
@@ -565,21 +568,23 @@
 
   function buildWhyWrong(q, chosenText, timedOut) {
     const correct = q._correctText ?? q.options[q.answer];
-    const lines = [];
-    if (timedOut) lines.push("Время вышло.");
-    lines.push(`Верный ответ: «${correct}».`);
-    if (chosenText != null && chosenText !== correct) {
-      lines.push(`Ты выбрал: «${chosenText}».`);
+    const parts = [];
+    if (timedOut) {
+      parts.push("Время вышло — ответ не засчитан.");
     }
-    const others = q.options.filter((o) => o !== correct);
-    if (others.length) {
-      lines.push(
-        `Почему не другие: ${others
-          .map((o) => `«${o}»`)
-          .join(", ")} — типичные ловушки; подходит только «${correct}».`
-      );
+    parts.push(`Правильно: <strong>${escapeHtml(correct)}</strong>`);
+    if (chosenText != null && String(chosenText).trim() !== "" && chosenText !== correct) {
+      parts.push(`Ты ответил: <strong>${escapeHtml(chosenText)}</strong>`);
     }
-    return lines.join(" ");
+    return parts.join("<br>");
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
   }
 
   function finishAnswer({ choiceIndex = null, typed = null, timedOut = false } = {}) {
@@ -631,29 +636,26 @@
       el.feedbackTitle.textContent = "Верно!";
       el.feedback.classList.add("is-good");
       el.feedbackExplain.textContent = q.explain || "";
+      el.feedbackExplain.hidden = !q.explain;
       el.feedbackWhy.hidden = true;
       el.btnNext.textContent = "Дальше";
       clearMistake(raw);
-      // если режим ошибок — убрать из текущей колоды
       if (state.level === "mistakes") {
         state.deck = state.deck.filter((item) => questionKey(item) !== questionKey(raw));
         if (state.deckIndex > state.deck.length) state.deckIndex = state.deck.length;
       }
-      autoAdvanceTimer = setTimeout(() => {
-        autoAdvanceTimer = null;
-        onNext();
-      }, 700);
     } else {
       state.streak = 0;
-      el.feedbackTitle.textContent = timedOut ? "Время!" : "Неверно";
+      el.feedbackTitle.textContent = timedOut ? "Время вышло" : "Неверно";
       el.feedback.classList.add("is-bad");
-      el.feedbackExplain.textContent = q.explain || `Правильно: ${correctText}`;
+      const explain = (q.explain || "").trim();
+      el.feedbackExplain.hidden = false;
+      el.feedbackExplain.textContent = explain
+        ? explain
+        : `Почему так: верный вариант — «${correctText}».`;
       el.feedbackWhy.hidden = false;
-      el.feedbackWhy.innerHTML = buildWhyWrong(q, chosenText, timedOut).replace(
-        /«([^»]+)»/g,
-        "<strong>«$1»</strong>"
-      );
-      el.btnNext.textContent = "Понятно, дальше";
+      el.feedbackWhy.innerHTML = buildWhyWrong(q, chosenText, timedOut);
+      el.btnNext.textContent = "Дальше";
       recordMistake(raw);
     }
 
@@ -669,8 +671,6 @@
       s.totalAnswered = (s.totalAnswered || 0) + 1;
     });
 
-    el.answerInput.disabled = false;
-    [...el.inputForm.querySelectorAll("button")].forEach((b) => (b.disabled = false));
     el.btnNext.focus();
   }
 

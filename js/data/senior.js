@@ -6663,5 +6663,649 @@ window.QUESTIONS_SENIOR = [
     "code": "# external_dto -> domain_model",
     "group": "Архитектура и дизайн",
     "id": "s475"
+  },
+  {
+    "topic": "GIL",
+    "q": "GIL в CPython — это…",
+    "options": [
+      "mutex на выполнение байткода в одном процессе",
+      "запрет потоков ОС",
+      "замена multiprocessing",
+      "только в PyPy"
+    ],
+    "answer": 0,
+    "explain": "Один поток выполняет Python-байткод; I/O и C-ext могут отпускать GIL.",
+    "group": "Потоки, процессы, GIL",
+    "id": "s476"
+  },
+  {
+    "topic": "CPython",
+    "q": "Что хранит PyObject заголовок примерно?",
+    "options": [
+      "refcount + указатель на тип",
+      "только значение",
+      "только GC next",
+      "имя переменной"
+    ],
+    "answer": 0,
+    "explain": "База любого managed-объекта.",
+    "group": "CPython и память",
+    "id": "s477"
+  },
+  {
+    "topic": "CPython",
+    "q": "interning маленьких int…",
+    "options": [
+      "кэш часто используемых int (детали зависят от версии/build)",
+      "все int всегда unique",
+      "только float",
+      "только str ascii"
+    ],
+    "answer": 0,
+    "explain": "Поэтому is у маленьких int может быть True «случайно» — для идентичности не опирайся.",
+    "group": "CPython и память",
+    "id": "s478"
+  },
+  {
+    "topic": "CPython",
+    "q": "dis.dis(f) показывает…",
+    "options": [
+      "байткод функции",
+      "AST",
+      "машинный код CPU",
+      "GIL state"
+    ],
+    "answer": 0,
+    "explain": "Дизассемблер байткода.",
+    "group": "CPython и память",
+    "id": "s479"
+  },
+  {
+    "topic": "память",
+    "q": "цикл ссылок a.x=b; b.x=a собирает…",
+    "options": [
+      "generational GC (цикл), не только refcount",
+      "только refcount сразу",
+      "никогда",
+      "только weakref"
+    ],
+    "answer": 0,
+    "explain": "refcount не рвёт циклы сам — нужен cyclic GC.",
+    "group": "CPython и память",
+    "id": "s480"
+  },
+  {
+    "topic": "память",
+    "q": "weakref.ref(obj) нужен чтобы…",
+    "options": [
+      "ссылаться без удержания объекта от GC",
+      "ускорить dict",
+      "заменить deepcopy",
+      "отключить GIL"
+    ],
+    "answer": 0,
+    "explain": "Кэши, наблюдатели, canonical maps.",
+    "group": "CPython и память",
+    "id": "s481"
+  },
+  {
+    "topic": "asyncio",
+    "q": "что такое backpressure?",
+    "options": [
+      "торможение производителя, когда потребитель не успевает",
+      "увеличение concurrency always",
+      "GIL pause",
+      "DNS cache"
+    ],
+    "answer": 0,
+    "explain": "Очереди с maxsize, потоки с паузами.",
+    "group": "Asyncio",
+    "id": "s482"
+  },
+  {
+    "topic": "asyncio",
+    "q": "shield(awaitable) …",
+    "options": [
+      "защищает от отмены снаружи",
+      "ускоряет",
+      "делает multithread",
+      "игнорирует exceptions"
+    ],
+    "answer": 0,
+    "explain": "Отмена task снаружи не пробрасывается внутрь shield (с нюансами).",
+    "group": "Asyncio",
+    "id": "s483"
+  },
+  {
+    "topic": "asyncio",
+    "q": "TaskGroup (3.11+) даёт…",
+    "options": [
+      "structured concurrency: ошибки/отмена детей согласованы",
+      "только gather без ошибок",
+      "thread pool",
+      "GIL off"
+    ],
+    "answer": 0,
+    "explain": "Предпочтительнее «голого» gather в новом коде.",
+    "group": "Asyncio",
+    "id": "s484"
+  },
+  {
+    "topic": "concurrency",
+    "q": "multiprocessing почему обходит GIL?",
+    "options": [
+      "отдельные процессы → свой интерпретатор/память",
+      "отключает GIL в родителе",
+      "использует greenlet",
+      "только Windows fibers"
+    ],
+    "answer": 0,
+    "explain": "Цена: pickle/IPC и память.",
+    "group": "Потоки, процессы, GIL",
+    "id": "s485"
+  },
+  {
+    "topic": "concurrency",
+    "q": "concurrent.futures.ProcessPoolExecutor хорош для…",
+    "options": [
+      "CPU-bound кусков",
+      "крошечных print",
+      "замены asyncio всегда",
+      "GUI main thread"
+    ],
+    "answer": 0,
+    "explain": "Пул процессов с future API.",
+    "group": "Потоки, процессы, GIL",
+    "id": "s486"
+  },
+  {
+    "topic": "дескрипторы",
+    "q": "__get__/__set__/__delete__ — протокол…",
+    "options": [
+      "дескрипторов (property — частный случай)",
+      "только metaclasses",
+      "async context",
+      "import hooks"
+    ],
+    "answer": 0,
+    "explain": "Управляют доступом к атрибутам.",
+    "group": "Метаклассы и типы",
+    "id": "s487"
+  },
+  {
+    "topic": "дескрипторы",
+    "q": "data vs non-data descriptor?",
+    "options": [
+      "наличие __set__/__delete__ меняет приоритет в lookup",
+      "нет разницы",
+      "только slots",
+      "только slots + GC"
+    ],
+    "answer": 0,
+    "explain": "Data descriptor побеждает instance __dict__.",
+    "group": "Метаклассы и типы",
+    "id": "s488"
+  },
+  {
+    "topic": "метаклассы",
+    "q": "type(name, bases, ns) создаёт…",
+    "options": [
+      "новый класс",
+      "экземпляр object",
+      "модуль",
+      "coroutine"
+    ],
+    "answer": 0,
+    "explain": "Классы — объекты type.",
+    "group": "Метаклассы и типы",
+    "id": "s489"
+  },
+  {
+    "topic": "метаклассы",
+    "q": "class A(metaclass=M) вызывает…",
+    "options": [
+      "M(...) при создании класса",
+      "M при каждом инстансе only",
+      "только importlib",
+      "GC"
+    ],
+    "answer": 0,
+    "explain": "Метакласс контролирует создание класса.",
+    "group": "Метаклассы и типы",
+    "id": "s490"
+  },
+  {
+    "topic": "typing",
+    "q": "Protocol (PEP 544) — это…",
+    "options": [
+      "структурная типизация (duck typing для чекеров)",
+      "runtime ABC обязательно",
+      "замена ABC всегда",
+      "GIL type"
+    ],
+    "answer": 0,
+    "explain": "Если есть нужные методы — подходит тип.",
+    "group": "Typing и dataclasses",
+    "id": "s491"
+  },
+  {
+    "topic": "typing",
+    "q": "TypeVar bound=... ограничивает…",
+    "options": [
+      "верхнюю границу допустимых типов",
+      "только runtime cast",
+      "скорость",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Дженерики с ограничением.",
+    "group": "Typing и dataclasses",
+    "id": "s492"
+  },
+  {
+    "topic": "typing",
+    "q": "@overload зачем?",
+    "options": [
+      "описать разные сигнатуры для чекера",
+      "ускорить вызовы",
+      "создать runtime branches auto",
+      "убрать kwargs"
+    ],
+    "answer": 0,
+    "explain": "Реализация одна — stubs/overloads для типов.",
+    "group": "Typing и dataclasses",
+    "id": "s493"
+  },
+  {
+    "topic": "packaging",
+    "q": "pyproject.toml [project] — стандарт…",
+    "options": [
+      "метаданных/сборки (PEP 621 и др.)",
+      "только poetry proprietary",
+      "замена requirements forever without lock",
+      "CPython ini"
+    ],
+    "answer": 0,
+    "explain": "Единая точка конфигурации пакета.",
+    "group": "Packaging и CI",
+    "id": "s494"
+  },
+  {
+    "topic": "packaging",
+    "q": "wheel vs sdist?",
+    "options": [
+      "wheel — собранный дистрибутив; sdist — исходники для сборки",
+      "синонимы",
+      "wheel только win",
+      "sdist быстрее install always"
+    ],
+    "answer": 0,
+    "explain": "Предпочитай wheels в проде для скорости/репродьюса.",
+    "group": "Packaging и CI",
+    "id": "s495"
+  },
+  {
+    "topic": "security",
+    "q": "pickle.load из сети — риск?",
+    "options": [
+      "RCE через произвольные объекты",
+      "только DoS CPU",
+      "безопасен всегда",
+      "только XSS"
+    ],
+    "answer": 0,
+    "explain": "Никогда не unpickle недоверенное.",
+    "group": "Безопасность",
+    "id": "s496"
+  },
+  {
+    "topic": "security",
+    "q": "secrets модуль лучше random для…",
+    "options": [
+      "токенов/криптостойкой случайности",
+      "shuffle списков UI",
+      "range seed tests",
+      "math.sin"
+    ],
+    "answer": 0,
+    "explain": "OS CSPRNG.",
+    "group": "Безопасность",
+    "id": "s497"
+  },
+  {
+    "topic": "db",
+    "q": "READ COMMITTED не защищает от…",
+    "options": [
+      "части anomalies (зависит от СУБД; phantom и т.д.)",
+      "всего всегда",
+      "только DDL",
+      "только disk full"
+    ],
+    "answer": 0,
+    "explain": "Знай модель изоляции своей БД.",
+    "group": "Данные и распределёнка",
+    "id": "s498"
+  },
+  {
+    "topic": "cache",
+    "q": "cache stampede / thundering herd…",
+    "options": [
+      "толпа одновременных пересчётов одного ключа",
+      "нормальный hit ratio",
+      "только CDN",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Lock/singleflight/early refresh.",
+    "group": "Данные и распределёнка",
+    "id": "s499"
+  },
+  {
+    "topic": "distributed",
+    "q": "идемпотентный API важен при…",
+    "options": [
+      "ретраях сети: повтор не должен дважды списать деньги",
+      "только GET cache",
+      "только UDP",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Idempotency-Key, natural keys.",
+    "group": "Данные и распределёнка",
+    "id": "s500"
+  },
+  {
+    "topic": "distributed",
+    "q": "at-least-once доставка значит…",
+    "options": [
+      "сообщение может прийти >1 раза → нужна идемпотентность",
+      "ровно один раз always",
+      "never",
+      "only batch"
+    ],
+    "answer": 0,
+    "explain": "Типично для очередей.",
+    "group": "Данные и распределёнка",
+    "id": "s501"
+  },
+  {
+    "topic": "architecture",
+    "q": "CQRS идея…",
+    "options": [
+      "разделить модели/пути чтения и записи",
+      "запретить SQL",
+      "только microservices",
+      "убрать БД"
+    ],
+    "answer": 0,
+    "explain": "Сложные домены, разные нагрузки.",
+    "group": "Архитектура и дизайн",
+    "id": "s502"
+  },
+  {
+    "topic": "architecture",
+    "q": "hexagonal / ports & adapters…",
+    "options": [
+      "ядро не зависит от деталей UI/БД",
+      "всё в одном контроллере",
+      "только monolith ban",
+      "GIL architecture"
+    ],
+    "answer": 0,
+    "explain": "Тестируемость и замена адаптеров.",
+    "group": "Архитектура и дизайн",
+    "id": "s503"
+  },
+  {
+    "topic": "observability",
+    "q": "RED metrics для сервисов…",
+    "options": [
+      "Rate, Errors, Duration",
+      "RAM, EOF, Disk",
+      "RPC, ETL, DDL",
+      "only logs"
+    ],
+    "answer": 0,
+    "explain": "Базовый набор SLO.",
+    "group": "Observability и качество",
+    "id": "s504"
+  },
+  {
+    "topic": "observability",
+    "q": "structured logging лучше print тем, что…",
+    "options": [
+      "поля JSON/ключ-значение → поиск/алерты",
+      "всегда быстрее",
+      "без timestamp",
+      "без уровней"
+    ],
+    "answer": 0,
+    "explain": "Корреляция request_id и т.п.",
+    "group": "Observability и качество",
+    "id": "s505"
+  },
+  {
+    "topic": "performance",
+    "q": "когда __slots__ реально помогает?",
+    "options": [
+      "много мелких объектов с фиксированными полями",
+      "на одном singleton",
+      "всегда на любом классе",
+      "только dataclasses without fields"
+    ],
+    "answer": 0,
+    "explain": "Меньше памяти на __dict__.",
+    "group": "Stdlib и производительность",
+    "id": "s506"
+  },
+  {
+    "topic": "performance",
+    "q": "интернирование строк / constant folding…",
+    "options": [
+      "компилятор/рантайм могут переиспользовать объекты",
+      "запрещены",
+      "только в PyPy",
+      "ломают =="
+    ],
+    "answer": 0,
+    "explain": "Не строй логику на is для строк/int.",
+    "group": "Stdlib и производительность",
+    "id": "s507"
+  },
+  {
+    "topic": "C-API",
+    "q": "Py_LIMITED_API / stable ABI зачем?",
+    "options": [
+      "бинарная совместимость расширений across versions",
+      "убрать GIL",
+      "faster pure python",
+      "замена ctypes"
+    ],
+    "answer": 0,
+    "explain": "Меньше пересборок под каждый minor.",
+    "group": "Нативные расширения",
+    "id": "s508"
+  },
+  {
+    "topic": "ctypes",
+    "q": "ctypes удобен для…",
+    "options": [
+      "вызова C ABI без написания extension",
+      "замены asyncio",
+      "JIT",
+      "typing"
+    ],
+    "answer": 0,
+    "explain": "Цена: unsafe, ручные типы, нет pythonic errors.",
+    "group": "Нативные расширения",
+    "id": "s509"
+  },
+  {
+    "topic": "runtime",
+    "q": "sys.settrace / tracing…",
+    "options": [
+      "отладка/coverage на уровне событий",
+      "ускорение hot path",
+      "GIL off",
+      "async only"
+    ],
+    "answer": 0,
+    "explain": "Сильно замедляет; для prod — осторожно.",
+    "group": "Метаклассы и типы",
+    "id": "s510"
+  },
+  {
+    "topic": "errors",
+    "q": "ExceptionGroup (3.11) нужен когда…",
+    "options": [
+      "несколько ошибок параллельно (TaskGroup)",
+      "вместо Exception always",
+      "только SyntaxError",
+      "warnings"
+    ],
+    "answer": 0,
+    "explain": "except* разбирает группу.",
+    "group": "Исключения и контекст",
+    "id": "s511"
+  },
+  {
+    "topic": "async",
+    "q": "cancellation в asyncio — это…",
+    "options": [
+      "CancelledError в await-точке; finally должен убирать ресурсы",
+      "мгновенный kill OS thread",
+      "игнор finally",
+      "GIL reset"
+    ],
+    "answer": 0,
+    "explain": "Пиши cancellation-safe cleanup.",
+    "group": "Asyncio",
+    "id": "s512"
+  },
+  {
+    "topic": "design",
+    "q": "law of demeter грубо…",
+    "options": [
+      "не цепочй obj.a.b.c — говори с соседями",
+      "больше getters always",
+      "god object ok",
+      "no DTOs"
+    ],
+    "answer": 0,
+    "explain": "Меньше связности.",
+    "group": "Архитектура и дизайн",
+    "id": "s513"
+  },
+  {
+    "topic": "testing",
+    "q": "property-based (Hypothesis) ловит…",
+    "options": [
+      "краевые случаи генерацией входов",
+      "только UI",
+      "только perf",
+      "flake network always"
+    ],
+    "answer": 0,
+    "explain": "Дополнение к example-based тестам.",
+    "group": "Тесты и качество",
+    "id": "s514"
+  },
+  {
+    "topic": "ci",
+    "q": "matrix builds проверяют…",
+    "options": [
+      "несколько версий Python/OS",
+      "только latest",
+      "только mypy",
+      "только black"
+    ],
+    "answer": 0,
+    "explain": "Совместимость пакета.",
+    "group": "Packaging и CI",
+    "id": "s515"
+  },
+  {
+    "topic": "api",
+    "q": "pagination cursor vs offset?",
+    "options": [
+      "cursor стабильнее при вставках; offset проще но «прыгает»",
+      "offset always better",
+      "cursor only SQL injection",
+      "no difference"
+    ],
+    "answer": 0,
+    "explain": "Ленты/фиды — чаще cursor.",
+    "group": "Веб и API",
+    "id": "s516"
+  },
+  {
+    "topic": "serialization",
+    "q": "msgpack/protobuf vs json?",
+    "options": [
+      "компактнее/схема; json человекочитаем",
+      "json всегда быстрее binary",
+      "protobuf текстовый",
+      "msgpack = pickle safe"
+    ],
+    "answer": 0,
+    "explain": "Выбор по контракту и экосистеме.",
+    "group": "Данные и распределёнка",
+    "id": "s517"
+  },
+  {
+    "topic": "cache",
+    "q": "TTL + jitter зачем?",
+    "options": [
+      "размазать истечения ключей во времени",
+      "увеличить TTL forever",
+      "отключить redis",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Против синхронного stampede.",
+    "group": "Данные и распределёнка",
+    "id": "s518"
+  },
+  {
+    "topic": "db",
+    "q": "connection pool exhaustion симптом…",
+    "options": [
+      "запросы висят в ожидании свободного коннекта",
+      "всегда CPU 100%",
+      "только disk",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Таймауты, утечки, длинные транзакции.",
+    "group": "Данные и распределёнка",
+    "id": "s519"
+  },
+  {
+    "topic": "python",
+    "q": "tomllib (3.11+) читает…",
+    "options": [
+      "TOML",
+      "YAML",
+      "INI only",
+      "JSON5"
+    ],
+    "answer": 0,
+    "explain": "Стандартная библиотека для чтения TOML.",
+    "group": "CPython и память",
+    "id": "s520"
+  },
+  {
+    "topic": "CPython",
+    "q": "specializing adaptive interpreter (3.11+)…",
+    "options": [
+      "байткод адаптируется под типы в hot path",
+      "удаляет GC",
+      "отключает typing",
+      "заменяет LLVM always"
+    ],
+    "answer": 0,
+    "explain": "Ускорение без смены языка.",
+    "group": "CPython и память",
+    "id": "s521"
   }
 ];

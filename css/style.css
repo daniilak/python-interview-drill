@@ -632,6 +632,16 @@ body {
   animation: rise-in 0.34s 0.04s var(--ease) both;
 }
 
+.input-form[hidden],
+.options[hidden],
+.code-wrap[hidden],
+.feedback[hidden],
+.timer[hidden],
+.timer-track[hidden],
+#menu-stats[hidden] {
+  display: none !important;
+}
+
 .input-label {
   font-size: 0.78rem;
   font-weight: 600;
