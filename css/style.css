@@ -61,6 +61,10 @@ body {
   min-height: 100dvh;
 }
 
+#screen-menu {
+  max-width: 720px;
+}
+
 .screen.active {
   display: flex;
   flex-direction: column;
@@ -194,71 +198,117 @@ body {
   outline-offset: 2px;
 }
 
-/* Levels */
+/* Levels — square tile grid on start screen */
 .level-pick {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
 }
 
 .level-card {
   appearance: none;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: 0;
   border: 1.5px solid var(--line);
   background: var(--panel);
-  border-radius: var(--radius);
-  padding: 1rem 1.15rem;
+  border-radius: calc(var(--radius) + 2px);
+  padding: 0.95rem 1rem 1rem;
   text-align: left;
   cursor: pointer;
-  transition: border-color 0.16s var(--ease), transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
+  transition:
+    border-color 0.16s var(--ease),
+    transform 0.16s var(--ease),
+    box-shadow 0.16s var(--ease);
   box-shadow: var(--shadow);
 }
 
 .level-card:hover {
   border-color: var(--accent);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(16, 32, 28, 0.1);
 }
 
 .level-card:active {
-  transform: translateY(0) scale(0.99);
+  transform: translateY(0) scale(0.98);
+}
+
+.level-card:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  outline-offset: 3px;
 }
 
 .level-tag {
-  display: block;
+  display: inline-block;
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.45rem;
+  padding: 0.22rem 0.45rem;
+  border-radius: 6px;
+  background: var(--accent-soft);
 }
 
 .level-title {
   display: block;
-  font-size: 1.12rem;
+  flex: 1;
+  font-size: clamp(0.92rem, 3.4vw, 1.05rem);
   font-weight: 600;
   letter-spacing: -0.02em;
+  line-height: 1.28;
+  margin: 0;
 }
 
 .level-meta {
   display: block;
-  margin-top: 0.3rem;
-  font-size: 0.84rem;
+  margin-top: auto;
+  padding-top: 0.55rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
   color: var(--ink-soft);
+}
+
+.level-card[data-level="junior"] {
+  background: linear-gradient(155deg, #eef9f3 0%, var(--panel) 58%);
+}
+
+.level-card[data-level="middle"] {
+  background: linear-gradient(155deg, #edf4fc 0%, var(--panel) 58%);
+}
+
+.level-card[data-level="middle"] .level-tag {
+  color: #1a5f8a;
+  background: rgba(26, 95, 138, 0.1);
+}
+
+.level-card[data-level="senior"] {
+  background: linear-gradient(155deg, #f3eef9 0%, var(--panel) 58%);
+}
+
+.level-card[data-level="senior"] .level-tag {
+  color: #5a3d8a;
+  background: rgba(90, 61, 138, 0.1);
 }
 
 .level-card-mix {
   border-style: dashed;
-  background: color-mix(in srgb, var(--panel) 70%, #e8f3ec);
+  background: linear-gradient(155deg, #eef5f0 0%, color-mix(in srgb, var(--panel) 72%, #e8f3ec) 58%);
 }
 
 .level-card-mistakes {
   border-color: #dfb0a4;
-  background: linear-gradient(145deg, #fdf1ee, var(--panel));
+  background: linear-gradient(155deg, #fdf1ee 0%, var(--panel) 58%);
 }
 
 .level-card-mistakes .level-tag {
   color: #a84a3a;
+  background: rgba(168, 74, 58, 0.1);
 }
 
 .menu-stats {
@@ -912,6 +962,25 @@ body {
 
   .setting-toggle {
     margin-left: 0;
+  }
+}
+
+@media (min-width: 540px) {
+  .level-pick {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .level-card {
+    padding: 1.05rem 1.1rem 1.1rem;
+  }
+
+  .level-title {
+    font-size: 1.05rem;
+  }
+
+  .level-meta {
+    font-size: 0.76rem;
   }
 }
 

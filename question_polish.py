@@ -59,26 +59,35 @@ def _ensure_q(text: str) -> str:
 
 
 def _is_clear(text: str) -> bool:
-    t = text.strip()
-    if not t.endswith("?"):
+    t = text.strip().rstrip("?").strip()
+    if not t:
         return False
-    if _CLEAR_START.match(t):
+    candidate = f"{t}?"
+    if _CLEAR_START.match(candidate):
         return True
     # Вопрос может начинаться с «Если…», но содержать явный вопрос
     if re.search(
         r"\b(что вернётся|что вернется|что выведет|что произойдёт|что произойдет|что вернёт|что вернет)\b",
-        t,
+        candidate,
         re.I,
     ):
         return True
     return False
 
 
+def _scrub_prose_for_code_check(text: str) -> str:
+    """Убирает из текста конструкции, похожие на код, но бывающие в обычных формулировках."""
+    scrubbed = re.sub(r"\([A-Z]{2,12}\)", "", text)
+    scrubbed = re.sub(r"\b[A-Za-z]+/[A-Za-z]+\b", "", scrubbed)
+    scrubbed = re.sub(r"\b[A-Za-z]+\([^)]*\)", "", scrubbed)
+    return scrubbed
+
+
 def _looks_like_code(text: str) -> bool:
     t = text.strip()
     if not t:
         return False
-    if _CODE_MARKERS.search(t):
+    if _CODE_MARKERS.search(_scrub_prose_for_code_check(t)):
         return True
     # литералы и срезы
     if re.match(r"^[\[\{'\"]", t) or re.search(r"\[[^\]]+\]", t):
@@ -265,6 +274,18 @@ def normalize_question(text: str, topic: str = "", code: str | None = None) -> s
         return _ensure_q(core)
 
     lower = core.lower()
+
+    # «Open/Closed Principle (OCP) означает…» / «*args означает…»
+    if re.search(r"\bозначает\b", lower):
+        term = re.sub(r"\s+означает.*$", "", core, flags=re.I).strip()
+        if term:
+            return _ensure_q(f"Что означает {term}")
+
+    # Сценарии «… — что нарушено?» / «… — нарушен…»
+    if re.search(r"\bчто нарушен[оы]?\s*$", lower):
+        return _ensure_q(core)
+    if re.search(r"\b(нарушен|нарушено|нарушение)\s*$", lower):
+        return _ensure_q(f"Какой принцип нарушен: {core}")
 
     # «X — это…»
     for sep in (" — это", " - это"):

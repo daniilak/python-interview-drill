@@ -57,7 +57,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "генераторы",
-    "q": "Что вернёт next(gen) после исчерпания?",
+    "q": "Что означает «next(gen) после исчерпания»?",
     "options": [
       "StopIteration",
       "None",
@@ -155,7 +155,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "comprehensions",
-    "q": "Что вернёт Чем listcomp отличается от map+lambda часто?",
+    "q": "Чем listcomp отличается от map+lambda часто?",
     "options": [
       "читаемее для простых преобразований",
       "всегда быстрее C",
@@ -309,7 +309,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "typing",
-    "q": "Что вернёт Optional[X] означает?",
+    "q": "Что означает Optional[X]?",
     "options": [
       "X | None",
       "X обязателен",
@@ -575,7 +575,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "collections",
-    "q": "Что вернёт defaultdict(int) при отсутствии ключа?",
+    "q": "Что означает «defaultdict(int) при отсутствии ключа»?",
     "options": [
       "создаёт 0",
       "KeyError",
@@ -673,7 +673,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "functools",
-    "q": "Что вернёт partial(f, 1) делает?",
+    "q": "Что означает «partial(f, 1) делает»?",
     "options": [
       "новую функцию с зафиксированным аргументом",
       "вызов f",
@@ -701,7 +701,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "исключения",
-    "q": "Что вернёт contextlib.suppress(Error)?",
+    "q": "Что такое contextlib.suppress(Error) в контексте Python?",
     "options": [
       "игнорирует указанные исключения",
       "логирует",
@@ -715,7 +715,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "EAFP",
-    "q": "Что означает «EAFP означает»?",
+    "q": "Что означает EAFP?",
     "options": [
       "Easier to Ask Forgiveness than Permission",
       "Always Find Path",
@@ -883,7 +883,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "match",
-    "q": "Что вернёт match/case появился в?",
+    "q": "Что означает «match/case появился в»?",
     "options": [
       "3.10",
       "3.8",
@@ -925,7 +925,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "bytes",
-    "q": "Что вернёт encode/decode связывает?",
+    "q": "Что означает «encode/decode связывает»?",
     "options": [
       "str ↔ bytes",
       "list ↔ tuple",
@@ -1023,7 +1023,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "refcount",
-    "q": "Что вернёт sys.getrefcount(obj)?",
+    "q": "Что такое sys.getrefcount(obj) в контексте Python?",
     "options": [
       "считает ссылки (+временные)",
       "размер байт",
@@ -1135,7 +1135,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "coroutines",
-    "q": "Что вернёт gen.send(x) передаёт?",
+    "q": "Что означает «gen.send(x) передаёт»?",
     "options": [
       "значение в yield",
       "в return",
@@ -1163,7 +1163,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "typing",
-    "q": "Что вернёт Literal['a','b'] означает?",
+    "q": "Что означает Literal['a','b']?",
     "options": [
       "только эти значения",
       "любой str",
@@ -1303,7 +1303,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "замыкания",
-    "q": "Что выведет код?",
+    "q": "Что напечатают funcs[0]() при классической ошибке позднего связывания?",
     "options": [
       "2",
       "0",
@@ -1318,7 +1318,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "замыкания",
-    "q": "Что вернёт Как зафиксировать i в lambda в цикле?",
+    "q": "Как зафиксировать i в lambda в цикле?",
     "options": [
       "lambda i=i: i",
       "lambda: i.copy()",
@@ -1528,7 +1528,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "typing",
-    "q": "Что вернёт Final[x] означает?",
+    "q": "Что означает Final[x]?",
     "options": [
       "не должен переназначаться",
       "константа CPU",
@@ -1556,7 +1556,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "dataclasses",
-    "q": "Что вернёт asdict(obj) делает?",
+    "q": "Что означает «asdict(obj) делает»?",
     "options": [
       "рекурсивно в dict",
       "json string",
@@ -1668,7 +1668,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "match",
-    "q": "Что вернёт case _ : означает?",
+    "q": "Что означает case _ :?",
     "options": [
       "wildcard / default",
       "ошибку",
@@ -1850,7 +1850,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "comprehensions",
-    "q": "Выбери верный вариант: Есть ли у listcomp своей scope?",
+    "q": "Есть ли у listcomp своей scope?",
     "options": [
       "да (с 3), локальные переменные не утекают",
       "нет как в 2.7",
@@ -2172,7 +2172,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "typing",
-    "q": "Что означает «NoReturn означает»?",
+    "q": "Что означает NoReturn?",
     "options": [
       "функция не возвращает нормально",
       "return None",
@@ -2200,7 +2200,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "typing",
-    "q": "Что вернёт Unpack/TypeVarTuple связаны с?",
+    "q": "Что означает «Unpack/TypeVarTuple связаны с»?",
     "options": [
       "вариативными generics",
       "GIL",
@@ -2270,7 +2270,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "itertools",
-    "q": "Что вернёт tee(it, n)?",
+    "q": "Что такое tee(it, n) в контексте Python?",
     "options": [
       "разветвляет итератор (с буфером)",
       "копирует list",
@@ -2368,7 +2368,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "pathlib",
-    "q": "Что вернёт Path.resolve()?",
+    "q": "Что такое Path.resolve() в контексте Python?",
     "options": [
       "абсолютный путь + symlink resolve",
       "только str",
@@ -2620,7 +2620,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "enum",
-    "q": "Что вернёт auto() в Enum?",
+    "q": "Что такое auto() в Enum в контексте Python?",
     "options": [
       "автозначения",
       "random",
@@ -2718,7 +2718,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "генераторы",
-    "q": "Что вернёт throw(exc) в генератор?",
+    "q": "Что означает «throw(exc) в генератор»?",
     "options": [
       "возбуждает exc в точке yield",
       "игнорирует",
@@ -2998,7 +2998,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "typing",
-    "q": "Что вернёт Required/NotRequired в TypedDict?",
+    "q": "Что такое Required/NotRequired в TypedDict в контексте Python?",
     "options": [
       "тонкая настройка обязательности ключей",
       "валидация pydantic",
@@ -3012,7 +3012,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "dataclasses",
-    "q": "Что вернёт replace(obj, **changes)?",
+    "q": "Что такое replace(obj, **changes) в контексте Python?",
     "options": [
       "новый объект с заменами",
       "мутирует obj",
@@ -3026,7 +3026,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "dataclasses",
-    "q": "Что вернёт field(repr=False) скрывает?",
+    "q": "Что означает «field(repr=False) скрывает»?",
     "options": [
       "поле из __repr__",
       "из __init__",
@@ -3054,7 +3054,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "collections",
-    "q": "Что вернёт deque(maxlen=n) при переполнении?",
+    "q": "Что означает «deque(maxlen=n) при переполнении»?",
     "options": [
       "выбрасывает с противоположного конца",
       "ошибка",
@@ -3110,7 +3110,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "itertools",
-    "q": "Что вернёт count(10, 2) начнёт?",
+    "q": "Что означает «count(10, 2) начнёт»?",
     "options": [
       "10,12,14…",
       "0,2,10",
@@ -3124,7 +3124,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "itertools",
-    "q": "Что вернёт repeat(x, 3)?",
+    "q": "Что такое repeat(x, 3) в контексте Python?",
     "options": [
       "x x x",
       "бесконечно всегда",
@@ -3278,7 +3278,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "pathlib",
-    "q": "Что вернёт Path.glob('**/*.py')?",
+    "q": "Что такое Path.glob('**/*.py') в контексте Python?",
     "options": [
       "рекурсивный поиск",
       "только cwd non-recursive always",
@@ -3362,7 +3362,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "тесты",
-    "q": "Что вернёт capfd/capsys фикстуры?",
+    "q": "Что означает «capfd/capsys фикстуры»?",
     "options": [
       "перехватывают stdout/stderr",
       "файлы tmp",
@@ -3404,7 +3404,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "тесты",
-    "q": "Что означает «xfail означает»?",
+    "q": "Что означает xfail?",
     "options": [
       "ожидаемый провал",
       "skip",
@@ -3460,7 +3460,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "logging",
-    "q": "Что вернёт getLogger(__name__)?",
+    "q": "Что такое getLogger(__name__) в контексте Python?",
     "options": [
       "иерархия логгеров по модулю",
       "root always",
@@ -3586,7 +3586,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "ABC",
-    "q": "Что вернёт register() у ABC?",
+    "q": "Что такое register() у ABC в контексте Python?",
     "options": [
       "виртуальное подклассство без наследования",
       "создаёт файл",
@@ -3600,7 +3600,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "MRO",
-    "q": "Что вернёт super() без аргументов в Py3?",
+    "q": "Что означает «super() без аргументов в Py3»?",
     "options": [
       "берёт класс/self из ячейки",
       "только object",
@@ -3796,7 +3796,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "enum",
-    "q": "Что вернёт unique() декоратор?",
+    "q": "Что означает «unique() декоратор»?",
     "options": [
       "запрещает дубли значений",
       "сортирует",
@@ -3852,7 +3852,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "FastAPI",
-    "q": "Что вернёт Depends()?",
+    "q": "Что такое Depends() в контексте Python?",
     "options": [
       "внедрение зависимостей",
       "SQL join",
@@ -3922,7 +3922,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "weakref",
-    "q": "Что вернёт finalize(obj, callback)?",
+    "q": "Что такое finalize(obj, callback) в контексте Python?",
     "options": [
       "вызов при GC объекта",
       "сразу",
@@ -3950,7 +3950,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "GC",
-    "q": "Что вернёт gc.disable()?",
+    "q": "Что такое gc.disable() в контексте Python?",
     "options": [
       "отключает cyclic GC",
       "отключает refcount",
@@ -3964,7 +3964,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "memoryview",
-    "q": "Что вернёт cast('I')?",
+    "q": "Что такое cast('I') в контексте Python?",
     "options": [
       "переинтерпретация буфера",
       "копия list",
@@ -3992,7 +3992,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "array",
-    "q": "Что вернёт array('i') хранит?",
+    "q": "Что означает «array('i') хранит»?",
     "options": [
       "signed int компактно",
       "произвольные объекты",
@@ -4104,7 +4104,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "warnings",
-    "q": "Что вернёт simplefilter('error')?",
+    "q": "Что такое simplefilter('error') в контексте Python?",
     "options": [
       "warning → exception",
       "silence all",
@@ -4314,7 +4314,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "mock",
-    "q": "Что вернёт patch.dict(os.environ)?",
+    "q": "Что такое patch.dict(os.environ) в контексте Python?",
     "options": [
       "временно меняет env",
       "вечно",
@@ -4328,7 +4328,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "pathlib",
-    "q": "Что вернёт Path.home()?",
+    "q": "Что такое Path.home() в контексте Python?",
     "options": [
       "домашняя директория",
       "cwd",
@@ -4426,7 +4426,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "GIL",
-    "q": "Что вернёт I/O в socket обычно?",
+    "q": "Что означает «I/O в socket обычно»?",
     "options": [
       "отпускает GIL на время ожидания",
       "держит GIL forever",
@@ -4468,7 +4468,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "context",
-    "q": "Что вернёт suppress(FileNotFoundError)?",
+    "q": "Что такое suppress(FileNotFoundError) в контексте Python?",
     "options": [
       "молчаливый пропуск",
       "лог",
@@ -4678,7 +4678,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "struct",
-    "q": "Что вернёт calcsize(fmt)?",
+    "q": "Что такое calcsize(fmt) в контексте Python?",
     "options": [
       "байт на формат",
       "compile C",
@@ -4692,7 +4692,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "heapq",
-    "q": "Что вернёт nlargest(k, it)?",
+    "q": "Что такое nlargest(k, it) в контексте Python?",
     "options": [
       "k наибольших эффективно",
       "полная сортировка always обязательна видимо",
@@ -5322,7 +5322,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "pathlib",
-    "q": "Что вернёт expanduser()?",
+    "q": "Что такое expanduser() в контексте Python?",
     "options": [
       "раскрывает ~",
       "env $VAR всегда полностью как shell",
@@ -5364,7 +5364,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "warnings",
-    "q": "Что вернёт filterwarnings('ignore', category=DeprecationWarning)?",
+    "q": "Что такое filterwarnings('ignore', category=DeprecationWarning) в контексте Python?",
     "options": [
       "глушит deprecations",
       "превращает в error",
@@ -5434,7 +5434,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "itertools",
-    "q": "Что вернёт islice(it, None, None, 2)?",
+    "q": "Что такое islice(it, None, None, 2) в контексте Python?",
     "options": [
       "каждый второй лениво",
       "list copy",
@@ -6064,7 +6064,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "dataclasses",
-    "q": "Что вернёт field(hash=False)?",
+    "q": "Что такое field(hash=False) в контексте Python?",
     "options": [
       "исключает из __hash__",
       "из init",
@@ -6190,7 +6190,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "asyncio",
-    "q": "Что вернёт StreamReader/Writer?",
+    "q": "Что такое StreamReader/Writer в контексте Python?",
     "options": [
       "высокоуровневые потоки TCP",
       "файлы pathlib",
@@ -6288,7 +6288,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "heapq",
-    "q": "Что вернёт merge(*iters)?",
+    "q": "Что такое merge(*iters) в контексте Python?",
     "options": [
       "слияние sorted-итераторов",
       "sort unsorted",
@@ -6554,7 +6554,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "multiprocessing",
-    "q": "Что вернёт массив Array('i', n)?",
+    "q": "Что означает «массив Array('i', n)»?",
     "options": [
       "shared typed buffer",
       "list proxy",
@@ -6806,7 +6806,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "tempfile",
-    "q": "Что вернёт gettempdir()?",
+    "q": "Что такое gettempdir() в контексте Python?",
     "options": [
       "каталог временных файлов",
       "home",
@@ -6834,7 +6834,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "enum",
-    "q": "Что вернёт auto() значения?",
+    "q": "Что означает «auto() значения»?",
     "options": [
       "по правилам Enum/Flag",
       "random uuid",
@@ -6904,7 +6904,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "замыкания",
-    "q": "Что выведет код?",
+    "q": "Что выведут все вызовы?",
     "options": [
       "2 2 2",
       "0 1 2",
@@ -6919,7 +6919,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "замыкания",
-    "q": "Что выведет код?",
+    "q": "Что выведут все вызовы?",
     "options": [
       "0 1 2",
       "2 2 2",
@@ -6949,7 +6949,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "генераторы",
-    "q": "Что выведет код?",
+    "q": "Что будет после исчерпания?",
     "options": [
       "StopIteration",
       "None",
@@ -6994,7 +6994,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "asyncio",
-    "q": "Что выведет код?",
+    "q": "Что нужно для await?",
     "options": [
       "async def",
       "обычный def",
@@ -7009,7 +7009,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "dict",
-    "q": "Что выведет код?",
+    "q": "В чём опасность?",
     "options": [
       "один list на все ключи",
       "KeyError",
@@ -7039,7 +7039,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "магические",
-    "q": "Что выведет код?",
+    "q": "Что напечатает print(obj)?",
     "options": [
       "hi",
       "Obj()",
@@ -7084,7 +7084,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "context",
-    "q": "Что выведет код?",
+    "q": "Что напечатает?",
     "options": [
       "enter\nbody\nexit",
       "body\nenter\nexit",
@@ -7114,7 +7114,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "dataclasses",
-    "q": "Что выведет код?",
+    "q": "Что будет?",
     "options": [
       "[1]",
       "[]",
@@ -7144,7 +7144,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "exceptions",
-    "q": "Что выведет код?",
+    "q": "Что в e?",
     "options": [
       "сообщение 'x'",
       "тип only",
@@ -7159,7 +7159,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "args",
-    "q": "Что выведет код?",
+    "q": "Как вызвать f?",
     "options": [
       "f(a=1)",
       "f(1)",
@@ -7174,7 +7174,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "args",
-    "q": "Что выведет код?",
+    "q": "Как вызвать f?",
     "options": [
       "f(1)",
       "f(a=1)",
@@ -7249,7 +7249,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "json",
-    "q": "Что выведет код?",
+    "q": "Что будет с set?",
     "options": [
       "TypeError без default",
       "станет list",
@@ -7264,7 +7264,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "pathlib",
-    "q": "Что выведет код?",
+    "q": "Что получится?",
     "options": [
       "Path('a/b') или a\\b",
       "ошибка",
@@ -7352,7 +7352,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "ООП",
-    "q": "Что вернёт C(A,B) порядок?",
+    "q": "Выбери верный вариант: MRO при diamond: C(A,B) порядок?",
     "options": [
       "C → A → B → object (примерно, C3)",
       "C → B → A всегда",
@@ -7467,7 +7467,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "замыкания",
-    "q": "Выбери верный вариант: Как починить late binding в цикле?",
+    "q": "Как починить late binding в цикле?",
     "options": [
       "lambda i=i: i  (default аргумент)",
       "только global",
@@ -7496,7 +7496,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "генераторы",
-    "q": "Что вернёт Что делает next(gen) на исчерпанном генераторе?",
+    "q": "Что делает next(gen) на исчерпанном генераторе?",
     "options": [
       "StopIteration",
       "None",
@@ -7539,7 +7539,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "итераторы",
-    "q": "Что вернёт iter(obj) ожидает?",
+    "q": "Что означает «iter(obj) ожидает»?",
     "options": [
       "__iter__ или __getitem__",
       "только len",
@@ -7639,7 +7639,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "collections",
-    "q": "Что вернёт deque.popleft() сложность?",
+    "q": "Выбери верный вариант: deque.popleft() сложность?",
     "options": [
       "O(1)",
       "O(n) как list.pop(0)",
@@ -7710,7 +7710,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "asyncio",
-    "q": "Что вернёт asyncio.gather(*tasks)?",
+    "q": "Что такое asyncio.gather(*tasks) в контексте Python?",
     "options": [
       "запускает конкурентно и ждёт все",
       "строго последовательно",
@@ -7738,7 +7738,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "concurrency",
-    "q": "Выбери верный вариант: Когда threading уместен?",
+    "q": "Когда threading уместен?",
     "options": [
       "много I/O ожидания",
       "чистый CPU без release GIL",
@@ -7780,7 +7780,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "регулярки",
-    "q": "Что вернёт re.findall(r'\\d+', 'a12b3')?",
+    "q": "Выбери верный вариант: re.findall(r'\\d+', 'a12b3')?",
     "options": [
       "['12', '3']",
       "['1','2','3']",
@@ -7896,7 +7896,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "bytes",
-    "q": "Что вернёт b'hi'.decode() по умолчанию?",
+    "q": "Что означает «b'hi'.decode() по умолчанию»?",
     "options": [
       "utf-8 → 'hi'",
       "ascii only fail",
@@ -7925,7 +7925,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "декораторы",
-    "q": "Что вернёт Что делает @functools.wraps(f)?",
+    "q": "Что делает @functools.wraps(f)?",
     "options": [
       "копирует __name__/__doc__ с обёрнутой функции",
       "ускоряет вызов",
@@ -8041,7 +8041,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "магические",
-    "q": "Что вернёт Что вызовет a + b?",
+    "q": "Что вызовет a + b?",
     "options": [
       "a.__add__(b) или b.__radd__(a)",
       "только __iadd__",
@@ -8111,7 +8111,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "typing",
-    "q": "Что вернёт TypeVar(bound=...) ограничивает?",
+    "q": "Что означает «TypeVar(bound=...) ограничивает»?",
     "options": [
       "верхнюю границу допустимых типов",
       "только литералы",
@@ -8139,7 +8139,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "dataclasses",
-    "q": "Что даёт Что?",
+    "q": "Что даёт frozen=True?",
     "options": [
       "неизменяемые экземпляры (приблизительно)",
       "быстрее всегда",
@@ -8209,7 +8209,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "asyncio",
-    "q": "Выбери верный вариант: Что будет при необработанном исключении в Task?",
+    "q": "Что будет при необработанном исключении в Task?",
     "options": [
       "логируется при GC task (и в 3.11+ лучше видно)",
       "тихо глотается навсегда",
@@ -8237,7 +8237,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "async",
-    "q": "Что вернёт gather(..., return_exceptions=True)?",
+    "q": "Что такое gather(..., return_exceptions=True) в контексте Python?",
     "options": [
       "кладёт исключения в результаты вместо raise",
       "игнорит все задачи",
@@ -8293,7 +8293,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "itertools",
-    "q": "Что вернёт islice(it, 2, 5) берёт?",
+    "q": "Что означает «islice(it, 2, 5) берёт»?",
     "options": [
       "элементы с 2 по 4 (как range)",
       "первые 5",
@@ -8363,7 +8363,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "logging",
-    "q": "Что вернёт Почему logger = logging.getLogger(__name__)?",
+    "q": "Почему logger = logging.getLogger(__name__)?",
     "options": [
       "иерархия логгеров по модулю",
       "обязательный синтаксис",
@@ -8433,7 +8433,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "FastAPI",
-    "q": "Что вернёт Depends() нужен для?",
+    "q": "Что означает «Depends() нужен для»?",
     "options": [
       "внедрения зависимостей (DI) в эндпоинты",
       "SQL only",
@@ -8502,6 +8502,777 @@ window.QUESTIONS_MIDDLE = [
     "id": "m604"
   },
   {
+    "topic": "patterns",
+    "q": "Что такое Паттерн Strategy в Python чаще всего?",
+    "options": [
+      "передача callable/класса стратегии",
+      "только наследование от AbstractStrategy",
+      "global switch",
+      "eval"
+    ],
+    "answer": 0,
+    "explain": "Функции первого класса — естественная стратегия. Правильный ответ: «передача callable/класса стратегии».",
+    "group": "Архитектура и дизайн",
+    "id": "m605"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Паттерн Factory Method создаёт»?",
+    "options": [
+      "объект через метод подкласса/фабрики",
+      "только singleton",
+      "только metaclass",
+      "поток"
+    ],
+    "answer": 0,
+    "explain": "Подкласс решает, какой конкретный тип вернуть. Правильный ответ: «объект через метод подкласса/фабрики».",
+    "group": "Архитектура и дизайн",
+    "id": "m606"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Паттерн Observer?",
+    "options": [
+      "подписка наблюдателей на изменения субъекта",
+      "один поток на CPU",
+      "кэш Redis",
+      "ORM"
+    ],
+    "answer": 0,
+    "explain": "В Python: callbacks, сигналы, event bus. Правильный ответ: «подписка наблюдателей на изменения субъекта».",
+    "group": "Архитектура и дизайн",
+    "id": "m607"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Паттерн Adapter нужен когда»?",
+    "options": [
+      "нужно подогнать чужой интерфейс под свой",
+      "нужен singleton",
+      "нужен GIL",
+      "нужен pickle"
+    ],
+    "answer": 0,
+    "explain": "Обёртка вокруг legacy API. Правильный ответ: «нужно подогнать чужой интерфейс под свой».",
+    "group": "Архитектура и дизайн",
+    "id": "m608"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что вернёт Паттерн Decorator (GoF) отличается от @decorator синтаксиса тем, что?",
+    "options": [
+      "оба оборачивают объект/функцию; GoF — про композицию объектов",
+      "это разные вещи без связи",
+      "GoF только для классов C++",
+      "@ только для async"
+    ],
+    "answer": 0,
+    "explain": "Синтаксический декоратор — частный случай обёртки. Правильный ответ: «оба оборачивают объект/функцию; GoF — про композицию объектов».",
+    "group": "Архитектура и дизайн",
+    "id": "m609"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Идиоматичный Singleton в Python?",
+    "options": [
+      "модуль как единственный экземпляр",
+      "metaclass обязателен",
+      "__new__ с lock всегда",
+      "global везде"
+    ],
+    "answer": 0,
+    "explain": "import config — модуль загружается один раз. Правильный ответ: «модуль как единственный экземпляр».",
+    "group": "Архитектура и дизайн",
+    "id": "m610"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Паттерн Template Method?",
+    "options": [
+      "базовый класс задаёт скелет, подклассы — шаги",
+      "копирование HTML",
+      "Jinja2",
+      "async template"
+    ],
+    "answer": 0,
+    "explain": "Алгоритм в базе, детали в override. Правильный ответ: «базовый класс задаёт скелет, подклассы — шаги».",
+    "group": "Архитектура и дизайн",
+    "id": "m611"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Паттерн Command полезен для»?",
+    "options": [
+      "отложенного выполнения и undo/redo",
+      "только SQL",
+      "только HTTP",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Команда как объект: execute(), undo(). Правильный ответ: «отложенного выполнения и undo/redo».",
+    "group": "Архитектура и дизайн",
+    "id": "m612"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Паттерн Builder подходит когда»?",
+    "options": [
+      "много опциональных параметров объекта",
+      "один int",
+      "только dataclass frozen",
+      "только dict"
+    ],
+    "answer": 0,
+    "explain": "Пошаговая сборка сложного объекта. Правильный ответ: «много опциональных параметров объекта».",
+    "group": "Архитектура и дизайн",
+    "id": "m613"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Паттерн Facade?",
+    "options": [
+      "простой интерфейс к сложной подсистеме",
+      "singleton БД",
+      "ORM миграция",
+      "async loop"
+    ],
+    "answer": 0,
+    "explain": "Скрывает сложность нескольких модулей. Правильный ответ: «простой интерфейс к сложной подсистеме».",
+    "group": "Архитектура и дизайн",
+    "id": "m614"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Registry плагинов вместо giant if/elif — пример»?",
+    "options": [
+      "Open/Closed + Strategy",
+      "нарушение LSP",
+      "только GIL",
+      "anti-pattern"
+    ],
+    "answer": 0,
+    "explain": "Новый тип регистрируется без правки ядра. Правильный ответ: «Open/Closed + Strategy».",
+    "group": "Архитектура и дизайн",
+    "id": "m615"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Null Object pattern?",
+    "options": [
+      "объект-заглушка с безопасным no-op поведением",
+      "NoneType only",
+      "Optional всегда",
+      "raise всегда"
+    ],
+    "answer": 0,
+    "explain": "Избегаем if obj is None по всему коду. Правильный ответ: «объект-заглушка с безопасным no-op поведением».",
+    "group": "Архитектура и дизайн",
+    "id": "m616"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Dependency Injection вручную в Python?",
+    "options": [
+      "передать зависимость в __init__",
+      "import внутри метода всегда",
+      "global config",
+      "eval"
+    ],
+    "answer": 0,
+    "explain": "Не обязательно нужен DI-фреймворк. Правильный ответ: «передать зависимость в __init__».",
+    "group": "Архитектура и дизайн",
+    "id": "m617"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Repository pattern отделяет»?",
+    "options": [
+      "доступ к данным от бизнес-логики",
+      "UI от CSS",
+      "CPU от IO",
+      "sync от async"
+    ],
+    "answer": 0,
+    "explain": "Сервис работает с абстракцией хранилища. Правильный ответ: «доступ к данным от бизнес-логики».",
+    "group": "Архитектура и дизайн",
+    "id": "m618"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Chain of Responsibility в middleware веб-фреймворка?",
+    "options": [
+      "цепочка обработчиков запроса",
+      "linked list в БД",
+      "GIL chain",
+      "MRO"
+    ],
+    "answer": 0,
+    "explain": "Каждый handler решает — передать дальше или ответить. Правильный ответ: «цепочка обработчиков запроса».",
+    "group": "Архитектура и дизайн",
+    "id": "m619"
+  },
+  {
+    "topic": "testing",
+    "q": "Зачем нужен conftest.py в pytest?",
+    "options": [
+      "общие фикстуры и хуки для каталога тестов",
+      "запуск prod",
+      "конфиг pip",
+      "линтер"
+    ],
+    "answer": 0,
+    "explain": "Фикстуры из conftest видны тестам в подпапках. Правильный ответ: «общие фикстуры и хуки для каталога тестов».",
+    "group": "Тесты и качество",
+    "id": "m620"
+  },
+  {
+    "topic": "testing",
+    "q": "Что делает @pytest.fixture?",
+    "options": [
+      "подготавливает данные/ресурс для теста",
+      "маркирует skip",
+      "заменяет assert",
+      "компилирует C"
+    ],
+    "answer": 0,
+    "explain": "Fixture — dependency injection для тестов. Правильный ответ: «подготавливает данные/ресурс для теста».",
+    "group": "Тесты и качество",
+    "id": "m621"
+  },
+  {
+    "topic": "testing",
+    "q": "Что означает scope='session' у фикстуры?",
+    "options": [
+      "создать один раз на всю сессию pytest",
+      "на каждый тест",
+      "никогда не кэшировать",
+      "только module"
+    ],
+    "answer": 0,
+    "explain": "Дорогой ресурс (БД) — один раз на прогон. Правильный ответ: «создать один раз на всю сессию pytest».",
+    "group": "Тесты и качество",
+    "id": "m622"
+  },
+  {
+    "topic": "testing",
+    "q": "Что означает «pytest.mark.parametrize нужен для»?",
+    "options": [
+      "один тест — много наборов вход/ожидание",
+      "параллель на GPU",
+      "coverage 100%",
+      "mock всего"
+    ],
+    "answer": 0,
+    "explain": "Табличные тесты без копипасты. Правильный ответ: «один тест — много наборов вход/ожидание». Тестирование: unit, integration, property-based, нагрузочные сценарии.",
+    "group": "Тесты и качество",
+    "id": "m623"
+  },
+  {
+    "topic": "testing",
+    "q": "Что позволяет monkeypatch в pytest?",
+    "options": [
+      "временно подменить атрибут/ENV/путь",
+      "патчить prod",
+      "удалить git",
+      "отключить GIL"
+    ],
+    "answer": 0,
+    "explain": "Автооткат после теста. Правильный ответ: «временно подменить атрибут/ENV/путь». Тестирование: unit, integration, property-based, нагрузочные сценарии.",
+    "group": "Тесты и качество",
+    "id": "m624"
+  },
+  {
+    "topic": "testing",
+    "q": "Что означает «unittest.mock.patch лучше использовать как»?",
+    "options": [
+      "context manager или decorator на время теста",
+      "глобально в prod",
+      "вместо DI всегда",
+      "в __init__ модуля"
+    ],
+    "answer": 0,
+    "explain": "Подмена зависимости изолирует unit-тест. Правильный ответ: «context manager или decorator на время теста».",
+    "group": "Тесты и качество",
+    "id": "m625"
+  },
+  {
+    "topic": "testing",
+    "q": "Чем integration test отличается от unit?",
+    "options": [
+      "проверяет связку компонентов (БД, API)",
+      "только одну функцию без I/O",
+      "только UI",
+      "только manual"
+    ],
+    "answer": 0,
+    "explain": "Unit — быстрый, изолированный; integration — реальные границы. Правильный ответ: «проверяет связку компонентов (БД, API)».",
+    "group": "Тесты и качество",
+    "id": "m626"
+  },
+  {
+    "topic": "testing",
+    "q": "Что означает «pytest.raises(ValueError) проверяет»?",
+    "options": [
+      "что код бросает ожидаемое исключение",
+      "что исключения нет",
+      "типы mypy",
+      "coverage"
+    ],
+    "answer": 0,
+    "explain": "with pytest.raises — контекстный менеджер. Правильный ответ: «что код бросает ожидаемое исключение».",
+    "group": "Тесты и качество",
+    "id": "m627"
+  },
+  {
+    "topic": "testing",
+    "q": "Зачем capsys / capfd в pytest?",
+    "options": [
+      "перехватить stdout/stderr в тесте",
+      "ускорить CPU",
+      "mock сеть",
+      "snapshot HTML"
+    ],
+    "answer": 0,
+    "explain": "Проверка вывода print без побочных эффектов. Правильный ответ: «перехватить stdout/stderr в тесте». Тестирование: unit, integration, property-based, нагрузочные сценарии.",
+    "group": "Тесты и качество",
+    "id": "m628"
+  },
+  {
+    "topic": "testing",
+    "q": "Что означает «test discovery в pytest по умолчанию ищет»?",
+    "options": [
+      "файлы test_*.py и функции test_*",
+      "только TestCase классы",
+      "main.py",
+      "setup.py"
+    ],
+    "answer": 0,
+    "explain": "Конвенция имён — запуск pytest без аргументов. Правильный ответ: «файлы test_*.py и функции test_*».",
+    "group": "Тесты и качество",
+    "id": "m629"
+  },
+  {
+    "topic": "testing",
+    "q": "Что означает pytest -k 'not slow'?",
+    "options": [
+      "запустить тесты, имя которых не матчит slow",
+      "удалить медленные",
+      "только slow",
+      "skip CI"
+    ],
+    "answer": 0,
+    "explain": "Фильтр по выражению в имени теста. Правильный ответ: «запустить тесты, имя которых не матчит slow». Тестирование: unit, integration, property-based, нагрузочные сценарии.",
+    "group": "Тесты и качество",
+    "id": "m630"
+  },
+  {
+    "topic": "testing",
+    "q": "Что означает fixture autouse=True?",
+    "options": [
+      "фикстура подключается ко всем тестам в scope автоматически",
+      "только к одному файлу вручную",
+      "отключает assert",
+      "mock random"
+    ],
+    "answer": 0,
+    "explain": "Например, очистка temp dir после каждого теста. Правильный ответ: «фикстура подключается ко всем тестам в scope автоматически».",
+    "group": "Тесты и качество",
+    "id": "m631"
+  },
+  {
+    "topic": "testing",
+    "q": "Что означает «Пирамида тестирования рекомендует»?",
+    "options": [
+      "много unit, меньше integration, ещё меньше e2e",
+      "только e2e",
+      "без unit",
+      "только manual QA"
+    ],
+    "answer": 0,
+    "explain": "Дешёвые тесты внизу, дорогие наверху. Правильный ответ: «много unit, меньше integration, ещё меньше e2e».",
+    "group": "Тесты и качество",
+    "id": "m632"
+  },
+  {
+    "topic": "testing",
+    "q": "Что вернёт Coverage 100% не гарантирует?",
+    "options": [
+      "отсутствие логических багов",
+      "что строки выполнялись",
+      "что тесты есть",
+      "отчёт pytest-cov"
+    ],
+    "answer": 0,
+    "explain": "Можно покрыть код бессмысленными assert. Правильный ответ: «отсутствие логических багов». Тестирование: unit, integration, property-based, нагрузочные сценарии.",
+    "group": "Тесты и качество",
+    "id": "m633"
+  },
+  {
+    "topic": "testing",
+    "q": "Что вернёт snapshot-тест (golden file) полезен для?",
+    "options": [
+      "фиксации эталонного вывода/сериализации",
+      "perf only",
+      "security audit",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Регрессия формата ответа API/HTML. Правильный ответ: «фиксации эталонного вывода/сериализации». Тестирование: unit, integration, property-based, нагрузочные сценарии.",
+    "group": "Тесты и качество",
+    "id": "m634"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что вернёт Сложность dict.keys() итерации по n ключам?",
+    "options": [
+      "O(n)",
+      "O(1)",
+      "O(log n)",
+      "O(n²)"
+    ],
+    "answer": 0,
+    "explain": "Проход по всем элементам — линейный. Правильный ответ: «O(n)».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m635"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Почему set.intersection быстрее вложенных циклов для больших множеств?",
+    "options": [
+      "внутренняя оптимизация по меньшему множеству",
+      "GIL",
+      "multithreading list",
+      "pickle"
+    ],
+    "answer": 0,
+    "explain": "CPython итерирует меньшее и проверяет в большем. Правильный ответ: «внутренняя оптимизация по меньшему множеству».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m636"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что означает «defaultdict(list) удобен для»?",
+    "options": [
+      "группировки элементов по ключу",
+      "сортировки O(1)",
+      "хеширования паролей",
+      "async queue"
+    ],
+    "answer": 0,
+    "explain": "Граф смежности, инвертированный индекс. Правильный ответ: «группировки элементов по ключу».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m637"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что вернёт Counter.most_common(k) — сложность примерно?",
+    "options": [
+      "O(n log k) через heap",
+      "O(1)",
+      "O(n²)",
+      "O(log n)"
+    ],
+    "answer": 0,
+    "explain": "Под капотом heapq для top-k. Правильный ответ: «O(n log k) через heap».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m638"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что вернёт Два указателя (two pointers) на отсортированном массиве дают?",
+    "options": [
+      "O(n) вместо O(n²) для пар суммы",
+      "O(1) память всегда для sort",
+      "только для строк",
+      "только рекурсия"
+    ],
+    "answer": 0,
+    "explain": "Классика: сумма двух чисел = target. Правильный ответ: «O(n) вместо O(n²) для пар суммы».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m639"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что означает «BFS на графе в Python обычно с»?",
+    "options": [
+      "deque и visited set",
+      "list.pop(0) только",
+      "heapq только",
+      "pickle"
+    ],
+    "answer": 0,
+    "explain": "Очередь + множество посещённых. Правильный ответ: «deque и visited set».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m640"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что означает «DFS на графе можно через»?",
+    "options": [
+      "рекурсию или явный stack",
+      "только queue",
+      "только sorted",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Стек вызовов или collections.deque как stack. Правильный ответ: «рекурсию или явный stack».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m641"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что означает «functools.lru_cache ускоряет за счёт»?",
+    "options": [
+      "мемоизации результатов чистой функции",
+      "GIL off",
+      "JIT",
+      "multiprocessing"
+    ],
+    "answer": 0,
+    "explain": "Повторные вызовы с теми же args — из кэша. Правильный ответ: «мемоизации результатов чистой функции».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m642"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что выведет код?",
+    "options": [
+      "5",
+      "4",
+      "ошибка",
+      "None"
+    ],
+    "answer": 0,
+    "explain": "max() по итерируемому — максимальный элемент. Правильный ответ: «5».",
+    "code": "print(max([1, 5, 3]))",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m643"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Выбери верный вариант: Сортировка встроенным sorted() — какой алгоритм в CPython?",
+    "options": [
+      "Timsort (адаптивный merge/insertion)",
+      "quicksort всегда",
+      "bubble sort",
+      "radix только"
+    ],
+    "answer": 0,
+    "explain": "Timsort хорош на частично отсортированных данных. Правильный ответ: «Timsort (адаптивный merge/insertion)».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "m644"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что такое God object?",
+    "options": [
+      "один класс знает и делает слишком много",
+      "singleton модуль",
+      "dataclass",
+      "Protocol"
+    ],
+    "answer": 0,
+    "explain": "Нарушает SRP и усложняет тесты. Правильный ответ: «один класс знает и делает слишком много».",
+    "group": "Архитектура и дизайн",
+    "id": "m645"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что означает «Spaghetti code — признак»?",
+    "options": [
+      "запутанных зависимостей и потока управления",
+      "только async",
+      "только ООП",
+      "PEP 8"
+    ],
+    "answer": 0,
+    "explain": "Нужны модули, слои, явные границы. Правильный ответ: «запутанных зависимостей и потока управления».",
+    "group": "Архитектура и дизайн",
+    "id": "m646"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что такое Premature optimization?",
+    "options": [
+      "оптимизация до измерения узкого места",
+      "профилирование",
+      "lru_cache",
+      "numpy"
+    ],
+    "answer": 0,
+    "explain": "«Premature optimization is the root of all evil» (Кнут). Правильный ответ: «оптимизация до измерения узкого места».",
+    "group": "Архитектура и дизайн",
+    "id": "m647"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что означает «Magic numbers в коде — проблема потому что»?",
+    "options": [
+      "непонятен смысл без именованной константы",
+      "медленнее int",
+      "ломает GIL",
+      "запрещены PEP 8"
+    ],
+    "answer": 0,
+    "explain": "MAX_RETRIES = 3 читается лучше, чем 3. Правильный ответ: «непонятен смысл без именованной константы».",
+    "group": "Архитектура и дизайн",
+    "id": "m648"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что означает «Shotgun surgery — когда»?",
+    "options": [
+      "одно изменение требует правок во многих файлах",
+      "один файл меняется",
+      "только тесты",
+      "только docs"
+    ],
+    "answer": 0,
+    "explain": "Признак плохой связности / дублирования. Правильный ответ: «одно изменение требует правок во многих файлах».",
+    "group": "Архитектура и дизайн",
+    "id": "m649"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что означает «Circular dependency между модулями A и B — типичный симптом»?",
+    "options": [
+      "импорт на уровне модуля в обе стороны",
+      "только typing",
+      "только pytest",
+      "venv"
+    ],
+    "answer": 0,
+    "explain": "Лечат: вынести общее, lazy import, dependency inversion. Правильный ответ: «импорт на уровне модуля в обе стороны».",
+    "group": "Архитектура и дизайн",
+    "id": "m650"
+  },
+  {
+    "topic": "принципы",
+    "q": "Почему except: pass без логирования — плохо?",
+    "options": [
+      "глотает ошибки и скрывает баги",
+      "ускоряет код",
+      "требование PEP 8",
+      "нужно для asyncio"
+    ],
+    "answer": 0,
+    "explain": "Минимум — лог + конкретный тип исключения. Правильный ответ: «глотает ошибки и скрывает баги».",
+    "group": "Архитектура и дизайн",
+    "id": "m651"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что вернёт Mutable default argument def f(x=[]) — ловушка потому что?",
+    "options": [
+      "список один на все вызовы",
+      "list immutable",
+      "GIL",
+      "только в classmethod"
+    ],
+    "answer": 0,
+    "explain": "Используй None и создавай список внутри. Правильный ответ: «список один на все вызовы».",
+    "group": "Архитектура и дизайн",
+    "id": "m652"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что означает «Global mutable state в библиотеке — проблема для»?",
+    "options": [
+      "тестируемости и предсказуемости",
+      "скорости всегда",
+      "typing",
+      "async only"
+    ],
+    "answer": 0,
+    "explain": "Тесты влияют друг на друга; сложно параллелить. Правильный ответ: «тестируемости и предсказуемости».",
+    "group": "Архитектура и дизайн",
+    "id": "m653"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что вернёт Copy-paste programming ведёт к?",
+    "options": [
+      "расхождению копий и багам при правках",
+      "лучшему DRY",
+      "ускорению",
+      "типизации"
+    ],
+    "answer": 0,
+    "explain": "Классическое нарушение DRY. Правильный ответ: «расхождению копий и багам при правках».",
+    "group": "Архитектура и дизайн",
+    "id": "m654"
+  },
+  {
+    "topic": "git",
+    "q": "Что вернёт git merge --squash делает?",
+    "options": [
+      "один коммит из всех изменений ветки без merge-коммита в истории feature",
+      "удаляет ветку",
+      "rebase автоматом",
+      "force push"
+    ],
+    "answer": 0,
+    "explain": "Удобно для «чистой» истории main. Правильный ответ: «один коммит из всех изменений ветки без merge-коммита в истории feature».",
+    "group": "Инструменты и стиль",
+    "id": "m655"
+  },
+  {
+    "topic": "git",
+    "q": "Что означает «git reflog полезен чтобы»?",
+    "options": [
+      "найти «потерянные» коммиты после reset",
+      "удалить remote",
+      "форматировать JSON",
+      "запустить pytest"
+    ],
+    "answer": 0,
+    "explain": "Журнал перемещений HEAD. Правильный ответ: «найти «потерянные» коммиты после reset».",
+    "group": "Инструменты и стиль",
+    "id": "m656"
+  },
+  {
+    "topic": "git",
+    "q": "Что позволяет Interactive rebase (-i)?",
+    "options": [
+      "переупорядочить/squash/edit коммиты",
+      "только merge",
+      "только clone",
+      "только blame"
+    ],
+    "answer": 0,
+    "explain": "Чистка истории перед PR. Правильный ответ: «переупорядочить/squash/edit коммиты».",
+    "group": "Инструменты и стиль",
+    "id": "m657"
+  },
+  {
+    "topic": "git",
+    "q": "Что означает «git bisect применяют для»?",
+    "options": [
+      "поиска коммита, внесшего баг",
+      "удаления веток",
+      "форматирования",
+      "CI config"
+    ],
+    "answer": 0,
+    "explain": "Бинарный поиск по истории. Правильный ответ: «поиска коммита, внесшего баг».",
+    "group": "Инструменты и стиль",
+    "id": "m658"
+  },
+  {
+    "topic": "git",
+    "q": "Что означает «Merge conflict возникает когда»?",
+    "options": [
+      "Git не может автоматически слить изменения одних строк",
+      "два remote",
+      "нет .gitignore",
+      "большой файл"
+    ],
+    "answer": 0,
+    "explain": "Нужно вручную выбрать версию в маркерах <<<< ==== >>>>. Правильный ответ: «Git не может автоматически слить изменения одних строк».",
+    "group": "Инструменты и стиль",
+    "id": "m659"
+  },
+  {
     "topic": "замыкания",
     "q": "Что выведет код?",
     "options": [
@@ -8514,7 +9285,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Поздний захват i — все лямбды видят финальное значение. Правильный ответ: «[3, 3, 3, 3]».",
     "code": "fs = [lambda: i for i in range(4)]\nprint([f() for f in fs])",
     "group": "Декораторы и замыкания",
-    "id": "m605"
+    "id": "m660"
   },
   {
     "topic": "замыкания",
@@ -8529,7 +9300,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "default i=i фиксирует значение на итерации. Правильный ответ: «[0, 1, 2, 3]».",
     "code": "fs = [lambda i=i: i for i in range(4)]\nprint([f() for f in fs])",
     "group": "Декораторы и замыкания",
-    "id": "m606"
+    "id": "m661"
   },
   {
     "topic": "замыкания",
@@ -8544,7 +9315,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Поздний захват i — все лямбды видят финальное значение. Правильный ответ: «[4, 4, 4, 4, 4]».",
     "code": "fs = [lambda: i for i in range(5)]\nprint([f() for f in fs])",
     "group": "Декораторы и замыкания",
-    "id": "m607"
+    "id": "m662"
   },
   {
     "topic": "замыкания",
@@ -8559,7 +9330,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "default i=i фиксирует значение на итерации. Правильный ответ: «[0, 1, 2, 3, 4]».",
     "code": "fs = [lambda i=i: i for i in range(5)]\nprint([f() for f in fs])",
     "group": "Декораторы и замыкания",
-    "id": "m608"
+    "id": "m663"
   },
   {
     "topic": "генераторы",
@@ -8574,7 +9345,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два next() забирают первые элементы. Правильный ответ: «10 20».",
     "code": "g = (x for x in [10, 20, 30])\nprint(next(g), next(g))",
     "group": "Генераторы и итераторы",
-    "id": "m609"
+    "id": "m664"
   },
   {
     "topic": "генераторы",
@@ -8589,7 +9360,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два next() забирают первые элементы. Правильный ответ: «a b».",
     "code": "g = (x for x in ['a', 'b'])\nprint(next(g), next(g))",
     "group": "Генераторы и итераторы",
-    "id": "m610"
+    "id": "m665"
   },
   {
     "topic": "генераторы",
@@ -8604,7 +9375,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два next() забирают первые элементы. Правильный ответ: «0 1».",
     "code": "g = (x for x in [0, 1])\nprint(next(g), next(g))",
     "group": "Генераторы и итераторы",
-    "id": "m611"
+    "id": "m666"
   },
   {
     "topic": "генераторы",
@@ -8619,7 +9390,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Generator expression материализуется через list. Правильный ответ: «[0, 1]».",
     "code": "print(list(x * x for x in range(2)))",
     "group": "Генераторы и итераторы",
-    "id": "m612"
+    "id": "m667"
   },
   {
     "topic": "генераторы",
@@ -8634,7 +9405,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Generator expression материализуется через list. Правильный ответ: «[0, 1, 4]».",
     "code": "print(list(x * x for x in range(3)))",
     "group": "Генераторы и итераторы",
-    "id": "m613"
+    "id": "m668"
   },
   {
     "topic": "генераторы",
@@ -8649,7 +9420,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Generator expression материализуется через list. Правильный ответ: «[0, 1, 4, 9]».",
     "code": "print(list(x * x for x in range(4)))",
     "group": "Генераторы и итераторы",
-    "id": "m614"
+    "id": "m669"
   },
   {
     "topic": "collections",
@@ -8664,7 +9435,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Топ-2 по частоте. Правильный ответ: «[('a', 2), ('b', 1)]».",
     "code": "from collections import Counter\nprint(Counter('aab').most_common(2))",
     "group": "Collections и itertools",
-    "id": "m615"
+    "id": "m670"
   },
   {
     "topic": "collections",
@@ -8679,7 +9450,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Топ-2 по частоте. Правильный ответ: «[('a', 3), ('b', 2)]».",
     "code": "from collections import Counter\nprint(Counter('aaabb').most_common(2))",
     "group": "Collections и itertools",
-    "id": "m616"
+    "id": "m671"
   },
   {
     "topic": "collections",
@@ -8694,7 +9465,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Топ-2 по частоте. Правильный ответ: «[('x', 1), ('y', 1)]».",
     "code": "from collections import Counter\nprint(Counter('xyz').most_common(2))",
     "group": "Collections и itertools",
-    "id": "m617"
+    "id": "m672"
   },
   {
     "topic": "collections",
@@ -8709,7 +9480,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Топ-2 по частоте. Правильный ответ: «[('i', 4), ('s', 4)]».",
     "code": "from collections import Counter\nprint(Counter('mississippi').most_common(2))",
     "group": "Collections и itertools",
-    "id": "m618"
+    "id": "m673"
   },
   {
     "topic": "collections",
@@ -8724,11 +9495,11 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Топ-2 по частоте. Правильный ответ: «[('a', 5), ('b', 2)]».",
     "code": "from collections import Counter\nprint(Counter('abracadabra').most_common(2))",
     "group": "Collections и itertools",
-    "id": "m619"
+    "id": "m674"
   },
   {
     "topic": "collections",
-    "q": "Что вернёт Что делает deque.rotate(2) на 5 элементах?",
+    "q": "Что делает deque.rotate(2) на 5 элементах?",
     "options": [
       "цикл сдвиг на 2 вправо (отриц. — влево)",
       "сортирует",
@@ -8738,11 +9509,11 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "rotate — циклический сдвиг. Правильный ответ: «цикл сдвиг на 2 вправо (отриц. — влево)».",
     "group": "Collections и itertools",
-    "id": "m620"
+    "id": "m675"
   },
   {
     "topic": "collections",
-    "q": "Что вернёт Что делает deque.rotate(3) на 6 элементах?",
+    "q": "Что делает deque.rotate(3) на 6 элементах?",
     "options": [
       "цикл сдвиг на 3 вправо (отриц. — влево)",
       "сортирует",
@@ -8752,11 +9523,11 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "rotate — циклический сдвиг. Правильный ответ: «цикл сдвиг на 3 вправо (отриц. — влево)».",
     "group": "Collections и itertools",
-    "id": "m621"
+    "id": "m676"
   },
   {
     "topic": "collections",
-    "q": "Что вернёт Что делает deque.rotate(1) на 4 элементах?",
+    "q": "Что делает deque.rotate(1) на 4 элементах?",
     "options": [
       "цикл сдвиг на 1 вправо (отриц. — влево)",
       "сортирует",
@@ -8766,11 +9537,11 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "rotate — циклический сдвиг. Правильный ответ: «цикл сдвиг на 1 вправо (отриц. — влево)».",
     "group": "Collections и itertools",
-    "id": "m622"
+    "id": "m677"
   },
   {
     "topic": "collections",
-    "q": "Что вернёт Что делает deque.rotate(4) на 7 элементах?",
+    "q": "Что делает deque.rotate(4) на 7 элементах?",
     "options": [
       "цикл сдвиг на 4 вправо (отриц. — влево)",
       "сортирует",
@@ -8780,7 +9551,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "rotate — циклический сдвиг. Правильный ответ: «цикл сдвиг на 4 вправо (отриц. — влево)».",
     "group": "Collections и itertools",
-    "id": "m623"
+    "id": "m678"
   },
   {
     "topic": "itertools",
@@ -8795,7 +9566,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "C(3,2) = 3.",
     "code": "from itertools import combinations\nprint(len(list(combinations(range(3), 2))))",
     "group": "Collections и itertools",
-    "id": "m624"
+    "id": "m679"
   },
   {
     "topic": "itertools",
@@ -8810,7 +9581,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "C(4,2) = 6.",
     "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 2))))",
     "group": "Collections и itertools",
-    "id": "m625"
+    "id": "m680"
   },
   {
     "topic": "itertools",
@@ -8825,7 +9596,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "C(4,3) = 4.",
     "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 3))))",
     "group": "Collections и itertools",
-    "id": "m626"
+    "id": "m681"
   },
   {
     "topic": "itertools",
@@ -8840,7 +9611,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "C(5,2) = 10.",
     "code": "from itertools import combinations\nprint(len(list(combinations(range(5), 2))))",
     "group": "Collections и itertools",
-    "id": "m627"
+    "id": "m682"
   },
   {
     "topic": "itertools",
@@ -8855,7 +9626,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "2^2 = 4.",
     "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=2))))",
     "group": "Collections и itertools",
-    "id": "m628"
+    "id": "m683"
   },
   {
     "topic": "itertools",
@@ -8870,7 +9641,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "2^3 = 8.",
     "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=3))))",
     "group": "Collections и itertools",
-    "id": "m629"
+    "id": "m684"
   },
   {
     "topic": "itertools",
@@ -8885,7 +9656,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "2^4 = 16.",
     "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=4))))",
     "group": "Collections и itertools",
-    "id": "m630"
+    "id": "m685"
   },
   {
     "topic": "itertools",
@@ -8900,7 +9671,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "islice — ленивый срез. Правильный ответ: «[1, 2, 3]».",
     "code": "from itertools import islice\nprint(list(islice([1, 2, 3, 4, 5], 3)))",
     "group": "Collections и itertools",
-    "id": "m631"
+    "id": "m686"
   },
   {
     "topic": "itertools",
@@ -8915,7 +9686,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "islice — ленивый срез. Правильный ответ: «[10, 20]».",
     "code": "from itertools import islice\nprint(list(islice([10, 20, 30, 40], 2)))",
     "group": "Collections и itertools",
-    "id": "m632"
+    "id": "m687"
   },
   {
     "topic": "itertools",
@@ -8930,7 +9701,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "islice — ленивый срез. Правильный ответ: «[0, 1, 2, 3]».",
     "code": "from itertools import islice\nprint(list(islice([0, 1, 2, 3, 4, 5], 4)))",
     "group": "Collections и itertools",
-    "id": "m633"
+    "id": "m688"
   },
   {
     "topic": "functools",
@@ -8945,7 +9716,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "partial фиксирует первый аргумент → f(1, 2). Правильный ответ: «3».",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 1)(2))",
     "group": "Collections и itertools",
-    "id": "m634"
+    "id": "m689"
   },
   {
     "topic": "functools",
@@ -8960,7 +9731,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "partial фиксирует первый аргумент → f(3, 4). Правильный ответ: «7».",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 3)(4))",
     "group": "Collections и itertools",
-    "id": "m635"
+    "id": "m690"
   },
   {
     "topic": "functools",
@@ -8975,7 +9746,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "partial фиксирует первый аргумент → f(5, 5). Правильный ответ: «10».",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 5)(5))",
     "group": "Collections и itertools",
-    "id": "m636"
+    "id": "m691"
   },
   {
     "topic": "functools",
@@ -8990,7 +9761,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "partial фиксирует первый аргумент → f(10, 1). Правильный ответ: «11».",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 10)(1))",
     "group": "Collections и itertools",
-    "id": "m637"
+    "id": "m692"
   },
   {
     "topic": "functools",
@@ -9005,7 +9776,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "partial фиксирует первый аргумент → f(0, 7).",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 0)(7))",
     "group": "Collections и itertools",
-    "id": "m638"
+    "id": "m693"
   },
   {
     "topic": "functools",
@@ -9019,7 +9790,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Каждый k от 0..n кэшируется один раз. Правильный ответ: «примерно 3 (0..n)».",
     "group": "Collections и itertools",
-    "id": "m639"
+    "id": "m694"
   },
   {
     "topic": "functools",
@@ -9033,7 +9804,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Каждый k от 0..n кэшируется один раз. Правильный ответ: «примерно 4 (0..n)».",
     "group": "Collections и itertools",
-    "id": "m640"
+    "id": "m695"
   },
   {
     "topic": "functools",
@@ -9047,7 +9818,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Каждый k от 0..n кэшируется один раз. Правильный ответ: «примерно 5 (0..n)».",
     "group": "Collections и itertools",
-    "id": "m641"
+    "id": "m696"
   },
   {
     "topic": "functools",
@@ -9061,7 +9832,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Каждый k от 0..n кэшируется один раз. Правильный ответ: «примерно 6 (0..n)».",
     "group": "Collections и itertools",
-    "id": "m642"
+    "id": "m697"
   },
   {
     "topic": "typing",
@@ -9076,7 +9847,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "isinstance с абстрактными/builtin типами. Правильный ответ: «True».",
     "code": "print(isinstance([1, 2], list))",
     "group": "Typing и dataclasses",
-    "id": "m643"
+    "id": "m698"
   },
   {
     "topic": "typing",
@@ -9091,7 +9862,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "isinstance с абстрактными/builtin типами. Правильный ответ: «True».",
     "code": "print(isinstance({'a': 1}, dict))",
     "group": "Typing и dataclasses",
-    "id": "m644"
+    "id": "m699"
   },
   {
     "topic": "typing",
@@ -9106,7 +9877,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "isinstance с абстрактными/builtin типами. Правильный ответ: «True».",
     "code": "print(isinstance((1,), tuple))",
     "group": "Typing и dataclasses",
-    "id": "m645"
+    "id": "m700"
   },
   {
     "topic": "typing",
@@ -9121,7 +9892,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "isinstance с абстрактными/builtin типами. Правильный ответ: «True».",
     "code": "print(isinstance({1}, set))",
     "group": "Typing и dataclasses",
-    "id": "m646"
+    "id": "m701"
   },
   {
     "topic": "typing",
@@ -9136,7 +9907,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "isinstance с абстрактными/builtin типами. Правильный ответ: «False».",
     "code": "print(isinstance((1, 2), list))",
     "group": "Typing и dataclasses",
-    "id": "m647"
+    "id": "m702"
   },
   {
     "topic": "typing",
@@ -9151,7 +9922,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "isinstance с абстрактными/builtin типами. Правильный ответ: «False».",
     "code": "print(isinstance([1], dict))",
     "group": "Typing и dataclasses",
-    "id": "m648"
+    "id": "m703"
   },
   {
     "topic": "typing",
@@ -9165,7 +9936,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно. Правильный ответ: «TypeError (или False в отдельных случаях) — generic alias не для isinstance так».",
     "group": "Typing и dataclasses",
-    "id": "m649"
+    "id": "m704"
   },
   {
     "topic": "typing",
@@ -9179,7 +9950,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно. Правильный ответ: «TypeError (или False в отдельных случаях) — generic alias не для isinstance так».",
     "group": "Typing и dataclasses",
-    "id": "m650"
+    "id": "m705"
   },
   {
     "topic": "typing",
@@ -9193,7 +9964,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно. Правильный ответ: «TypeError (или False в отдельных случаях) — generic alias не для isinstance так».",
     "group": "Typing и dataclasses",
-    "id": "m651"
+    "id": "m706"
   },
   {
     "topic": "dataclasses",
@@ -9207,7 +9978,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Проблема mutable default; int безопасен. Правильный ответ: «нет, int immutable default ок».",
     "group": "Typing и dataclasses",
-    "id": "m652"
+    "id": "m707"
   },
   {
     "topic": "dataclasses",
@@ -9221,7 +9992,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Проблема mutable default; int безопасен. Правильный ответ: «нет, int immutable default ок».",
     "group": "Typing и dataclasses",
-    "id": "m653"
+    "id": "m708"
   },
   {
     "topic": "dataclasses",
@@ -9235,7 +10006,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Проблема mutable default; int безопасен. Правильный ответ: «нет, int immutable default ок».",
     "group": "Typing и dataclasses",
-    "id": "m654"
+    "id": "m709"
   },
   {
     "topic": "dataclasses",
@@ -9249,7 +10020,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Избегаем общего mutable default. Правильный ответ: «новый dict() на каждый экземпляр».",
     "group": "Typing и dataclasses",
-    "id": "m655"
+    "id": "m710"
   },
   {
     "topic": "dataclasses",
@@ -9263,7 +10034,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Избегаем общего mutable default. Правильный ответ: «новый set() на каждый экземпляр».",
     "group": "Typing и dataclasses",
-    "id": "m656"
+    "id": "m711"
   },
   {
     "topic": "asyncio",
@@ -9277,7 +10048,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "По умолчанию первая ошибка поднимается из gather. Правильный ответ: «пробросит исключение (остальные могут продолжать до отмены политики)».",
     "group": "Asyncio",
-    "id": "m657"
+    "id": "m712"
   },
   {
     "topic": "asyncio",
@@ -9291,7 +10062,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Держи ссылки или await TaskGroup. Правильный ответ: «задачи могут быть собраны GC / потеря исключений».",
     "group": "Asyncio",
-    "id": "m658"
+    "id": "m713"
   },
   {
     "topic": "asyncio",
@@ -9305,7 +10076,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "По умолчанию первая ошибка поднимается из gather. Правильный ответ: «пробросит исключение (остальные могут продолжать до отмены политики)».",
     "group": "Asyncio",
-    "id": "m659"
+    "id": "m714"
   },
   {
     "topic": "asyncio",
@@ -9319,7 +10090,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Держи ссылки или await TaskGroup. Правильный ответ: «задачи могут быть собраны GC / потеря исключений».",
     "group": "Asyncio",
-    "id": "m660"
+    "id": "m715"
   },
   {
     "topic": "asyncio",
@@ -9333,7 +10104,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "По умолчанию первая ошибка поднимается из gather. Правильный ответ: «пробросит исключение (остальные могут продолжать до отмены политики)».",
     "group": "Asyncio",
-    "id": "m661"
+    "id": "m716"
   },
   {
     "topic": "asyncio",
@@ -9347,7 +10118,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Держи ссылки или await TaskGroup. Правильный ответ: «задачи могут быть собраны GC / потеря исключений».",
     "group": "Asyncio",
-    "id": "m662"
+    "id": "m717"
   },
   {
     "topic": "pathlib",
@@ -9362,7 +10133,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Path склеивает части. Правильный ответ: «a/b».",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('a', 'b'))",
     "group": "Stdlib и производительность",
-    "id": "m663"
+    "id": "m718"
   },
   {
     "topic": "pathlib",
@@ -9377,7 +10148,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Path склеивает части. Правильный ответ: «var/log/app.log».",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'app.log'))",
     "group": "Stdlib и производительность",
-    "id": "m664"
+    "id": "m719"
   },
   {
     "topic": "pathlib",
@@ -9392,7 +10163,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Path склеивает части. Правильный ответ: «home/user/docs».",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('home', 'user', 'docs'))",
     "group": "Stdlib и производительность",
-    "id": "m665"
+    "id": "m720"
   },
   {
     "topic": "pathlib",
@@ -9407,7 +10178,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Path склеивает части. Правильный ответ: «x/y/z/w».",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('x', 'y', 'z', 'w'))",
     "group": "Stdlib и производительность",
-    "id": "m666"
+    "id": "m721"
   },
   {
     "topic": "regex",
@@ -9422,7 +10193,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "search — первое вхождение. Правильный ответ: «'12'».",
     "code": "import re\nm = re.search('\\\\d+', 'ab12cd')\nprint(None if m is None else m.group())",
     "group": "Stdlib и производительность",
-    "id": "m667"
+    "id": "m722"
   },
   {
     "topic": "regex",
@@ -9437,7 +10208,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "search — первое вхождение. Правильный ответ: «'a'».",
     "code": "import re\nm = re.search('[aeiou]', 'stack')\nprint(None if m is None else m.group())",
     "group": "Stdlib и производительность",
-    "id": "m668"
+    "id": "m723"
   },
   {
     "topic": "regex",
@@ -9452,7 +10223,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "search — первое вхождение. Правильный ответ: «'42'».",
     "code": "import re\nm = re.search('^\\\\d+$', '42')\nprint(None if m is None else m.group())",
     "group": "Stdlib и производительность",
-    "id": "m669"
+    "id": "m724"
   },
   {
     "topic": "regex",
@@ -9467,7 +10238,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "search — первое вхождение. Правильный ответ: «None».",
     "code": "import re\nm = re.search('^\\\\d+$', '42a')\nprint(None if m is None else m.group())",
     "group": "Stdlib и производительность",
-    "id": "m670"
+    "id": "m725"
   },
   {
     "topic": "HTTP",
@@ -9481,7 +10252,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "GET безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Правильный ответ: «идемпотентный (в идеале)».",
     "group": "Веб и API",
-    "id": "m671"
+    "id": "m726"
   },
   {
     "topic": "HTTP",
@@ -9495,7 +10266,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "PUT безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Правильный ответ: «идемпотентный (в идеале)».",
     "group": "Веб и API",
-    "id": "m672"
+    "id": "m727"
   },
   {
     "topic": "HTTP",
@@ -9509,7 +10280,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "DELETE безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Правильный ответ: «идемпотентный (в идеале)».",
     "group": "Веб и API",
-    "id": "m673"
+    "id": "m728"
   },
   {
     "topic": "HTTP",
@@ -9523,7 +10294,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HEAD безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Правильный ответ: «идемпотентный (в идеале)».",
     "group": "Веб и API",
-    "id": "m674"
+    "id": "m729"
   },
   {
     "topic": "HTTP",
@@ -9537,7 +10308,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "OPTIONS безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Правильный ответ: «идемпотентный (в идеале)».",
     "group": "Веб и API",
-    "id": "m675"
+    "id": "m730"
   },
   {
     "topic": "HTTP",
@@ -9551,7 +10322,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "200 — OK.",
     "group": "Веб и API",
-    "id": "m676"
+    "id": "m731"
   },
   {
     "topic": "HTTP",
@@ -9565,7 +10336,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "201 — Created.",
     "group": "Веб и API",
-    "id": "m677"
+    "id": "m732"
   },
   {
     "topic": "HTTP",
@@ -9579,7 +10350,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "204 — No Content.",
     "group": "Веб и API",
-    "id": "m678"
+    "id": "m733"
   },
   {
     "topic": "HTTP",
@@ -9593,7 +10364,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "301 — Moved Permanently.",
     "group": "Веб и API",
-    "id": "m679"
+    "id": "m734"
   },
   {
     "topic": "HTTP",
@@ -9607,7 +10378,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "400 — Bad Request.",
     "group": "Веб и API",
-    "id": "m680"
+    "id": "m735"
   },
   {
     "topic": "HTTP",
@@ -9621,7 +10392,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "401 — Unauthorized.",
     "group": "Веб и API",
-    "id": "m681"
+    "id": "m736"
   },
   {
     "topic": "HTTP",
@@ -9635,7 +10406,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "403 — Forbidden.",
     "group": "Веб и API",
-    "id": "m682"
+    "id": "m737"
   },
   {
     "topic": "HTTP",
@@ -9649,7 +10420,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "404 — Not Found.",
     "group": "Веб и API",
-    "id": "m683"
+    "id": "m738"
   },
   {
     "topic": "HTTP",
@@ -9663,7 +10434,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "409 — Conflict.",
     "group": "Веб и API",
-    "id": "m684"
+    "id": "m739"
   },
   {
     "topic": "HTTP",
@@ -9677,7 +10448,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "422 — Unprocessable.",
     "group": "Веб и API",
-    "id": "m685"
+    "id": "m740"
   },
   {
     "topic": "HTTP",
@@ -9691,7 +10462,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "429 — Too Many Requests.",
     "group": "Веб и API",
-    "id": "m686"
+    "id": "m741"
   },
   {
     "topic": "HTTP",
@@ -9705,7 +10476,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "500 — Server Error.",
     "group": "Веб и API",
-    "id": "m687"
+    "id": "m742"
   },
   {
     "topic": "HTTP",
@@ -9719,7 +10490,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "502 — Bad Gateway.",
     "group": "Веб и API",
-    "id": "m688"
+    "id": "m743"
   },
   {
     "topic": "HTTP",
@@ -9733,7 +10504,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "503 — Unavailable.",
     "group": "Веб и API",
-    "id": "m689"
+    "id": "m744"
   },
   {
     "topic": "SQL",
@@ -9747,7 +10518,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Изоляции отличаются допустимыми аномалиями. Правильный ответ: «разные аномалии чтения/записи; знай свою СУБД».",
     "group": "Веб и API",
-    "id": "m690"
+    "id": "m745"
   },
   {
     "topic": "SQL",
@@ -9761,7 +10532,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Изоляции отличаются допустимыми аномалиями. Правильный ответ: «разные аномалии чтения/записи; знай свою СУБД».",
     "group": "Веб и API",
-    "id": "m691"
+    "id": "m746"
   },
   {
     "topic": "SQL",
@@ -9775,7 +10546,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Изоляции отличаются допустимыми аномалиями. Правильный ответ: «разные аномалии чтения/записи; знай свою СУБД».",
     "group": "Веб и API",
-    "id": "m692"
+    "id": "m747"
   },
   {
     "topic": "SQL",
@@ -9789,7 +10560,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Изоляции отличаются допустимыми аномалиями. Правильный ответ: «разные аномалии чтения/записи; знай свою СУБД».",
     "group": "Веб и API",
-    "id": "m693"
+    "id": "m748"
   },
   {
     "topic": "context",
@@ -9803,7 +10574,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "contextlib.ExitStack. Правильный ответ: «динамическое число CM».",
     "group": "Исключения и контекст",
-    "id": "m694"
+    "id": "m749"
   },
   {
     "topic": "MRO",
@@ -9818,7 +10589,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Первый в MRO — сам класс. Правильный ответ: «C».",
     "code": "class A: pass\nclass B(A): pass\nclass C(B): pass\nprint(C.__mro__[0].__name__)",
     "group": "ООП продвинутый",
-    "id": "m695"
+    "id": "m750"
   },
   {
     "topic": "match",
@@ -9832,7 +10603,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Ловит всё оставшееся. Правильный ответ: «wildcard / default ветка».",
     "group": "Typing и dataclasses",
-    "id": "m696"
+    "id": "m751"
   },
   {
     "topic": "тесты",
@@ -9846,7 +10617,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Таблица кейсов. Правильный ответ: «тест на набор входных данных».",
     "group": "Тесты и качество",
-    "id": "m697"
+    "id": "m752"
   },
   {
     "topic": "json",
@@ -9861,7 +10632,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "dumps → строка JSON. Правильный ответ: «{\"a\": 1}».",
     "code": "import json\nprint(json.dumps({'a': 1}))",
     "group": "Stdlib и производительность",
-    "id": "m698"
+    "id": "m753"
   },
   {
     "topic": "json",
@@ -9876,7 +10647,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "loads парсит в объекты Python. Правильный ответ: «dict».",
     "code": "import json\nprint(type(json.loads('{\"a\": 1}')).__name__)",
     "group": "Stdlib и производительность",
-    "id": "m699"
+    "id": "m754"
   },
   {
     "topic": "json",
@@ -9891,7 +10662,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "dumps → строка JSON. Правильный ответ: «{\"x\": [1, 2]}».",
     "code": "import json\nprint(json.dumps({'x': [1, 2]}))",
     "group": "Stdlib и производительность",
-    "id": "m700"
+    "id": "m755"
   },
   {
     "topic": "json",
@@ -9906,7 +10677,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "loads парсит в объекты Python. Правильный ответ: «dict».",
     "code": "import json\nprint(type(json.loads('{\"x\": [1, 2]}')).__name__)",
     "group": "Stdlib и производительность",
-    "id": "m701"
+    "id": "m756"
   },
   {
     "topic": "json",
@@ -9921,7 +10692,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "dumps → строка JSON. Правильный ответ: «{\"ok\": true, \"n\": null}».",
     "code": "import json\nprint(json.dumps({'ok': True, 'n': None}))",
     "group": "Stdlib и производительность",
-    "id": "m702"
+    "id": "m757"
   },
   {
     "topic": "json",
@@ -9936,7 +10707,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "loads парсит в объекты Python. Правильный ответ: «dict».",
     "code": "import json\nprint(type(json.loads('{\"ok\": true, \"n\": null}')).__name__)",
     "group": "Stdlib и производительность",
-    "id": "m703"
+    "id": "m758"
   },
   {
     "topic": "json",
@@ -9951,7 +10722,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "dumps → строка JSON. Правильный ответ: «[1, 2, 3]».",
     "code": "import json\nprint(json.dumps([1, 2, 3]))",
     "group": "Stdlib и производительность",
-    "id": "m704"
+    "id": "m759"
   },
   {
     "topic": "json",
@@ -9966,7 +10737,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "loads парсит в объекты Python. Правильный ответ: «list».",
     "code": "import json\nprint(type(json.loads('[1, 2, 3]')).__name__)",
     "group": "Stdlib и производительность",
-    "id": "m705"
+    "id": "m760"
   },
   {
     "topic": "json",
@@ -9981,7 +10752,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "dumps → строка JSON. Правильный ответ: «\"hi\"».",
     "code": "import json\nprint(json.dumps('hi'))",
     "group": "Stdlib и производительность",
-    "id": "m706"
+    "id": "m761"
   },
   {
     "topic": "json",
@@ -9996,7 +10767,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "dumps → строка JSON. Правильный ответ: «42».",
     "code": "import json\nprint(json.dumps(42))",
     "group": "Stdlib и производительность",
-    "id": "m707"
+    "id": "m762"
   },
   {
     "topic": "json",
@@ -10011,7 +10782,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Невалидный JSON → JSONDecodeError.",
     "code": "import json\nprint(json.loads('{'))",
     "group": "Stdlib и производительность",
-    "id": "m708"
+    "id": "m763"
   },
   {
     "topic": "json",
@@ -10026,7 +10797,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Невалидный JSON → JSONDecodeError.",
     "code": "import json\nprint(json.loads('nullish'))",
     "group": "Stdlib и производительность",
-    "id": "m709"
+    "id": "m764"
   },
   {
     "topic": "json",
@@ -10041,7 +10812,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Невалидный JSON → JSONDecodeError.",
     "code": "import json\nprint(json.loads('[1, 2,'))",
     "group": "Stdlib и производительность",
-    "id": "m710"
+    "id": "m765"
   },
   {
     "topic": "heapq",
@@ -10056,7 +10827,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "После heapify h[0] — минимум (для min-heap). Правильный ответ: «1».",
     "code": "import heapq\nh = [5, 1, 3]\nheapq.heapify(h)\nprint(h[0])",
     "group": "Collections и itertools",
-    "id": "m711"
+    "id": "m766"
   },
   {
     "topic": "heapq",
@@ -10071,7 +10842,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два наименьших. Правильный ответ: «[1, 3]».",
     "code": "import heapq\nprint(heapq.nsmallest(2, [5, 1, 3]))",
     "group": "Collections и itertools",
-    "id": "m712"
+    "id": "m767"
   },
   {
     "topic": "heapq",
@@ -10086,7 +10857,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "После heapify h[0] — минимум (для min-heap). Правильный ответ: «1».",
     "code": "import heapq\nh = [9, 2, 7, 1]\nheapq.heapify(h)\nprint(h[0])",
     "group": "Collections и itertools",
-    "id": "m713"
+    "id": "m768"
   },
   {
     "topic": "heapq",
@@ -10101,7 +10872,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два наименьших. Правильный ответ: «[1, 2]».",
     "code": "import heapq\nprint(heapq.nsmallest(2, [9, 2, 7, 1]))",
     "group": "Collections и itertools",
-    "id": "m714"
+    "id": "m769"
   },
   {
     "topic": "heapq",
@@ -10116,7 +10887,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "После heapify h[0] — минимум (для min-heap). Правильный ответ: «1».",
     "code": "import heapq\nh = [4, 4, 1]\nheapq.heapify(h)\nprint(h[0])",
     "group": "Collections и itertools",
-    "id": "m715"
+    "id": "m770"
   },
   {
     "topic": "heapq",
@@ -10131,7 +10902,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два наименьших. Правильный ответ: «[1, 4]».",
     "code": "import heapq\nprint(heapq.nsmallest(2, [4, 4, 1]))",
     "group": "Collections и itertools",
-    "id": "m716"
+    "id": "m771"
   },
   {
     "topic": "heapq",
@@ -10146,7 +10917,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "После heapify h[0] — минимум (для min-heap). Правильный ответ: «5».",
     "code": "import heapq\nh = [10, 20, 5, 30]\nheapq.heapify(h)\nprint(h[0])",
     "group": "Collections и itertools",
-    "id": "m717"
+    "id": "m772"
   },
   {
     "topic": "heapq",
@@ -10161,7 +10932,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два наименьших. Правильный ответ: «[5, 10]».",
     "code": "import heapq\nprint(heapq.nsmallest(2, [10, 20, 5, 30]))",
     "group": "Collections и itertools",
-    "id": "m718"
+    "id": "m773"
   },
   {
     "topic": "bisect",
@@ -10176,7 +10947,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Индекс вставки слева для сохранения порядка. Правильный ответ: «2».",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 4))",
     "group": "Collections и itertools",
-    "id": "m719"
+    "id": "m774"
   },
   {
     "topic": "bisect",
@@ -10191,7 +10962,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Индекс вставки слева для сохранения порядка. Правильный ответ: «0».",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 1))",
     "group": "Collections и itertools",
-    "id": "m720"
+    "id": "m775"
   },
   {
     "topic": "bisect",
@@ -10206,7 +10977,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Индекс вставки слева для сохранения порядка. Правильный ответ: «3».",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 7))",
     "group": "Collections и itertools",
-    "id": "m721"
+    "id": "m776"
   },
   {
     "topic": "bisect",
@@ -10221,7 +10992,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Индекс вставки слева для сохранения порядка. Правильный ответ: «0».",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 0))",
     "group": "Collections и itertools",
-    "id": "m722"
+    "id": "m777"
   },
   {
     "topic": "bisect",
@@ -10236,7 +11007,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Индекс вставки слева для сохранения порядка. Правильный ответ: «4».",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 8))",
     "group": "Collections и itertools",
-    "id": "m723"
+    "id": "m778"
   },
   {
     "topic": "bisect",
@@ -10251,7 +11022,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Индекс вставки слева для сохранения порядка. Правильный ответ: «2».",
     "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 5))",
     "group": "Collections и itertools",
-    "id": "m724"
+    "id": "m779"
   },
   {
     "topic": "bisect",
@@ -10266,7 +11037,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Индекс вставки слева для сохранения порядка. Правильный ответ: «1».",
     "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 4))",
     "group": "Collections и itertools",
-    "id": "m725"
+    "id": "m780"
   },
   {
     "topic": "walrus",
@@ -10281,7 +11052,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": ":= присваивает и использует значение в условии. Правильный ответ: «no».",
     "code": "if (x := 0):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
-    "id": "m726"
+    "id": "m781"
   },
   {
     "topic": "walrus",
@@ -10296,7 +11067,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": ":= присваивает и использует значение в условии. Правильный ответ: «1».",
     "code": "if (x := 1):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
-    "id": "m727"
+    "id": "m782"
   },
   {
     "topic": "walrus",
@@ -10311,7 +11082,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": ":= присваивает и использует значение в условии. Правильный ответ: «2».",
     "code": "if (x := 2):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
-    "id": "m728"
+    "id": "m783"
   },
   {
     "topic": "walrus",
@@ -10326,7 +11097,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": ":= присваивает и использует значение в условии. Правильный ответ: «5».",
     "code": "if (x := 5):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
-    "id": "m729"
+    "id": "m784"
   },
   {
     "topic": "walrus",
@@ -10341,7 +11112,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": ":= присваивает и использует значение в условии. Правильный ответ: «10».",
     "code": "if (x := 10):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
-    "id": "m730"
+    "id": "m785"
   },
   {
     "topic": "match",
@@ -10356,7 +11127,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "match/case сопоставляет значение. Правильный ответ: «zero».",
     "code": "x = 0\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
-    "id": "m731"
+    "id": "m786"
   },
   {
     "topic": "match",
@@ -10371,7 +11142,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "match/case сопоставляет значение. Правильный ответ: «one».",
     "code": "x = 1\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
-    "id": "m732"
+    "id": "m787"
   },
   {
     "topic": "match",
@@ -10386,7 +11157,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "match/case сопоставляет значение. Правильный ответ: «other».",
     "code": "x = 2\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
-    "id": "m733"
+    "id": "m788"
   },
   {
     "topic": "match",
@@ -10401,7 +11172,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "match/case сопоставляет значение. Правильный ответ: «other».",
     "code": "x = 99\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
-    "id": "m734"
+    "id": "m789"
   },
   {
     "topic": "match",
@@ -10416,7 +11187,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Паттерны последовательностей в match. Правильный ответ: «pair».",
     "code": "x = [1, 2]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
-    "id": "m735"
+    "id": "m790"
   },
   {
     "topic": "match",
@@ -10431,7 +11202,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Паттерны последовательностей в match. Правильный ответ: «single».",
     "code": "x = [1]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
-    "id": "m736"
+    "id": "m791"
   },
   {
     "topic": "match",
@@ -10446,7 +11217,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Паттерны последовательностей в match. Правильный ответ: «many».",
     "code": "x = [1, 2, 3]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
-    "id": "m737"
+    "id": "m792"
   },
   {
     "topic": "match",
@@ -10461,7 +11232,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Паттерны последовательностей в match. Правильный ответ: «empty».",
     "code": "x = []\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
-    "id": "m738"
+    "id": "m793"
   },
   {
     "topic": "itertools",
@@ -10476,7 +11247,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Накопительная сумма. Правильный ответ: «[1, 3]».",
     "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 3))))",
     "group": "Collections и itertools",
-    "id": "m739"
+    "id": "m794"
   },
   {
     "topic": "itertools",
@@ -10491,7 +11262,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "chain склеивает итерируемые. Правильный ответ: «[1, 2, 0, 1]».",
     "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(2)))))",
     "group": "Collections и itertools",
-    "id": "m740"
+    "id": "m795"
   },
   {
     "topic": "itertools",
@@ -10506,7 +11277,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Накопительная сумма. Правильный ответ: «[1, 3, 6]».",
     "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 4))))",
     "group": "Collections и itertools",
-    "id": "m741"
+    "id": "m796"
   },
   {
     "topic": "itertools",
@@ -10521,7 +11292,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "chain склеивает итерируемые. Правильный ответ: «[1, 2, 0, 1, 2]».",
     "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(3)))))",
     "group": "Collections и itertools",
-    "id": "m742"
+    "id": "m797"
   },
   {
     "topic": "itertools",
@@ -10536,7 +11307,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Накопительная сумма. Правильный ответ: «[1, 3, 6, 10]».",
     "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 5))))",
     "group": "Collections и itertools",
-    "id": "m743"
+    "id": "m798"
   },
   {
     "topic": "itertools",
@@ -10551,7 +11322,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "chain склеивает итерируемые. Правильный ответ: «[1, 2, 0, 1, 2, 3]».",
     "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(4)))))",
     "group": "Collections и itertools",
-    "id": "m744"
+    "id": "m799"
   },
   {
     "topic": "itertools",
@@ -10566,7 +11337,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Накопительная сумма. Правильный ответ: «[1, 3, 6, 10, 15]».",
     "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 6))))",
     "group": "Collections и itertools",
-    "id": "m745"
+    "id": "m800"
   },
   {
     "topic": "itertools",
@@ -10581,7 +11352,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "chain склеивает итерируемые. Правильный ответ: «[1, 2, 0, 1, 2, 3, 4]».",
     "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(5)))))",
     "group": "Collections и itertools",
-    "id": "m746"
+    "id": "m801"
   },
   {
     "topic": "itertools",
@@ -10596,7 +11367,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "P(3,2) = 6.",
     "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 2))))",
     "group": "Collections и itertools",
-    "id": "m747"
+    "id": "m802"
   },
   {
     "topic": "itertools",
@@ -10611,7 +11382,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "P(4,2) = 12.",
     "code": "from itertools import permutations\nprint(len(list(permutations(range(4), 2))))",
     "group": "Collections и itertools",
-    "id": "m748"
+    "id": "m803"
   },
   {
     "topic": "itertools",
@@ -10626,7 +11397,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "P(5,2) = 20.",
     "code": "from itertools import permutations\nprint(len(list(permutations(range(5), 2))))",
     "group": "Collections и itertools",
-    "id": "m749"
+    "id": "m804"
   },
   {
     "topic": "itertools",
@@ -10641,7 +11412,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "P(3,3) = 6.",
     "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 3))))",
     "group": "Collections и itertools",
-    "id": "m750"
+    "id": "m805"
   },
   {
     "topic": "itertools",
@@ -10656,7 +11427,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "groupby группирует только подряд идущие одинаковые. Правильный ответ: «[(1, 2), (2, 2), (3, 1)]».",
     "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 1, 2, 2, 3])])",
     "group": "Collections и itertools",
-    "id": "m751"
+    "id": "m806"
   },
   {
     "topic": "itertools",
@@ -10671,7 +11442,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "groupby группирует только подряд идущие одинаковые. Правильный ответ: «[(5, 3)]».",
     "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([5, 5, 5])])",
     "group": "Collections и itertools",
-    "id": "m752"
+    "id": "m807"
   },
   {
     "topic": "itertools",
@@ -10686,7 +11457,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "groupby группирует только подряд идущие одинаковые. Правильный ответ: «[(1, 1), (2, 1), (1, 1)]».",
     "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 2, 1])])",
     "group": "Collections и itertools",
-    "id": "m753"
+    "id": "m808"
   },
   {
     "topic": "itertools",
@@ -10701,7 +11472,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "groupby группирует только подряд идущие одинаковые. Правильный ответ: «[(0, 2), (1, 2), (0, 1)]».",
     "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([0, 0, 1, 1, 0])])",
     "group": "Collections и itertools",
-    "id": "m754"
+    "id": "m809"
   },
   {
     "topic": "functools",
@@ -10716,7 +11487,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Свёртка суммы. Правильный ответ: «10».",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [1, 2, 3, 4]))",
     "group": "Collections и itertools",
-    "id": "m755"
+    "id": "m810"
   },
   {
     "topic": "functools",
@@ -10731,7 +11502,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Свёртка произведения. Правильный ответ: «24».",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [1, 2, 3, 4]))",
     "group": "Collections и itertools",
-    "id": "m756"
+    "id": "m811"
   },
   {
     "topic": "functools",
@@ -10746,7 +11517,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Свёртка суммы. Правильный ответ: «6».",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [2, 2, 2]))",
     "group": "Collections и itertools",
-    "id": "m757"
+    "id": "m812"
   },
   {
     "topic": "functools",
@@ -10761,7 +11532,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Свёртка произведения. Правильный ответ: «8».",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [2, 2, 2]))",
     "group": "Collections и itertools",
-    "id": "m758"
+    "id": "m813"
   },
   {
     "topic": "functools",
@@ -10776,7 +11547,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Свёртка суммы. Правильный ответ: «7».",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [5, 1, 1]))",
     "group": "Collections и itertools",
-    "id": "m759"
+    "id": "m814"
   },
   {
     "topic": "functools",
@@ -10791,7 +11562,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Свёртка произведения. Правильный ответ: «5».",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [5, 1, 1]))",
     "group": "Collections и itertools",
-    "id": "m760"
+    "id": "m815"
   },
   {
     "topic": "functools",
@@ -10806,7 +11577,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Свёртка суммы. Правильный ответ: «12».",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [10, 2]))",
     "group": "Collections и itertools",
-    "id": "m761"
+    "id": "m816"
   },
   {
     "topic": "functools",
@@ -10821,7 +11592,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Свёртка произведения. Правильный ответ: «20».",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [10, 2]))",
     "group": "Collections и itertools",
-    "id": "m762"
+    "id": "m817"
   },
   {
     "topic": "functools",
@@ -10835,7 +11606,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Кэш в памяти процесса. Правильный ответ: «до 1 результатов вызовов».",
     "group": "Collections и itertools",
-    "id": "m763"
+    "id": "m818"
   },
   {
     "topic": "functools",
@@ -10849,7 +11620,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Кэш в памяти процесса. Правильный ответ: «до 2 результатов вызовов».",
     "group": "Collections и itertools",
-    "id": "m764"
+    "id": "m819"
   },
   {
     "topic": "functools",
@@ -10863,7 +11634,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Кэш в памяти процесса. Правильный ответ: «до 8 результатов вызовов».",
     "group": "Collections и itertools",
-    "id": "m765"
+    "id": "m820"
   },
   {
     "topic": "functools",
@@ -10877,7 +11648,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Кэш в памяти процесса. Правильный ответ: «до 128 результатов вызовов».",
     "group": "Collections и itertools",
-    "id": "m766"
+    "id": "m821"
   },
   {
     "topic": "functools",
@@ -10891,7 +11662,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Кэш в памяти процесса. Правильный ответ: «неограниченно (осторожно с RAM)».",
     "group": "Collections и itertools",
-    "id": "m767"
+    "id": "m822"
   },
   {
     "topic": "copy",
@@ -10906,7 +11677,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "shallow копирует верхний уровень. Правильный ответ: «True (shallow)».",
     "code": "import copy\na = [[1], [2]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m768"
+    "id": "m823"
   },
   {
     "topic": "copy",
@@ -10921,7 +11692,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "deepcopy копирует вложенность. Правильный ответ: «False».",
     "code": "import copy\na = [[1], [2]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m769"
+    "id": "m824"
   },
   {
     "topic": "copy",
@@ -10936,7 +11707,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "shallow копирует верхний уровень. Правильный ответ: «True (shallow)».",
     "code": "import copy\na = [[0, 0], [1]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m770"
+    "id": "m825"
   },
   {
     "topic": "copy",
@@ -10951,7 +11722,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "deepcopy копирует вложенность. Правильный ответ: «False».",
     "code": "import copy\na = [[0, 0], [1]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m771"
+    "id": "m826"
   },
   {
     "topic": "copy",
@@ -10966,7 +11737,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "shallow копирует верхний уровень. Правильный ответ: «True (shallow)».",
     "code": "import copy\na = [{'a': 1}]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m772"
+    "id": "m827"
   },
   {
     "topic": "copy",
@@ -10981,7 +11752,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "deepcopy копирует вложенность. Правильный ответ: «False».",
     "code": "import copy\na = [{'a': 1}]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m773"
+    "id": "m828"
   },
   {
     "topic": "copy",
@@ -10996,7 +11767,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "shallow копирует верхний уровень. Правильный ответ: «True (shallow)».",
     "code": "import copy\na = [[]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m774"
+    "id": "m829"
   },
   {
     "topic": "copy",
@@ -11011,7 +11782,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "deepcopy копирует вложенность. Правильный ответ: «False».",
     "code": "import copy\na = [[]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m775"
+    "id": "m830"
   },
   {
     "topic": "copy",
@@ -11026,7 +11797,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "shallow копирует верхний уровень. Правильный ответ: «True (shallow)».",
     "code": "import copy\na = [[1, 2, 3]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m776"
+    "id": "m831"
   },
   {
     "topic": "copy",
@@ -11041,7 +11812,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "deepcopy копирует вложенность. Правильный ответ: «False».",
     "code": "import copy\na = [[1, 2, 3]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
-    "id": "m777"
+    "id": "m832"
   },
   {
     "topic": "pathlib",
@@ -11056,7 +11827,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Склейка частей пути. Правильный ответ: «etc/passwd».",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('etc', 'passwd'))",
     "group": "Stdlib и производительность",
-    "id": "m778"
+    "id": "m833"
   },
   {
     "topic": "pathlib",
@@ -11071,7 +11842,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Склейка частей пути. Правильный ответ: «var/log/syslog».",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'syslog'))",
     "group": "Stdlib и производительность",
-    "id": "m779"
+    "id": "m834"
   },
   {
     "topic": "pathlib",
@@ -11086,7 +11857,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Склейка частей пути. Правильный ответ: «tmp/x».",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('tmp', 'x'))",
     "group": "Stdlib и производительность",
-    "id": "m780"
+    "id": "m835"
   },
   {
     "topic": "pathlib",
@@ -11101,7 +11872,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Склейка частей пути. Правильный ответ: «usr/bin/python».",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('usr', 'bin', 'python'))",
     "group": "Stdlib и производительность",
-    "id": "m781"
+    "id": "m836"
   },
   {
     "topic": "pathlib",
@@ -11116,7 +11887,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "suffix — последний суффикс (для tar.gz это .gz). Правильный ответ: «'.txt'».",
     "code": "from pathlib import PurePath\nprint(PurePath('a.txt').suffix)",
     "group": "Stdlib и производительность",
-    "id": "m782"
+    "id": "m837"
   },
   {
     "topic": "pathlib",
@@ -11131,7 +11902,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "suffix — последний суффикс (для tar.gz это .gz). Правильный ответ: «'.JSON'».",
     "code": "from pathlib import PurePath\nprint(PurePath('B.JSON').suffix)",
     "group": "Stdlib и производительность",
-    "id": "m783"
+    "id": "m838"
   },
   {
     "topic": "pathlib",
@@ -11146,7 +11917,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "suffix — последний суффикс (для tar.gz это .gz). Правильный ответ: «'.PNG'».",
     "code": "from pathlib import PurePath\nprint(PurePath('photo.PNG').suffix)",
     "group": "Stdlib и производительность",
-    "id": "m784"
+    "id": "m839"
   },
   {
     "topic": "pathlib",
@@ -11161,7 +11932,7 @@ window.QUESTIONS_MIDDLE = [
     "explain": "suffix — последний суффикс (для tar.gz это .gz). Правильный ответ: «'.gz'».",
     "code": "from pathlib import PurePath\nprint(PurePath('archive.tar.gz').suffix)",
     "group": "Stdlib и производительность",
-    "id": "m785"
+    "id": "m840"
   },
   {
     "topic": "exceptions",
@@ -11175,7 +11946,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "ValueError → … → Exception → ….",
     "group": "Исключения и контекст",
-    "id": "m786"
+    "id": "m841"
   },
   {
     "topic": "exceptions",
@@ -11189,7 +11960,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "KeyError → … → LookupError → ….",
     "group": "Исключения и контекст",
-    "id": "m787"
+    "id": "m842"
   },
   {
     "topic": "exceptions",
@@ -11203,7 +11974,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "IndexError → … → LookupError → ….",
     "group": "Исключения и контекст",
-    "id": "m788"
+    "id": "m843"
   },
   {
     "topic": "exceptions",
@@ -11217,7 +11988,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "FileNotFoundError → … → OSError → ….",
     "group": "Исключения и контекст",
-    "id": "m789"
+    "id": "m844"
   },
   {
     "topic": "exceptions",
@@ -11231,7 +12002,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "ZeroDivisionError → … → ArithmeticError → ….",
     "group": "Исключения и контекст",
-    "id": "m790"
+    "id": "m845"
   },
   {
     "topic": "exceptions",
@@ -11245,7 +12016,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "TypeError → … → Exception → ….",
     "group": "Исключения и контекст",
-    "id": "m791"
+    "id": "m846"
   },
   {
     "topic": "exceptions",
@@ -11259,7 +12030,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "StopIteration → … → Exception → ….",
     "group": "Исключения и контекст",
-    "id": "m792"
+    "id": "m847"
   },
   {
     "topic": "exceptions",
@@ -11273,7 +12044,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "KeyboardInterrupt → … → BaseException → ….",
     "group": "Исключения и контекст",
-    "id": "m793"
+    "id": "m848"
   },
   {
     "topic": "context",
@@ -11287,7 +12058,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "with open() as a, open() as b: или ExitStack для динамики. Правильный ответ: «можно вложить / или один with a, b».",
     "group": "Исключения и контекст",
-    "id": "m794"
+    "id": "m849"
   },
   {
     "topic": "context",
@@ -11301,7 +12072,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "with open() as a, open() as b: или ExitStack для динамики. Правильный ответ: «можно вложить / или один with a, b».",
     "group": "Исключения и контекст",
-    "id": "m795"
+    "id": "m850"
   },
   {
     "topic": "context",
@@ -11315,7 +12086,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "with open() as a, open() as b: или ExitStack для динамики. Правильный ответ: «можно вложить / или один with a, b».",
     "group": "Исключения и контекст",
-    "id": "m796"
+    "id": "m851"
   },
   {
     "topic": "HTTP",
@@ -11329,7 +12100,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 200: успех с телом.",
     "group": "Веб и API",
-    "id": "m797"
+    "id": "m852"
   },
   {
     "topic": "HTTP",
@@ -11343,7 +12114,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 201: ресурс создан.",
     "group": "Веб и API",
-    "id": "m798"
+    "id": "m853"
   },
   {
     "topic": "HTTP",
@@ -11357,7 +12128,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 204: успех без тела.",
     "group": "Веб и API",
-    "id": "m799"
+    "id": "m854"
   },
   {
     "topic": "HTTP",
@@ -11371,7 +12142,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 304: не изменилось / кэш.",
     "group": "Веб и API",
-    "id": "m800"
+    "id": "m855"
   },
   {
     "topic": "HTTP",
@@ -11385,7 +12156,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 400: ошибка клиента.",
     "group": "Веб и API",
-    "id": "m801"
+    "id": "m856"
   },
   {
     "topic": "HTTP",
@@ -11399,7 +12170,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 401: нужна аутентификация.",
     "group": "Веб и API",
-    "id": "m802"
+    "id": "m857"
   },
   {
     "topic": "HTTP",
@@ -11413,7 +12184,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 403: запрещено.",
     "group": "Веб и API",
-    "id": "m803"
+    "id": "m858"
   },
   {
     "topic": "HTTP",
@@ -11427,7 +12198,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 404: не найдено.",
     "group": "Веб и API",
-    "id": "m804"
+    "id": "m859"
   },
   {
     "topic": "HTTP",
@@ -11441,7 +12212,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 409: конфликт состояния.",
     "group": "Веб и API",
-    "id": "m805"
+    "id": "m860"
   },
   {
     "topic": "HTTP",
@@ -11455,7 +12226,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 429: лимит запросов.",
     "group": "Веб и API",
-    "id": "m806"
+    "id": "m861"
   },
   {
     "topic": "HTTP",
@@ -11469,7 +12240,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 500: ошибка сервера.",
     "group": "Веб и API",
-    "id": "m807"
+    "id": "m862"
   },
   {
     "topic": "HTTP",
@@ -11483,7 +12254,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 502: плохой шлюз.",
     "group": "Веб и API",
-    "id": "m808"
+    "id": "m863"
   },
   {
     "topic": "HTTP",
@@ -11497,7 +12268,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 503: сервис недоступен.",
     "group": "Веб и API",
-    "id": "m809"
+    "id": "m864"
   },
   {
     "topic": "HTTP",
@@ -11511,7 +12282,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 504: таймаут шлюза.",
     "group": "Веб и API",
-    "id": "m810"
+    "id": "m865"
   },
   {
     "topic": "SQL",
@@ -11525,7 +12296,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "WHERE в SQL. Правильный ответ: «фильтр строк до группировки».",
     "group": "Веб и API",
-    "id": "m811"
+    "id": "m866"
   },
   {
     "topic": "SQL",
@@ -11539,7 +12310,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "JOIN в SQL. Правильный ответ: «связь таблиц».",
     "group": "Веб и API",
-    "id": "m812"
+    "id": "m867"
   },
   {
     "topic": "SQL",
@@ -11553,7 +12324,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "GROUP BY в SQL. Правильный ответ: «агрегация по ключу».",
     "group": "Веб и API",
-    "id": "m813"
+    "id": "m868"
   },
   {
     "topic": "SQL",
@@ -11567,7 +12338,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HAVING в SQL. Правильный ответ: «фильтр после GROUP BY».",
     "group": "Веб и API",
-    "id": "m814"
+    "id": "m869"
   },
   {
     "topic": "SQL",
@@ -11581,7 +12352,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "ORDER BY в SQL. Правильный ответ: «сортировка результата».",
     "group": "Веб и API",
-    "id": "m815"
+    "id": "m870"
   },
   {
     "topic": "SQL",
@@ -11595,7 +12366,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "LIMIT в SQL. Правильный ответ: «ограничить число строк».",
     "group": "Веб и API",
-    "id": "m816"
+    "id": "m871"
   },
   {
     "topic": "SQL",
@@ -11609,7 +12380,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "OFFSET в SQL. Правильный ответ: «пропустить N строк».",
     "group": "Веб и API",
-    "id": "m817"
+    "id": "m872"
   },
   {
     "topic": "SQL",
@@ -11623,7 +12394,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "RETURNING в SQL. Правильный ответ: «вернуть строки после INSERT/UPDATE/DELETE (PG и др.)».",
     "group": "Веб и API",
-    "id": "m818"
+    "id": "m873"
   },
   {
     "topic": "SQL",
@@ -11637,7 +12408,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Без ORDER BY порядок не гарантирован. Правильный ответ: «набор из N строк без стабильного порядка».",
     "group": "Веб и API",
-    "id": "m819"
+    "id": "m874"
   },
   {
     "topic": "SQL",
@@ -11651,7 +12422,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Без ORDER BY порядок не гарантирован. Правильный ответ: «набор из N строк без стабильного порядка».",
     "group": "Веб и API",
-    "id": "m820"
+    "id": "m875"
   },
   {
     "topic": "SQL",
@@ -11665,7 +12436,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Без ORDER BY порядок не гарантирован. Правильный ответ: «набор из N строк без стабильного порядка».",
     "group": "Веб и API",
-    "id": "m821"
+    "id": "m876"
   },
   {
     "topic": "SQL",
@@ -11679,6 +12450,384 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Без ORDER BY порядок не гарантирован. Правильный ответ: «набор из N строк без стабильного порядка».",
     "group": "Веб и API",
-    "id": "m822"
+    "id": "m877"
+  },
+  {
+    "topic": "DRY",
+    "q": "Что означает принцип DRY?",
+    "options": [
+      "Don't Repeat Yourself — не дублировать знание/логику",
+      "Do Repeat Yourself",
+      "Delete Rarely Your code",
+      "Debug Runs Yearly"
+    ],
+    "answer": 0,
+    "explain": "DRY про одну точку правды для бизнес-правил и логики; копипаста расходится со временем. Правильный ответ: «Don't Repeat Yourself — не дублировать знание/логику».",
+    "group": "Архитектура и дизайн",
+    "id": "m878"
+  },
+  {
+    "topic": "DRY",
+    "q": "Два модуля копируют одну и ту же валидацию email — что нарушено?",
+    "options": [
+      "DRY",
+      "KISS",
+      "GIL",
+      "PEP 8"
+    ],
+    "answer": 0,
+    "explain": "Одинаковая логика в двух местах — классическое нарушение DRY.",
+    "group": "Архитектура и дизайн",
+    "id": "m879"
+  },
+  {
+    "topic": "DRY",
+    "q": "Какой рефакторинг чаще всего помогает соблюсти DRY?",
+    "options": [
+      "вынести общую функцию/модуль",
+      "скопировать ещё раз",
+      "закомментировать дубликат",
+      "переименовать переменную"
+    ],
+    "answer": 0,
+    "explain": "Общий код — в одну функцию, класс или утилитный модуль. Правильный ответ: «вынести общую функцию/модуль».",
+    "group": "Архитектура и дизайн",
+    "id": "m880"
+  },
+  {
+    "topic": "DRY",
+    "q": "Что означает «DRY относится к»?",
+    "options": [
+      "дублированию логики и знаний",
+      "только к именам переменных",
+      "только к тестам",
+      "количеству файлов"
+    ],
+    "answer": 0,
+    "explain": "Не про «мало строк», а про не повторять смысл. Правильный ответ: «дублированию логики и знаний».",
+    "group": "Архитектура и дизайн",
+    "id": "m881"
+  },
+  {
+    "topic": "DRY",
+    "q": "Когда дублирование допустимо по здравому смыслу?",
+    "options": [
+      "когда общий абстракция дороже двух копий",
+      "никогда",
+      "всегда в проде",
+      "только в тестах запрещено"
+    ],
+    "answer": 0,
+    "explain": "Принцип — ориентир; иногда две похожие вещи лучше не склеивать насильно. Правильный ответ: «когда общий абстракция дороже двух копий».",
+    "group": "Архитектура и дизайн",
+    "id": "m882"
+  },
+  {
+    "topic": "KISS",
+    "q": "Что означает KISS?",
+    "options": [
+      "Keep It Simple, Stupid — проще решение лучше",
+      "Keep It Super Short",
+      "Kill Invalid Syntax Silently",
+      "Key In Secure Storage"
+    ],
+    "answer": 0,
+    "explain": "Выбирай самое простое решение, которое решает задачу. Правильный ответ: «Keep It Simple, Stupid — проще решение лучше».",
+    "group": "Архитектура и дизайн",
+    "id": "m883"
+  },
+  {
+    "topic": "KISS",
+    "q": "Команда пишет фабрику фабрик для одного if — что нарушено?",
+    "options": [
+      "KISS",
+      "DRY только",
+      "GIL",
+      "asyncio"
+    ],
+    "answer": 0,
+    "explain": "Избыточная абстракция усложняет чтение без выгоды — анти-KISS.",
+    "group": "Архитектура и дизайн",
+    "id": "m884"
+  },
+  {
+    "topic": "KISS",
+    "q": "Что означает KISS в Python часто?",
+    "options": [
+      "прямолинейный код вместо магии",
+      "всегда метаклассы",
+      "только C-расширения",
+      "отказ от функций"
+    ],
+    "answer": 0,
+    "explain": "Явный простой код ценится выше хитрых трюков. Правильный ответ: «прямолинейный код вместо магии».",
+    "group": "Архитектура и дизайн",
+    "id": "m885"
+  },
+  {
+    "topic": "KISS",
+    "q": "Что ближе к KISS при обработке ошибки?",
+    "options": [
+      "явный try/except с понятным сообщением",
+      "цепочка из 5 декораторов",
+      "eval для обработки",
+      "глобальный except: pass"
+    ],
+    "answer": 0,
+    "explain": "Простая обработка ошибок читается и отлаживается легче. Правильный ответ: «явный try/except с понятным сообщением».",
+    "group": "Архитектура и дизайн",
+    "id": "m886"
+  },
+  {
+    "topic": "YAGNI",
+    "q": "Что означает YAGNI?",
+    "options": [
+      "You Aren't Gonna Need It — не пиши «на будущее»",
+      "Your API Never Gets Installed",
+      "Yield All Generated Items",
+      "Yet Another Generic Interface"
+    ],
+    "answer": 0,
+    "explain": "Не добавляй функциональность, пока она реально не нужна. Правильный ответ: «You Aren't Gonna Need It — не пиши «на будущее»».",
+    "group": "Архитектура и дизайн",
+    "id": "m887"
+  },
+  {
+    "topic": "YAGNI",
+    "q": "Программист добавляет поддержку 10 валют «на всякий случай» — что нарушено?",
+    "options": [
+      "YAGNI",
+      "DRY",
+      "LSP",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Лишняя сложность без требования — классический YAGNI.",
+    "group": "Архитектура и дизайн",
+    "id": "m888"
+  },
+  {
+    "topic": "YAGNI",
+    "q": "Что означает «YAGNI не противоречит»?",
+    "options": [
+      "простому расширяемому дизайну без лишних фич",
+      "написанию всего заранее",
+      "100 уровней наследования",
+      "преждевременной оптимизации"
+    ],
+    "answer": 0,
+    "explain": "Можно проектировать чисто, но не реализовывать ненужное сейчас. Правильный ответ: «простому расширяемому дизайну без лишних фич».",
+    "group": "Архитектура и дизайн",
+    "id": "m889"
+  },
+  {
+    "topic": "YAGNI",
+    "q": "Чем YAGNI отличается от KISS?",
+    "options": [
+      "YAGNI — не делать лишнее; KISS — делать просто",
+      "это одно и то же",
+      "YAGNI только для тестов",
+      "KISS только для SQL"
+    ],
+    "answer": 0,
+    "explain": "YAGNI про объём фич; KISS про сложность решения. Правильный ответ: «YAGNI — не делать лишнее; KISS — делать просто».",
+    "group": "Архитектура и дизайн",
+    "id": "m890"
+  },
+  {
+    "topic": "Zen",
+    "q": "Как посмотреть Zen of Python в интерпретаторе?",
+    "options": [
+      "import this",
+      "zen()",
+      "python -m zen",
+      "help(zen)"
+    ],
+    "answer": 0,
+    "explain": "Пасхалка в стандартной библиотеке — набор афоризмов PEP 20. Правильный ответ: «import this».",
+    "group": "Архитектура и дизайн",
+    "id": "m891"
+  },
+  {
+    "topic": "Zen",
+    "q": "Что означает «Explicit is better than implicit»?",
+    "options": [
+      "явный код лучше скрытой магии",
+      "больше глобальных переменных",
+      "меньше типов",
+      "только list comprehensions"
+    ],
+    "answer": 0,
+    "explain": "Поведение кода должно быть очевидным читателю. Правильный ответ: «явный код лучше скрытой магии».",
+    "group": "Архитектура и дизайн",
+    "id": "m892"
+  },
+  {
+    "topic": "Zen",
+    "q": "Выбери верный вариант: «Readability counts» про что?",
+    "options": [
+      "код читают чаще, чем пишут",
+      "короче = лучше",
+      "комментарии не нужны",
+      "только PEP 8"
+    ],
+    "answer": 0,
+    "explain": "Читаемость — часть сопровождаемости. Правильный ответ: «код читают чаще, чем пишут».",
+    "group": "Архитектура и дизайн",
+    "id": "m893"
+  },
+  {
+    "topic": "Zen",
+    "q": "Что означает ««There should be one obvious way to do it» близко к»?",
+    "options": [
+      "KISS и ясному стилю",
+      "10 способам сделать одно",
+      "отказу от stdlib",
+      "только ООП"
+    ],
+    "answer": 0,
+    "explain": "В Python ценят понятный идиоматичный путь. Правильный ответ: «KISS и ясному стилю».",
+    "group": "Архитектура и дизайн",
+    "id": "m894"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что означает «Composition over inheritance»?",
+    "options": [
+      "собирать поведение из объектов, а не только наследовать",
+      "никогда не использовать классы",
+      "только множественное наследование",
+      "запрет delegate"
+    ],
+    "answer": 0,
+    "explain": "Композиция гибче: меняешь части без ломки иерархии. Правильный ответ: «собирать поведение из объектов, а не только наследовать».",
+    "group": "Архитектура и дизайн",
+    "id": "m895"
+  },
+  {
+    "topic": "принципы",
+    "q": "Когда композиция предпочтительнее наследования?",
+    "options": [
+      "когда нужно комбинировать разное поведение",
+      "всегда запрещено наследование",
+      "только для dataclass",
+      "только в C-API"
+    ],
+    "answer": 0,
+    "explain": "Наследование жёстко связывает; композиция — слабее связь. Правильный ответ: «когда нужно комбинировать разное поведение».",
+    "group": "Архитектура и дизайн",
+    "id": "m896"
+  },
+  {
+    "topic": "принципы",
+    "q": "Класс Car наследует Engine, Wheels, Radio вместо «имеет» их — что нарушено?",
+    "options": [
+      "разумную композицию",
+      "только PEP 8",
+      "GIL",
+      "typing"
+    ],
+    "answer": 0,
+    "explain": "«Car has-a Engine» обычно лучше, чем «Car is-a Engine». Правильный ответ: «разумную композицию».",
+    "group": "Архитектура и дизайн",
+    "id": "m897"
+  },
+  {
+    "topic": "cohesion",
+    "q": "Что такое Высокая связность (cohesion) модуля?",
+    "options": [
+      "элементы модуля работают на одну цель",
+      "модуль знает обо всём проекте",
+      "много import *",
+      "один гигантский файл"
+    ],
+    "answer": 0,
+    "explain": "Модуль должен быть про одну зону ответственности. Правильный ответ: «элементы модуля работают на одну цель».",
+    "group": "Архитектура и дизайн",
+    "id": "m898"
+  },
+  {
+    "topic": "cohesion",
+    "q": "Что такое Сильная связанность (tight coupling) между модулями?",
+    "options": [
+      "плохо: изменение в одном ломает другой",
+      "всегда хорошо",
+      "только про потоки",
+      "синоним cohesion"
+    ],
+    "answer": 0,
+    "explain": "Слабая связанность упрощает изменения и тесты. Правильный ответ: «плохо: изменение в одном ломает другой».",
+    "group": "Архитектура и дизайн",
+    "id": "m899"
+  },
+  {
+    "topic": "cohesion",
+    "q": "Что означает «Модуль utils.py на 3000 строк с HTTP, SQL и PDF — проблема»?",
+    "options": [
+      "низкой связности / смешения ответственностей",
+      "только GIL",
+      "только типов",
+      "PEP 8"
+    ],
+    "answer": 0,
+    "explain": "Разные задачи в одном мешке — трудно сопровождать. Правильный ответ: «низкой связности / смешения ответственностей».",
+    "group": "Архитектура и дизайн",
+    "id": "m900"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что такое «Easier to Ask Forgiveness than Permission» в Python?",
+    "options": [
+      "сначала попробовать, поймать исключение",
+      "всегда if перед каждым шагом",
+      "только для async",
+      "запрет try/except"
+    ],
+    "answer": 0,
+    "explain": "EAFP — идиоматичный стиль Python (try/except вместо длинных if). Правильный ответ: «сначала попробовать, поймать исключение».",
+    "group": "Архитектура и дизайн",
+    "id": "m901"
+  },
+  {
+    "topic": "принципы",
+    "q": "Когда LBYL уместнее EAFP?",
+    "options": [
+      "когда проверка дешевле и предсказуема",
+      "никогда",
+      "всегда",
+      "только в C"
+    ],
+    "answer": 0,
+    "explain": "Look Before You Leap — сначала проверить условие, если это яснее. Правильный ответ: «когда проверка дешевле и предсказуема».",
+    "group": "Архитектура и дизайн",
+    "id": "m902"
+  },
+  {
+    "topic": "SoC",
+    "q": "Что такое Separation of Concerns (разделение ответственности)?",
+    "options": [
+      "разные аспекты системы в разных модулях",
+      "один класс на весь проект",
+      "только микросервисы",
+      "отказ от слоёв"
+    ],
+    "answer": 0,
+    "explain": "UI, бизнес-логика и БД не должны быть перемешаны в одной куче. Правильный ответ: «разные аспекты системы в разных модулях».",
+    "group": "Архитектура и дизайн",
+    "id": "m903"
+  },
+  {
+    "topic": "SoC",
+    "q": "View смешивает SQL-запросы и HTML-шаблон в одной функции — что нарушено?",
+    "options": [
+      "Separation of Concerns",
+      "только GIL",
+      "только LSP",
+      "Zen"
+    ],
+    "answer": 0,
+    "explain": "Слои лучше разделять: данные, логика, представление. Правильный ответ: «Separation of Concerns».",
+    "group": "Архитектура и дизайн",
+    "id": "m904"
   }
 ];

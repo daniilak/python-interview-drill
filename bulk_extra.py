@@ -630,7 +630,7 @@ def build_senior() -> list[dict]:
         q("design", "postel's law осторожно потому…", ["толерантный парсер копит хаос", "всегда плох", "всегда идеален", "только HTTP/1"], 0, "Строгость на границах."),
         q("design", "ACL anti-corruption…", ["перевод внешней модели", "firewall OS", "JWT", "WAF"], 0, "DDD."),
         q("Zen", "Special cases aren't special enough…", ["избегать слишком особых веток", "писать только special", "GIL poem", "PEP 8 quote"], 0, "Zen."),
-        q("SOLID", "Open/Closed в Python часто через…", ["протоколы/стратегии/регистры", "правку ядра каждый раз", "globals", "eval"], 0, "Расширение без ломания."),
+        q("SOLID", "Как в Python обычно соблюдают Open/Closed?", ["протоколы/стратегии/регистры", "правку ядра каждый раз", "globals", "eval"], 0, "Расширяем поведение новыми классами и хуками, не ломая существующий код."),
         q("C-API", "Py_INCREF/DECREF…", ["ручной refcount", "GIL tokens", "hash", "GC generation"], 0, "Владение ссылками."),
         q("C-API", "PyErr_SetString…", ["ставить исключение", "логировать only", "clear frames", "release GIL"], 0, "Ошибки из C."),
         q("C-API", "borrowed vs new reference…", ["критично для корректности", "синонимы", "только PyPy", "async"], 0, "Документация ownership."),

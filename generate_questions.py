@@ -9,8 +9,10 @@ from bulk_extra import JUNIOR_EXTRA, MIDDLE_EXTRA, SENIOR_EXTRA
 from code_output_extra import CODE_JUNIOR, CODE_MIDDLE, CODE_SENIOR
 from wave2_extra import JUNIOR_W2, MIDDLE_W2, SENIOR_W2
 from wave3_extra import JUNIOR_W3, MIDDLE_W3, SENIOR_W3
+from wave4_extra import JUNIOR_W4, MIDDLE_W4, SENIOR_W4
 from variants_extra import JUNIOR_VARIANTS, MIDDLE_VARIANTS, SENIOR_VARIANTS
 from variants2_extra import JUNIOR_VARIANTS2, MIDDLE_VARIANTS2, SENIOR_VARIANTS2
+from principles_extra import MIDDLE_PRINCIPLES, SENIOR_PRINCIPLES
 from question_polish import polish_question
 
 OUT = Path(__file__).resolve().parent / "js" / "data"
@@ -327,7 +329,7 @@ SENIOR += [
     q("security", "Для секретов в логах важно…", ["редактирование / не логировать", "print всегда", "pickle secrets", "держать в URL"], 0, "Leak prevention."),
     q("API design", "Хороший API в Python часто…", ["явный, предсказуемый, с типами", "максимум магии __getattr__", "глобальные синглтоны везде", "молчаливые catch-all except"], 0, "Явное лучше неявного (Zen)."),
     q("Zen", "«Explicit is better than implicit» из…", ["The Zen of Python (PEP 20)", "PEP 8 только", "GIL docs", "POSIX"], 0, "import this."),
-    q("SOLID", "Dependency Inversion в Python часто через…", ["протоколы/ABC + DI", "глобальные import", "GIL", "monkeypatch в проде"], 0, "Зависимость от абстракций."),
+    q("SOLID", "Как в Python обычно реализуют Dependency Inversion?", ["протоколы/ABC + DI", "глобальные import", "GIL", "monkeypatch в проде"], 0, "Модули верхнего уровня зависят от абстракций, а не от конкретных классов."),
     q("patterns", "В Python Singleton часто заменяют…", ["модулем как синглтоном", "обязательным metaclass везде", "Borg только", "GoF строго"], 0, "Модуль загружается один раз."),
     q("patterns", "Стратегия естественно выражается…", ["функциями/callable первого класса", "только наследованием", "GIL strategies", "enum switch C-style обязателен"], 0, "First-class functions."),
     q("performance", "Когда имеет смысл Cython/PyO3?", ["горячие CPU участки", "каждый CRUD", "логирование", "конфиг YAML"], 0, "Нативный код для hotspots."),
@@ -728,6 +730,8 @@ TOPIC_TO_GROUP: dict[str, str] = {
     "random": "Инструменты и стиль",
     "math": "Инструменты и стиль",
     "path": "Инструменты и стиль",
+    "git": "Инструменты и стиль",
+    "алгоритмы": "Алгоритмы и структуры данных",
     # Middle
     "декораторы": "Декораторы и замыкания",
     "closures": "Декораторы и замыкания",
@@ -827,6 +831,13 @@ TOPIC_TO_GROUP: dict[str, str] = {
     "patterns": "Архитектура и дизайн",
     "SOLID": "Архитектура и дизайн",
     "Zen": "Архитектура и дизайн",
+    "DRY": "Архитектура и дизайн",
+    "KISS": "Архитектура и дизайн",
+    "YAGNI": "Архитектура и дизайн",
+    "принципы": "Архитектура и дизайн",
+    "cohesion": "Архитектура и дизайн",
+    "LoD": "Архитектура и дизайн",
+    "SoC": "Архитектура и дизайн",
     "security": "Безопасность",
     "packaging": "Packaging и CI",
     "ci": "Packaging и CI",
@@ -917,9 +928,9 @@ def main() -> None:
             out.append(it)
         return out
 
-    j = dedupe(JUNIOR + JUNIOR_EXTRA + CODE_JUNIOR + JUNIOR_W2 + JUNIOR_W3 + JUNIOR_VARIANTS + JUNIOR_VARIANTS2)
-    m = dedupe(MIDDLE + MIDDLE_EXTRA + CODE_MIDDLE + MIDDLE_W2 + MIDDLE_W3 + MIDDLE_VARIANTS + MIDDLE_VARIANTS2)
-    s = dedupe(SENIOR + SENIOR_EXTRA + CODE_SENIOR + SENIOR_W2 + SENIOR_W3 + SENIOR_VARIANTS + SENIOR_VARIANTS2)
+    j = dedupe(JUNIOR + JUNIOR_EXTRA + CODE_JUNIOR + JUNIOR_W2 + JUNIOR_W3 + JUNIOR_W4 + JUNIOR_VARIANTS + JUNIOR_VARIANTS2)
+    m = dedupe(MIDDLE + MIDDLE_EXTRA + CODE_MIDDLE + MIDDLE_W2 + MIDDLE_W3 + MIDDLE_W4 + MIDDLE_VARIANTS + MIDDLE_VARIANTS2 + MIDDLE_PRINCIPLES)
+    s = dedupe(SENIOR + SENIOR_EXTRA + CODE_SENIOR + SENIOR_W2 + SENIOR_W3 + SENIOR_W4 + SENIOR_VARIANTS + SENIOR_VARIANTS2 + SENIOR_PRINCIPLES)
     write_js("junior", "QUESTIONS_JUNIOR", j)
     write_js("middle", "QUESTIONS_MIDDLE", m)
     write_js("senior", "QUESTIONS_SENIOR", s)

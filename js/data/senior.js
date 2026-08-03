@@ -29,7 +29,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "GIL",
-    "q": "Что вернёт Как C-расширение отпускает GIL?",
+    "q": "Как C-расширение отпускает GIL?",
     "options": [
       "Py_BEGIN_ALLOW_THREADS",
       "gil.disable()",
@@ -295,7 +295,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "concurrency",
-    "q": "Выбери верный вариант: Когда ProcessPool лучше ThreadPool?",
+    "q": "Когда ProcessPool лучше ThreadPool?",
     "options": [
       "CPU-bound в CPython",
       "чистый network wait",
@@ -337,7 +337,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "asyncio",
-    "q": "Выбери верный вариант: Почему блокирующий вызов в async плох?",
+    "q": "Почему блокирующий вызов в async плох?",
     "options": [
       "блокирует event loop",
       "убивает процесс",
@@ -379,7 +379,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "pickle",
-    "q": "В чём риск pickle.loads из недоверенного источника?",
+    "q": "Почему pickle опасен из недоверенного источника?",
     "options": [
       "может выполнить код при загрузке",
       "только большой размер",
@@ -435,7 +435,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "SOLID",
-    "q": "Что означает «Dependency Inversion в Python часто через»?",
+    "q": "Как в Python обычно реализуют Dependency Inversion?",
     "options": [
       "протоколы/ABC + DI",
       "глобальные import",
@@ -443,7 +443,7 @@ window.QUESTIONS_SENIOR = [
       "monkeypatch в проде"
     ],
     "answer": 0,
-    "explain": "Зависимость от абстракций. Правильный ответ: «протоколы/ABC + DI».",
+    "explain": "Модули верхнего уровня зависят от абстракций, а не от конкретных классов. Правильный ответ: «протоколы/ABC + DI».",
     "group": "Архитектура и дизайн",
     "id": "s32"
   },
@@ -477,7 +477,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "performance",
-    "q": "Что вернёт Когда имеет смысл Cython/PyO3?",
+    "q": "Когда имеет смысл Cython/PyO3?",
     "options": [
       "горячие CPU участки",
       "каждый CRUD",
@@ -533,7 +533,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "design",
-    "q": "Что означает «Fail fast означает»?",
+    "q": "Что означает Fail fast?",
     "options": [
       "рано обнаруживать ошибки",
       "глотать exceptions",
@@ -687,7 +687,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "typing",
-    "q": "Что вернёт cast(T, x) в typing?",
+    "q": "Что такое cast(T, x) в typing в контексте Python?",
     "options": [
       "говорит чекеру тип, runtime no-op",
       "конвертирует значение",
@@ -883,7 +883,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "python",
-    "q": "Что вернёт Почему list.pop(0) медленный?",
+    "q": "Почему list.pop(0) медленный?",
     "options": [
       "O(n) сдвиг элементов",
       "O(1) на деле",
@@ -897,7 +897,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "python",
-    "q": "Что вернёт Почему dict быстрее list для поиска ключа?",
+    "q": "Почему dict быстрее list для поиска ключа?",
     "options": [
       "средний O(1) hash",
       "sorted binary всегда",
@@ -925,7 +925,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "string",
-    "q": "Что вернёт Почему str immutable важно для?",
+    "q": "Почему str immutable важно для?",
     "options": [
       "безопасности ключей dict / шаринга",
       "скорости +=",
@@ -1149,7 +1149,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "CPython",
-    "q": "Выбери верный вариант: Что делает LOAD_FAST в bytecode?",
+    "q": "Что делает LOAD_FAST в bytecode?",
     "options": [
       "загрузка локальной переменной",
       "global",
@@ -1163,7 +1163,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "CPython",
-    "q": "Выбери верный вариант: Почему локальные переменные быстрее глобальных?",
+    "q": "Почему локальные переменные быстрее глобальных?",
     "options": [
       "LOOKUP по индексу vs dict builtins/global",
       "GIL иначе работает",
@@ -1191,7 +1191,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "async",
-    "q": "Что вернёт shield() защищает?",
+    "q": "Что означает «shield() защищает»?",
     "options": [
       "awaitable от отмены снаружи",
       "от KeyboardInterrupt",
@@ -1317,7 +1317,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "GIL",
-    "q": "Выбери верный вариант: Почему numpy.dot больших массивов масштабируется лучше чистого Python цикла в threads?",
+    "q": "Почему numpy.dot больших массивов масштабируется лучше чистого Python цикла в threads?",
     "options": [
       "много работы в C без GIL",
       "GIL отключён в numpy глобально навсегда",
@@ -1331,7 +1331,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "память",
-    "q": "Что вернёт tracemalloc.start() влияет на?",
+    "q": "Что означает «tracemalloc.start() влияет на»?",
     "options": [
       "overhead + возможность снимков аллокаций",
       "только скорость сети",
@@ -1387,7 +1387,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "метаклассы",
-    "q": "Что вернёт type(name, bases, dict) эквивалентен?",
+    "q": "Что означает «type(name, bases, dict) эквивалентен»?",
     "options": [
       "динамическому созданию класса",
       "только eval",
@@ -1485,7 +1485,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "asyncio",
-    "q": "Что вернёт anyio/trio знамениты?",
+    "q": "Что означает «anyio/trio знамениты»?",
     "options": [
       "structured concurrency идеями",
       "удалением async",
@@ -1681,7 +1681,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "performance",
-    "q": "Чем помогает Когда __slots__ почти не?",
+    "q": "Когда __slots__ почти не помогает?",
     "options": [
       "мало экземпляров / мало атрибутов",
       "миллионы объектов с 1 полем",
@@ -1751,7 +1751,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "serialization",
-    "q": "Что вернёт Почему protobuf schema-first?",
+    "q": "Почему protobuf schema-first?",
     "options": [
       "явный контракт и совместимость полей",
       "человекочитаемее JSON always",
@@ -1765,7 +1765,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "python",
-    "q": "Что вернёт Почему str+= в цикле может быть ок в CPython иногда, но стиль — join?",
+    "q": "Почему str+= в цикле может быть ок в CPython иногда, но стиль — join?",
     "options": [
       "квадратичный риск / читаемость / портабельность",
       "join медленнее всегда",
@@ -1863,7 +1863,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "ctypes",
-    "q": "Что вернёт restype/argtypes важны чтобы?",
+    "q": "Что означает «restype/argtypes важны чтобы»?",
     "options": [
       "правильно маршалить C типы",
       "ускорить Python loop 100x",
@@ -1877,7 +1877,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "subinterpreters",
-    "q": "Выбери верный вариант: Зачем изоляция subinterpreters?",
+    "q": "Зачем изоляция subinterpreters?",
     "options": [
       "меньше shared mutable state в процессе",
       "замена Docker",
@@ -2115,7 +2115,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "GIL",
-    "q": "Что вернёт Отпускание GIL в blocking I/O?",
+    "q": "Что означает «Отпускание GIL в blocking I/O»?",
     "options": [
       "позволяет другим потокам идти",
       "убивает refcount",
@@ -2297,7 +2297,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "typing",
-    "q": "Что вернёт dataclass_transform для Pydantic/attrs?",
+    "q": "Что такое dataclass_transform для Pydantic/attrs в контексте Python?",
     "options": [
       "чтобы checker понимал поля",
       "runtime validation замена",
@@ -2759,7 +2759,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "performance",
-    "q": "Что вернёт perf/flamegraph для?",
+    "q": "Что такое perf/flamegraph для в контексте Python?",
     "options": [
       "CPU профилей натив/питон с инструментами",
       "только pep8",
@@ -2899,7 +2899,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "serialization",
-    "q": "Что вернёт schema evolution backward/forward?",
+    "q": "Что такое schema evolution backward/forward в контексте Python?",
     "options": [
       "совместимость старых/новых клиентов",
       "только JSON pretty",
@@ -2913,7 +2913,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "python",
-    "q": "Что вернёт почему list.pop(0) O(n)?",
+    "q": "почему list.pop(0) O(n)?",
     "options": [
       "сдвиг массива",
       "hash rebuild",
@@ -3067,7 +3067,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "SOLID",
-    "q": "Что вернёт Open/Closed в Python часто через?",
+    "q": "Как в Python обычно соблюдают Open/Closed?",
     "options": [
       "протоколы/стратегии/регистры",
       "правку ядра каждый раз",
@@ -3075,7 +3075,7 @@ window.QUESTIONS_SENIOR = [
       "eval"
     ],
     "answer": 0,
-    "explain": "Расширение без ломания. Правильный ответ: «протоколы/стратегии/регистры».",
+    "explain": "Расширяем поведение новыми классами и хуками, не ломая существующий код. Правильный ответ: «протоколы/стратегии/регистры».",
     "group": "Архитектура и дизайн",
     "id": "s220"
   },
@@ -3193,7 +3193,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "runtime",
-    "q": "Что вернёт sitecustomize/usercustomize?",
+    "q": "Что такое sitecustomize/usercustomize в контексте Python?",
     "options": [
       "автоимпорт при старте",
       "pip config",
@@ -3445,7 +3445,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "python",
-    "q": "Что означает «почему hash randomization»?",
+    "q": "почему hash randomization?",
     "options": [
       "защита от collision DoS",
       "ускорение",
@@ -4019,7 +4019,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "python",
-    "q": "Что вернёт почему не полагаться на dict order до 3.7 как на язык?",
+    "q": "почему не полагаться на dict order до 3.7 как на язык?",
     "options": [
       "стал guarantee с 3.7; раньше CPython detail",
       "никогда не был",
@@ -4299,7 +4299,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "python",
-    "q": "Что означает «почему __eq__ без __hash__ → unhashable»?",
+    "q": "почему __eq__ без __hash__ → unhashable?",
     "options": [
       "None hash в class",
       "random",
@@ -4355,7 +4355,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "db",
-    "q": "Что вернёт LISTEN/NOTIFY?",
+    "q": "Что такое LISTEN/NOTIFY в контексте Python?",
     "options": [
       "лёгкие события PostgreSQL",
       "Kafka replacement always",
@@ -4425,7 +4425,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "память",
-    "q": "Что вернёт mimalloc/other in experiments?",
+    "q": "Что такое mimalloc/other in experiments в контексте Python?",
     "options": [
       "альтернативные аллокаторы сборок",
       "замена gc",
@@ -4929,7 +4929,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "security",
-    "q": "Что вернёт marshmallow/pydantic на границе?",
+    "q": "Что означает «marshmallow/pydantic на границе»?",
     "options": [
       "валидация не доверенного ввода",
       "замена firewall",
@@ -5251,7 +5251,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "import",
-    "q": "Что означает «find_spec None означает»?",
+    "q": "Что означает find_spec None?",
     "options": [
       "модуль не найден",
       "found",
@@ -6441,7 +6441,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "python",
-    "q": "Что выведет код?",
+    "q": "Почему pop(0) медленный?",
     "options": [
       "O(n) сдвиг",
       "O(1)",
@@ -6516,7 +6516,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "asyncio",
-    "q": "Что выведет код?",
+    "q": "Почему нельзя time.sleep в async?",
     "options": [
       "блокирует event loop",
       "убивает процесс",
@@ -6621,7 +6621,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "байткод",
-    "q": "Что выведет код?",
+    "q": "Чем смотреть bytecode?",
     "options": [
       "dis.dis",
       "ast only",
@@ -6651,7 +6651,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "architecture",
-    "q": "Что выведет код?",
+    "q": "Зачем ACL?",
     "options": [
       "изолировать внешнюю модель",
       "ускорить SQL",
@@ -6680,7 +6680,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "CPython",
-    "q": "Верно ли, что Что хранит PyObject заголовок примерно?",
+    "q": "Что хранит PyObject заголовок примерно?",
     "options": [
       "refcount + указатель на тип",
       "только значение",
@@ -6750,7 +6750,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "asyncio",
-    "q": "Выбери верный вариант: что такое backpressure?",
+    "q": "что такое backpressure?",
     "options": [
       "торможение производителя, когда потребитель не успевает",
       "увеличение concurrency always",
@@ -6764,7 +6764,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "asyncio",
-    "q": "Что вернёт shield(awaitable)?",
+    "q": "Что такое shield(awaitable) в контексте Python?",
     "options": [
       "защищает от отмены снаружи",
       "ускоряет",
@@ -6848,7 +6848,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "метаклассы",
-    "q": "Что вернёт type(name, bases, ns) создаёт?",
+    "q": "Что означает «type(name, bases, ns) создаёт»?",
     "options": [
       "новый класс",
       "экземпляр object",
@@ -7086,7 +7086,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "performance",
-    "q": "Чем помогает когда __slots__ реально?",
+    "q": "когда __slots__ реально помогает?",
     "options": [
       "много мелких объектов с фиксированными полями",
       "на одном singleton",
@@ -7310,7 +7310,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "CPython",
-    "q": "Что вернёт Что такое PyObject заголовок (упрощённо)?",
+    "q": "Что такое PyObject заголовок (упрощённо)?",
     "options": [
       "refcount + указатель на тип (и ещё поля)",
       "только данные без типа",
@@ -7394,7 +7394,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "метаклассы",
-    "q": "Что вернёт type(name, bases, namespace) создаёт?",
+    "q": "Что означает «type(name, bases, namespace) создаёт»?",
     "options": [
       "новый класс",
       "экземпляр only",
@@ -7506,7 +7506,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "asyncio",
-    "q": "Выбери верный вариант: почему нельзя вызывать blocking time.sleep в корутине?",
+    "q": "почему нельзя вызывать blocking time.sleep в корутине?",
     "options": [
       "блокирует event loop целиком",
       "ломает только эту task",
@@ -7674,7 +7674,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "architecture",
-    "q": "Что означает «backpressure означает»?",
+    "q": "Что означает backpressure?",
     "options": [
       "потребитель сигналит замедлить производителя",
       "больше RAM always",
@@ -7758,7 +7758,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "serialization",
-    "q": "Что вернёт почему protobuf/schema evolution важны?",
+    "q": "почему protobuf/schema evolution важны?",
     "options": [
       "совместимость клиентов при изменении полей",
       "красивый JSON",
@@ -7842,7 +7842,7 @@ window.QUESTIONS_SENIOR = [
   },
   {
     "topic": "performance",
-    "q": "Выбери верный вариант: когда профилировать преждевременно — плохо; но первый инструмент?",
+    "q": "когда профилировать преждевременно — плохо; но первый инструмент?",
     "options": [
       "cProfile / py-spy / scalene — по задаче",
       "сразу переписать на C",
@@ -7967,6 +7967,496 @@ window.QUESTIONS_SENIOR = [
     "id": "s568"
   },
   {
+    "topic": "patterns",
+    "q": "Что означает CQRS в связке с Event Sourcing?",
+    "options": [
+      "разные модели чтения/записи; состояние из потока событий",
+      "один SQL table",
+      "только cache",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Write model пишет события; read model строится проекциями. Правильный ответ: «разные модели чтения/записи; состояние из потока событий».",
+    "group": "Архитектура и дизайн",
+    "id": "s569"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Saga pattern в микросервисах решает»?",
+    "options": [
+      "распределённые транзакции через компенсирующие шаги",
+      "один ACID на все сервисы",
+      "только HTTP retry",
+      "pickle queue"
+    ],
+    "answer": 0,
+    "explain": "Нет глобального 2PC — откаты компенсацией. Правильный ответ: «распределённые транзакции через компенсирующие шаги».",
+    "group": "Архитектура и дизайн",
+    "id": "s570"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Circuit Breaker защищает от»?",
+    "options": [
+      "каскадных сбоев при падении зависимости",
+      "SQL injection",
+      "XSS",
+      "GIL contention"
+    ],
+    "answer": 0,
+    "explain": "После порога ошибок — fast-fail без долбёжки. Правильный ответ: «каскадных сбоев при падении зависимости».",
+    "group": "Архитектура и дизайн",
+    "id": "s571"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Bulkhead pattern?",
+    "options": [
+      "изоляция пулов ресурсов (потоки/соединения)",
+      "кэш L1",
+      "ORM lazy load",
+      "pickle pool"
+    ],
+    "answer": 0,
+    "explain": "Сбой в одном пуле не исчерпывает все ресурсы. Правильный ответ: «изоляция пулов ресурсов (потоки/соединения)».",
+    "group": "Архитектура и дизайн",
+    "id": "s572"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Strangler Fig pattern при миграции монолита»?",
+    "options": [
+      "постепенно оборачивает и заменяет части системы",
+      "big bang rewrite",
+      "удаляет тесты",
+      "только Docker"
+    ],
+    "answer": 0,
+    "explain": "Новый функционал — в новом сервисе, старый душится. Правильный ответ: «постепенно оборачивает и заменяет части системы».",
+    "group": "Архитектура и дизайн",
+    "id": "s573"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Backend for Frontend (BFF)?",
+    "options": [
+      "отдельный API под нужды конкретного клиента",
+      "один REST на все UI",
+      "только GraphQL ban",
+      "CDN"
+    ],
+    "answer": 0,
+    "explain": "Мобильный и веб-клиент не тянут один толстый API. Правильный ответ: «отдельный API под нужды конкретного клиента».",
+    "group": "Архитектура и дизайн",
+    "id": "s574"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Sidecar pattern в Kubernetes?",
+    "options": [
+      "вспомогательный контейнер рядом с основным в pod",
+      "отдельный кластер",
+      "только ingress",
+      "ORM"
+    ],
+    "answer": 0,
+    "explain": "Логирование, proxy, mesh — рядом с app. Правильный ответ: «вспомогательный контейнер рядом с основным в pod».",
+    "group": "Архитектура и дизайн",
+    "id": "s575"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что вернёт Outbox + inbox pattern вместе дают?",
+    "options": [
+      "at-least-once доставку без потери между БД и брокером",
+      "exactly-once бесплатно всегда",
+      "только sync HTTP",
+      "GIL safety"
+    ],
+    "answer": 0,
+    "explain": "Транзакционная запись события + идемпотентный consumer. Правильный ответ: «at-least-once доставку без потери между БД и брокером».",
+    "group": "Архитектура и дизайн",
+    "id": "s576"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что такое Hexagonal Architecture порты?",
+    "options": [
+      "интерфейсы, через которые ядро общается с внешним миром",
+      "TCP ports only",
+      "Docker EXPOSE",
+      "ORM columns"
+    ],
+    "answer": 0,
+    "explain": "Адаптеры реализуют порты для БД, HTTP, CLI. Правильный ответ: «интерфейсы, через которые ядро общается с внешним миром».",
+    "group": "Архитектура и дизайн",
+    "id": "s577"
+  },
+  {
+    "topic": "patterns",
+    "q": "Что означает «Domain Event отличается от Integration Event тем, что»?",
+    "options": [
+      "domain — внутри bounded context; integration — для других сервисов",
+      "одно и то же",
+      "только Kafka",
+      "только REST"
+    ],
+    "answer": 0,
+    "explain": "Не все доменные события публикуют наружу. Правильный ответ: «domain — внутри bounded context; integration — для других сервисов».",
+    "group": "Архитектура и дизайн",
+    "id": "s578"
+  },
+  {
+    "topic": "architecture",
+    "q": "Что означает «CAP теорема: при partition сеть выбирают между»?",
+    "options": [
+      "consistency и availability",
+      "speed и memory",
+      "SQL и NoSQL",
+      "sync и async"
+    ],
+    "answer": 0,
+    "explain": "P — partition tolerance; C и A — tradeoff. Правильный ответ: «consistency и availability». Архитектурные паттерны и границы модулей/сервисов.",
+    "group": "Архитектура и дизайн",
+    "id": "s579"
+  },
+  {
+    "topic": "architecture",
+    "q": "Что означает Eventual consistency?",
+    "options": [
+      "реплики сойдутся со временем без мгновенной согласованности",
+      "всегда strong",
+      "только single node",
+      "без реплик"
+    ],
+    "answer": 0,
+    "explain": "Типично для Dynamo-style хранилищ. Правильный ответ: «реплики сойдутся со временем без мгновенной согласованности».",
+    "group": "Архитектура и дизайн",
+    "id": "s580"
+  },
+  {
+    "topic": "architecture",
+    "q": "В чём разница: Horizontal scaling vs vertical — в чём разница?",
+    "options": [
+      "больше машин vs мощнее одна машина",
+      "одно и то же",
+      "только cloud",
+      "только Python"
+    ],
+    "answer": 0,
+    "explain": "Scale out — добавить инстансы; scale up — больше CPU/RAM. Правильный ответ: «больше машин vs мощнее одна машина».",
+    "group": "Архитектура и дизайн",
+    "id": "s581"
+  },
+  {
+    "topic": "architecture",
+    "q": "Что такое Load balancer round-robin?",
+    "options": [
+      "поочерёдная раздача запросов инстансам",
+      "случайный выбор всегда",
+      "только sticky session",
+      "только gRPC"
+    ],
+    "answer": 0,
+    "explain": "Простейшая стратегия балансировки. Правильный ответ: «поочерёдная раздача запросов инстансам». Архитектурные паттерны и границы модулей/сервисов.",
+    "group": "Архитектура и дизайн",
+    "id": "s582"
+  },
+  {
+    "topic": "architecture",
+    "q": "Что вернёт Sticky session (session affinity) нужна когда?",
+    "options": [
+      "состояние сессии локально на инстансе",
+      "stateless API всегда",
+      "только cache",
+      "только CDN"
+    ],
+    "answer": 0,
+    "explain": "Иначе пользователь прыгает между серверами без shared session store. Правильный ответ: «состояние сессии локально на инстансе».",
+    "group": "Архитектура и дизайн",
+    "id": "s583"
+  },
+  {
+    "topic": "architecture",
+    "q": "Что означает «API Gateway часто берёт на себя»?",
+    "options": [
+      "auth, rate limit, routing, TLS termination",
+      "только SQL",
+      "только ORM",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Единая точка входа для клиентов. Правильный ответ: «auth, rate limit, routing, TLS termination». Архитектурные паттерны и границы модулей/сервисов.",
+    "group": "Архитектура и дизайн",
+    "id": "s584"
+  },
+  {
+    "topic": "architecture",
+    "q": "Что означает «Idempotent consumer в Kafka обрабатывает»?",
+    "options": [
+      "повторное сообщение без дубля эффекта",
+      "только один раз без retry",
+      "только sync",
+      "pickle"
+    ],
+    "answer": 0,
+    "explain": "Ключ идемпотентности или upsert по business id. Правильный ответ: «повторное сообщение без дубля эффекта».",
+    "group": "Архитектура и дизайн",
+    "id": "s585"
+  },
+  {
+    "topic": "architecture",
+    "q": "В чём риск Blue-green deployment снижает?",
+    "options": [
+      "даунтайма при выкатке: переключение трафика на новую среду",
+      "багов в коде полностью",
+      "нужды в тестах",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Две среды; switch после проверки green. Правильный ответ: «даунтайма при выкатке: переключение трафика на новую среду».",
+    "group": "Архитектура и дизайн",
+    "id": "s586"
+  },
+  {
+    "topic": "architecture",
+    "q": "Что такое Canary release?",
+    "options": [
+      "процент трафика на новую версию для проверки",
+      "полная замена сразу",
+      "только staging",
+      "rollback запрещён"
+    ],
+    "answer": 0,
+    "explain": "Постепенное увеличение доли на новой версии. Правильный ответ: «процент трафика на новую версию для проверки».",
+    "group": "Архитектура и дизайн",
+    "id": "s587"
+  },
+  {
+    "topic": "architecture",
+    "q": "Что означает «Thundering herd при истечении TTL кэша лечат»?",
+    "options": [
+      "jitter, single-flight, stale-while-revalidate",
+      "больше sleep",
+      "отключить кэш",
+      "GIL lock"
+    ],
+    "answer": 0,
+    "explain": "Много клиентов одновременно бьют в origin. Правильный ответ: «jitter, single-flight, stale-while-revalidate».",
+    "group": "Архитектура и дизайн",
+    "id": "s588"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Почему Timsort O(n) на уже отсортированных данных?",
+    "options": [
+      "находит уже упорядоченные runs и сливает эффективно",
+      "quicksort pivot",
+      "hash only",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Адаптивность — сильная сторона Timsort. Правильный ответ: «находит уже упорядоченные runs и сливает эффективно».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s589"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что даёт Sliding window на строке/массиве?",
+    "options": [
+      "O(n) вместо O(n²) для подотрезков фиксированной длины",
+      "O(1) всегда",
+      "только DFS",
+      "только SQL"
+    ],
+    "answer": 0,
+    "explain": "Два указателя двигаются по окну. Правильный ответ: «O(n) вместо O(n²) для подотрезков фиксированной длины».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s590"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что вернёт Union-Find (disjoint set) применяют для?",
+    "options": [
+      "компонент связности в графе",
+      "сортировки строк",
+      "HTTP",
+      "pickle"
+    ],
+    "answer": 0,
+    "explain": "Почти константные union/find с path compression. Правильный ответ: «компонент связности в графе».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s591"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что означает «Topological sort нужен для»?",
+    "options": [
+      "упорядочивания DAG с зависимостями",
+      "циклических графов всегда",
+      "только trees",
+      "hash map"
+    ],
+    "answer": 0,
+    "explain": "Задачи, пакеты, makefile deps. Правильный ответ: «упорядочивания DAG с зависимостями».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s592"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что означает «LRU cache вручную на OrderedDict — move_to_end при»?",
+    "options": [
+      "чтении/записи ключа для обновления «свежести»",
+      "удалении всех",
+      "sort",
+      "pickle"
+    ],
+    "answer": 0,
+    "explain": "popitem(last=False) выкидывает LRU. Правильный ответ: «чтении/записи ключа для обновления «свежести»».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s593"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что даёт Bloom filter?",
+    "options": [
+      "вероятностное «точно нет / возможно да» без false negative",
+      "точный set всегда",
+      "сортировку",
+      "ACID"
+    ],
+    "answer": 0,
+    "explain": "Экономия памяти на больших множествах. Правильный ответ: «вероятностное «точно нет / возможно да» без false negative».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s594"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что означает «Consistent hashing важен для»?",
+    "options": [
+      "минимального перераспределения ключей при добавлении нод",
+      "сортировки list",
+      "GIL",
+      "pytest"
+    ],
+    "answer": 0,
+    "explain": "Кольцо хешей для распределённого кэша. Правильный ответ: «минимального перераспределения ключей при добавлении нод».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s595"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что вернёт Count-min sketch оценивает?",
+    "options": [
+      "частоты элементов в потоке с памятью меньше точного подсчёта",
+      "точный top-1 всегда",
+      "граф shortest path",
+      "SQL plan"
+    ],
+    "answer": 0,
+    "explain": "Пространственно эффективная приближённая частота. Правильный ответ: «частоты элементов в потоке с памятью меньше точного подсчёта».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s596"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Что вернёт Amortized analysis list.append объясняет?",
+    "options": [
+      "редкие дорогие resize vs много дешёвых O(1)",
+      "каждый append O(n)",
+      "GIL per element",
+      "weakref"
+    ],
+    "answer": 0,
+    "explain": "Средняя стоимость операции за последовательность. Правильный ответ: «редкие дорогие resize vs много дешёвых O(1)».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s597"
+  },
+  {
+    "topic": "алгоритмы",
+    "q": "Когда dict не O(1) в худшем случае?",
+    "options": [
+      "много коллизий / hash DoS (редко в современных CPython)",
+      "никогда",
+      "всегда O(n)",
+      "только PyPy"
+    ],
+    "answer": 0,
+    "explain": "Хеш-атаки и плохие __hash__ могут деградировать в цепочки. Правильный ответ: «много коллизий / hash DoS (редко в современных CPython)».",
+    "group": "Алгоритмы и структуры данных",
+    "id": "s598"
+  },
+  {
+    "topic": "testing",
+    "q": "Что вернёт Contract testing (Pact) фиксирует?",
+    "options": [
+      "ожидания consumer/provider API без полного e2e",
+      "только unit mock",
+      "UI pixels",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Версионируемые контракты между сервисами. Правильный ответ: «ожидания consumer/provider API без полного e2e».",
+    "group": "Тесты и качество",
+    "id": "s599"
+  },
+  {
+    "topic": "testing",
+    "q": "Какова цель Chaos engineering в тестах прод-like среды —?",
+    "options": [
+      "проверить устойчивость к сбоям до реального инцидента",
+      "100% coverage",
+      "удалить staging",
+      "только load"
+    ],
+    "answer": 0,
+    "explain": "Намеренные отказы: latency, kill pod. Правильный ответ: «проверить устойчивость к сбоям до реального инцидента».",
+    "group": "Тесты и качество",
+    "id": "s600"
+  },
+  {
+    "topic": "testing",
+    "q": "Что означает «Test pyramid нарушен если»?",
+    "options": [
+      "тысячи e2e и почти нет unit",
+      "много unit",
+      "есть integration",
+      "есть fixtures"
+    ],
+    "answer": 0,
+    "explain": "E2E медленные и хрупкие — не должны доминировать. Правильный ответ: «тысячи e2e и почти нет unit». Тестирование: unit, integration, property-based, нагрузочные сценарии.",
+    "group": "Тесты и качество",
+    "id": "s601"
+  },
+  {
+    "topic": "testing",
+    "q": "Что вернёт Flaky test чаще всего из-за?",
+    "options": [
+      "гонок, времени, внешних зависимостей",
+      "assert True",
+      "pytest версии",
+      "PEP 8"
+    ],
+    "answer": 0,
+    "explain": "Фикс: детерминизм, fake clock, изоляция I/O. Правильный ответ: «гонок, времени, внешних зависимостей».",
+    "group": "Тесты и качество",
+    "id": "s602"
+  },
+  {
+    "topic": "testing",
+    "q": "Что вернёт Property-based testing (Hypothesis) хорош для?",
+    "options": [
+      "поиска краевых случаев автоматически",
+      "только happy path",
+      "UI screenshot",
+      "deploy"
+    ],
+    "answer": 0,
+    "explain": "Генерация входов + shrinking минимального контрпримера. Правильный ответ: «поиска краевых случаев автоматически».",
+    "group": "Тесты и качество",
+    "id": "s603"
+  },
+  {
     "topic": "performance",
     "q": "Что вернёт Сложность list.append?",
     "options": [
@@ -7978,7 +8468,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для list.append. Правильный ответ: «O(1) амортизированно». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s569"
+    "id": "s604"
   },
   {
     "topic": "performance",
@@ -7992,7 +8482,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для list.insert(0, x). Правильный ответ: «O(n)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s570"
+    "id": "s605"
   },
   {
     "topic": "performance",
@@ -8006,7 +8496,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для dict[key]. Правильный ответ: «O(1) амортизированно». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s571"
+    "id": "s606"
   },
   {
     "topic": "performance",
@@ -8020,11 +8510,11 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для set.add. Правильный ответ: «O(1) амортизированно». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s572"
+    "id": "s607"
   },
   {
     "topic": "performance",
-    "q": "Что вернёт Сложность sorted(list)?",
+    "q": "Выбери верный вариант: Сложность sorted(list)?",
     "options": [
       "O(n log n)",
       "O(n)",
@@ -8034,7 +8524,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для sorted(list). Правильный ответ: «O(n log n)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s573"
+    "id": "s608"
   },
   {
     "topic": "performance",
@@ -8048,7 +8538,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для heapq.heappush. Правильный ответ: «O(log n)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s574"
+    "id": "s609"
   },
   {
     "topic": "performance",
@@ -8062,7 +8552,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для bisect.bisect_left. Правильный ответ: «O(log n)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s575"
+    "id": "s610"
   },
   {
     "topic": "performance",
@@ -8076,7 +8566,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для deque.popleft. Правильный ответ: «O(1)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s576"
+    "id": "s611"
   },
   {
     "topic": "performance",
@@ -8090,11 +8580,11 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для str += в цикле n раз. Правильный ответ: «O(n²) типично». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s577"
+    "id": "s612"
   },
   {
     "topic": "performance",
-    "q": "Что вернёт Сложность ''.join(parts)?",
+    "q": "Выбери верный вариант: Сложность ''.join(parts)?",
     "options": [
       "O(n)",
       "O(n²)",
@@ -8104,7 +8594,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O для ''.join(parts). Правильный ответ: «O(n)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s578"
+    "id": "s613"
   },
   {
     "topic": "cache",
@@ -8118,7 +8608,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Добавляй jitter / soft TTL / singleflight. Правильный ответ: «синхронный stampede при массовом истечении».",
     "group": "Данные и распределёнка",
-    "id": "s579"
+    "id": "s614"
   },
   {
     "topic": "cache",
@@ -8132,7 +8622,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Короткий TTL на отсутствие. Правильный ответ: «не долбить origin на повторных miss/404». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s580"
+    "id": "s615"
   },
   {
     "topic": "cache",
@@ -8146,7 +8636,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Добавляй jitter / soft TTL / singleflight. Правильный ответ: «синхронный stampede при массовом истечении».",
     "group": "Данные и распределёнка",
-    "id": "s581"
+    "id": "s616"
   },
   {
     "topic": "cache",
@@ -8160,7 +8650,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Короткий TTL на отсутствие. Правильный ответ: «не долбить origin на повторных miss/404». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s582"
+    "id": "s617"
   },
   {
     "topic": "cache",
@@ -8174,7 +8664,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Добавляй jitter / soft TTL / singleflight. Правильный ответ: «синхронный stampede при массовом истечении».",
     "group": "Данные и распределёнка",
-    "id": "s583"
+    "id": "s618"
   },
   {
     "topic": "cache",
@@ -8188,7 +8678,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Короткий TTL на отсутствие. Правильный ответ: «не долбить origin на повторных miss/404». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s584"
+    "id": "s619"
   },
   {
     "topic": "cache",
@@ -8202,7 +8692,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Добавляй jitter / soft TTL / singleflight. Правильный ответ: «синхронный stampede при массовом истечении».",
     "group": "Данные и распределёнка",
-    "id": "s585"
+    "id": "s620"
   },
   {
     "topic": "cache",
@@ -8216,7 +8706,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Короткий TTL на отсутствие. Правильный ответ: «не долбить origin на повторных miss/404». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s586"
+    "id": "s621"
   },
   {
     "topic": "cache",
@@ -8230,7 +8720,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Добавляй jitter / soft TTL / singleflight. Правильный ответ: «синхронный stampede при массовом истечении».",
     "group": "Данные и распределёнка",
-    "id": "s587"
+    "id": "s622"
   },
   {
     "topic": "cache",
@@ -8244,7 +8734,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Короткий TTL на отсутствие. Правильный ответ: «не долбить origin на повторных miss/404». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s588"
+    "id": "s623"
   },
   {
     "topic": "cache",
@@ -8258,7 +8748,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Перекос ключей. Правильный ответ: «размазать нагрузку популярного ключа». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s589"
+    "id": "s624"
   },
   {
     "topic": "cache",
@@ -8272,7 +8762,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Перекос ключей. Правильный ответ: «размазать нагрузку популярного ключа». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s590"
+    "id": "s625"
   },
   {
     "topic": "cache",
@@ -8286,7 +8776,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Перекос ключей. Правильный ответ: «размазать нагрузку популярного ключа». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s591"
+    "id": "s626"
   },
   {
     "topic": "cache",
@@ -8300,7 +8790,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Перекос ключей. Правильный ответ: «размазать нагрузку популярного ключа». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s592"
+    "id": "s627"
   },
   {
     "topic": "api",
@@ -8314,7 +8804,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не усиливай шторм. Правильный ответ: «exponential backoff + jitter (+ Retry-After)».",
     "group": "Веб и API",
-    "id": "s593"
+    "id": "s628"
   },
   {
     "topic": "api",
@@ -8328,7 +8818,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не усиливай шторм. Правильный ответ: «exponential backoff + jitter (+ Retry-After)».",
     "group": "Веб и API",
-    "id": "s594"
+    "id": "s629"
   },
   {
     "topic": "api",
@@ -8342,7 +8832,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не усиливай шторм. Правильный ответ: «exponential backoff + jitter (+ Retry-After)».",
     "group": "Веб и API",
-    "id": "s595"
+    "id": "s630"
   },
   {
     "topic": "api",
@@ -8356,7 +8846,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не усиливай шторм. Правильный ответ: «exponential backoff + jitter (+ Retry-After)».",
     "group": "Веб и API",
-    "id": "s596"
+    "id": "s631"
   },
   {
     "topic": "api",
@@ -8370,7 +8860,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Для лент чаще cursor. Правильный ответ: ««прыжки» при вставках; глубокий offset дорог».",
     "group": "Веб и API",
-    "id": "s597"
+    "id": "s632"
   },
   {
     "topic": "api",
@@ -8384,7 +8874,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Для лент чаще cursor. Правильный ответ: ««прыжки» при вставках; глубокий offset дорог».",
     "group": "Веб и API",
-    "id": "s598"
+    "id": "s633"
   },
   {
     "topic": "api",
@@ -8398,7 +8888,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Для лент чаще cursor. Правильный ответ: ««прыжки» при вставках; глубокий offset дорог».",
     "group": "Веб и API",
-    "id": "s599"
+    "id": "s634"
   },
   {
     "topic": "api",
@@ -8412,7 +8902,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Совместимость. Правильный ответ: «эволюция контракта без ломания клиентов».",
     "group": "Веб и API",
-    "id": "s600"
+    "id": "s635"
   },
   {
     "topic": "api",
@@ -8426,7 +8916,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Совместимость. Правильный ответ: «эволюция контракта без ломания клиентов».",
     "group": "Веб и API",
-    "id": "s601"
+    "id": "s636"
   },
   {
     "topic": "api",
@@ -8440,7 +8930,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Совместимость. Правильный ответ: «эволюция контракта без ломания клиентов».",
     "group": "Веб и API",
-    "id": "s602"
+    "id": "s637"
   },
   {
     "topic": "db",
@@ -8454,7 +8944,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Лечится eager/join/IN. Правильный ответ: «лишние round-trip в БД (ORM lazy)». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s603"
+    "id": "s638"
   },
   {
     "topic": "db",
@@ -8468,7 +8958,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Лечится eager/join/IN. Правильный ответ: «лишние round-trip в БД (ORM lazy)». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s604"
+    "id": "s639"
   },
   {
     "topic": "db",
@@ -8482,7 +8972,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Лечится eager/join/IN. Правильный ответ: «лишние round-trip в БД (ORM lazy)». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s605"
+    "id": "s640"
   },
   {
     "topic": "db",
@@ -8496,7 +8986,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Лечится eager/join/IN. Правильный ответ: «лишние round-trip в БД (ORM lazy)». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s606"
+    "id": "s641"
   },
   {
     "topic": "db",
@@ -8510,7 +9000,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Теория изоляций ≠ конкретный движок. Правильный ответ: «возможен или нет в зависимости от СУБД/реализации — проверяй документацию».",
     "group": "Данные и распределёнка",
-    "id": "s607"
+    "id": "s642"
   },
   {
     "topic": "db",
@@ -8524,7 +9014,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Теория изоляций ≠ конкретный движок. Правильный ответ: «возможен или нет в зависимости от СУБД/реализации — проверяй документацию».",
     "group": "Данные и распределёнка",
-    "id": "s608"
+    "id": "s643"
   },
   {
     "topic": "db",
@@ -8538,7 +9028,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Теория изоляций ≠ конкретный движок. Правильный ответ: «возможен или нет в зависимости от СУБД/реализации — проверяй документацию».",
     "group": "Данные и распределёнка",
-    "id": "s609"
+    "id": "s644"
   },
   {
     "topic": "db",
@@ -8552,7 +9042,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Утечки, длинные транзакции, мало пула. Правильный ответ: «запросы ждут коннект / таймауты». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s610"
+    "id": "s645"
   },
   {
     "topic": "db",
@@ -8566,7 +9056,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Утечки, длинные транзакции, мало пула. Правильный ответ: «запросы ждут коннект / таймауты». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s611"
+    "id": "s646"
   },
   {
     "topic": "db",
@@ -8580,7 +9070,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Утечки, длинные транзакции, мало пула. Правильный ответ: «запросы ждут коннект / таймауты». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s612"
+    "id": "s647"
   },
   {
     "topic": "db",
@@ -8594,7 +9084,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Утечки, длинные транзакции, мало пула. Правильный ответ: «запросы ждут коннект / таймауты». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s613"
+    "id": "s648"
   },
   {
     "topic": "distributed",
@@ -8608,7 +9098,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "можно потерять; без дублей. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s614"
+    "id": "s649"
   },
   {
     "topic": "distributed",
@@ -8622,7 +9112,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "дубли возможны → идемпотентность. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s615"
+    "id": "s650"
   },
   {
     "topic": "distributed",
@@ -8636,7 +9126,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "на практике часто = at-least-once + идемпотентный приём. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s616"
+    "id": "s651"
   },
   {
     "topic": "distributed",
@@ -8650,7 +9140,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большинство для выбора лидера/коммита. Правильный ответ: «большинство: 2». Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s617"
+    "id": "s652"
   },
   {
     "topic": "distributed",
@@ -8664,7 +9154,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большинство для выбора лидера/коммита. Правильный ответ: «большинство: 3». Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s618"
+    "id": "s653"
   },
   {
     "topic": "distributed",
@@ -8678,7 +9168,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большинство для выбора лидера/коммита. Правильный ответ: «большинство: 4». Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s619"
+    "id": "s654"
   },
   {
     "topic": "distributed",
@@ -8692,7 +9182,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Баланс sensitivity vs stability. Правильный ответ: «ложные failover при GC/сети». Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s620"
+    "id": "s655"
   },
   {
     "topic": "distributed",
@@ -8706,7 +9196,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Баланс sensitivity vs stability. Правильный ответ: «ложные failover при GC/сети». Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s621"
+    "id": "s656"
   },
   {
     "topic": "distributed",
@@ -8720,7 +9210,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Баланс sensitivity vs stability. Правильный ответ: «ложные failover при GC/сети». Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s622"
+    "id": "s657"
   },
   {
     "topic": "distributed",
@@ -8734,7 +9224,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Баланс sensitivity vs stability. Правильный ответ: «ложные failover при GC/сети». Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s623"
+    "id": "s658"
   },
   {
     "topic": "security",
@@ -8748,7 +9238,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не доверяй бинарным/пайтон-десериализаторам. Правильный ответ: «риск RCE / выполнения кода — нельзя».",
     "group": "Безопасность",
-    "id": "s624"
+    "id": "s659"
   },
   {
     "topic": "security",
@@ -8762,7 +9252,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не доверяй бинарным/пайтон-десериализаторам. Правильный ответ: «риск RCE / выполнения кода — нельзя».",
     "group": "Безопасность",
-    "id": "s625"
+    "id": "s660"
   },
   {
     "topic": "security",
@@ -8776,7 +9266,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не доверяй бинарным/пайтон-десериализаторам. Правильный ответ: «риск RCE / выполнения кода — нельзя».",
     "group": "Безопасность",
-    "id": "s626"
+    "id": "s661"
   },
   {
     "topic": "security",
@@ -8790,7 +9280,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не доверяй бинарным/пайтон-десериализаторам. Правильный ответ: «риск RCE / выполнения кода — нельзя».",
     "group": "Безопасность",
-    "id": "s627"
+    "id": "s662"
   },
   {
     "topic": "security",
@@ -8804,7 +9294,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Redaction в логах. Правильный ответ: «осторожно: секреты/PII — редактируй». Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s628"
+    "id": "s663"
   },
   {
     "topic": "security",
@@ -8818,7 +9308,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Redaction в логах. Правильный ответ: «осторожно: секреты/PII — редактируй». Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s629"
+    "id": "s664"
   },
   {
     "topic": "security",
@@ -8832,7 +9322,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Redaction в логах. Правильный ответ: «осторожно: секреты/PII — редактируй». Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s630"
+    "id": "s665"
   },
   {
     "topic": "security",
@@ -8846,7 +9336,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Redaction в логах. Правильный ответ: «осторожно: секреты/PII — редактируй». Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s631"
+    "id": "s666"
   },
   {
     "topic": "security",
@@ -8860,7 +9350,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Классика AppSec. Правильный ответ: «инъекции / path traversal / open redirect — валидируй и параметризуй».",
     "group": "Безопасность",
-    "id": "s632"
+    "id": "s667"
   },
   {
     "topic": "security",
@@ -8874,11 +9364,11 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Классика AppSec. Правильный ответ: «инъекции / path traversal / open redirect — валидируй и параметризуй».",
     "group": "Безопасность",
-    "id": "s633"
+    "id": "s668"
   },
   {
     "topic": "security",
-    "q": "Что вернёт open(user_path)?",
+    "q": "Выбери верный вариант: Антипаттерн: open(user_path)?",
     "options": [
       "инъекции / path traversal / open redirect — валидируй и параметризуй",
       "ускоряет код",
@@ -8888,7 +9378,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Классика AppSec. Правильный ответ: «инъекции / path traversal / open redirect — валидируй и параметризуй».",
     "group": "Безопасность",
-    "id": "s634"
+    "id": "s669"
   },
   {
     "topic": "security",
@@ -8902,7 +9392,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Классика AppSec. Правильный ответ: «инъекции / path traversal / open redirect — валидируй и параметризуй».",
     "group": "Безопасность",
-    "id": "s635"
+    "id": "s670"
   },
   {
     "topic": "observability",
@@ -8916,7 +9406,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Комбинируй head + tail sampling. Правильный ответ: «можно пропустить редкие ошибки — нужен tail-based/error sampling».",
     "group": "Observability и качество",
-    "id": "s636"
+    "id": "s671"
   },
   {
     "topic": "observability",
@@ -8930,7 +9420,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Комбинируй head + tail sampling. Правильный ответ: «можно пропустить редкие ошибки — нужен tail-based/error sampling».",
     "group": "Observability и качество",
-    "id": "s637"
+    "id": "s672"
   },
   {
     "topic": "observability",
@@ -8944,7 +9434,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Комбинируй head + tail sampling. Правильный ответ: «можно пропустить редкие ошибки — нужен tail-based/error sampling».",
     "group": "Observability и качество",
-    "id": "s638"
+    "id": "s673"
   },
   {
     "topic": "observability",
@@ -8958,7 +9448,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Комбинируй head + tail sampling. Правильный ответ: «можно пропустить редкие ошибки — нужен tail-based/error sampling».",
     "group": "Observability и качество",
-    "id": "s639"
+    "id": "s674"
   },
   {
     "topic": "observability",
@@ -8972,7 +9462,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Cardinality — главный враг метрик. Правильный ответ: «опасно взрывом time series». Наблюдаемость: логи, метрики, трейсы, профилирование в проде.",
     "group": "Observability и качество",
-    "id": "s640"
+    "id": "s675"
   },
   {
     "topic": "observability",
@@ -8986,7 +9476,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Cardinality — главный враг метрик. Правильный ответ: «обычно ок как low-cardinality/trace id не в metric labels».",
     "group": "Observability и качество",
-    "id": "s641"
+    "id": "s676"
   },
   {
     "topic": "observability",
@@ -9000,7 +9490,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Cardinality — главный враг метрик. Правильный ответ: «опасно взрывом time series». Наблюдаемость: логи, метрики, трейсы, профилирование в проде.",
     "group": "Observability и качество",
-    "id": "s642"
+    "id": "s677"
   },
   {
     "topic": "observability",
@@ -9014,7 +9504,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Cardinality — главный враг метрик. Правильный ответ: «опасно взрывом time series». Наблюдаемость: логи, метрики, трейсы, профилирование в проде.",
     "group": "Observability и качество",
-    "id": "s643"
+    "id": "s678"
   },
   {
     "topic": "packaging",
@@ -9028,7 +9518,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Совместимость пакета. Правильный ответ: «ловить несовместимости версий». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s644"
+    "id": "s679"
   },
   {
     "topic": "packaging",
@@ -9042,7 +9532,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Совместимость пакета. Правильный ответ: «ловить несовместимости версий». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s645"
+    "id": "s680"
   },
   {
     "topic": "packaging",
@@ -9056,7 +9546,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Совместимость пакета. Правильный ответ: «ловить несовместимости версий». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s646"
+    "id": "s681"
   },
   {
     "topic": "packaging",
@@ -9070,7 +9560,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Совместимость пакета. Правильный ответ: «ловить несовместимости версий». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s647"
+    "id": "s682"
   },
   {
     "topic": "байткод",
@@ -9084,7 +9574,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "LOAD_FAST: локальная переменная — быстрый доступ.",
     "group": "CPython и память",
-    "id": "s648"
+    "id": "s683"
   },
   {
     "topic": "байткод",
@@ -9098,7 +9588,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "LOAD_GLOBAL: глобальная / должее lookup.",
     "group": "CPython и память",
-    "id": "s649"
+    "id": "s684"
   },
   {
     "topic": "байткод",
@@ -9112,7 +9602,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "CALL: вызов функции.",
     "group": "CPython и память",
-    "id": "s650"
+    "id": "s685"
   },
   {
     "topic": "байткод",
@@ -9126,7 +9616,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "BINARY_OP: арифметика/операции.",
     "group": "CPython и память",
-    "id": "s651"
+    "id": "s686"
   },
   {
     "topic": "CPython",
@@ -9140,7 +9630,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "часто один и тот же объект (intern маленьких int). Правильный ответ: «может быть True из‑за интернирования».",
     "group": "CPython и память",
-    "id": "s652"
+    "id": "s687"
   },
   {
     "topic": "CPython",
@@ -9154,7 +9644,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "часто один и тот же объект (intern маленьких int). Правильный ответ: «может быть True из‑за интернирования».",
     "group": "CPython и память",
-    "id": "s653"
+    "id": "s688"
   },
   {
     "topic": "CPython",
@@ -9168,7 +9658,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "часто один и тот же объект (intern маленьких int). Правильный ответ: «может быть True из‑за интернирования».",
     "group": "CPython и память",
-    "id": "s654"
+    "id": "s689"
   },
   {
     "topic": "CPython",
@@ -9182,7 +9672,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "часто один и тот же объект (intern маленьких int). Правильный ответ: «может быть True из‑за интернирования».",
     "group": "CPython и память",
-    "id": "s655"
+    "id": "s690"
   },
   {
     "topic": "CPython",
@@ -9196,7 +9686,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "часто один и тот же объект (intern маленьких int). Правильный ответ: «может быть True из‑за интернирования».",
     "group": "CPython и память",
-    "id": "s656"
+    "id": "s691"
   },
   {
     "topic": "CPython",
@@ -9210,7 +9700,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "часто один и тот же объект (intern маленьких int). Правильный ответ: «может быть True из‑за интернирования».",
     "group": "CPython и память",
-    "id": "s657"
+    "id": "s692"
   },
   {
     "topic": "CPython",
@@ -9224,7 +9714,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "не полагайся на is — интернирование не контракт для больших int. Правильный ответ: «is может быть False; сравнивай через ==».",
     "group": "CPython и память",
-    "id": "s658"
+    "id": "s693"
   },
   {
     "topic": "architecture",
@@ -9238,7 +9728,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Эволюционная миграция. Правильный ответ: «постепенно заменять легаси новым вокруг». Архитектурные паттерны и границы модулей/сервисов.",
     "group": "Архитектура и дизайн",
-    "id": "s659"
+    "id": "s694"
   },
   {
     "topic": "security",
@@ -9252,7 +9742,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "HTTP request smuggling рядом. Правильный ответ: «разное толкование запроса proxy vs app». Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s660"
+    "id": "s695"
   },
   {
     "topic": "performance",
@@ -9266,7 +9756,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "memoryview / PEP 3118. Правильный ответ: «меньше копий памяти между слоями». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s661"
+    "id": "s696"
   },
   {
     "topic": "performance",
@@ -9280,7 +9770,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O: list.pop(). Правильный ответ: «O(1) с конца». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s662"
+    "id": "s697"
   },
   {
     "topic": "performance",
@@ -9294,7 +9784,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O: list.pop(0). Правильный ответ: «O(n)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s663"
+    "id": "s698"
   },
   {
     "topic": "performance",
@@ -9308,7 +9798,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O: dict.popitem(). Правильный ответ: «O(1)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s664"
+    "id": "s699"
   },
   {
     "topic": "performance",
@@ -9322,7 +9812,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O: heapq.heappop. Правильный ответ: «O(log n)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s665"
+    "id": "s700"
   },
   {
     "topic": "performance",
@@ -9336,7 +9826,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O: set.remove. Правильный ответ: «O(1) амортизированно». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s666"
+    "id": "s701"
   },
   {
     "topic": "performance",
@@ -9350,7 +9840,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O: str.join n кусков. Правильный ответ: «O(суммарная длина)». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s667"
+    "id": "s702"
   },
   {
     "topic": "performance",
@@ -9364,7 +9854,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O: bytearray extend. Правильный ответ: «O(k) амортизированно». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s668"
+    "id": "s703"
   },
   {
     "topic": "performance",
@@ -9378,7 +9868,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Большая O: bisect.insort. Правильный ответ: «O(n) из‑за сдвига списка». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s669"
+    "id": "s704"
   },
   {
     "topic": "performance",
@@ -9392,7 +9882,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Сначала измерь bottleneck. Правильный ответ: «алгоритм/I/O/аллокации — профилируй». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s670"
+    "id": "s705"
   },
   {
     "topic": "performance",
@@ -9406,7 +9896,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Сначала измерь bottleneck. Правильный ответ: «алгоритм/I/O/аллокации — профилируй». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s671"
+    "id": "s706"
   },
   {
     "topic": "performance",
@@ -9420,7 +9910,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Сначала измерь bottleneck. Правильный ответ: «алгоритм/I/O/аллокации — профилируй». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s672"
+    "id": "s707"
   },
   {
     "topic": "performance",
@@ -9434,7 +9924,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Сначала измерь bottleneck. Правильный ответ: «алгоритм/I/O/аллокации — профилируй». Производительность: измеряй профайлером, оптимизируй горячие участки.",
     "group": "Stdlib и производительность",
-    "id": "s673"
+    "id": "s708"
   },
   {
     "topic": "cache",
@@ -9448,7 +9938,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "приложение само читает/пишет кэш. Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s674"
+    "id": "s709"
   },
   {
     "topic": "cache",
@@ -9462,7 +9952,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "кэш сам ходит в store при miss. Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s675"
+    "id": "s710"
   },
   {
     "topic": "cache",
@@ -9476,7 +9966,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "запись в кэш и store синхронно. Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s676"
+    "id": "s711"
   },
   {
     "topic": "cache",
@@ -9490,7 +9980,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "запись в кэш, store отложенно. Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s677"
+    "id": "s712"
   },
   {
     "topic": "cache",
@@ -9504,7 +9994,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "запись в store, минуя кэш. Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s678"
+    "id": "s713"
   },
   {
     "topic": "cache",
@@ -9518,7 +10008,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Против stampede. Правильный ответ: «отдавать stale и обновлять асинхронно». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s679"
+    "id": "s714"
   },
   {
     "topic": "cache",
@@ -9532,7 +10022,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Против stampede. Правильный ответ: «отдавать stale и обновлять асинхронно». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s680"
+    "id": "s715"
   },
   {
     "topic": "cache",
@@ -9546,7 +10036,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Против stampede. Правильный ответ: «отдавать stale и обновлять асинхронно». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s681"
+    "id": "s716"
   },
   {
     "topic": "cache",
@@ -9560,7 +10050,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Против stampede. Правильный ответ: «отдавать stale и обновлять асинхронно». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s682"
+    "id": "s717"
   },
   {
     "topic": "cache",
@@ -9574,7 +10064,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Против stampede. Правильный ответ: «отдавать stale и обновлять асинхронно». Кэширование: согласованность, инвалидация, hot keys.",
     "group": "Данные и распределёнка",
-    "id": "s683"
+    "id": "s718"
   },
   {
     "topic": "db",
@@ -9588,7 +10078,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s684"
+    "id": "s719"
   },
   {
     "topic": "db",
@@ -9602,7 +10092,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s685"
+    "id": "s720"
   },
   {
     "topic": "db",
@@ -9616,7 +10106,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s686"
+    "id": "s721"
   },
   {
     "topic": "db",
@@ -9630,7 +10120,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s687"
+    "id": "s722"
   },
   {
     "topic": "db",
@@ -9644,7 +10134,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s688"
+    "id": "s723"
   },
   {
     "topic": "db",
@@ -9658,7 +10148,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s689"
+    "id": "s724"
   },
   {
     "topic": "db",
@@ -9672,7 +10162,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s690"
+    "id": "s725"
   },
   {
     "topic": "db",
@@ -9686,7 +10176,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s691"
+    "id": "s726"
   },
   {
     "topic": "db",
@@ -9700,7 +10190,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s692"
+    "id": "s727"
   },
   {
     "topic": "db",
@@ -9714,7 +10204,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s693"
+    "id": "s728"
   },
   {
     "topic": "db",
@@ -9728,7 +10218,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s694"
+    "id": "s729"
   },
   {
     "topic": "db",
@@ -9742,7 +10232,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s695"
+    "id": "s730"
   },
   {
     "topic": "db",
@@ -9756,7 +10246,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s696"
+    "id": "s731"
   },
   {
     "topic": "db",
@@ -9770,7 +10260,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s697"
+    "id": "s732"
   },
   {
     "topic": "db",
@@ -9784,7 +10274,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s698"
+    "id": "s733"
   },
   {
     "topic": "db",
@@ -9798,7 +10288,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Не путай SQL-standard и реализацию. Правильный ответ: «зависит от СУБД — сверяй документацию/стандарт».",
     "group": "Данные и распределёнка",
-    "id": "s699"
+    "id": "s734"
   },
   {
     "topic": "db",
@@ -9812,7 +10302,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "40001 / serialization_failure → retry. Правильный ответ: «да, типичный паттерн retry». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s700"
+    "id": "s735"
   },
   {
     "topic": "db",
@@ -9826,7 +10316,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "40001 / serialization_failure → retry. Правильный ответ: «да, типичный паттерн retry». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s701"
+    "id": "s736"
   },
   {
     "topic": "db",
@@ -9840,7 +10330,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "40001 / serialization_failure → retry. Правильный ответ: «да, типичный паттерн retry». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s702"
+    "id": "s737"
   },
   {
     "topic": "db",
@@ -9854,7 +10344,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "40001 / serialization_failure → retry. Правильный ответ: «да, типичный паттерн retry». Базы данных: транзакции, индексы, изоляция, пулы соединений.",
     "group": "Данные и распределёнка",
-    "id": "s703"
+    "id": "s738"
   },
   {
     "topic": "distributed",
@@ -9868,7 +10358,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "ретраи без jitter усиливают сбой. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s704"
+    "id": "s739"
   },
   {
     "topic": "distributed",
@@ -9882,7 +10372,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "изоляция пулов/ресурсов по частям системы. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s705"
+    "id": "s740"
   },
   {
     "topic": "distributed",
@@ -9896,7 +10386,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "временно не звать падающий dependency. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s706"
+    "id": "s741"
   },
   {
     "topic": "distributed",
@@ -9910,7 +10400,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "общий дедлайн на цепочку вызовов. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s707"
+    "id": "s742"
   },
   {
     "topic": "distributed",
@@ -9924,7 +10414,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "параллельный дубль запроса к реплике. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s708"
+    "id": "s743"
   },
   {
     "topic": "distributed",
@@ -9938,7 +10428,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "отбрасывать лишнее под перегрузкой. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s709"
+    "id": "s744"
   },
   {
     "topic": "distributed",
@@ -9952,7 +10442,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "урезать функции, но жить. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s710"
+    "id": "s745"
   },
   {
     "topic": "distributed",
@@ -9966,7 +10456,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "сообщение, которое вечно валит воркер. Распределённые системы: очереди, консенсус, идемпотентность, задержки.",
     "group": "Данные и распределёнка",
-    "id": "s711"
+    "id": "s746"
   },
   {
     "topic": "security",
@@ -9980,7 +10470,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "внедрение скрипта в браузер жертвы. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s712"
+    "id": "s747"
   },
   {
     "topic": "security",
@@ -9994,7 +10484,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "внедрение скрипта в браузер жертвы. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s713"
+    "id": "s748"
   },
   {
     "topic": "security",
@@ -10008,7 +10498,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "запрос от имени пользователя без его намерения. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s714"
+    "id": "s749"
   },
   {
     "topic": "security",
@@ -10022,7 +10512,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "запрос от имени пользователя без его намерения. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s715"
+    "id": "s750"
   },
   {
     "topic": "security",
@@ -10036,7 +10526,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "сервер ходит на внутренние URL по указке. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s716"
+    "id": "s751"
   },
   {
     "topic": "security",
@@ -10050,7 +10540,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "сервер ходит на внутренние URL по указке. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s717"
+    "id": "s752"
   },
   {
     "topic": "security",
@@ -10064,7 +10554,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "инъекция в SQL. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s718"
+    "id": "s753"
   },
   {
     "topic": "security",
@@ -10078,7 +10568,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "инъекция в SQL. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s719"
+    "id": "s754"
   },
   {
     "topic": "security",
@@ -10092,7 +10582,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "доступ к файлам через ../. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s720"
+    "id": "s755"
   },
   {
     "topic": "security",
@@ -10106,7 +10596,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "доступ к файлам через ../. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s721"
+    "id": "s756"
   },
   {
     "topic": "security",
@@ -10120,7 +10610,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "удалённое исполнение кода. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s722"
+    "id": "s757"
   },
   {
     "topic": "security",
@@ -10134,7 +10624,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "удалённое исполнение кода. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s723"
+    "id": "s758"
   },
   {
     "topic": "security",
@@ -10148,7 +10638,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "доступ к чужим объектам по угадываемому id. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s724"
+    "id": "s759"
   },
   {
     "topic": "security",
@@ -10162,7 +10652,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "доступ к чужим объектам по угадываемому id. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s725"
+    "id": "s760"
   },
   {
     "topic": "security",
@@ -10176,7 +10666,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "редирект на вредоносный URL. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s726"
+    "id": "s761"
   },
   {
     "topic": "security",
@@ -10190,7 +10680,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "редирект на вредоносный URL. Безопасность: не доверяй вводу, секретам и десериализации из недоверенных источников.",
     "group": "Безопасность",
-    "id": "s727"
+    "id": "s762"
   },
   {
     "topic": "observability",
@@ -10204,7 +10694,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "RED → Rate. Наблюдаемость: логи, метрики, трейсы, профилирование в проде.",
     "group": "Observability и качество",
-    "id": "s728"
+    "id": "s763"
   },
   {
     "topic": "observability",
@@ -10218,7 +10708,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "RED → Errors. Наблюдаемость: логи, метрики, трейсы, профилирование в проде.",
     "group": "Observability и качество",
-    "id": "s729"
+    "id": "s764"
   },
   {
     "topic": "observability",
@@ -10232,7 +10722,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "RED → Duration. Наблюдаемость: логи, метрики, трейсы, профилирование в проде.",
     "group": "Observability и качество",
-    "id": "s730"
+    "id": "s765"
   },
   {
     "topic": "observability",
@@ -10246,7 +10736,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "USE → Utilization. Наблюдаемость: логи, метрики, трейсы, профилирование в проде.",
     "group": "Observability и качество",
-    "id": "s731"
+    "id": "s766"
   },
   {
     "topic": "observability",
@@ -10260,7 +10750,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "USE → Saturation. Наблюдаемость: логи, метрики, трейсы, профилирование в проде.",
     "group": "Observability и качество",
-    "id": "s732"
+    "id": "s767"
   },
   {
     "topic": "observability",
@@ -10274,7 +10764,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "USE → Errors. Наблюдаемость: логи, метрики, трейсы, профилирование в проде.",
     "group": "Observability и качество",
-    "id": "s733"
+    "id": "s768"
   },
   {
     "topic": "architecture",
@@ -10288,7 +10778,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "разделить пути чтения и записи. Архитектурные паттерны и границы модулей/сервисов.",
     "group": "Архитектура и дизайн",
-    "id": "s734"
+    "id": "s769"
   },
   {
     "topic": "architecture",
@@ -10302,7 +10792,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "состояние как поток событий. Архитектурные паттерны и границы модулей/сервисов.",
     "group": "Архитектура и дизайн",
-    "id": "s735"
+    "id": "s770"
   },
   {
     "topic": "architecture",
@@ -10316,7 +10806,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "событие в одной транзакции с записью. Архитектурные паттерны и границы модулей/сервисов.",
     "group": "Архитектура и дизайн",
-    "id": "s736"
+    "id": "s771"
   },
   {
     "topic": "architecture",
@@ -10330,7 +10820,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "распределённый процесс + компенсации. Архитектурные паттерны и границы модулей/сервисов.",
     "group": "Архитектура и дизайн",
-    "id": "s737"
+    "id": "s772"
   },
   {
     "topic": "architecture",
@@ -10344,7 +10834,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "backend for frontend — API под клиент. Архитектурные паттерны и границы модулей/сервисов.",
     "group": "Архитектура и дизайн",
-    "id": "s738"
+    "id": "s773"
   },
   {
     "topic": "architecture",
@@ -10358,7 +10848,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "anti-corruption layer к легаси. Архитектурные паттерны и границы модулей/сервисов.",
     "group": "Архитектура и дизайн",
-    "id": "s739"
+    "id": "s774"
   },
   {
     "topic": "architecture",
@@ -10372,7 +10862,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "постепенная замена легаси. Архитектурные паттерны и границы модулей/сервисов.",
     "group": "Архитектура и дизайн",
-    "id": "s740"
+    "id": "s775"
   },
   {
     "topic": "architecture",
@@ -10386,7 +10876,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "вспомогательный процесс рядом с сервисом. Архитектурные паттерны и границы модулей/сервисов.",
     "group": "Архитектура и дизайн",
-    "id": "s741"
+    "id": "s776"
   },
   {
     "topic": "packaging",
@@ -10400,7 +10890,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Метаданные дистрибутива. Правильный ответ: «заявить поддержку версии для PyPI/инструментов». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s742"
+    "id": "s777"
   },
   {
     "topic": "packaging",
@@ -10414,7 +10904,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Метаданные дистрибутива. Правильный ответ: «заявить поддержку версии для PyPI/инструментов». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s743"
+    "id": "s778"
   },
   {
     "topic": "packaging",
@@ -10428,7 +10918,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Метаданные дистрибутива. Правильный ответ: «заявить поддержку версии для PyPI/инструментов». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s744"
+    "id": "s779"
   },
   {
     "topic": "packaging",
@@ -10442,7 +10932,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Метаданные дистрибутива. Правильный ответ: «заявить поддержку версии для PyPI/инструментов». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s745"
+    "id": "s780"
   },
   {
     "topic": "packaging",
@@ -10456,7 +10946,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Метаданные дистрибутива. Правильный ответ: «заявить поддержку версии для PyPI/инструментов». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s746"
+    "id": "s781"
   },
   {
     "topic": "packaging",
@@ -10470,7 +10960,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Метаданные дистрибутива. Правильный ответ: «заявить поддержку версии для PyPI/инструментов». Сборка и распространение пакетов: wheel, pyproject.toml, зависимости.",
     "group": "Packaging и CI",
-    "id": "s747"
+    "id": "s782"
   },
   {
     "topic": "CPython",
@@ -10484,7 +10974,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "счётчик ссылок объекта. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s748"
+    "id": "s783"
   },
   {
     "topic": "CPython",
@@ -10498,7 +10988,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "указатель на тип. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s749"
+    "id": "s784"
   },
   {
     "topic": "CPython",
@@ -10512,7 +11002,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "слот деаллокации типа. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s750"
+    "id": "s785"
   },
   {
     "topic": "CPython",
@@ -10526,7 +11016,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "ручное управление refcnt в C-API. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s751"
+    "id": "s786"
   },
   {
     "topic": "CPython",
@@ -10540,11 +11030,11 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "аллокатор мелких объектов. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s752"
+    "id": "s787"
   },
   {
     "topic": "CPython",
-    "q": "Что вернёт arenas/pools — про что?",
+    "q": "Выбери верный вариант: arenas/pools — про что?",
     "options": [
       "структура pymalloc",
       "только pip",
@@ -10554,7 +11044,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "структура pymalloc. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s753"
+    "id": "s788"
   },
   {
     "topic": "CPython",
@@ -10568,7 +11058,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "поколения циклического GC. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s754"
+    "id": "s789"
   },
   {
     "topic": "CPython",
@@ -10582,7 +11072,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "переиспользование некоторых str. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s755"
+    "id": "s790"
   },
   {
     "topic": "CPython",
@@ -10596,7 +11086,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "сохранение порядка с 3.7+ как язык. контракт. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s756"
+    "id": "s791"
   },
   {
     "topic": "CPython",
@@ -10610,7 +11100,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "ускорение hot path с 3.11+. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s757"
+    "id": "s792"
   },
   {
     "topic": "память",
@@ -10624,7 +11114,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Пороги генерационного GC. Правильный ответ: «частоту/пороги сбора поколений GC».",
     "group": "CPython и память",
-    "id": "s758"
+    "id": "s793"
   },
   {
     "topic": "память",
@@ -10638,7 +11128,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Пороги генерационного GC. Правильный ответ: «частоту/пороги сбора поколений GC».",
     "group": "CPython и память",
-    "id": "s759"
+    "id": "s794"
   },
   {
     "topic": "память",
@@ -10652,7 +11142,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Пороги генерационного GC. Правильный ответ: «частоту/пороги сбора поколений GC».",
     "group": "CPython и память",
-    "id": "s760"
+    "id": "s795"
   },
   {
     "topic": "память",
@@ -10666,7 +11156,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "Пороги генерационного GC. Правильный ответ: «частоту/пороги сбора поколений GC».",
     "group": "CPython и память",
-    "id": "s761"
+    "id": "s796"
   },
   {
     "topic": "CPython",
@@ -10680,7 +11170,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "убирает assert, __debug__=False. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s762"
+    "id": "s797"
   },
   {
     "topic": "CPython",
@@ -10694,7 +11184,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "как -O плюс выкидывает docstrings. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s763"
+    "id": "s798"
   },
   {
     "topic": "CPython",
@@ -10708,7 +11198,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "дамп трейсов при фатальных сбоях. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s764"
+    "id": "s799"
   },
   {
     "topic": "CPython",
@@ -10722,7 +11212,7 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "режим разработки с доп. проверками. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s765"
+    "id": "s800"
   },
   {
     "topic": "CPython",
@@ -10736,6 +11226,552 @@ window.QUESTIONS_SENIOR = [
     "answer": 0,
     "explain": "не импортировать site автоматически. Вопрос про устройство интерпретатора CPython, а не про синтаксис языка.",
     "group": "CPython и память",
-    "id": "s766"
+    "id": "s801"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает Single Responsibility Principle (SRP)?",
+    "options": [
+      "у класса/модуля одна причина для изменения",
+      "один метод на класс",
+      "один файл на репозиторий",
+      "один разработчик на модуль"
+    ],
+    "answer": 0,
+    "explain": "SRP про зону ответственности, не про количество методов. Правильный ответ: «у класса/модуля одна причина для изменения».",
+    "group": "Архитектура и дизайн",
+    "id": "s802"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Класс UserService и парсит JSON, и пишет в БД, и шлёт email — что нарушено?",
+    "options": [
+      "SRP",
+      "LSP",
+      "ISP",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Слишком много причин менять один класс. Правильный ответ: «SRP».",
+    "group": "Архитектура и дизайн",
+    "id": "s803"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Как в Python часто выделяют ответственности по SRP?",
+    "options": [
+      "отдельные модули/классы: repo, service, api",
+      "один god-object",
+      "только global",
+      "eval"
+    ],
+    "answer": 0,
+    "explain": "Слои и роли: хранение, бизнес-логика, интерфейс. Правильный ответ: «отдельные модули/классы: repo, service, api».",
+    "group": "Архитектура и дизайн",
+    "id": "s804"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Чем помогает SRP?",
+    "options": [
+      "тестировании и изменениях по одной причине",
+      "ускорении GIL",
+      "компиляции в C",
+      "удалении типов"
+    ],
+    "answer": 0,
+    "explain": "Меньше причин менять модуль — меньше регрессий. Правильный ответ: «тестировании и изменениях по одной причине».",
+    "group": "Архитектура и дизайн",
+    "id": "s805"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что такое «Одна причина для изменения» в SRP?",
+    "options": [
+      "роль модуля в системе",
+      "число строк кода",
+      "число багов",
+      "число import"
+    ],
+    "answer": 0,
+    "explain": "Причина = актор или зона требований (оплата, отчёты, API). Правильный ответ: «роль модуля в системе».",
+    "group": "Архитектура и дизайн",
+    "id": "s806"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает Open/Closed Principle (OCP)?",
+    "options": [
+      "открыт для расширения, закрыт для модификации",
+      "файл только на чтение",
+      "запрет наследования",
+      "только final классы"
+    ],
+    "answer": 0,
+    "explain": "Новое поведение добавляем, старый код не ломаем. Правильный ответ: «открыт для расширения, закрыт для модификации».",
+    "group": "Архитектура и дизайн",
+    "id": "s807"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что такое Добавление нового типа скидки через новый класс Discount вместо правки calculate()?",
+    "options": [
+      "OCP",
+      "нарушение DRY",
+      "LSP",
+      "YAGNI"
+    ],
+    "answer": 0,
+    "explain": "Расширение без изменения существующей функции расчёта. Правильный ответ: «OCP».",
+    "group": "Архитектура и дизайн",
+    "id": "s808"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает OCP не?",
+    "options": [
+      "что код никогда не меняется",
+      "расширение через новые типы",
+      "полиморфизм",
+      "абстракции"
+    ],
+    "answer": 0,
+    "explain": "Закрыт для модификации — не «заморожен навсегда», а минимум правок ядра. Правильный ответ: «что код никогда не меняется».",
+    "group": "Архитектура и дизайн",
+    "id": "s809"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает «typing.Protocol для новых адаптеров без правки клиента — пример»?",
+    "options": [
+      "OCP + абстракция",
+      "только ISP",
+      "GIL",
+      "pickle"
+    ],
+    "answer": 0,
+    "explain": "Клиент зависит от Protocol; новые реализации подключаются снаружи. Правильный ответ: «OCP + абстракция».",
+    "group": "Архитектура и дизайн",
+    "id": "s810"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает Liskov Substitution Principle (LSP)?",
+    "options": [
+      "подтип можно подставить вместо базового без сюрпризов",
+      "подкласс всегда больше",
+      "запрет override",
+      "только ABC"
+    ],
+    "answer": 0,
+    "explain": "Поведение подкласса не должно ломать ожидания клиента базового типа. Правильный ответ: «подтип можно подставить вместо базового без сюрпризов».",
+    "group": "Архитектура и дизайн",
+    "id": "s811"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Square наследует Rectangle, но set_width ломает инвариант квадрата — что нарушено?",
+    "options": [
+      "LSP",
+      "SRP",
+      "DRY",
+      "KISS"
+    ],
+    "answer": 0,
+    "explain": "Классический пример нарушения подстановки Лисков. Правильный ответ: «LSP».",
+    "group": "Архитектура и дизайн",
+    "id": "s812"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что такое Если подкласс усиливает предусловия или ослабляет постусловия?",
+    "options": [
+      "нарушение LSP",
+      "норма ООП",
+      "только в Java",
+      "ISP"
+    ],
+    "answer": 0,
+    "explain": "Контракт подтипа не должен быть строже/слабее неожиданно. Правильный ответ: «нарушение LSP».",
+    "group": "Архитектура и дизайн",
+    "id": "s813"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает «LSP важен при»?",
+    "options": [
+      "полиморфизме и подстановке в тестах/клиентах",
+      "только при import",
+      "только в async",
+      "сериализации JSON"
+    ],
+    "answer": 0,
+    "explain": "Клиент кода с Base не должен знать про подкласс. Правильный ответ: «полиморфизме и подстановке в тестах/клиентах».",
+    "group": "Архитектура и дизайн",
+    "id": "s814"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает «Метод базового класса бросает NotImplementedError, подкласс — всегда ValueError — возможная проблема»?",
+    "options": [
+      "контракта / LSP для вызывающего",
+      "только GIL",
+      "только typing",
+      "PEP 8"
+    ],
+    "answer": 0,
+    "explain": "Исключения и контракты — часть подстановки. Правильный ответ: «контракта / LSP для вызывающего».",
+    "group": "Архитектура и дизайн",
+    "id": "s815"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает Interface Segregation Principle (ISP)?",
+    "options": [
+      "клиент не зависит от методов, которые не использует",
+      "один интерфейс на 100 методов",
+      "запрет Protocol",
+      "только один метод"
+    ],
+    "answer": 0,
+    "explain": "Лучше несколько узких интерфейсов, чем один «толстый». Правильный ответ: «клиент не зависит от методов, которые не использует».",
+    "group": "Архитектура и дизайн",
+    "id": "s816"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Класс вынужден реализовать пустые методы save() и fly() «для интерфейса» — что нарушено?",
+    "options": [
+      "ISP",
+      "OCP",
+      "YAGNI",
+      "Zen"
+    ],
+    "answer": 0,
+    "explain": "«Толстый» интерфейс заставляет реализовывать лишнее. Правильный ответ: «ISP».",
+    "group": "Архитектура и дизайн",
+    "id": "s817"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает «В Python ISP часто выражают через»?",
+    "options": [
+      "typing.Protocol с узкими методами",
+      "один класс Object",
+      "только наследование",
+      "global state"
+    ],
+    "answer": 0,
+    "explain": "Несколько Protocol вместо одного GodInterface. Правильный ответ: «typing.Protocol с узкими методами».",
+    "group": "Архитектура и дизайн",
+    "id": "s818"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что вернёт Readable + Writable разделены вместо одного HugeFile — пример?",
+    "options": [
+      "ISP",
+      "LSP",
+      "GIL",
+      "DRY"
+    ],
+    "answer": 0,
+    "explain": "Клиент читает только то, что ему нужно. Правильный ответ: «ISP».",
+    "group": "Архитектура и дизайн",
+    "id": "s819"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает Dependency Inversion Principle (DIP)?",
+    "options": [
+      "зависимость от абстракций, не от деталей",
+      "инверсия списка",
+      "import внизу файла",
+      "отказ от DI"
+    ],
+    "answer": 0,
+    "explain": "Высокоуровневый код не привязан к конкретной БД/файлу. Правильный ответ: «зависимость от абстракций, не от деталей».",
+    "group": "Архитектура и дизайн",
+    "id": "s820"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что такое Сервис принимает Repository (Protocol), а не psycopg2 connection?",
+    "options": [
+      "DIP",
+      "нарушение SRP",
+      "только mock",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Зависимость от абстракции Repository. Правильный ответ: «DIP».",
+    "group": "Архитектура и дизайн",
+    "id": "s821"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Как в Python обычно внедряют зависимости для DIP?",
+    "options": [
+      "конструктор/функция + Protocol/ABC",
+      "только singleton global",
+      "import внутри метода всегда",
+      "eval"
+    ],
+    "answer": 0,
+    "explain": "DI через параметры конструктора или фабрики. Правильный ответ: «конструктор/функция + Protocol/ABC».",
+    "group": "Архитектура и дизайн",
+    "id": "s822"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает «DIP не требует»?",
+    "options": [
+      "обязательного DI-фреймворка",
+      "абстракций",
+      "тестируемости",
+      "слабой связанности"
+    ],
+    "answer": 0,
+    "explain": "Достаточно передать зависимость вручную; фреймворк опционален. Правильный ответ: «обязательного DI-фреймворка».",
+    "group": "Архитектура и дизайн",
+    "id": "s823"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Выбери верный вариант: Сколько букв в SOLID и что они обозначают?",
+    "options": [
+      "5 принципов ООП-проектирования",
+      "3 паттерна GoF",
+      "система типов Python",
+      "модуль asyncio"
+    ],
+    "answer": 0,
+    "explain": "S, O, L, I, D — базовый набор для собеседований. Правильный ответ: «5 принципов ООП-проектирования».",
+    "group": "Архитектура и дизайн",
+    "id": "s824"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Какой принцип SOLID нарушен, если клиент зависит от PostgresUserRepository напрямую?",
+    "options": [
+      "DIP",
+      "SRP",
+      "LSP",
+      "ISP"
+    ],
+    "answer": 0,
+    "explain": "Нужна абстракция хранилища, а не конкретный драйвер. Правильный ответ: «DIP».",
+    "group": "Архитектура и дизайн",
+    "id": "s825"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что вернёт God-object на 2000 строк с API, SQL и email — нарушает в первую очередь?",
+    "options": [
+      "SRP",
+      "только LSP",
+      "только OCP",
+      "Zen"
+    ],
+    "answer": 0,
+    "explain": "Много причин для изменения одного класса. Правильный ответ: «SRP».",
+    "group": "Архитектура и дизайн",
+    "id": "s826"
+  },
+  {
+    "topic": "SOLID",
+    "q": "Что означает «Новый способ оплаты добавляют новым классом PaymentProvider — ближе к»?",
+    "options": [
+      "OCP",
+      "нарушению ISP",
+      "LSP",
+      "YAGNI"
+    ],
+    "answer": 0,
+    "explain": "Расширение без правки старого кода оплаты. Правильный ответ: «OCP».",
+    "group": "Архитектура и дизайн",
+    "id": "s827"
+  },
+  {
+    "topic": "LoD",
+    "q": "Что означает Law of Demeter («не разговаривай с чужими»)?",
+    "options": [
+      "обращаться только к своим объектам и ближайшим соседям",
+      "запрет всех методов",
+      "только global",
+      "только staticmethod"
+    ],
+    "answer": 0,
+    "explain": "Избегай цепочек a.get_b().get_c().do() — хрупко и связно. Правильный ответ: «обращаться только к своим объектам и ближайшим соседям».",
+    "group": "Архитектура и дизайн",
+    "id": "s828"
+  },
+  {
+    "topic": "LoD",
+    "q": "Что вернёт order.customer.address.zip_code вместо order.shipping_zip() — в чём проблема?",
+    "options": [
+      "нарушения LoD / train wreck",
+      "только PEP 8",
+      "GIL",
+      "async"
+    ],
+    "answer": 0,
+    "explain": "Клиент знает слишком много о внутренностях чужих объектов. Правильный ответ: «нарушения LoD / train wreck».",
+    "group": "Архитектура и дизайн",
+    "id": "s829"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что означает «Tell, don't ask»?",
+    "options": [
+      "сказать объекту что сделать, а не вытаскивать данные и решать снаружи",
+      "не задавать вопросов на собесе",
+      "только getter/setter",
+      "отказ от методов"
+    ],
+    "answer": 0,
+    "explain": "Логика ближе к данным: account.withdraw(100), а не if balance > 100. Правильный ответ: «сказать объекту что сделать, а не вытаскивать данные и решать снаружи».",
+    "group": "Архитектура и дизайн",
+    "id": "s830"
+  },
+  {
+    "topic": "принципы",
+    "q": "if user.get_role() == 'admin': user.delete() вместо user.delete_if_allowed() — что нарушено?",
+    "options": [
+      "Tell, don't ask",
+      "только DRY",
+      "LSP",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Проверка прав лучше внутри объекта/сервиса. Правильный ответ: «Tell, don't ask».",
+    "group": "Архитектура и дизайн",
+    "id": "s831"
+  },
+  {
+    "topic": "принципы",
+    "q": "Что означает Fail fast в API?",
+    "options": [
+      "рано валидировать и падать с ясной ошибкой",
+      "глотать все исключения",
+      "retry бесконечно",
+      "молчаливый None"
+    ],
+    "answer": 0,
+    "explain": "Ошибка на входе лучше, чем тихая порча данных дальше. Правильный ответ: «рано валидировать и падать с ясной ошибкой».",
+    "group": "Архитектура и дизайн",
+    "id": "s832"
+  },
+  {
+    "topic": "принципы",
+    "q": "В чём разница: Defensive programming vs fail fast — что вернее?",
+    "options": [
+      "fail fast на границе; внутри — инварианты и assert",
+      "всегда try/except pass",
+      "никаких проверок",
+      "только logging"
+    ],
+    "answer": 0,
+    "explain": "На границе системы — строгая валидация; внутри — доверие к контрактам. Правильный ответ: «fail fast на границе; внутри — инварианты и assert».",
+    "group": "Архитектура и дизайн",
+    "id": "s833"
+  },
+  {
+    "topic": "Zen",
+    "q": "Что означает ««Simple is better than complex» поддерживает»?",
+    "options": [
+      "KISS",
+      "отказ от функций",
+      "только ООП",
+      "premature optimization"
+    ],
+    "answer": 0,
+    "explain": "Простое решение предпочтительнее сложного. Правильный ответ: «KISS».",
+    "group": "Архитектура и дизайн",
+    "id": "s834"
+  },
+  {
+    "topic": "Zen",
+    "q": "Что означает ««Namespaces are one honking great idea» в Python связано с»?",
+    "options": [
+      "модулями и пакетами",
+      "только class",
+      "GIL",
+      "asyncio"
+    ],
+    "answer": 0,
+    "explain": "import module — изоляция имён и зон ответственности. Правильный ответ: «модулями и пакетами».",
+    "group": "Архитектура и дизайн",
+    "id": "s835"
+  },
+  {
+    "topic": "принципы",
+    "q": "Микросервис на 50 строк дублирует валидацию из монолита без общей библиотеки — что нарушено?",
+    "options": [
+      "DRY на уровне организации",
+      "только LSP",
+      "GIL",
+      "ISP"
+    ],
+    "answer": 0,
+    "explain": "DRY актуален и между сервисами, если логика одна. Правильный ответ: «DRY на уровне организации».",
+    "group": "Архитектура и дизайн",
+    "id": "s836"
+  },
+  {
+    "topic": "принципы",
+    "q": "Абстрактная фабрика для единственного if в учебном скрипте — что нарушено?",
+    "options": [
+      "KISS / YAGNI",
+      "SRP",
+      "LSP",
+      "DIP"
+    ],
+    "answer": 0,
+    "explain": "Избыточная архитектура без выгоды. Правильный ответ: «KISS / YAGNI».",
+    "group": "Архитектура и дизайн",
+    "id": "s837"
+  },
+  {
+    "topic": "принципы",
+    "q": "Чем помогает Unit-тесты мокают Repository через Protocol —?",
+    "options": [
+      "DIP и тестируемость",
+      "только GIL",
+      "только pickle",
+      "Zen"
+    ],
+    "answer": 0,
+    "explain": "Зависимость от абстракции упрощает подмену в тестах. Правильный ответ: «DIP и тестируемость».",
+    "group": "Архитектура и дизайн",
+    "id": "s838"
+  },
+  {
+    "topic": "SoC",
+    "q": "Что вернёт Fat models / thin views в веб-приложении — пример?",
+    "options": [
+      "разделения ответственности",
+      "нарушения SRP",
+      "только LSP",
+      "GIL"
+    ],
+    "answer": 0,
+    "explain": "Логика в модели, представление тонкое — SoC на практике. Правильный ответ: «разделения ответственности».",
+    "group": "Архитектура и дизайн",
+    "id": "s839"
+  },
+  {
+    "topic": "cohesion",
+    "q": "Что вернёт Пакет billing/ с invoice, payment, refund в одном модуле — хорошая?",
+    "options": [
+      "связность по домену",
+      "связанность с UI",
+      "нарушение DRY",
+      "нарушение LSP"
+    ],
+    "answer": 0,
+    "explain": "Одна предметная область — высокая cohesion. Правильный ответ: «связность по домену».",
+    "group": "Архитектура и дизайн",
+    "id": "s840"
   }
 ];
