@@ -1,4 +1,4 @@
-# Python Drill
+# PyСобес
 
 Тренажёр для подготовки к собеседованиям по Python (Junior / Middle / Senior).
 
