@@ -11,6 +11,7 @@ from wave2_extra import JUNIOR_W2, MIDDLE_W2, SENIOR_W2
 from wave3_extra import JUNIOR_W3, MIDDLE_W3, SENIOR_W3
 from variants_extra import JUNIOR_VARIANTS, MIDDLE_VARIANTS, SENIOR_VARIANTS
 from variants2_extra import JUNIOR_VARIANTS2, MIDDLE_VARIANTS2, SENIOR_VARIANTS2
+from question_polish import polish_question
 
 OUT = Path(__file__).resolve().parent / "js" / "data"
 
@@ -888,7 +889,7 @@ def assign_group(item: dict, level: str = "") -> dict:
 
 
 def write_js(name: str, var: str, items: list[dict]) -> None:
-    items = [assign_group(it, name) for it in items]
+    items = [polish_question(assign_group(it, name)) for it in items]
     for i, item in enumerate(items, 1):
         item["id"] = f"{name[0]}{i}"
     path = OUT / f"{name}.js"

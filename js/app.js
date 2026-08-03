@@ -71,7 +71,7 @@
     feedbackTitle: document.getElementById("feedback-title"),
     feedbackExplain: document.getElementById("feedback-explain"),
     feedbackWhy: document.getElementById("feedback-why"),
-    btnNext: document.getElementById("btn-next"),
+    quizHint: document.getElementById("quiz-hint"),
   };
 
   const state = {
@@ -472,10 +472,12 @@
     if (state.inputMode) {
       el.options.hidden = true;
       el.inputForm.hidden = false;
+      if (el.quizHint) el.quizHint.textContent = "Введи ответ своими словами (кавычки не обязательны)";
       setTimeout(() => el.answerInput.focus(), 30);
     } else {
       el.options.hidden = false;
       el.inputForm.hidden = true;
+      if (el.quizHint) el.quizHint.textContent = "Выбери один верный вариант из списка ниже";
       q.options.forEach((text, idx) => {
         const btn = document.createElement("button");
         btn.type = "button";
@@ -566,13 +568,27 @@
     });
   }
 
+  function buildLearningExplain(q, correctText) {
+    const explain = (q.explain || "").trim();
+    const correct = String(correctText || "").trim();
+    const parts = [];
+    if (explain) parts.push(explain);
+    const explainHasCorrect =
+      correct &&
+      explain.toLowerCase().includes(correct.toLowerCase().slice(0, Math.min(24, correct.length)));
+    if (correct && !explainHasCorrect) {
+      parts.push(`Правильный ответ: «${correct}».`);
+    }
+    return parts.join(" ").trim() || (correct ? `Верный вариант: «${correct}».` : "");
+  }
+
   function buildWhyWrong(q, chosenText, timedOut) {
     const correct = q._correctText ?? q.options[q.answer];
     const parts = [];
     if (timedOut) {
-      parts.push("Время вышло — ответ не засчитан.");
+      parts.push("Время вышло — ответ не засчитан. Ниже разбор, чтобы запомнить тему.");
     }
-    parts.push(`Правильно: <strong>${escapeHtml(correct)}</strong>`);
+    parts.push(`Вариант в списке: <strong>${escapeHtml(correct)}</strong>`);
     if (chosenText != null && String(chosenText).trim() !== "" && chosenText !== correct) {
       parts.push(`Ты ответил: <strong>${escapeHtml(chosenText)}</strong>`);
     }
@@ -648,11 +664,8 @@
       state.streak = 0;
       el.feedbackTitle.textContent = timedOut ? "Время вышло" : "Неверно";
       el.feedback.classList.add("is-bad");
-      const explain = (q.explain || "").trim();
       el.feedbackExplain.hidden = false;
-      el.feedbackExplain.textContent = explain
-        ? explain
-        : `Почему так: верный вариант — «${correctText}».`;
+      el.feedbackExplain.textContent = buildLearningExplain(q, correctText);
       el.feedbackWhy.hidden = false;
       el.feedbackWhy.innerHTML = buildWhyWrong(q, chosenText, timedOut);
       el.btnNext.textContent = "Дальше";
