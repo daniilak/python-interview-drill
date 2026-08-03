@@ -5,6 +5,21 @@
   const ROUND_SIZE = 20;
   const RECENT_LIMIT = 40;
 
+  /** forms: [1, 2-4, 5-0] — «1 карточка», «4 карточки», «5 карточек» */
+  function pluralRu(n, forms) {
+    const num = Math.abs(Number(n)) || 0;
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod100 >= 11 && mod100 <= 14) return forms[2];
+    if (mod10 === 1) return forms[0];
+    if (mod10 >= 2 && mod10 <= 4) return forms[1];
+    return forms[2];
+  }
+
+  function pluralCount(n, forms) {
+    return `${n} ${pluralRu(n, forms)}`;
+  }
+
   const LEVELS = {
     junior: {
       label: "Junior",
@@ -215,7 +230,7 @@
       const node = document.getElementById(`meta-${key}`);
       if (node) {
         const groups = groupCounts(LEVELS[key].bank()).length;
-        node.textContent = `${n} вопросов · ${groups} тем`;
+        node.textContent = `${pluralCount(n, ["вопрос", "вопроса", "вопросов"])} · ${pluralCount(groups, ["тема", "темы", "тем"])}`;
       }
     }
     const store = loadStore();
@@ -223,7 +238,9 @@
     el.bestStreak.textContent = String(store.bestStreak || 0);
     el.totalAnswered.textContent = String(store.totalAnswered || 0);
     el.mistakesCount.textContent = String(mc);
-    el.metaMistakes.textContent = mc ? `${mc} карточек · жми, чтобы повторить` : "Пока пусто — копи ошибки в сессии";
+    el.metaMistakes.textContent = mc
+      ? `${pluralCount(mc, ["карточка", "карточки", "карточек"])} · жми, чтобы повторить`
+      : "Пока пусто — копи ошибки в сессии";
     el.menuStats.hidden = !(store.totalAnswered > 0 || mc > 0);
 
     el.settingTimer.value = String(store.settings.timerSec ?? 25);
@@ -580,7 +597,7 @@
     if (correct && !explainHasCorrect) {
       parts.push(`Правильный ответ: «${correct}».`);
     }
-    return parts.join(" ").trim() || (correct ? `Верный вариант: «${correct}».` : "");
+    return parts.join("\n\n").trim() || (correct ? `Верный вариант: «${correct}».` : "");
   }
 
   function buildWhyWrong(q, chosenText, timedOut) {
@@ -602,6 +619,44 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  function formatExplainHtml(text) {
+    const raw = String(text || "").trim();
+    if (!raw) return "";
+
+    if (raw.includes("\n")) {
+      return raw
+        .split(/\n{2,}/)
+        .map((block) => block.replace(/\n/g, " ").trim())
+        .filter(Boolean)
+        .map((line) => escapeHtml(line))
+        .join("<br><br>");
+    }
+
+    if (raw.includes("; ")) {
+      return raw
+        .split(/\s*;\s+/)
+        .map((line) => escapeHtml(line.trim()))
+        .filter(Boolean)
+        .join("<br>");
+    }
+
+    if (raw.length > 140) {
+      return raw
+        .split(/(?<=[.!?])\s+(?=[А-ЯA-Z«"(\d])/u)
+        .map((line) => escapeHtml(line.trim()))
+        .filter(Boolean)
+        .join("<br><br>");
+    }
+
+    return escapeHtml(raw);
+  }
+
+  function setFeedbackExplain(text) {
+    const html = formatExplainHtml(text);
+    el.feedbackExplain.innerHTML = html;
+    el.feedbackExplain.hidden = !html;
   }
 
   function finishAnswer({ choiceIndex = null, typed = null, timedOut = false } = {}) {
@@ -652,8 +707,7 @@
       state.streak += 1;
       el.feedbackTitle.textContent = "Верно!";
       el.feedback.classList.add("is-good");
-      el.feedbackExplain.textContent = q.explain || "";
-      el.feedbackExplain.hidden = !q.explain;
+      setFeedbackExplain(q.explain || "");
       el.feedbackWhy.hidden = true;
       el.btnNext.textContent = "Дальше";
       clearMistake(raw);
@@ -665,8 +719,7 @@
       state.streak = 0;
       el.feedbackTitle.textContent = timedOut ? "Время вышло" : "Неверно";
       el.feedback.classList.add("is-bad");
-      el.feedbackExplain.hidden = false;
-      el.feedbackExplain.textContent = buildLearningExplain(q, correctText);
+      setFeedbackExplain(buildLearningExplain(q, correctText));
       el.feedbackWhy.hidden = false;
       el.feedbackWhy.innerHTML = buildWhyWrong(q, chosenText, timedOut);
       el.btnNext.textContent = "Дальше";
@@ -726,7 +779,7 @@
   el.settingInput.addEventListener("change", persistSettings);
 
   el.btnClearMistakes.addEventListener("click", () => {
-    if (!confirm("Очистить колоду ошибок?")) return;
+    if (!confirm("Очистить сохранённые ошибки для повторения?")) return;
     patchStore((s) => {
       s.mistakes = {};
     });

@@ -817,6 +817,7 @@ body {
   margin: 0 0 0.85rem;
   font-size: 0.9rem;
   color: var(--ink-soft);
+  line-height: 1.55;
 }
 
 .feedback-why {
