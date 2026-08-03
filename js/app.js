@@ -72,6 +72,7 @@
     feedbackExplain: document.getElementById("feedback-explain"),
     feedbackWhy: document.getElementById("feedback-why"),
     quizHint: document.getElementById("quiz-hint"),
+    btnNext: document.getElementById("btn-next"),
   };
 
   const state = {
