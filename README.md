@@ -1,6 +1,6 @@
 # PyСобес
 
-Тренажёр для подготовки к собеседованиям по Python (Junior / Middle / Senior).
+Тренажёр-задачник по Python к собеседованию (Junior / Middle / Senior).
 
 **Версия:** 1.2.0 · **Автор:** [daniilak](https://github.com/daniilak)
 
