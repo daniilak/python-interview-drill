@@ -119,7 +119,7 @@ JUNIOR += [
     q("встроенные", "all([1, 'x', True])?", ["True", "False", "ошибка", "1"], 0, "all — все истинны."),
     q("ввод", "input() возвращает…", ["str", "int", "auto-type", "bytes"], 0, "Всегда строка; для чисел — int()/float()."),
     q("комментарии", "Однострочный комментарий:", ["# текст", "// текст", "/* */", "-- текст"], 0, "В Python комментарий через #."),
-    q("идентичность", "is сравнивает…", ["идентичность объекта (id)", "равенство значений", "типы", "хеши"], 0, "is — один и тот же объект; == — равенство."),
+    q("идентичность", "Что сравнивает оператор is?", ["идентичность объекта (id)", "равенство значений", "типы", "хеши"], 0, "is — один и тот же объект; == — равенство."),
     q("идентичность", "Обычно для None пишут…", ["x is None", "x == None", "x = None", "x equals None"], 0, "PEP 8: сравнение с None через is."),
     q("пакеты", "pip — это…", ["установщик пакетов", "интерпретатор", "IDE", "лinter"], 0, "pip ставит пакеты из PyPI."),
     q("venv", "venv нужен чтобы…", ["изолировать зависимости проекта", "ускорить CPU", "заменить Docker", "компилировать C"], 0, "Виртуальное окружение."),
@@ -243,7 +243,7 @@ MIDDLE += [
     q("pathlib", "Path('a') / 'b' даёт…", ["Path('a/b')", "ошибку", "str 'a/b'", "list"], 0, "Оператор / для Path."),
     q("enum", "enum.Enum нужен для…", ["именованных констант", "float", "async", "GIL flags"], 0, "Перечисления."),
     q("match", "match/case появился в…", ["3.10", "3.8", "2.7", "3.12"], 0, "Structural pattern matching."),
-    q("walrus", "(n := len(a)) > 0 использует…", ["присваивание в выражении", "аннотацию", "decorator", "comprehension only"], 0, "PEP 572."),
+    q("walrus", "Для чего в условии пишут (n := len(a)) > 0?", ["присваивание в выражении", "аннотацию", "decorator", "comprehension only"], 0, "PEP 572: моржовый оператор присваивает и сразу использует значение."),
     q("f-string", "f'{x=!r}' покажет…", ["имя и repr значения", "только x", "ошибку до 3.12", "hex"], 0, "Debug self-documenting."),
     q("bytes", "encode/decode связывает…", ["str ↔ bytes", "list ↔ tuple", "int ↔ float", "json ↔ dict"], 0, "Текстовые кодировки."),
     q("ООП", "super() используется для…", ["вызова метода родителя по MRO", "создания потока", "импорта", "GC"], 0, "Кооперативное наследование."),
@@ -466,16 +466,16 @@ MIDDLE += [
     q("exceptions", "Exception.__notes__ (3.11)…", ["доп. заметки к исключению", "stack only", "warnings", "logs"], 0, "add_note."),
     q("warnings", "warnings.filterwarnings управляет…", ["показом предупреждений", "exceptions", "logs level only", "GIL"], 0, "Модуль warnings."),
     q("import", "importlib.reload…", ["перезагружает модуль", "удаляет пакет", "чистит pip", "restart OS"], 0, "Осторожно с состоянием."),
-    q("abc", "@abstractmethod на property…", ["возможно", "нельзя", "только methods", "только classmethod"], 0, "Абстрактные property."),
+    q("ABC", "@abstractmethod на property…", ["возможно", "нельзя", "только methods", "только classmethod"], 0, "Абстрактные property."),
     q("protocols", "runtime_checkable Protocol…", ["isinstance может проверить методы", "всегда без runtime", "заменяет ABC полностью без оговорок", "GIL"], 0, "Ограниченная runtime проверка."),
     q("functools", "singledispatch — это…", ["мультиметод по типу 1-го аргумента", "async gather", "cache", "partial only"], 0, "functools.singledispatch."),
     q("functools", "cached_property…", ["кэш на экземпляре", "lru глобальный", "classmethod", "slots"], 0, "Пересчёт один раз."),
     q("itertools", "groupby требует…", ["часто предварительной сортировки по ключу", "dict", "set", "async"], 0, "Группирует подряд идущие."),
     q("itertools", "list(product('ab', repeat=2))?", ["[('a', 'a'), ('a', 'b'), ('b', 'a'), ('b', 'b')]", "['ab']", "['a', 'b']", "ошибка"], 0, "Декартово произведение."),
     q("itertools", "cycle([1,2])…", ["бесконечно повторяет", "один проход", "shuffle", "sort"], 0, "Бесконечный итератор."),
-    q("операторы", "a := b := 1 синтаксис…", ["запрещён (SyntaxError)", "допустим как a = b = 1", "только в if", "только 3.12"], 0, "Цепочка walrus так нельзя. Нужно a = b = 1 или (a := (b := 1))."),
+    q("операторы", "Допустим ли синтаксис a := b := 1?", ["запрещён (SyntaxError)", "допустим как a = b = 1", "только в if", "только 3.12"], 0, "Цепочка walrus так нельзя. Нужно a = b = 1 или (a := (b := 1))."),
     q("comprehensions", "Есть ли у listcomp своей scope?", ["да (с 3), локальные переменные не утекают", "нет как в 2.7", "только для async", "только dictcomp"], 0, "Leak фиксанули."),
-    q("gil", "numpy отпускает GIL в тяжёлых C-циклах часто…", ["да, многие операции", "никогда", "только print", "только на Windows"], 0, "C-extensions pattern."),
+    q("GIL", "numpy отпускает GIL в тяжёлых C-циклах часто…", ["да, многие операции", "никогда", "только print", "только на Windows"], 0, "C-extensions pattern."),
     q("memory", "sys.getsizeof([1,2]) учитывает…", ["overhead контейнера, не глубоко элементы всегда", "всю глубокую структуру", "только int", "disk"], 0, "Не deep size."),
     q("json", "json.loads vs load?", ["строка vs file object", "нет разницы", "bytes vs path", "pickle"], 0, "s = string."),
     q("csv", "csv.DictReader читает…", ["строки как dict по заголовку", "JSON", "pickle", "YAML"], 0, "Модуль csv."),
@@ -484,7 +484,7 @@ MIDDLE += [
     q("secrets", "secrets модуль лучше random для…", ["токенов/криптографии", "shuffle колоды в игре ok всегда", "math sim", "sort"], 0, "Криптостойкость."),
     q("dataclasses", "slots=True (3.10+) у dataclass…", ["генерирует __slots__", "frozen", "kw_only", "JSON"], 0, "Экономия памяти."),
     q("typing", "TypedDict total=False…", ["ключи опциональны", "запрещены", "только str values", "frozen"], 0, "Частичные словари."),
-    q("http", "idempotent методы HTTP обычно…", ["GET PUT DELETE", "POST только", "PATCH always", "CONNECT"], 0, "Семантика HTTP."),
+    q("HTTP", "idempotent методы HTTP обычно…", ["GET PUT DELETE", "POST только", "PATCH always", "CONNECT"], 0, "Семантика HTTP."),
 ]
 
 SENIOR += [
@@ -856,6 +856,15 @@ TOPIC_TO_GROUP: dict[str, str] = {
 
 
 LEVEL_TOPIC_GROUP: dict[str, dict[str, str]] = {
+    "junior": {
+        "копирование": "Списки и кортежи",
+        "copy": "Списки и кортежи",
+        "csv": "Инструменты и стиль",
+        "pickle": "Инструменты и стиль",
+        "pathlib": "Инструменты и стиль",
+        "regex": "Инструменты и стиль",
+        "регулярки": "Инструменты и стиль",
+    },
     "middle": {
         "comprehensions": "Генераторы и итераторы",
         "listcomp": "Генераторы и итераторы",
@@ -869,6 +878,9 @@ LEVEL_TOPIC_GROUP: dict[str, dict[str, str]] = {
         "is": "Stdlib и производительность",
         "операторы": "Typing и dataclasses",
         "copy": "Stdlib и производительность",
+        "функции": "Декораторы и замыкания",
+        "области": "Декораторы и замыкания",
+        "lambda": "Декораторы и замыкания",
         "исключения": "Исключения и контекст",
         "exceptions": "Исключения и контекст",
         "context": "Исключения и контекст",
@@ -882,17 +894,32 @@ LEVEL_TOPIC_GROUP: dict[str, dict[str, str]] = {
     },
 }
 
+# Слияние дублей topic-ключей (gil/GIL, http/HTTP, …)
+_TOPIC_CANON: dict[str, str] = {
+    "gil": "GIL",
+    "abc": "ABC",
+    "http": "HTTP",
+    "gc": "GC",
+    "json": "JSON",
+    "sql": "SQL",
+    "csv": "csv",
+    "wsgi": "WSGI",
+    "asgi": "ASGI",
+}
+
 
 def assign_group(item: dict, level: str = "") -> dict:
     topic = item.get("topic", "")
+    canon = _TOPIC_CANON.get(topic, _TOPIC_CANON.get(topic.lower(), topic)) if topic else topic
     group = None
     if level in LEVEL_TOPIC_GROUP:
-        group = LEVEL_TOPIC_GROUP[level].get(topic)
+        group = LEVEL_TOPIC_GROUP[level].get(canon) or LEVEL_TOPIC_GROUP[level].get(topic)
     if not group:
-        group = TOPIC_TO_GROUP.get(topic)
+        group = TOPIC_TO_GROUP.get(canon) or TOPIC_TO_GROUP.get(topic)
     if not group:
-        group = topic[:1].upper() + topic[1:] if topic else "Разное"
+        group = (canon[:1].upper() + canon[1:]) if canon else "Разное"
     item = dict(item)
+    item["topic"] = canon
     item["group"] = group
     return item
 

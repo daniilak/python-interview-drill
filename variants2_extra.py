@@ -530,7 +530,7 @@ def middle_exceptions_context() -> list[dict]:
                      [parent, "только object", "Warning", "OSError всегда"], 0,
                      f"{exc} → … → {parent} → …"))
     for n in [1, 2, 3]:
-        out.append(q("context", f"с {n} вложенными with без ExitStack…",
+        out.append(q("context", f"Как удобнее открыть {n} вложенных with без ExitStack?",
                      ["можно вложить / или один with a, b", "нельзя никогда", "только async", "нужен GIL"], 0,
                      "with open() as a, open() as b: или ExitStack для динамики."))
     return out

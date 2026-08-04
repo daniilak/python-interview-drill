@@ -5,7 +5,7 @@
 
   const STORAGE_KEY = "python-drill-v3";
   const LEGACY_KEYS = ["python-drill-v2", "python-drill-stats-v1"];
-  const SCHEMA_VERSION = 3;
+  const SCHEMA_VERSION = 4;
 
   function defaultStore() {
     return {
@@ -14,7 +14,11 @@
       totalAnswered: 0,
       mistakes: {},
       topicStats: {},
-      settings: { timerSec: 25, inputMode: false },
+      settings: {
+        timerSec: 25,
+        inputMode: false,
+        srsClearAfter: 2,
+      },
     };
   }
 
@@ -46,6 +50,7 @@
         tags: Array.isArray(snapshot.tags) ? snapshot.tags.slice() : undefined,
       },
       wrongCount: Number(entry.wrongCount) || 1,
+      correctStreak: Number(entry.correctStreak) || 0,
       lastAt: Number(entry.lastAt) || Date.now(),
     };
   }
@@ -54,7 +59,6 @@
     const base = defaultStore();
     if (!raw || typeof raw !== "object") return base;
 
-    // v1: только bestStreak / totalAnswered
     if (fromKey === "python-drill-stats-v1" || (!raw.mistakes && !raw.settings && raw.bestStreak != null)) {
       base.bestStreak = Number(raw.bestStreak) || 0;
       base.totalAnswered = Number(raw.totalAnswered) || 0;
@@ -107,12 +111,18 @@
 
       const version = Number(raw.schemaVersion) || (fromKey === "python-drill-stats-v1" ? 1 : 2);
       if (version >= SCHEMA_VERSION && fromKey === STORAGE_KEY) {
+        const base = defaultStore();
+        const mistakes = {};
+        for (const [k, v] of Object.entries(raw.mistakes || {})) {
+          const norm = normalizeMistakeEntry(k, v);
+          if (norm) mistakes[norm.key] = norm;
+        }
         return {
-          ...defaultStore(),
+          ...base,
           ...raw,
-          mistakes: raw.mistakes || {},
+          mistakes,
           topicStats: raw.topicStats || {},
-          settings: { ...defaultStore().settings, ...(raw.settings || {}) },
+          settings: { ...base.settings, ...(raw.settings || {}) },
           schemaVersion: SCHEMA_VERSION,
         };
       }
@@ -139,6 +149,45 @@
     return store;
   }
 
+  function exportProgress() {
+    const store = loadStore();
+    return {
+      exportedAt: new Date().toISOString(),
+      app: "PyСобес",
+      schemaVersion: SCHEMA_VERSION,
+      bestStreak: store.bestStreak,
+      totalAnswered: store.totalAnswered,
+      mistakes: store.mistakes,
+      topicStats: store.topicStats,
+      settings: store.settings,
+    };
+  }
+
+  function importProgress(data) {
+    if (!data || typeof data !== "object") throw new Error("Некорректный JSON");
+    const base = defaultStore();
+    const mistakes = {};
+    const src = data.mistakes && typeof data.mistakes === "object" ? data.mistakes : {};
+    for (const [k, v] of Object.entries(src)) {
+      const norm = normalizeMistakeEntry(k, v);
+      if (norm) mistakes[norm.key] = norm;
+    }
+    const next = {
+      ...base,
+      bestStreak: Number(data.bestStreak) || 0,
+      totalAnswered: Number(data.totalAnswered) || 0,
+      mistakes,
+      topicStats: data.topicStats && typeof data.topicStats === "object" ? data.topicStats : {},
+      settings: {
+        ...base.settings,
+        ...(data.settings && typeof data.settings === "object" ? data.settings : {}),
+      },
+      schemaVersion: SCHEMA_VERSION,
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    return next;
+  }
+
   Drill.storage = {
     STORAGE_KEY,
     SCHEMA_VERSION,
@@ -146,5 +195,7 @@
     loadStore,
     saveStore,
     patchStore,
+    exportProgress,
+    importProgress,
   };
 })();

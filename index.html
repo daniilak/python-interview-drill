@@ -80,12 +80,46 @@
       </button>
     </div>
 
+    <div class="menu-actions menu-actions-always">
+      <button type="button" class="linkish" id="btn-weak-topics">Слабые темы</button>
+      <button type="button" class="linkish" id="btn-export">Экспорт</button>
+      <button type="button" class="linkish" id="btn-import">Импорт</button>
+    </div>
+    <input type="file" id="import-file" accept="application/json,.json" hidden />
+
     <div class="menu-stats" id="menu-stats" hidden>
       <p>Серия: <strong id="best-streak">0</strong> · Ответов: <strong id="total-answered">0</strong> · К повторению: <strong id="mistakes-count">0</strong></p>
-      <button type="button" class="linkish" id="btn-clear-mistakes">Очистить ошибки</button>
+      <div class="menu-actions">
+        <button type="button" class="linkish" id="btn-clear-mistakes">Очистить ошибки</button>
+      </div>
     </div>
 
     <p class="app-version" id="app-version" aria-label="Версия">PyСобес</p>
+  </section>
+
+  <!-- WEAK TOPICS -->
+  <section id="screen-weak" class="screen">
+    <div class="groups-top">
+      <button id="btn-back-weak" class="ghost" type="button">К уровням</button>
+      <div>
+        <p class="groups-level">Статистика</p>
+        <h2 class="groups-heading">Слабые темы</h2>
+      </div>
+    </div>
+    <div id="weak-list" class="group-list" role="group" aria-label="Слабые темы"></div>
+  </section>
+
+  <!-- ROUND SUMMARY -->
+  <section id="screen-round" class="screen">
+    <header class="brand brand-compact">
+      <p class="brand-mark">Раунд</p>
+      <h1>Итог 20 вопросов</h1>
+    </header>
+    <div id="round-summary" class="round-summary"></div>
+    <div class="round-actions">
+      <button id="btn-round-again" class="primary" type="button">Ещё раунд</button>
+      <button id="btn-round-topics" class="ghost" type="button">К темам</button>
+    </div>
   </section>
 
   <!-- GROUPS -->
@@ -108,6 +142,8 @@
         <div id="progress-fill" class="progress-fill"></div>
       </div>
       <div class="top-right">
+        <button id="btn-pause" class="ghost quiz-tool" type="button" title="Пауза таймера">Пауза</button>
+        <button id="btn-skip" class="ghost quiz-tool" type="button" title="Пропустить без записи в ошибки">Пропуск</button>
         <div id="timer" class="timer" hidden>
           <span id="timer-sec">25</span>s
         </div>
@@ -166,7 +202,7 @@
       Убрать из повторения
     </button>
 
-    <div id="feedback" class="feedback" hidden>
+    <div id="feedback" class="feedback" hidden role="status" aria-live="polite">
       <div class="feedback-head">
         <span id="feedback-icon" class="feedback-icon" aria-hidden="true"></span>
         <p id="feedback-title" class="feedback-title"></p>
@@ -199,6 +235,17 @@
     <div class="loading-card">
       <div class="loading-spinner" aria-hidden="true"></div>
       <p>Загрузка колоды…</p>
+    </div>
+  </div>
+
+  <div id="app-dialog" class="app-dialog" hidden role="alertdialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-body">
+    <div class="app-dialog-card">
+      <h2 id="dialog-title" class="app-dialog-title">PyСобес</h2>
+      <p id="dialog-body" class="app-dialog-body"></p>
+      <div class="app-dialog-actions">
+        <button type="button" id="dialog-cancel" class="ghost">Отмена</button>
+        <button type="button" id="dialog-ok" class="primary">OK</button>
+      </div>
     </div>
   </div>
 

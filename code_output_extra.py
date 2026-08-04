@@ -132,7 +132,7 @@ CODE_MIDDLE = [
     q("typing", "Runtime проверка list[int]?", ["обычно нет", "да всегда TypeError", "только mypy runtime", "GIL check"], 0,
       "Аннотации не enforced.",
       code="def f(xs: list[int]):\n    return xs\nprint(f(['a']))"),
-    q("dataclasses", "Что будет?", ["[1]", "[]", "ошибка shared", "None"], 0,
+    q("dataclasses", "Что выведет код?", ["[1]", "[]", "ошибка shared", "None"], 0,
       "default_factory.",
       code="from dataclasses import dataclass, field\n@dataclass\nclass A:\n    xs: list = field(default_factory=list)\na, b = A(), A()\na.xs.append(1)\nprint(b.xs)"),
     q("sort", "Порядок при равном key?", ["стабильный (сохраняет порядок)", "random", "по id", "ошибка"], 0,

@@ -1299,3 +1299,94 @@ body {
     padding-top: 2.35rem;
   }
 }
+
+.menu-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 0.55rem;
+}
+
+.menu-actions-always {
+  margin: 1rem 0 0.4rem;
+}
+
+.quiz-tool {
+  font-size: 0.78rem;
+  padding: 0.25rem 0.55rem;
+  min-height: auto;
+}
+
+.brand-compact h1 {
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  margin: 0.2rem 0 0.6rem;
+}
+
+.round-summary {
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.3rem;
+  margin-bottom: 1.2rem;
+  box-shadow: var(--shadow);
+}
+
+.round-stat {
+  margin: 0 0 0.55rem;
+  font-size: 1.05rem;
+}
+
+.round-weak-label {
+  margin: 1rem 0 0.4rem;
+  font-weight: 600;
+}
+
+.round-weak-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.round-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.app-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+  background: rgba(16, 32, 28, 0.45);
+}
+
+.app-dialog[hidden] {
+  display: none !important;
+}
+
+.app-dialog-card {
+  width: min(420px, 100%);
+  background: var(--panel-strong);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.3rem 1.15rem;
+  box-shadow: var(--shadow);
+}
+
+.app-dialog-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.15rem;
+}
+
+.app-dialog-body {
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+}
+
+.app-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.55rem;
+}

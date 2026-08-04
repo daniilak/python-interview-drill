@@ -202,7 +202,7 @@
     return TOPIC_LABELS[topic] || topic;
   }
 
-  const { loadStore, patchStore } = window.Drill.storage;
+  const { loadStore, patchStore, exportProgress, importProgress } = window.Drill.storage;
   const deadline = window.Drill.createDeadlineTimer();
 
   /** forms: [1, 2-4, 5-0] — «1 карточка», «4 карточки», «5 карточек» */
@@ -233,10 +233,52 @@
     } else if (level === "middle_senior") {
       bank = [...(window.QUESTIONS_MIDDLE || []), ...(window.QUESTIONS_SENIOR || [])];
     } else if (level === "mistakes") {
-      return Object.values(loadStore().mistakes || {}).map((m) => m.snapshot);
+      return resolveMistakeBank();
     } else bank = [];
     bankCache[level] = bank;
     return bank;
+  }
+
+  function allLiveQuestions() {
+    return [
+      ...(window.QUESTIONS_JUNIOR || []),
+      ...(window.QUESTIONS_MIDDLE || []),
+      ...(window.QUESTIONS_SENIOR || []),
+    ];
+  }
+
+  function resolveMistakeCard(entry) {
+    const snap = entry.snapshot || entry;
+    const id = snap && snap.id;
+    if (id) {
+      const live = allLiveQuestions().find((q) => q.id === id);
+      if (live) {
+        return {
+          ...live,
+          _mistakeMeta: {
+            key: entry.key,
+            wrongCount: entry.wrongCount || 1,
+            correctStreak: entry.correctStreak || 0,
+            lastAt: entry.lastAt,
+          },
+        };
+      }
+    }
+    return {
+      ...snap,
+      _mistakeMeta: {
+        key: entry.key,
+        wrongCount: entry.wrongCount || 1,
+        correctStreak: entry.correctStreak || 0,
+        lastAt: entry.lastAt,
+      },
+    };
+  }
+
+  function resolveMistakeBank() {
+    const entries = Object.values(loadStore().mistakes || {});
+    entries.sort((a, b) => (b.wrongCount || 0) - (a.wrongCount || 0) || (b.lastAt || 0) - (a.lastAt || 0));
+    return entries.map(resolveMistakeCard);
   }
 
   const LEVELS = {
@@ -247,7 +289,7 @@
     middle_senior: { label: "Middle+Senior", bank: () => getBank("middle_senior") },
     mistakes: {
       label: "Ошибки",
-      bank: () => Object.values(loadStore().mistakes || {}).map((m) => m.snapshot),
+      bank: () => resolveMistakeBank(),
     },
   };
 
@@ -300,6 +342,24 @@
     dataError: document.getElementById("data-error"),
     inputModeHelp: document.getElementById("input-mode-help"),
     appVersion: document.getElementById("app-version"),
+    btnWeakTopics: document.getElementById("btn-weak-topics"),
+    btnExport: document.getElementById("btn-export"),
+    btnImport: document.getElementById("btn-import"),
+    importFile: document.getElementById("import-file"),
+    screenWeak: document.getElementById("screen-weak"),
+    weakList: document.getElementById("weak-list"),
+    btnBackWeak: document.getElementById("btn-back-weak"),
+    screenRound: document.getElementById("screen-round"),
+    roundSummary: document.getElementById("round-summary"),
+    btnRoundAgain: document.getElementById("btn-round-again"),
+    btnRoundTopics: document.getElementById("btn-round-topics"),
+    btnPause: document.getElementById("btn-pause"),
+    btnSkip: document.getElementById("btn-skip"),
+    appDialog: document.getElementById("app-dialog"),
+    dialogTitle: document.getElementById("dialog-title"),
+    dialogBody: document.getElementById("dialog-body"),
+    dialogOk: document.getElementById("dialog-ok"),
+    dialogCancel: document.getElementById("dialog-cancel"),
   };
 
   const state = {
@@ -318,6 +378,9 @@
     timerSec: 25,
     inputMode: false,
     deadlineTotalMs: 0,
+    paused: false,
+    roundWrongGroups: {},
+    pendingRoundSummary: false,
   };
 
   function shuffle(arr) {
@@ -387,12 +450,14 @@
     const correctIdxs = multi
       ? (Array.isArray(question.answer) ? question.answer.slice() : [question.answer])
       : [typeof question.answer === "number" ? question.answer : 0];
-    const correctTexts = correctIdxs.map((i) => opts[i]).filter((t) => t != null);
-    const shuffled = shuffle(opts);
-    const newAnswers = correctTexts
-      .map((t) => shuffled.indexOf(t))
-      .filter((i) => i >= 0)
+    const order = shuffle(opts.map((_, i) => i));
+    const shuffled = order.map((i) => opts[i]);
+    const indexMap = new Map(order.map((orig, neu) => [orig, neu]));
+    const newAnswers = correctIdxs
+      .map((i) => indexMap.get(i))
+      .filter((i) => i != null)
       .sort((a, b) => a - b);
+    const correctTexts = correctIdxs.map((i) => opts[i]).filter((t) => t != null);
     return {
       ...question,
       kind: multi ? "multi" : "single",
@@ -417,6 +482,64 @@
     el.menu.classList.toggle("active", name === "menu");
     el.groups.classList.toggle("active", name === "groups");
     el.quiz.classList.toggle("active", name === "quiz");
+    if (el.screenWeak) el.screenWeak.classList.toggle("active", name === "weak");
+    if (el.screenRound) el.screenRound.classList.toggle("active", name === "round");
+  }
+
+  function isInteractiveTarget(node) {
+    if (!node || node === document.body) return false;
+    const tag = (node.tagName || "").toLowerCase();
+    if (tag === "button" || tag === "a" || tag === "input" || tag === "select" || tag === "textarea") {
+      return true;
+    }
+    return !!node.closest?.("button, a, input, select, textarea, [role='checkbox'], [role='option']");
+  }
+
+  function showAlert(message, title = "PyСобес") {
+    return showDialog({ title, message, cancel: false });
+  }
+
+  function showConfirm(message, title = "Подтверждение") {
+    return showDialog({ title, message, cancel: true });
+  }
+
+  function showDialog({ title, message, cancel }) {
+    return new Promise((resolve) => {
+      if (!el.appDialog) {
+        resolve(cancel ? window.confirm(message) : (window.alert(message), true));
+        return;
+      }
+      el.dialogTitle.textContent = title;
+      el.dialogBody.textContent = message;
+      el.dialogCancel.hidden = !cancel;
+      el.dialogOk.textContent = cancel ? "Да" : "OK";
+      el.appDialog.hidden = false;
+      const prev = document.activeElement;
+      el.dialogOk.focus();
+
+      const cleanup = (result) => {
+        el.appDialog.hidden = true;
+        el.dialogOk.removeEventListener("click", onOk);
+        el.dialogCancel.removeEventListener("click", onCancel);
+        document.removeEventListener("keydown", onKey);
+        if (prev && prev.focus) prev.focus();
+        resolve(result);
+      };
+      const onOk = () => cleanup(true);
+      const onCancel = () => cleanup(false);
+      const onKey = (e) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          cleanup(!cancel);
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          cleanup(true);
+        }
+      };
+      el.dialogOk.addEventListener("click", onOk);
+      el.dialogCancel.addEventListener("click", onCancel);
+      document.addEventListener("keydown", onKey);
+    });
   }
 
   function setLoading(on) {
@@ -493,13 +616,18 @@
       }
     }
     const store = loadStore();
-    const mc = Object.keys(store.mistakes || {}).length;
+    const mistakeEntries = Object.values(store.mistakes || {});
+    const mc = mistakeEntries.length;
     el.bestStreak.textContent = String(store.bestStreak || 0);
     el.totalAnswered.textContent = String(store.totalAnswered || 0);
     el.mistakesCount.textContent = String(mc);
-    el.metaMistakes.textContent = mc
-      ? `${pluralCount(mc, ["карточка", "карточки", "карточек"])} · жми, чтобы повторить`
-      : "Пока пусто — копи ошибки в сессии";
+    if (mc) {
+      const top = [...mistakeEntries].sort((a, b) => (b.wrongCount || 0) - (a.wrongCount || 0))[0];
+      const wc = top?.wrongCount || 1;
+      el.metaMistakes.textContent = `${pluralCount(mc, ["карточка", "карточки", "карточек"])} · чаще всего ×${wc}`;
+    } else {
+      el.metaMistakes.textContent = "Пока пусто — копи ошибки в сессии";
+    }
     el.menuStats.hidden = !(store.totalAnswered > 0 || mc > 0);
 
     el.settingTimer.value = String(store.settings.timerSec ?? 25);
@@ -525,9 +653,10 @@
 
   async function openGroups(level) {
     if (level === "mistakes") {
+      delete bankCache.mistakes;
       const bank = LEVELS.mistakes.bank();
       if (!bank.length) {
-        alert("Пока нет сохранённых ошибок. Ответь неправильно — карточка попадёт сюда.");
+        await showAlert("Пока нет сохранённых ошибок. Ответь неправильно — карточка попадёт сюда.");
         return;
       }
       state.level = "mistakes";
@@ -543,7 +672,7 @@
     await withLoading(() => {
       const bank = LEVELS[level].bank();
       if (!bank.length) {
-        alert("Банк вопросов ещё не загружен.");
+        showAlert("Банк вопросов ещё не загружен.");
         return;
       }
       state.level = level;
@@ -554,12 +683,24 @@
       allBtn.type = "button";
       allBtn.className = "group-card is-all";
       const allPct = topicAccuracy(level, null);
-      allBtn.innerHTML = `
-        <span class="group-card-title">Все темы</span>
-        <span class="group-card-count">${bank.length}</span>
-        <span class="group-card-sub">Смешанная серия · автоперемешивание${allPct != null ? ` · ${allPct}% верных` : ""}</span>
-        ${allPct != null ? `<div class="group-progress"><span style="width:${allPct}%"></span></div>` : ""}
-      `;
+      const allTitle = document.createElement("span");
+      allTitle.className = "group-card-title";
+      allTitle.textContent = "Все темы";
+      const allCount = document.createElement("span");
+      allCount.className = "group-card-count";
+      allCount.textContent = String(bank.length);
+      const allSub = document.createElement("span");
+      allSub.className = "group-card-sub";
+      allSub.textContent = `Смешанная серия · автоперемешивание${allPct != null ? ` · ${allPct}% верных` : ""}`;
+      allBtn.append(allTitle, allCount, allSub);
+      if (allPct != null) {
+        const bar = document.createElement("div");
+        bar.className = "group-progress";
+        const fill = document.createElement("span");
+        fill.style.width = `${allPct}%`;
+        bar.appendChild(fill);
+        allBtn.appendChild(bar);
+      }
       allBtn.addEventListener("click", () => startSession(null));
       el.groupList.appendChild(allBtn);
 
@@ -568,11 +709,27 @@
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "group-card";
-        btn.innerHTML = `
-          <span class="group-card-title">${name}</span>
-          <span class="group-card-count">${count}${pct != null ? `<div class="group-card-pct">${pct}%</div>` : ""}</span>
-          ${pct != null ? `<div class="group-progress"><span style="width:${pct}%"></span></div>` : ""}
-        `;
+        const title = document.createElement("span");
+        title.className = "group-card-title";
+        title.textContent = name;
+        const countEl = document.createElement("span");
+        countEl.className = "group-card-count";
+        countEl.textContent = String(count);
+        if (pct != null) {
+          const pctEl = document.createElement("div");
+          pctEl.className = "group-card-pct";
+          pctEl.textContent = `${pct}%`;
+          countEl.appendChild(pctEl);
+        }
+        btn.append(title, countEl);
+        if (pct != null) {
+          const bar = document.createElement("div");
+          bar.className = "group-progress";
+          const fill = document.createElement("span");
+          fill.style.width = `${pct}%`;
+          bar.appendChild(fill);
+          btn.appendChild(bar);
+        }
         btn.addEventListener("click", () => startSession(name));
         el.groupList.appendChild(btn);
       }
@@ -600,7 +757,7 @@
       state.group = group;
       state.bank = activeBank();
       if (!state.bank.length) {
-        alert("В этой теме пока нет вопросов.");
+        showAlert("В этой теме пока нет вопросов.");
         return;
       }
       state.recentIds = [];
@@ -609,6 +766,9 @@
       state.correct = 0;
       state.total = 0;
       state.answered = false;
+      state.paused = false;
+      state.roundWrongGroups = {};
+      state.pendingRoundSummary = false;
       el.levelBadge.textContent = LEVELS[state.level].label;
       el.groupBadge.textContent = group || "Все темы";
       el.streakCount.textContent = "0";
@@ -758,16 +918,20 @@
 
     // multi всегда чекбоксы (режим текстового ввода для них отключаем)
     const useInput = state.inputMode && !multi;
+    state.paused = false;
+    if (el.btnPause) el.btnPause.textContent = "Пауза";
+    if (el.btnSkip) el.btnSkip.hidden = false;
 
     if (multi) {
       el.options.hidden = false;
       el.options.classList.remove("is-input-ref");
       el.options.classList.add("is-multi");
+      el.options.setAttribute("role", "group");
       el.inputForm.hidden = true;
       if (el.btnMultiCheck) el.btnMultiCheck.hidden = false;
       if (el.quizHint) {
         el.quizHint.textContent =
-          "Выбери все верные варианты · клавиши 1–4 переключают · затем «Проверить»";
+          "Выбери все верные варианты · Space на варианте переключает · Enter — «Проверить»";
       }
       q.options.forEach((text, idx) => {
         const btn = document.createElement("button");
@@ -790,10 +954,11 @@
       el.options.hidden = false;
       el.options.classList.add("is-input-ref");
       el.options.classList.remove("is-multi");
+      el.options.setAttribute("role", "listbox");
       el.inputForm.hidden = false;
       if (el.quizHint) {
         el.quizHint.textContent =
-          "Введи текст ответа как в вариантах (кавычки не обязательны). Пустое поле + 1–4 — выбрать вариант.";
+          "Введи текст ответа · клик по варианту подставляет текст · Enter проверяет · 1–4 при пустом поле";
       }
       q.options.forEach((text, idx) => {
         const btn = document.createElement("button");
@@ -805,7 +970,7 @@
         btn.addEventListener("click", () => {
           if (state.answered) return;
           el.answerInput.value = text;
-          finishAnswer({ typed: text, choiceIndex: idx });
+          el.answerInput.focus();
         });
         el.options.appendChild(btn);
       });
@@ -813,6 +978,7 @@
     } else {
       el.options.hidden = false;
       el.options.classList.remove("is-input-ref", "is-multi");
+      el.options.setAttribute("role", "listbox");
       el.inputForm.hidden = true;
       if (el.quizHint) el.quizHint.textContent = "Выбери один верный вариант из списка ниже · клавиши 1–4";
       q.options.forEach((text, idx) => {
@@ -853,8 +1019,8 @@
 
     const aliases = {
       none: ["none", "null"],
-      true: ["true", "1"],
-      false: ["false", "0"],
+      true: ["true", "yes", "да"],
+      false: ["false", "no", "нет"],
     };
     for (const list of Object.values(aliases)) {
       if (list.includes(a) && list.includes(b)) return true;
@@ -896,9 +1062,30 @@
         key,
         snapshot: snapshotQuestion(rawQ),
         wrongCount: (prev?.wrongCount || 0) + 1,
+        correctStreak: 0,
         lastAt: Date.now(),
       };
     });
+    delete bankCache.mistakes;
+  }
+
+  function noteMistakeCorrect(rawQ) {
+    const key = questionKey(rawQ);
+    const need = Number(loadStore().settings?.srsClearAfter) || 2;
+    let removed = false;
+    patchStore((s) => {
+      const prev = s.mistakes[key];
+      if (!prev) return;
+      const streak = (prev.correctStreak || 0) + 1;
+      if (streak >= need) {
+        delete s.mistakes[key];
+        removed = true;
+      } else {
+        s.mistakes[key] = { ...prev, correctStreak: streak, lastAt: Date.now() };
+      }
+    });
+    delete bankCache.mistakes;
+    return removed;
   }
 
   function clearMistake(rawQ) {
@@ -906,6 +1093,7 @@
     patchStore((s) => {
       delete s.mistakes[key];
     });
+    delete bankCache.mistakes;
   }
 
   function dropCurrentMistake() {
@@ -917,7 +1105,7 @@
       if (state.deckIndex > state.deck.length) state.deckIndex = state.deck.length;
     }
     if (state.level === "mistakes" && !activeBank().length) {
-      alert("Все ошибки разобраны. Отличная работа!");
+      showAlert("Все ошибки разобраны. Отличная работа!");
       showScreen("menu");
       refreshMenu();
       return;
@@ -1137,8 +1325,8 @@
         correct: correctText,
       });
       el.btnNext.textContent = "Дальше";
-      clearMistake(raw);
-      if (state.level === "mistakes") {
+      const removed = noteMistakeCorrect(raw);
+      if (removed && state.level === "mistakes") {
         state.deck = state.deck.filter((item) => questionKey(item) !== questionKey(raw));
         if (state.deckIndex > state.deck.length) state.deckIndex = state.deck.length;
       }
@@ -1146,6 +1334,8 @@
       if (el.btnDropEarly) el.btnDropEarly.hidden = true;
     } else {
       state.streak = 0;
+      const g = q.group || q.topic || "Разное";
+      state.roundWrongGroups[g] = (state.roundWrongGroups[g] || 0) + 1;
       showFeedback({
         ok: false,
         timedOut,
@@ -1178,16 +1368,166 @@
     el.btnNext.focus();
   }
 
+  function showRoundSummary() {
+    const accuracy = state.total ? Math.round((100 * state.correct) / state.total) : 0;
+    const wrong = state.total - state.correct;
+    const weak = Object.entries(state.roundWrongGroups)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+    if (el.roundSummary) {
+      el.roundSummary.innerHTML = "";
+      const p1 = document.createElement("p");
+      p1.className = "round-stat";
+      p1.textContent = `Точность: ${accuracy}% · верных ${state.correct} из ${state.total}`;
+      const p2 = document.createElement("p");
+      p2.className = "round-stat";
+      p2.textContent = `Ошибок в раунде: ${wrong}`;
+      el.roundSummary.append(p1, p2);
+      if (weak.length) {
+        const h = document.createElement("p");
+        h.className = "round-weak-label";
+        h.textContent = "Слабые темы раунда:";
+        el.roundSummary.appendChild(h);
+        const ul = document.createElement("ul");
+        ul.className = "round-weak-list";
+        for (const [name, n] of weak) {
+          const li = document.createElement("li");
+          li.textContent = `${name} — ${n}`;
+          ul.appendChild(li);
+        }
+        el.roundSummary.appendChild(ul);
+      }
+    }
+    stopDeadline();
+    showScreen("round");
+  }
+
   function onNext() {
     if (!state.answered) return;
     if (state.level === "mistakes" && !activeBank().length) {
-      alert("Все ошибки разобраны. Отличная работа!");
+      showAlert("Все ошибки разобраны. Отличная работа!");
       showScreen("menu");
       refreshMenu();
       return;
     }
-    if (state.total % ROUND_SIZE === 0) el.progressFill.style.width = "0%";
+    if (state.total > 0 && state.total % ROUND_SIZE === 0) {
+      el.progressFill.style.width = "0%";
+      showRoundSummary();
+      return;
+    }
     nextQuestion();
+  }
+
+  async function exitQuiz() {
+    if (state.total > 0) {
+      const ok = await showConfirm("Завершить сессию и вернуться?");
+      if (!ok) return;
+    }
+    stopDeadline();
+    state.paused = false;
+    if (state.level === "mistakes") {
+      showScreen("menu");
+      refreshMenu();
+    } else {
+      showScreen("groups");
+    }
+  }
+
+  function togglePause() {
+    if (state.answered || !state.timerSec) return;
+    if (state.paused) {
+      deadline.resume();
+      state.paused = false;
+      if (el.btnPause) el.btnPause.textContent = "Пауза";
+    } else {
+      deadline.pause();
+      state.paused = true;
+      if (el.btnPause) el.btnPause.textContent = "Продолжить";
+    }
+  }
+
+  function skipQuestion() {
+    if (state.answered) return;
+    stopDeadline();
+    nextQuestion();
+  }
+
+  function openWeakTopics() {
+    if (!el.weakList) return;
+    el.weakList.innerHTML = "";
+    const stats = loadStore().topicStats || {};
+    const rows = Object.entries(stats)
+      .map(([key, st]) => {
+        const total = st.total || 0;
+        const correct = st.correct || 0;
+        const pct = total ? Math.round((100 * correct) / total) : 0;
+        return { key, total, correct, pct };
+      })
+      .filter((r) => r.total >= 1)
+      .sort((a, b) => a.pct - b.pct || b.total - a.total);
+
+    if (!rows.length) {
+      const p = document.createElement("p");
+      p.className = "lede";
+      p.textContent = "Пока нет статистики — пройди несколько карточек.";
+      el.weakList.appendChild(p);
+    } else {
+      for (const row of rows.slice(0, 40)) {
+        const [level, ...groupParts] = row.key.split("::");
+        const group = groupParts.join("::");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "group-card";
+        const title = document.createElement("span");
+        title.className = "group-card-title";
+        title.textContent = `${LEVELS[level]?.label || level} · ${group}`;
+        const meta = document.createElement("span");
+        meta.className = "group-card-count";
+        meta.textContent = `${row.pct}%`;
+        const sub = document.createElement("span");
+        sub.className = "group-card-sub";
+        sub.textContent = `${row.correct}/${row.total} верных`;
+        btn.append(title, meta, sub);
+        const bar = document.createElement("div");
+        bar.className = "group-progress";
+        const fill = document.createElement("span");
+        fill.style.width = `${row.pct}%`;
+        bar.appendChild(fill);
+        btn.appendChild(bar);
+        if (LEVELS[level] && level !== "mistakes") {
+          btn.addEventListener("click", () => {
+            state.level = level;
+            startSession(group === "Все темы" ? null : group);
+          });
+        }
+        el.weakList.appendChild(btn);
+      }
+    }
+    showScreen("weak");
+  }
+
+  function downloadExport() {
+    const data = exportProgress();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `pysobes-progress-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function handleImportFile(file) {
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      importProgress(data);
+      delete bankCache.mistakes;
+      refreshMenu();
+      await showAlert("Прогресс импортирован.");
+    } catch (err) {
+      await showAlert(`Не удалось импортировать: ${err.message || err}`);
+    }
   }
 
   // events
@@ -1201,26 +1541,20 @@
   });
 
   el.btnExit.addEventListener("click", () => {
-    stopDeadline();
-    if (state.level === "mistakes") {
-      showScreen("menu");
-      refreshMenu();
-    } else {
-      showScreen("groups");
-    }
+    exitQuiz();
   });
 
   el.btnNext.addEventListener("click", onNext);
 
   function bindDrop(btn) {
     if (!btn) return;
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", async (e) => {
       e.preventDefault();
       const msg =
         state.level === "mistakes"
           ? "Убрать эту карточку из «Моих ошибок»?"
           : "Не сохранять эту карточку в «Моих ошибках»?";
-      if (!confirm(msg)) return;
+      if (!(await showConfirm(msg))) return;
       dropCurrentMistake();
     });
   }
@@ -1230,13 +1564,51 @@
   el.settingTimer.addEventListener("change", persistSettings);
   el.settingInput.addEventListener("change", persistSettings);
 
-  el.btnClearMistakes.addEventListener("click", () => {
-    if (!confirm("Очистить сохранённые ошибки для повторения?")) return;
+  el.btnClearMistakes.addEventListener("click", async () => {
+    if (!(await showConfirm("Очистить сохранённые ошибки для повторения?"))) return;
     patchStore((s) => {
       s.mistakes = {};
     });
+    delete bankCache.mistakes;
     refreshMenu();
   });
+
+  if (el.btnWeakTopics) el.btnWeakTopics.addEventListener("click", openWeakTopics);
+  if (el.btnBackWeak) {
+    el.btnBackWeak.addEventListener("click", () => {
+      showScreen("menu");
+      refreshMenu();
+    });
+  }
+  if (el.btnExport) el.btnExport.addEventListener("click", downloadExport);
+  if (el.btnImport && el.importFile) {
+    el.btnImport.addEventListener("click", () => el.importFile.click());
+    el.importFile.addEventListener("change", () => {
+      const file = el.importFile.files && el.importFile.files[0];
+      if (file) handleImportFile(file);
+      el.importFile.value = "";
+    });
+  }
+  if (el.btnRoundAgain) {
+    el.btnRoundAgain.addEventListener("click", () => {
+      state.roundWrongGroups = {};
+      showScreen("quiz");
+      nextQuestion();
+    });
+  }
+  if (el.btnRoundTopics) {
+    el.btnRoundTopics.addEventListener("click", () => {
+      stopDeadline();
+      if (state.level === "mistakes") {
+        showScreen("menu");
+        refreshMenu();
+      } else {
+        showScreen("groups");
+      }
+    });
+  }
+  if (el.btnPause) el.btnPause.addEventListener("click", togglePause);
+  if (el.btnSkip) el.btnSkip.addEventListener("click", skipQuestion);
 
   el.inputForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -1252,8 +1624,38 @@
   }
 
   document.addEventListener("keydown", (e) => {
+    if (el.appDialog && !el.appDialog.hidden) return;
+
+    if (e.key === "Escape") {
+      if (el.quiz.classList.contains("active")) {
+        e.preventDefault();
+        exitQuiz();
+        return;
+      }
+      if (el.groups.classList.contains("active") || (el.screenWeak && el.screenWeak.classList.contains("active"))) {
+        e.preventDefault();
+        showScreen("menu");
+        refreshMenu();
+        return;
+      }
+      if (el.screenRound && el.screenRound.classList.contains("active")) {
+        e.preventDefault();
+        if (state.level === "mistakes") {
+          showScreen("menu");
+          refreshMenu();
+        } else {
+          showScreen("groups");
+        }
+      }
+      return;
+    }
+
     if (!el.quiz.classList.contains("active")) return;
-    if (state.answered && (e.key === "Enter" || e.key === " ") && document.activeElement !== el.answerInput) {
+
+    if (state.answered && (e.key === "Enter" || e.key === " ")) {
+      const active = document.activeElement;
+      if (active === el.answerInput) return;
+      if (active && active !== el.btnNext && isInteractiveTarget(active)) return;
       e.preventDefault();
       onNext();
       return;
@@ -1261,8 +1663,18 @@
     if (state.answered) return;
 
     const multi = isMultiQuestion(state.current);
+    const active = document.activeElement;
 
-    if (multi && (e.key === "Enter" || e.key === " ")) {
+    if (multi && e.key === " ") {
+      if (active && active.classList && active.classList.contains("option-multi")) {
+        e.preventDefault();
+        active.click();
+        return;
+      }
+      return;
+    }
+
+    if (multi && e.key === "Enter") {
       if (document.activeElement === el.answerInput) return;
       e.preventDefault();
       finishAnswer({ choiceIndexes: selectedMultiIndexes() });
@@ -1277,7 +1689,6 @@
         if (btn && !btn.disabled) btn.click();
         return;
       }
-      // в режиме ввода: 1–4 работают, если поле пустое или зажат Ctrl/Meta/Alt
       if (state.inputMode) {
         const focusedInput = document.activeElement === el.answerInput;
         const empty = !String(el.answerInput.value || "").trim();
@@ -1290,7 +1701,6 @@
     }
   });
 
-  // Свайп влево на экране квиза → следующий (только после ответа)
   let touchStartX = 0;
   let touchStartY = 0;
   el.quiz.addEventListener(
@@ -1317,7 +1727,7 @@
   );
 
   if (el.appVersion) {
-    const ver = (window.Drill && window.Drill.APP_VERSION) || "1.1.0";
+    const ver = (window.Drill && window.Drill.APP_VERSION) || "1.2.0";
     el.appVersion.textContent = `PyСобес v${ver}`;
   }
 

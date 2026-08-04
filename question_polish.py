@@ -14,7 +14,7 @@ _CLEAR_START = re.compile(
     r"что означает|ловушка|во что|с чем связан|с чем связаны|какой тип|какой модуль|"
     r"какой класс|какой метод|какой оператор|какой литерал|как правильно|как безопасно|"
     r"в чём риск|в чем риск|какая основн|какой основн|создаёт ли|создает ли|будет ли|"
-    r"удалось ли|поддерживается ли|разрешено ли|допустимо ли)\b",
+    r"удалось ли|поддерживается ли|разрешено ли|допустимо ли|допустим ли|существует ли|когда возникает)\b",
     re.I,
 )
 
@@ -27,6 +27,92 @@ _CODE_MARKERS = re.compile(
     r"combinations|accumulate|isinstance|getattr|setattr|hasattr|super|staticmethod|"
     r"classmethod|property|dataclass|field|match|case)\b",
     re.I,
+)
+
+# Концепты, которые нельзя оборачивать в «Что вернёт …?»
+_CONCEPT_NOT_CODE = re.compile(
+    r"\b(timing\s*attack|mutation\s*testing|circular\s*import|idempotent|"
+    r"debug\s*builds?|staticmethod|classmethod|async\s+for|yield\b|"
+    r"listcomp|nested|import\s+внутри|переменная\s+в\s+for|"
+    r"вложенный\s+for|warning|race\s*condition|deadlock|cache\s*stampede|"
+    r"lost\s*update|n\+1|soft\s*delete|event\s*sourcing|cqrs|raft|"
+    r"metaclass|descriptor|gil\b|refcount|bytecode)\b",
+    re.I,
+)
+
+_ACRONYMS = frozenset(
+    {
+        "PEP",
+        "CPython",
+        "GIL",
+        "ORM",
+        "API",
+        "HTTP",
+        "HTTPS",
+        "SQL",
+        "JSON",
+        "YAML",
+        "XML",
+        "CSV",
+        "URL",
+        "URI",
+        "UUID",
+        "CPU",
+        "RAM",
+        "IO",
+        "I/O",
+        "FIFO",
+        "LIFO",
+        "MRO",
+        "ABC",
+        "SOLID",
+        "DRY",
+        "KISS",
+        "YAGNI",
+        "REST",
+        "RPC",
+        "TCP",
+        "UDP",
+        "SSL",
+        "TLS",
+        "JWT",
+        "OAuth",
+        "ASGI",
+        "WSGI",
+        "CLI",
+        "REPL",
+        "IDE",
+        "CI",
+        "CD",
+        "CDN",
+        "DB",
+        "ORM",
+        "TTL",
+        "WAL",
+        "ACID",
+        "BASE",
+        "CQRS",
+        "EAFP",
+        "LBYL",
+        "LEGB",
+        "FIFO",
+        "NaN",
+        "None",
+        "True",
+        "False",
+        "PyPI",
+        "POSIX",
+        "ASCII",
+        "UTF",
+        "UTF-8",
+        "CRUD",
+        "DTO",
+        "MVC",
+        "MVP",
+        "SLA",
+        "SLO",
+        "KPI",
+    }
 )
 
 _TOPIC_CONTEXT: dict[str, str] = {
@@ -86,7 +172,6 @@ _TOPIC_CONTEXT: dict[str, str] = {
     "pytest": "Pytest — основной тестовый раннер в Python-экосистеме: фикстуры, параметризация, плагины.",
 }
 
-# Телеграфные «метка — смысл» для операторов и коротких клише
 _OPERATOR_BLURBS: dict[str, str] = {
     "%": "Оператор % возвращает остаток от деления.",
     "//": "Оператор // — целочисленное деление с округлением вниз (к −∞).",
@@ -100,12 +185,34 @@ _OPERATOR_BLURBS: dict[str, str] = {
     ":=": "Моржовый оператор := присваивает значение внутри выражения и сразу его возвращает.",
 }
 
+# Короткие номинальные explains → готовый разбор (без шаблона «Здесь важно понять»)
+_NOUN_BLURBS: dict[str, str] = {
+    "остаток": "Оператор % возвращает остаток от деления левого операнда на правый.",
+    "повтор строки": "Умножение строки на целое повторяет её содержимое заданное число раз.",
+    "конкатенация": "Оператор + для строк и списков склеивает последовательности в новый объект.",
+    "целочисленное деление": "Оператор // делит нацело с округлением вниз, к минус бесконечности.",
+    "возведение в степень": "Оператор ** возводит левый операнд в степень правого.",
+    "неизменяемое множество": "frozenset — неизменяемое множество: его можно использовать как ключ dict или элемент set.",
+    "пустой словарь": "Литерал {} создаёт пустой словарь; пустое множество получают через set().",
+    "shallow copy": "Поверхностная копия дублирует контейнер, но вложенные объекты остаются общими.",
+    "deep copy": "deepcopy рекурсивно копирует вложенные объекты, чтобы изменения во вложенности не протекали.",
+}
+
 _CORRECT_ANSWER_RE = re.compile(
     r"(?:^|\s)(?:Правильный ответ|Верный ответ|Ответ)\s*:\s*«([^»]+)»\.?",
     re.I,
 )
 _TELEGRAPH_RE = re.compile(
     r"^([%&|^~]|//|\*\*|<<|>>|:=|[A-Za-z_][\w.]{0,24}|[А-Яа-яЁё][^—–]{0,40}?)\s*[—–]\s*(.+)$"
+)
+_CJK_RE = re.compile(r"[\u4e00-\u9fff]")
+_EXCEPTION_WHEN = re.compile(
+    r"^(KeyError|IndexError|TypeError|ValueError|AttributeError|NameError|"
+    r"ZeroDivisionError|StopIteration|ImportError|RuntimeError|AssertionError|"
+    r"FileNotFoundError|PermissionError|OverflowError|RecursionError|"
+    r"UnboundLocalError|SyntaxError|IndentationError|ModuleNotFoundError)"
+    r"(?:\s+при)?$",
+    re.I,
 )
 
 
@@ -116,6 +223,11 @@ def _strip_ellipsis(text: str) -> str:
 def _ensure_q(text: str) -> str:
     text = text.strip()
     return text if text.endswith("?") else f"{text}?"
+
+
+def _safe_join(prefix: str, body: str, suffix: str = "") -> str:
+    """Склеивает строки без .format/.f-string, чтобы `{` в коде не ломал шаблон."""
+    return f"{prefix}{body}{suffix}"
 
 
 def _is_clear(text: str) -> bool:
@@ -144,8 +256,8 @@ def _infer_dash_question(core: str) -> str | None:
     left, right = m.group(1).strip(), m.group(2).strip()
     if _CLEAR_START.match(f"{right}?"):
         return _ensure_q(core)
-    if _looks_like_code(left):
-        return _ensure_q(f"Что вернёт {left}")
+    if _is_expression_code(left):
+        return _ensure_q(_safe_join("Что вернёт ", left))
     return None
 
 
@@ -170,10 +282,36 @@ def _ensure_sentence(text: str) -> str:
 
 
 def _capitalize_sentence(text: str) -> str:
+    """Капитализирует начало предложения, не ломая акронимы PEP/CPython/GIL/…"""
     text = text.strip()
     if not text:
         return text
+    # Уже начинается с известного акронима / кода
+    first_token = re.match(r"^([A-Za-z_][\w./+-]*)", text)
+    if first_token and first_token.group(1) in _ACRONYMS:
+        return text
+    if first_token and first_token.group(1).isupper() and len(first_token.group(1)) >= 2:
+        return text
+    # Код/литерал в начале — не трогаем
+    if text[0] in "'\"`([{_<0123456789" or text.startswith(("b'", 'b"', "f'", 'f"', "r'", 'r"')):
+        return text
     return text[0].upper() + text[1:]
+
+
+def _lower_sentence_start(text: str) -> str:
+    """Понижает первую букву для встройки в середину фразы, сохраняя акронимы."""
+    text = text.strip()
+    if not text:
+        return text
+    first_token = re.match(r"^([A-Za-z_][\w./+-]*)", text)
+    if first_token and (
+        first_token.group(1) in _ACRONYMS
+        or (first_token.group(1).isupper() and len(first_token.group(1)) >= 2)
+    ):
+        return text
+    if text[0] in "'\"`([{_<0123456789":
+        return text
+    return text[0].lower() + text[1:]
 
 
 def _replace_arrows(text: str) -> str:
@@ -184,7 +322,9 @@ def _replace_arrows(text: str) -> str:
     parts = re.split(r"(«[^»]*»)", text)
     out_parts: list[str] = []
     for i, part in enumerate(parts):
-        if i % 2 == 1:  # quoted answer / option — оставляем как есть
+        if i % 2 == 1:
+            # Даже внутри ёлочек для option-текстов стрелки лучше словами —
+            # вызывающий код решает; здесь оставляем как есть только если это цитата ответа.
             out_parts.append(part)
             continue
         out = part
@@ -199,13 +339,21 @@ def _replace_arrows(text: str) -> str:
             ),
             (r"(?:→|->)\s*retry\b", ", после чего делают повтор попытки"),
             (r"\bretry\s*(?:→|->)\s*", "повтор попытки, затем "),
-            # Цепочки с многоточием: A → … → B
             (
                 r"([A-Za-z_][\w.]*)\s*(?:→|->)\s*(?:…|\.\.\.)\s*(?:→|->)\s*([A-Za-z_][\w.]*)",
                 r"от \1 до \2 через промежуточные типы",
             ),
             (r"warning\s*(?:→|->)\s*exception", "предупреждение превращается в исключение"),
-            (r"Local\s*(?:→|->)\s*Enclosing\s*(?:→|->)\s*Global\s*(?:→|->)\s*Builtins", "Local, затем Enclosing, Global и Builtins"),
+            (
+                r"Local\s*(?:→|->)\s*Enclosing\s*(?:→|->)\s*Global\s*(?:→|->)\s*Builtins",
+                "Local, затем Enclosing, Global и Builtins",
+            ),
+            (r"hashable\s*(?:→|->)\s*", "hashable: "),
+            (r"вход\s*(?:→|->)\s*ожидание", "вход и ожидаемый результат"),
+            (r"int\s*(?:→|->)\s*str", "из int в str"),
+            (r"object\s*(?:→|->)\s*JSON", "объект в JSON"),
+            (r"JSON-строк\w*\s*(?:→|->)\s*", "JSON-строку в "),
+            (r"utf-8\s*(?:→|->)\s*", "utf-8 даёт "),
         ):
             out = re.sub(pat, rep, out, flags=re.I)
 
@@ -227,28 +375,44 @@ def _replace_arrows(text: str) -> str:
     return "".join(out_parts)
 
 
+def _replace_arrows_everywhere(text: str) -> str:
+    """Стрелки → слова, в том числе внутри «ёлочек» (для options)."""
+    if not text or "→" not in text and "->" not in text and "⇒" not in text:
+        return text
+    # Снимаем ёлочки временно: заменяем стрелки во всём тексте
+    return _replace_arrows(text.replace("«", "").replace("»", ""))
+
+
 def _expand_short_noun_phrase(body: str, corrects: list[str], kind: str) -> str:
-    """Односложные обрывки вроде «Повтор строки» → связное предложение."""
+    """Односложные обрывки → связное предложение без шаблона «Здесь важно понять»."""
     body = body.strip().rstrip(".")
     if not body or len(body) > 55:
         return body
-    # Уже полноценное предложение с глаголом
     if re.search(
         r"\b(это|означает|возвращает|делает|нужен|нужно|позволяет|создаёт|создает|"
-        r"хранит|работает|используется|происходит|нужны|важно|обычно|поэтому)\b",
+        r"хранит|работает|используется|происходит|нужны|важно|обычно|поэтому|"
+        r"если|когда|потому|например|здесь|кратко)\b",
         body,
         re.I,
     ):
         return body
+
+    key = body.lower().strip()
+    if key in _NOUN_BLURBS:
+        blurb = _NOUN_BLURBS[key]
+        correct = corrects[0] if corrects and kind != "multi" else ""
+        if correct and correct.lower() not in blurb.lower():
+            return f"{blurb} Подходит ответ «{correct}»."
+        return blurb
+
     if kind == "multi":
-        return f"Кратко: {body[0].lower()}{body[1:]}." if body else body
+        return _ensure_sentence(_safe_join("Кратко: ", _lower_sentence_start(body)))
+
     correct = corrects[0] if corrects else ""
-    return (
-        f"Здесь важно понять: {body[0].lower()}{body[1:]}. "
-        f"Именно поэтому подходит ответ «{correct}»."
-        if correct
-        else f"Здесь важно понять: {body[0].lower()}{body[1:]}."
-    )
+    lead = _capitalize_sentence(body)
+    if correct:
+        return f"{_ensure_sentence(lead)} Подходит ответ «{correct}»."
+    return _ensure_sentence(lead)
 
 
 def _expand_telegraph_dash(text: str) -> str:
@@ -260,12 +424,11 @@ def _expand_telegraph_dash(text: str) -> str:
     left, right = m.group(1).strip(), m.group(2).strip().rstrip(".")
     if left in _OPERATOR_BLURBS and len(right) < 80:
         base = _OPERATOR_BLURBS[left]
-        # Если правая часть уже описывает то же — не дублируем
         if right.lower() in base.lower() or base.lower().startswith(right.lower()[:20]):
             return base
-        return f"{base} Здесь речь о том, что {right[0].lower()}{right[1:]}."
+        return f"{base} Имеется в виду: {_lower_sentence_start(right)}."
     if len(left) <= 40 and len(right) <= 120:
-        return _capitalize_sentence(f"{left} означает следующее: {right}")
+        return _capitalize_sentence(f"{left} — {_lower_sentence_start(right)}")
     return text
 
 
@@ -290,8 +453,22 @@ def _topic_hint(item: dict) -> str | None:
     return _TOPIC_CONTEXT.get(topic)
 
 
+def _maybe_append_topic_hint(text: str, item: dict, min_len: int = 100) -> str:
+    """Добавляет topic-хвост только если текст короткий и хвост ещё не встречался."""
+    if len(text) >= min_len:
+        return text
+    hint = _topic_hint(item)
+    if not hint:
+        return text
+    # Не копипастить: если начало хвоста уже есть — пропуск
+    tip = hint[:48].lower()
+    if tip in text.lower() or hint.lower() in text.lower():
+        return text
+    return f"{_ensure_sentence(text)} {hint}"
+
+
 def _weave_answer(body: str, corrects: list[str], kind: str) -> str:
-    """Встраивает верный ответ в текст естественно, без шаблона «Правильный ответ»."""
+    """Встраивает верный ответ, если его ещё нет; без массового «Поэтому верный вариант»."""
     body = body.strip()
     if kind == "multi":
         missing = [c for c in corrects if c.lower() not in body.lower()]
@@ -301,33 +478,30 @@ def _weave_answer(body: str, corrects: list[str], kind: str) -> str:
             return f"{_ensure_sentence(body)} {extra}" if body else extra
         return _ensure_sentence(body)
 
-    correct = corrects[0]
+    correct = corrects[0] if corrects else ""
+    if not correct:
+        return _ensure_sentence(body)
+
     if correct.lower() in body.lower():
         return _ensure_sentence(body)
 
-    # Короткая телега без глагола — дописываем вывод
     if not body:
         return f"Подходит вариант «{correct}»."
 
-    if len(body) < 90 and not body.rstrip().endswith((".", "!", "?")):
-        body = _ensure_sentence(body)
+    # Достаточно длинный авторский текст — не дописываем шаблонный хвост
+    if len(body) >= 120:
+        return _ensure_sentence(body)
 
-    connector = (
-        f" Поэтому верный вариант — «{correct}»."
-        if not body.endswith((".", "!", "?"))
-        else f" Поэтому верный вариант — «{correct}»."
-    )
-    # Если уже есть точка в конце
-    if body.endswith((".", "!", "?")):
-        return f"{body} Поэтому верный вариант — «{correct}»."
-    return f"{_ensure_sentence(body)} Поэтому верный вариант — «{correct}»."
+    body = _ensure_sentence(body)
+    if "подходит" in body.lower() or "верный" in body.lower() or "вариант" in body.lower():
+        return body
+    return f"{body} Подходит ответ «{correct}»."
 
 
 def _humanize_explain_body(explain: str) -> str:
     """Полирует сырое объяснение: стрелки, телеграф, капитализация."""
     if not explain:
         return ""
-    # Разбиваем на предложения грубо по точке, полируем каждое
     chunks = re.split(r"(?<=[.!?])\s+", explain.strip())
     polished: list[str] = []
     for chunk in chunks:
@@ -343,7 +517,7 @@ def _humanize_explain_body(explain: str) -> str:
 
 
 def enrich_explain(item: dict) -> dict:
-    """Делает объяснение читаемым, как в задачнике: связный текст без телеграфа и дублей."""
+    """Делает объяснение читаемым: связный текст без шаблонного «учебника»."""
     explain = (item.get("explain") or "").strip()
     options = item.get("options") or []
     corrects = _correct_texts(item)
@@ -353,7 +527,6 @@ def enrich_explain(item: dict) -> dict:
     q = item.get("q", "")
     kind = item.get("kind") or ("multi" if isinstance(item.get("answer"), list) else "single")
 
-    # Очень длинные авторские тексты: только лёгкая чистка стрелок
     if len(explain) >= 280:
         cleaned = _humanize_explain_body(explain)
         cleaned, _ = _strip_correct_answer_boilerplate(cleaned)
@@ -361,11 +534,10 @@ def enrich_explain(item: dict) -> dict:
         item["explain"] = cleaned or explain
         return item
 
-    body, extracted = _strip_correct_answer_boilerplate(explain)
+    body, _extracted = _strip_correct_answer_boilerplate(explain)
     body = re.sub(r"(?:^|\s)Верные пункты\s*:\s*.+$", "", body, flags=re.I).strip()
     body = _humanize_explain_body(body)
 
-    # Если тело совсем пустое — стартуем с операторного/топикового клише
     if not body:
         topic = item.get("topic", "")
         for op, blurb in _OPERATOR_BLURBS.items():
@@ -373,45 +545,29 @@ def enrich_explain(item: dict) -> dict:
                 body = blurb
                 break
         if not body:
+            key = (explain or "").strip().lower().rstrip(".")
+            if key in _NOUN_BLURBS:
+                body = _NOUN_BLURBS[key]
+        if not body:
             hint = _topic_hint(item)
             if hint:
                 body = hint
+            elif corrects:
+                body = f"Разбор опирается на формулировку вопроса и выбор «{corrects[0]}»."
     else:
-        # Односложные обрывки до вшивания ответа
         expanded = _expand_short_noun_phrase(body, corrects, kind)
         if expanded != body:
             body = expanded
-            # Уже содержит «подходит ответ» — не дублировать weave
-            if "подходит ответ" in body.lower() or "именно поэтому" in body.lower():
-                text = _ensure_sentence(body)
-                hint = _topic_hint(item)
-                if hint and hint.lower() not in text.lower() and len(text) < 160:
-                    text = f"{text} {hint}"
-                if item.get("code") and len(text) < 180:
-                    code_note = (
-                        "Сверь формулировку с тем, что реально делает выражение в коде: "
-                        "типы операндов и порядок операций часто важнее «интуиции»."
-                    )
-                    if "сверь" not in text.lower():
-                        text = f"{_ensure_sentence(text)} {code_note}"
-                item = dict(item)
-                item["explain"] = re.sub(r"\s{2,}", " ", text).strip()
-                return item
 
     text = _weave_answer(body, corrects, kind)
+    text = _maybe_append_topic_hint(text, item, min_len=100)
 
-    # Минимальная планка качества: 2 фразы / ~120 символов
-    if len(text) < 120:
-        hint = _topic_hint(item)
-        if hint and hint.lower() not in text.lower():
-            text = f"{_ensure_sentence(text)} {hint}"
-
-    if item.get("code") and len(text) < 160:
+    if item.get("code") and len(text) < 140:
         code_note = (
             "Сверь ответ с тем, что реально делает выражение в коде: "
             "типы операндов и порядок операций часто важнее «интуиции»."
         )
-        if "сверь ответ" not in text.lower():
+        if "сверь ответ" not in text.lower() and "сверь формулировку" not in text.lower():
             text = f"{_ensure_sentence(text)} {code_note}"
 
     if "argument clinic" in q.lower() or "argument clinic" in (explain or "").lower():
@@ -423,8 +579,15 @@ def enrich_explain(item: dict) -> dict:
         if "argument clinic" not in text.lower() or "генератор" not in text.lower():
             text = f"{_ensure_sentence(text)} {clinic}"
 
-    # Убрать случайные двойные пробелы и повторы «Поэтому верный вариант»
     text = re.sub(r"\s{2,}", " ", text).strip()
+    # Убрать устаревшие шаблоны, если всплыли из исходников
+    text = text.replace("Здесь важно понять:", "").replace("Именно поэтому подходит ответ", "Подходит ответ")
+    text = re.sub(r"\s{2,}", " ", text).strip()
+    text = re.sub(
+        r"(Подходит ответ «[^»]+»\.)(?:\s*\1)+",
+        r"\1",
+        text,
+    )
     text = re.sub(
         r"(Поэтому верный вариант — «[^»]+»\.)(?:\s*\1)+",
         r"\1",
@@ -432,13 +595,12 @@ def enrich_explain(item: dict) -> dict:
     )
 
     item = dict(item)
-    item["explain"] = text
+    item["explain"] = _capitalize_sentence(text) if text else text
     return item
 
 
 def polish_question(item: dict) -> dict:
     item = dict(item)
-    # Нормализуем kind
     if isinstance(item.get("answer"), list):
         item["kind"] = "multi"
     else:
@@ -446,18 +608,35 @@ def polish_question(item: dict) -> dict:
 
     topic = item.get("topic", "")
     code = item.get("code")
-    # Структурированные карточки с явной формулировкой «Выбери все…» не ломаем эвристиками
     raw_q = (item.get("q") or "").strip()
-    # Починка совсем сломанных format-строк в формулировке
+
+    # CJK / битые исходники
+    if _CJK_RE.search(raw_q):
+        raw_q = _CJK_RE.sub("", raw_q).strip()
+        if "метакласс" in raw_q.lower() or topic == "метаклассы":
+            raw_q = "Конфликт метаклассов при множественном наследовании"
+        elif not raw_q:
+            raw_q = "В чём суть этого вопроса"
+
     if re.search(r"04d\}'?$", raw_q) or "04d}'" in raw_q:
         raw_q = "Что вернёт выражение format(10, '04d')?"
         if not code:
             item["code"] = "print(format(10, '04d'))"
+
+    # Стрелки в options → слова
+    if item.get("options"):
+        item["options"] = [_replace_arrows_everywhere(str(o)) for o in item["options"]]
+
     if item["kind"] == "multi" or re.match(r"^выбери все\b", raw_q, re.I):
         cleaned = raw_q.rstrip("?").rstrip(":").strip()
         item["q"] = _ensure_q(cleaned) if cleaned else raw_q
     else:
         item["q"] = normalize_question(raw_q, topic=topic, code=code)
+
+    # Починить артефакты «при в контексте»
+    item["q"] = re.sub(r"\s+при\s+в\s+контексте\s+Python", " в Python", item["q"], flags=re.I)
+    item["q"] = re.sub(r"\s+в\s+в\s+контексте", " в контексте", item["q"], flags=re.I)
+
     item = enrich_explain(item)
     return item
 
@@ -466,8 +645,35 @@ def _scrub_prose_for_code_check(text: str) -> str:
     """Убирает из текста конструкции, похожие на код, но бывающие в обычных формулировках."""
     scrubbed = re.sub(r"\([A-Z]{2,12}\)", "", text)
     scrubbed = re.sub(r"\b[A-Za-z]+/[A-Za-z]+\b", "", scrubbed)
-    scrubbed = re.sub(r"\b[A-Za-z]+\([^)]*\)", "", scrubbed)
+    scrubbed = re.sub(r"\b[A-Za-z]+(?:\[[^\]]*\])?\([^)]*\)", "", scrubbed)
     return scrubbed
+
+
+def _is_expression_code(text: str) -> bool:
+    """Строже, чем _looks_like_code: реальное выражение/литерал, а не концепт с символами."""
+    t = text.strip()
+    if not t:
+        return False
+    if _CONCEPT_NOT_CODE.search(t):
+        return False
+    # Проза с глаголами/описанием — не «что вернёт»
+    if re.search(
+        r"\b(сравнивает|использует|синтаксис|ленивый|вложенн|отличается|нужен|"
+        r"означает|позволяет|возвращает|делает|хранит|создаёт|создает|гарантирован|"
+        r"опасн|риск|зачем|почему|когда|какой|какая|какие)\b",
+        t,
+        re.I,
+    ):
+        return False
+    # Чистая кириллическая фраза с парой символов кода
+    cyr = len(re.findall(r"[А-Яа-яЁё]", t))
+    if cyr >= 6 and not re.search(r"[\"'\[\{].*[\"'\]\}]", t):
+        return False
+    words = re.findall(r"[A-Za-zА-Яа-яЁё_]{3,}", t)
+    if words and not re.search(r"[\[\]{}()+\-*/%]|==|!=|<=|>=|\.", t):
+        if len(words) >= 2 and not re.search(r"[\"'\d]", t):
+            return False
+    return _looks_like_code(t)
 
 
 def _looks_like_code(text: str) -> bool:
@@ -476,30 +682,54 @@ def _looks_like_code(text: str) -> bool:
         return False
     if _CODE_MARKERS.search(_scrub_prose_for_code_check(t)):
         return True
-    # литералы и срезы
     if re.match(r"^[\[\{'\"]", t) or re.search(r"\[[^\]]+\]", t):
         return True
     return False
 
 
+def _looks_like_dict_or_set_literal(text: str) -> bool:
+    t = text.strip()
+    return bool(re.search(r"\{[^{}]*'[^']*'\s*:", t) or re.match(r"^\{", t))
+
+
 def _infer_from_colon_label(core: str) -> str | None:
-    """«Индексация: 'hello'[1]» → вопрос про выражение."""
+    """«Индексация: 'hello'[1]» → вопрос про выражение. Не трогает dict-литералы."""
     if ":" not in core:
         return None
+    # Dict / set / slice with braces — не метка
+    if _looks_like_dict_or_set_literal(core):
+        return None
+    if re.match(r"^[{\[\(]", core.strip()):
+        return None
+    # «case [x, *rest]:» — не метка с двоеточием в смысле label
+    if core.strip().lower().startswith("case "):
+        return None
+    # Walrus := и аннотации a: int — осторожно
+    if ":=" in core and core.count(":") == core.count(":="):
+        return None
+
     label, rest = core.split(":", 1)
     label, rest = label.strip(), rest.strip()
+    # Метка не должна заканчиваться на = (обломок :=)
+    if label.endswith("=") or rest.startswith("="):
+        return None
+    # Метка должна быть коротким русским/латинским словом без кода
+    if not label or len(label) > 40 or _looks_like_code(label):
+        return None
+    if re.search(r"[\[\]{}()\"'=]", label):
+        return None
     if not rest:
         return _infer_from_nominal(label)
     rest_low = rest.lower()
     if rest_low.startswith("что выведет") or rest_low.startswith("что вернёт") or rest_low.startswith("что вернет"):
-        return _ensure_q(f"{rest[0].upper()}{rest[1:]} (про {label.strip().lower()})")
-    if _looks_like_code(rest):
+        return _ensure_q(_safe_join(f"{rest[0].upper()}{rest[1:]} (про ", label.strip().lower(), ")"))
+    if _is_expression_code(rest):
         low = label.lower()
         if low in ("индексация", "срез", "срезы"):
-            return _ensure_q(f"Что вернёт выражение {rest}")
+            return _ensure_q(_safe_join("Что вернёт выражение ", rest))
         if low in ("ловушка",):
-            return _ensure_q(f"Что выведет или вернёт код (ловушка): {rest}")
-        return _ensure_q(f"Что вернёт {rest}")
+            return _ensure_q(_safe_join("Что выведет или вернёт код (ловушка): ", rest))
+        return _ensure_q(_safe_join("Что вернёт ", rest))
     return None
 
 
@@ -507,144 +737,148 @@ def _infer_from_nominal(core: str) -> str:
     """Короткая номинальная фраза без глагола."""
     low = core.lower().strip()
 
-    # «Открыть файл на чтение»
-    if low.startswith("открыть "):
-        return _ensure_q(f"Как {core[0].lower()}{core[1:]}")
+    if low in ("что будет", "что выведет", "что вернёт", "что вернет"):
+        return _ensure_q("Что произойдёт при выполнении этого кода")
 
-    # «Однострочный комментарий»
+    m_exc = _EXCEPTION_WHEN.match(core.strip())
+    if m_exc:
+        return _ensure_q(f"Когда возникает {m_exc.group(1)}")
+
+    if low.startswith("открыть "):
+        return _ensure_q(_safe_join("Как ", _lower_sentence_start(core)))
+
     if "комментарий" in low:
         return _ensure_q("Как записать однострочный комментарий в Python")
 
-    # «Имена функций по PEP 8»
     if low.startswith("имена функций"):
         return _ensure_q("Как по PEP 8 называть функции")
     if low.startswith("имена классов"):
         return _ensure_q("Как по PEP 8 называть классы")
     if "по pep 8" in low:
-        return _ensure_q(f"Как по PEP 8: {core}")
+        return _ensure_q(_safe_join("Как по PEP 8: ", core))
 
-    # «Тернарный оператор в Python»
     if "тернарный оператор" in low:
         return _ensure_q("Как записать тернарный оператор в Python")
 
-    # «Модуль regex» / «Модуль для JSON»
     if low.startswith("модуль "):
         tail = core.split(None, 1)[1] if " " in core else ""
         if tail:
-            return _ensure_q(f"Какой стандартный модуль Python отвечает за {tail}")
-        return _ensure_q(f"Что такое {core}")
+            return _ensure_q(_safe_join("Какой стандартный модуль Python отвечает за ", tail))
+        return _ensure_q(_safe_join("Что такое ", core))
 
-    # «Метод .pop() без аргументов»
     if low.startswith("метод "):
-        return _ensure_q(f"Что делает {core[6:].strip()}")
+        return _ensure_q(_safe_join("Что делает ", core[6:].strip()))
 
-    # «Популярная sync HTTP библиотека»
     if "библиотек" in low:
-        return _ensure_q(f"Какая {core}")
+        return _ensure_q(_safe_join("Какая ", core))
 
-    # «Основная структура объекта CPython»
     if low.startswith("основн") or low.startswith("главн"):
-        return _ensure_q(f"Какая {low}")
+        return _ensure_q(_safe_join("Какая ", low))
 
-    # «Порядок элементов set гарантирован языком»
     if "гарантирован" in low:
-        return _ensure_q(f"Гарантирован ли {core.replace('гарантирован', 'гарантирован').rstrip('?')}")
+        return _ensure_q(_safe_join("Гарантирован ли ", core.replace("гарантирован", "гарантирован").rstrip("?")))
 
-    # «atomic словари»
     if low.endswith(" словари") or low.endswith(" словарь"):
-        return _ensure_q(f"Что такое {core}")
+        return _ensure_q(_safe_join("Что такое ", core))
 
-    # «Runtime проверка list[int]»
     if low.startswith("runtime "):
-        return _ensure_q(f"Как устроена {core}")
+        return _ensure_q(_safe_join("Как устроена ", core))
 
-    # «bool в format»
     if " в format" in low or " в f-string" in low:
-        return _ensure_q(f"Как ведёт себя {core}")
+        return _ensure_q(_safe_join("Как ведёт себя ", core))
 
-    # «N+1 выглядит как»
     if "выглядит как" in low:
-        return _ensure_q(f"Как выглядит проблема {core.split('выглядит как')[0].strip()}")
+        return _ensure_q(_safe_join("Как выглядит проблема ", core.split("выглядит как")[0].strip()))
 
-    # «circular import симптом»
     if "симптом" in low:
         term = re.sub(r"\s+симптом.*$", "", core, flags=re.I).strip()
-        return _ensure_q(f"Какой типичный симптом {term}")
+        return _ensure_q(_safe_join("Какой типичный симптом ", term))
 
-    # «multiprocessing почему обходит GIL»
     if " почему " in low:
         parts = re.split(r"\s+почему\s+", core, maxsplit=1, flags=re.I)
         if len(parts) == 2:
-            return _ensure_q(f"Почему {parts[0]} {parts[1]}")
+            return _ensure_q(_safe_join("Почему ", f"{parts[0]} {parts[1]}"))
 
-    # «Утечёт ли i наружу»
     if low.startswith("утечёт") or low.startswith("утечет"):
         return _ensure_q(core)
 
-    # «Второй вызов heavy(2)»
     if low.startswith("второй вызов") or low.startswith("первый вызов"):
-        return _ensure_q(f"Что произойдёт при {core}")
+        return _ensure_q(_safe_join("Что произойдёт при ", core))
 
-    # «object всегда в конце MRO»
     if "в конце mro" in low or "в mro" in low:
-        return _ensure_q(f"Верно ли, что {core}")
+        return _ensure_q(_safe_join("Верно ли, что ", core))
 
-    # «abstractclassmethod существует»
     if low.endswith(" существует"):
-        return _ensure_q(f"Существует ли в Python {core.replace(' существует', '')}")
+        return _ensure_q(_safe_join("Существует ли в Python ", core.replace(" существует", "")))
 
-    # «dict сохраняет порядок вставки»
     if "сохраняет" in low or "хранит" in low:
-        return _ensure_q(f"Верно ли, что {core}")
+        return _ensure_q(_safe_join("Верно ли, что ", core))
 
-    # «Instance attr затенит функцию»
     if "затенит" in low or "перекроет" in low:
-        return _ensure_q(f"Что произойдёт: {core}")
+        return _ensure_q(_safe_join("Что произойдёт: ", core))
 
-    # «Два CPU-потока на чистом Python»
     if "поток" in low or "процесс" in low:
-        return _ensure_q(f"Что верно про {core}")
+        return _ensure_q(_safe_join("Что верно про ", core))
 
-    # «Несколько контекстов: with A() as a, B() as b»
     if low.startswith("несколько контекстов"):
-        return _ensure_q(f"Что делает конструкция {core.split(':', 1)[-1].strip()}")
+        return _ensure_q(_safe_join("Что делает конструкция ", core.split(":", 1)[-1].strip()))
 
-    # «Интернирование строк: sys.intern»
     if "интернирован" in low:
-        return _ensure_q(f"Зачем нужно {core}")
+        return _ensure_q(_safe_join("Зачем нужно ", core))
 
-    # «У list итератор отдельный объект»
     if re.match(r"^у\s+\w+", low):
-        return _ensure_q(f"Верно ли, что {core}")
+        return _ensure_q(_safe_join("Верно ли, что ", core))
 
-    # «case [x, *rest]:»
     if low.startswith("case "):
-        return _ensure_q(f"Что означает паттерн match {core} в Python 3.10+")
+        return _ensure_q(_safe_join("Что означает паттерн match ", core, " в Python 3.10+"))
 
-    # «field(default_factory=list) зачем» handled elsewhere
-
-    # «__slots__ экономит за счёт»
     if "экономит" in low or "экономия" in low:
-        return _ensure_q(f"За счёт чего {core}")
+        return _ensure_q(_safe_join("За счёт чего ", core))
 
-    # «TTL + jitter зачем»
     if "+ jitter" in low or "jitter" in low:
-        return _ensure_q(f"Зачем добавляют jitter к TTL в кэше")
+        return _ensure_q("Зачем добавляют jitter к TTL в кэше")
 
-    # «идемпотентный ключ в платежах зачем»
     if "идемпотент" in low and "зачем" in low:
-        return _ensure_q(f"Зачем нужен идемпотентный ключ в платежах")
+        return _ensure_q("Зачем нужен идемпотентный ключ в платежах")
 
-    # «проблема lost update при concurrent PUT»
     if low.startswith("проблема "):
-        return _ensure_q(f"Что такое {core}")
+        return _ensure_q(_safe_join("Что такое ", core))
 
-    # «pickle.loads из недоверенного источника»
     if "pickle" in low and ("недовер" in low or "untrusted" in low):
         return _ensure_q("В чём риск pickle.loads из недоверенного источника")
 
-    # default nominal
-    return _ensure_q(f"Выбери верный вариант: {core}")
+    if "timing attack" in low:
+        return _ensure_q("В чём риск timing attack при сравнении паролей через ==")
+
+    if "mutation testing" in low:
+        return _ensure_q("Что проверяет mutation testing")
+
+    if "конфликт метакласс" in low or "метаклассов баз" in low:
+        return _ensure_q("Что происходит при конфликте метаклассов баз")
+
+    if low.endswith(" сравнивает") or " сравнивает" in low:
+        term = re.sub(r"\s+сравнивает.*$", "", core, flags=re.I).strip() or core
+        return _ensure_q(_safe_join("Что сравнивает ", term))
+
+    if " использует" in low:
+        term = re.sub(r"\s+использует.*$", "", core, flags=re.I).strip()
+        return _ensure_q(_safe_join("Для чего используется ", term))
+
+    if " синтаксис" in low:
+        term = re.sub(r"\s+синтаксис.*$", "", core, flags=re.I).strip()
+        return _ensure_q(_safe_join("Допустим ли синтаксис ", term))
+
+    if "ленивый" in low:
+        return _ensure_q(_safe_join("Верно ли, что ", core))
+
+    if "exitstack" in low or "вложенными with" in low:
+        return _ensure_q(_safe_join("Как лучше записать ", core))
+
+    # Фразы-не-термины не оборачиваем в «Что означает «…»?»
+    if len(core.split()) >= 4 and not _is_expression_code(core):
+        return _ensure_q(_safe_join("Выбери верный вариант: ", core))
+
+    return _ensure_q(_safe_join("Выбери верный вариант: ", core))
 
 
 def normalize_question(text: str, topic: str = "", code: str | None = None) -> str:
@@ -653,12 +887,23 @@ def normalize_question(text: str, topic: str = "", code: str | None = None) -> s
     if not raw:
         return raw
 
+    # Голые вопросы
+    bare = raw.rstrip("?").strip().lower()
+    if bare in ("что будет", "что выведет", "что вернёт", "что вернет"):
+        if code and code.strip():
+            return _ensure_q("Что выведет код")
+        return _ensure_q("Что произойдёт при выполнении этого фрагмента")
+
     has_ellipsis = raw.endswith("…") or raw.endswith("...")
     core = _strip_ellipsis(raw).rstrip("?").strip()
+    # Убрать хвост «при» от «KeyError при…»
+    core = re.sub(r"\s+при$", "", core, flags=re.I).strip()
 
-    # Уже ясный вопрос
     if _is_clear(core):
-        return _ensure_q(core)
+        # Уже ясный, но почистим «при в контексте»
+        q = _ensure_q(core)
+        q = re.sub(r"\s+при\s+в\s+контексте\s+Python", "", q, flags=re.I)
+        return q
 
     dash_q = _infer_dash_question(core)
     if dash_q:
@@ -666,130 +911,128 @@ def normalize_question(text: str, topic: str = "", code: str | None = None) -> s
 
     lower = core.lower()
 
-    # «Open/Closed Principle (OCP) означает…» / «*args означает…»
+    m_exc = _EXCEPTION_WHEN.match(core)
+    if m_exc or (has_ellipsis and re.match(r"^[A-Za-z]+Error$", core)):
+        name = m_exc.group(1) if m_exc else core
+        return _ensure_q(f"Когда возникает {name}")
+
     if re.search(r"\bозначает\b", lower):
         term = re.sub(r"\s+означает.*$", "", core, flags=re.I).strip()
+        if term and len(term.split()) <= 4:
+            return _ensure_q(_safe_join("Что означает ", term))
         if term:
-            return _ensure_q(f"Что означает {term}")
+            return _ensure_q(_safe_join("Выбери верный вариант: ", term))
 
-    # Сценарии «… — что нарушено?» / «… — нарушен…»
     if re.search(r"\bчто нарушен[оы]?\s*$", lower):
         return _ensure_q(core)
     if re.search(r"\b(нарушен|нарушено|нарушение)\s*$", lower):
-        return _ensure_q(f"Какой принцип нарушен: {core}")
+        return _ensure_q(_safe_join("Какой принцип нарушен: ", core))
 
-    # «X — это…»
     for sep in (" — это", " - это"):
         if sep in core:
             term = core.split(sep, 1)[0].strip()
-            return _ensure_q(f"Что такое {term}")
+            return _ensure_q(_safe_join("Что такое ", term))
 
-    # «… зачем» / «X зачем»
     if re.search(r"\bзачем$", lower) or lower.endswith(" зачем"):
         term = re.sub(r"\s+зачем$", "", core, flags=re.I).strip()
         if term.lower().startswith("if __name__"):
             return _ensure_q("Зачем нужна конструкция if __name__ == '__main__'")
-        return _ensure_q(f"Зачем нужен {term}")
+        return _ensure_q(_safe_join("Зачем нужен ", term))
 
-    # «… риск» / «риск?»
     if re.search(r"\bриск$", lower) or " риск" in lower:
         term = re.sub(r"\s+риск.*$", "", core, flags=re.I).strip()
-        return _ensure_q(f"В чём риск {term}")
+        return _ensure_q(_safe_join("В чём риск ", term))
 
-    # «Stampede это»
     if re.search(r"\bэто$", lower):
         term = re.sub(r"\s+это$", "", core, flags=re.I).strip()
-        return _ensure_q(f"Что такое {term}")
+        return _ensure_q(_safe_join("Что такое ", term))
 
-    # «Опасность [[]]*3»
     if lower.startswith("опасность "):
         tail = core.split(None, 1)[1] if " " in core else core
-        return _ensure_q(f"В чём опасность выражения {tail}")
+        return _ensure_q(_safe_join("В чём опасность выражения ", tail))
 
-    # «Опасно в default: def f(x=[])»
     if lower.startswith("опасно"):
-        if ":" in core:
+        if ":" in core and not _looks_like_dict_or_set_literal(core):
             _, rest = core.split(":", 1)
-            return _ensure_q(f"Опасно ли использовать изменяемый аргумент по умолчанию в {rest.strip()}")
-        return _ensure_q(f"Опасно ли: {core}")
+            return _ensure_q(
+                _safe_join("Опасно ли использовать изменяемый аргумент по умолчанию в ", rest.strip())
+            )
+        return _ensure_q(_safe_join("Опасно ли: ", core))
 
-    # «Можно ли …» без вопросительного знака
     if lower.startswith("можно ли"):
         return _ensure_q(core)
 
-    # Метка с двоеточием
     colon_q = _infer_from_colon_label(core)
     if colon_q:
         return colon_q
 
-    # Заканчивается двоеточием
-    if core.endswith(":"):
+    if core.endswith(":") and not _looks_like_dict_or_set_literal(core):
         return _infer_from_nominal(core[:-1].strip())
 
-    # «… используется»
     if re.search(r"\bиспользуется\b", lower):
         term = re.sub(r"\s+используется.*$", "", core, flags=re.I).strip()
-        return _ensure_q(f"Для чего используется {term}")
+        return _ensure_q(_safe_join("Для чего используется ", term))
 
-    # «… нужен чтобы»
     if " нужен чтобы" in lower:
         term = re.split(r"\s+нужен чтобы", core, flags=re.I)[0].strip()
-        return _ensure_q(f"Зачем нужен {term}")
+        return _ensure_q(_safe_join("Зачем нужен ", term))
 
-    # «… позволяет / показывает / возвращает / вызывает / даёт»
-    for verb, template in (
-        ("позволяет", "Что позволяет {t}"),
-        ("показывает", "Что показывает {t}"),
-        ("возвращает", "Что возвращает {t}"),
-        ("вызывает", "Что вызывает {t}"),
-        ("даёт", "Что даёт {t}"),
-        ("превращает", "Во что превращает {t}"),
-        ("реализует", "Что реализует {t}"),
-        ("определяет", "Что определяет {t}"),
-        ("помогает", "Чем помогает {t}"),
+    for verb, template_prefix in (
+        ("позволяет", "Что позволяет "),
+        ("показывает", "Что показывает "),
+        ("возвращает", "Что возвращает "),
+        ("вызывает", "Что вызывает "),
+        ("даёт", "Что даёт "),
+        ("превращает", "Во что превращает "),
+        ("реализует", "Что реализует "),
+        ("определяет", "Что определяет "),
+        ("помогает", "Чем помогает "),
+        ("проверяет", "Что проверяет "),
     ):
         if re.search(rf"\b{verb}\b", lower):
             term = re.sub(rf"\s+{verb}.*$", "", core, flags=re.I).strip()
-            return _ensure_q(template.format(t=term))
+            return _ensure_q(_safe_join(template_prefix, term))
 
-    # «… цель»
     if re.search(r"\bцель\b", lower):
         term = re.sub(r"\s+цель.*$", "", core, flags=re.I).strip()
-        return _ensure_q(f"Какова цель {term}")
+        return _ensure_q(_safe_join("Какова цель ", term))
 
-    # vs / ≠
     if re.search(r"\bvs\b", core, re.I) or " ≠ " in core:
-        return _ensure_q(f"В чём разница: {core}")
+        return _ensure_q(_safe_join("В чём разница: ", core))
 
-    # «С чем связаны X» — часто криво сформулировано
     if re.match(r"^с чем связан", lower):
-        return _ensure_q(f"Для чего используется {core.split('связан', 1)[-1].strip().lstrip('ы').strip()}")
+        return _ensure_q(
+            _safe_join("Для чего используется ", core.split("связан", 1)[-1].strip().lstrip("ы").strip())
+        )
 
-    # Код в поле code → «что выведет код»
+    # Есть поле code → вопрос про вывод
     if code and code.strip():
         if re.search(r"что выведет|что верн", lower):
             return _ensure_q(core)
+        if _is_clear(core):
+            return _ensure_q(core)
         return _ensure_q("Что выведет код")
 
-    # Выражение / вызов функции
-    if _looks_like_code(core):
+    # Реальное выражение / вызов
+    if _is_expression_code(core):
         if re.search(r"что верн|что вывед", lower):
             return _ensure_q(core)
-        # «a[1:4] при a=[0,1,2,3,4]»
-        if " при " in lower:
-            return _ensure_q(f"Что вернёт {core}")
-        # «list(zip(...))»
-        return _ensure_q(f"Что вернёт {core}")
+        if " при " in lower and _looks_like_code(core.split(" при ", 1)[0]):
+            return _ensure_q(_safe_join("Что вернёт ", core))
+        return _ensure_q(_safe_join("Что вернёт ", core))
 
-    # Обрыв с многоточием
+    # Обрыв с многоточием — без лишнего «в контексте Python»
     if has_ellipsis:
         if topic in ("C-API", "CPython", "cffi/pybind", "subinterpreters"):
-            return _ensure_q(f"Что такое {core} в C-API CPython")
-        if re.search(r"[a-zA-Z]{3,}", core) and not re.search(r"[а-яё]{4,}", core, re.I):
-            return _ensure_q(f"Что такое {core} в контексте Python")
-        return _ensure_q(f"Что означает «{core}»")
+            return _ensure_q(_safe_join("Что такое ", core, " в C-API CPython"))
+        if re.match(r"^[A-Za-z_][\w.]*$", core):
+            return _ensure_q(_safe_join("Что такое ", core))
+        if re.search(r"[a-zA-Z]{3,}", core) and not re.search(r"[а-яё]{3,}", core, re.I):
+            return _ensure_q(_safe_join("Что такое ", core))
+        if len(core.split()) <= 3:
+            return _ensure_q(_safe_join("Что такое ", core))
+        return _infer_from_nominal(core)
 
-    # Номинальные фразы с «?» в исходнике
     if raw.endswith("?"):
         return _infer_from_nominal(core)
 
