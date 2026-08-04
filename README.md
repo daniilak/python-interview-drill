@@ -37,11 +37,15 @@ GitHub Pages: https://daniilak.github.io/python-interview-drill/
 Пересборка банка:
 
 ```bash
-python3 generate_questions.py
+python3 generate_questions.py          # merge: не удаляет и не затирает js/data; накладывает bank/overrides
+python3 generate_questions.py --append-new   # то же + дописать новые карточки из плагинов
+python3 generate_questions.py --rebuild      # полная пересборка (правки только через overrides)
+python3 tools/fix_language.py         # массовая правка языка → js/data + overrides
 python3 audit_bank.py
 ```
 
-Новые источники: добавь модуль в `bank/plugins/` со списками `JUNIOR_*` / `MIDDLE_*` / `SENIOR_*` (или `CODE_JUNIOR` и т.п.) — генератор подхватит сам. Хелперы карточек — `bank.utils.q` / `q_multi`.
+Починенные карточки помечаются `"fixed": true` и дублируются в `bank/overrides/{junior,middle,senior}.json`.
+Генератор **не удаляет** существующие вопросы и **не перезаписывает** fixed/overrides.
 
 ## Структура
 

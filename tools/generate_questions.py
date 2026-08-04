@@ -28,4 +28,4 @@ if str(_ROOT) not in sys.path:
 from bank.builder import main
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
