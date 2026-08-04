@@ -2,17 +2,7 @@
 """Code-output interview questions («что выведет?»)."""
 
 
-def q(topic, text, options, answer, explain, code=None):
-    item = {
-        "topic": topic,
-        "q": text,
-        "options": options,
-        "answer": answer,
-        "explain": explain,
-    }
-    if code:
-        item["code"] = code
-    return item
+from utils import q
 
 
 CODE_JUNIOR = [

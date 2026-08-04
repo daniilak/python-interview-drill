@@ -1,0 +1,233 @@
+#!/usr/bin/env python3
+"""Вопросы формата «выберите все верные» (kind=multi)."""
+from __future__ import annotations
+
+from utils import q_multi
+
+JUNIOR_MULTI: list[dict] = [
+    q_multi(
+        "типы",
+        "Выбери все верные утверждения про типы в Python:",
+        [
+            "bool — подкласс int",
+            "None имеет тип NoneType",
+            "{} создаёт пустой set",
+            "str неизменяемый",
+        ],
+        [0, 1, 3],
+        "{} — пустой dict; пустой set только через set(). bool наследует int; str immutable.",
+        tags=["types"],
+        difficulty="junior",
+    ),
+    q_multi(
+        "операторы",
+        "Выбери все верные утверждения про // и %:",
+        [
+            "// округляет к −∞ (floor division)",
+            "(-7) // 2 == -3",
+            "10 % 3 == 1",
+            "/ в Python 3 всегда даёт float",
+        ],
+        [0, 2, 3],
+        "(-7)//2 == -4, не -3: floor к −∞. % — остаток; / → float.",
+        tags=["operators", "floor-div"],
+        difficulty="junior",
+    ),
+    q_multi(
+        "коллекции",
+        "Выбери все изменяемые типы:",
+        ["list", "tuple", "dict", "frozenset"],
+        [0, 2],
+        "list и dict mutable; tuple и frozenset — нет.",
+        tags=["collections"],
+        difficulty="junior",
+    ),
+    q_multi(
+        "функции",
+        "Выбери все верные утверждения про аргументы функций:",
+        [
+            "*args собирает лишние позиционные в tuple",
+            "**kwargs — dict именованных",
+            "mutable default создаётся заново на каждый вызов",
+            "функция без return возвращает None",
+        ],
+        [0, 1, 3],
+        "Mutable default создаётся один раз при определении функции — классическая ловушка.",
+        tags=["functions"],
+        difficulty="junior",
+    ),
+    q_multi(
+        "исключения",
+        "Выбери все верные утверждения:",
+        [
+            "finally выполняется почти всегда",
+            "except Exception ловит SystemExit",
+            "raise ValueError('x') возбуждает исключение",
+            "BaseException — родитель SystemExit и KeyboardInterrupt",
+        ],
+        [0, 2, 3],
+        "SystemExit/KeyboardInterrupt наследуют BaseException, не Exception — поэтому except Exception их не ловит.",
+        tags=["exceptions"],
+        difficulty="junior",
+    ),
+    q_multi(
+        "строки",
+        "Выбери все верные про строки:",
+        [
+            "'abc'[::-1] == 'cba'",
+            "строки можно изменить через s[0] = 'x'",
+            "len('привет') считает символы Unicode",
+            "f-string — предпочтительный способ форматирования",
+        ],
+        [0, 2, 3],
+        "str immutable: присваивание по индексу даёт TypeError.",
+        tags=["strings"],
+        difficulty="junior",
+    ),
+]
+
+MIDDLE_MULTI: list[dict] = [
+    q_multi(
+        "декораторы",
+        "Выбери все верные про декораторы:",
+        [
+            "@f над def g равносильно g = f(g)",
+            "functools.wraps сохраняет __name__/__doc__",
+            "декоратор всегда принимает только одну функцию без аргументов",
+            "декоратор с аргументами — фабрика декораторов",
+        ],
+        [0, 1, 3],
+        "Декоратор с параметрами: @deco(x) → вызов deco(x), который возвращает настоящий декоратор.",
+        tags=["decorators"],
+        difficulty="middle",
+    ),
+    q_multi(
+        "GIL",
+        "Выбери все верные про GIL в CPython:",
+        [
+            "GIL мешает параллельному исполнению байткода Python-потоками",
+            "multiprocessing обходит GIL за счёт отдельных процессов",
+            "GIL полностью запрещает I/O concurrency",
+            "C-расширения могут отпускать GIL на время тяжёлой работы без Python API",
+        ],
+        [0, 1, 3],
+        "I/O и многие C-вызовы отпускают GIL → потоки полезны для I/O. CPU-bound Python — нет; тогда processes/native без GIL.",
+        tags=["gil", "concurrency"],
+        difficulty="middle",
+    ),
+    q_multi(
+        "asyncio",
+        "Выбери все верные про asyncio:",
+        [
+            "корутина стартует только при await/создании Task",
+            "asyncio.gather запускает awaitables конкурентно в одном потоке event loop",
+            "time.sleep в корутине блокирует весь loop",
+            "asyncio.to_thread нужен, чтобы увести блокирующий код с loop",
+        ],
+        [0, 1, 2, 3],
+        "Все пункты верны: async не магия — блокирующий sync внутри loop останавливает всех.",
+        tags=["asyncio"],
+        difficulty="middle",
+    ),
+    q_multi(
+        "typing",
+        "Выбери все верные про аннотации типов:",
+        [
+            "в рантайме CPython обычно не проверяет list[int]",
+            "mypy/pyright — статические анализаторы",
+            "from __future__ import annotations откладывает вычисление аннотаций",
+            "typing всегда ускоряет исполнение байткода",
+        ],
+        [0, 1, 2],
+        "Аннотации — для людей и чекеров; сами по себе не ускоряют CPython.",
+        tags=["typing"],
+        difficulty="middle",
+    ),
+    q_multi(
+        "генераторы",
+        "Выбери все верные про генераторы:",
+        [
+            "yield приостанавливает функцию и возвращает значение",
+            "генератор одноразовый: исчерпан → StopIteration",
+            "return в генераторе задаёт value StopIteration",
+            "list(gen) всегда безопасен для бесконечного генератора",
+        ],
+        [0, 1, 2],
+        "Бесконечный gen + list() → зависание/OOM. Используй islice/явный break.",
+        tags=["generators"],
+        difficulty="middle",
+    ),
+]
+
+SENIOR_MULTI: list[dict] = [
+    q_multi(
+        "CPython",
+        "Выбери все верные про устройство CPython:",
+        [
+            "у каждого PyObject есть refcount (в классической модели)",
+            "GIL защищает целостность runtime-структур интерпретатора",
+            "удаление GIL автоматически делает весь Python-код линейно масштабируемым на CPU",
+            "memoryview позволяет работать с буфером без лишнего копирования байт",
+        ],
+        [0, 1, 3],
+        "Free-threading (PEP 703) снимает GIL, но не отменяет гонки в своём коде и накладные расходы синхронизации. memoryview — zero-copy взгляд на buffer protocol.",
+        tags=["cpython", "gil", "memory"],
+        difficulty="senior",
+    ),
+    q_multi(
+        "git",
+        "Выбери все верные про git rebase:",
+        [
+            "rebase переписывает историю (новые хеши коммитов)",
+            "interactive rebase умеет squash/reword/reorder",
+            "rebase безопасен на любой shared-ветке без договорённости",
+            "после rebase уже запушенных коммитов часто нужен force-with-lease",
+        ],
+        [0, 1, 3],
+        "На shared-ветках rebase без договорённости ломает коллег. Конфликты решаются покоммитно; --onto и -i — мощные, но опасные инструменты.",
+        tags=["git", "rebase"],
+        difficulty="senior",
+    ),
+    q_multi(
+        "память",
+        "Выбери все верные про память в CPython:",
+        [
+            "циклические ссылки собирает cyclic GC, не только refcount",
+            "__slots__ убирает __dict__ у экземпляров (экономия)",
+            "weakref не увеличивает refcount целевого объекта",
+            "del x всегда немедленно вызывает __del__ и освобождает память ОС",
+        ],
+        [0, 1, 2],
+        "del уменьшает refcount; __del__ и возврат памяти ОС — не гарантия «сразу». Циклы — дело gc модуля.",
+        tags=["memory", "gc"],
+        difficulty="senior",
+    ),
+    q_multi(
+        "security",
+        "Выбери все опасные практики:",
+        [
+            "pickle.loads из недоверенного источника",
+            "yaml.load без SafeLoader на пользовательском вводе",
+            "subprocess с shell=True и неэкранированным вводом",
+            "использование secrets.compare_digest для сравнения токенов",
+        ],
+        [0, 1, 2],
+        "compare_digest как раз безопаснее обычного == для секретов (timing-safe). Остальное — классические RCE/injection векторы.",
+        tags=["security"],
+        difficulty="senior",
+    ),
+    q_multi(
+        "architecture",
+        "Выбери все верные про распределённые системы:",
+        [
+            "идемпотентность consumer помогает при at-least-once доставке",
+            "outbox pattern снижает потерю событий между БД и брокером",
+            "exactly-once «бесплатно» даёт любой брокер сообщений",
+            "circuit breaker защищает от каскадных сбоев зависимости",
+        ],
+        [0, 1, 3],
+        "Exactly-once end-to-end почти всегда иллюзия: нужна идемпотентность + дедуп + аккуратные транзакции/outbox.",
+        tags=["distributed", "architecture"],
+        difficulty="senior",
+    ),
+]

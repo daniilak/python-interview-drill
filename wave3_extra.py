@@ -3,17 +3,7 @@
 from __future__ import annotations
 
 
-def q(topic, text, options, answer, explain, code=None):
-    item = {
-        "topic": topic,
-        "q": text,
-        "options": options,
-        "answer": answer,
-        "explain": explain,
-    }
-    if code:
-        item["code"] = code
-    return item
+from utils import q
 
 
 def build_junior() -> list[dict]:

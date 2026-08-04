@@ -3,17 +3,7 @@
 from __future__ import annotations
 
 
-def q(topic, text, options, answer, explain, code=None):
-    item = {
-        "topic": topic,
-        "q": text,
-        "options": options,
-        "answer": answer,
-        "explain": explain,
-    }
-    if code:
-        item["code"] = code
-    return item
+from utils import FLOOR_DIV_EXPLAIN, q
 
 
 def build_junior() -> list[dict]:
@@ -30,7 +20,7 @@ def build_junior() -> list[dict]:
             cand = str(div + len(div_opts))
             if cand not in div_opts:
                 div_opts.append(cand)
-        out.append(q("операторы", f"Что вернёт {a} // {b}?", div_opts[:4], 0, "// — целочисленное деление вниз."))
+        out.append(q("операторы", f"Что вернёт {a} // {b}?", div_opts[:4], 0, FLOOR_DIV_EXPLAIN))
 
         mod_opts = [str(mod), str(div), str(a - b), "0"]
         mod_opts = list(dict.fromkeys(mod_opts))

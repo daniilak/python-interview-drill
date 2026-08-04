@@ -1,34 +1,30 @@
 #!/usr/bin/env python3
-"""Generate Python interview question banks for the drill app."""
+"""Generate Python interview question banks for the drill app.
+
+Критерии уровней (ориентир для авторов карточек):
+  Junior — синтаксис и builtins: типы, операторы, строки/списки/dict/set,
+           базовые функции, исключения, простой OOP. Ответ за <30 с.
+  Middle — идиомы и stdlib: декораторы, генераторы, asyncio, typing, GIL
+           на уровне понимания, тесты, типичные грабли продакшена.
+  Senior — CPython/память/метаклассы, архитектура, безопасность, распределённые
+           системы, нюансы trade-offs; объяснение должно содержать «когда нельзя».
+
+Плагины: любой `*_extra.py` в этой папке подхватывается автоматически.
+Списки вопросов классифицируются по имени переменной (JUNIOR_*, CODE_JUNIOR, …).
+"""
 from __future__ import annotations
 
+import importlib.util
 import json
+import random
+from collections import defaultdict
 from pathlib import Path
 
-from bulk_extra import JUNIOR_EXTRA, MIDDLE_EXTRA, SENIOR_EXTRA
-from code_output_extra import CODE_JUNIOR, CODE_MIDDLE, CODE_SENIOR
-from wave2_extra import JUNIOR_W2, MIDDLE_W2, SENIOR_W2
-from wave3_extra import JUNIOR_W3, MIDDLE_W3, SENIOR_W3
-from wave4_extra import JUNIOR_W4, MIDDLE_W4, SENIOR_W4
-from variants_extra import JUNIOR_VARIANTS, MIDDLE_VARIANTS, SENIOR_VARIANTS
-from variants2_extra import JUNIOR_VARIANTS2, MIDDLE_VARIANTS2, SENIOR_VARIANTS2
-from principles_extra import MIDDLE_PRINCIPLES, SENIOR_PRINCIPLES
 from question_polish import polish_question
+from utils import FLOOR_DIV_EXPLAIN, q
 
 OUT = Path(__file__).resolve().parent / "js" / "data"
-
-
-def q(topic, text, options, answer, explain, code=None):
-    item = {
-        "topic": topic,
-        "q": text,
-        "options": options,
-        "answer": answer,
-        "explain": explain,
-    }
-    if code:
-        item["code"] = code
-    return item
+ROOT = Path(__file__).resolve().parent
 
 
 JUNIOR: list[dict] = []
@@ -44,11 +40,11 @@ JUNIOR += [
     q("типы", "Какой литерал создаёт пустой словарь?", ["{}", "dict()", "оба верны", "[]"], 2, "{} и dict() — пустой dict. set() — пустое множество."),
     q("типы", "Как создать пустое множество?", ["set()", "{}", "[]", "frozenset()"], 0, "{} — это dict. Пустой set только через set()."),
     q("типы", "Что такое литерал 3j?", ["комплексное число", "синтаксическая ошибка", "байт", "имя переменной"], 0, "j — мнимая единица в Python."),
-    q("операторы", "Что вернёт 7 // 2?", ["3", "3.5", "4", "2"], 0, "// — целочисленное деление с округлением вниз."),
+    q("операторы", "Что вернёт 7 // 2?", ["3", "3.5", "4", "2"], 0, FLOOR_DIV_EXPLAIN),
     q("операторы", "Что вернёт 7 / 2 в Python 3?", ["3.5", "3", "3.0", "ошибка"], 0, "/ всегда даёт float в Python 3."),
     q("операторы", "Что вернёт 2 ** 3?", ["8", "6", "9", "5"], 0, "** — возведение в степень."),
     q("операторы", "Что вернёт 10 % 3?", ["1", "3", "0", "10"], 0, "% — остаток от деления."),
-    q("операторы", "Что вернёт -7 // 2?", ["-4", "-3", "3", "-3.5"], 0, "Округление вниз: -3.5 → -4."),
+    q("операторы", "Что вернёт -7 // 2?", ["-4", "-3", "3", "-3.5"], 0, "Floor division к −∞: -3.5 → -4 (не «к нулю»)."),
     q("операторы", "Что делает оператор := (walrus)?", ["присваивание в выражении", "сравнение", "аннотация типа", "битовый сдвиг"], 0, "Моржовый оператор: присваивает и возвращает значение."),
     q("сравнения", "Что вернёт True + True?", ["2", "True", "ошибка", "1"], 0, "bool — подкласс int, True == 1."),
     q("сравнения", "Что вернёт [] == False?", ["False", "True", "ошибка", "None"], 0, "Пустой список не равен False (хотя bool([]) is False)."),
@@ -665,6 +661,8 @@ SENIOR += [
 
 TOPIC_TO_GROUP: dict[str, str] = {
     # Junior-ish
+    "lambda": "Функции и область видимости",
+    "коллекции": "Словари и множества",
     "типы": "Типы и операторы",
     "операторы": "Типы и операторы",
     "сравнения": "Типы и операторы",
@@ -839,8 +837,8 @@ TOPIC_TO_GROUP: dict[str, str] = {
     "LoD": "Архитектура и дизайн",
     "SoC": "Архитектура и дизайн",
     "security": "Безопасность",
-    "packaging": "Packaging и CI",
-    "ci": "Packaging и CI",
+    "packaging": "Упаковка и CI",
+    "ci": "Упаковка и CI",
     "db": "Данные и распределёнка",
     "cache": "Данные и распределёнка",
     "caching": "Данные и распределёнка",
@@ -851,7 +849,7 @@ TOPIC_TO_GROUP: dict[str, str] = {
     "consistency": "Данные и распределёнка",
     "serialization": "Данные и распределёнка",
     "queues": "Данные и распределёнка",
-    "observability": "Observability и качество",
+    "observability": "Наблюдаемость и качество",
     "signals": "Потоки, процессы, GIL",
     "fork": "Потоки, процессы, GIL",
 }
@@ -899,8 +897,71 @@ def assign_group(item: dict, level: str = "") -> dict:
     return item
 
 
+def classify_bank_name(name: str) -> str | None:
+    """Определяет уровень по имени экспортной переменной плагина."""
+    u = name.upper()
+    if u.startswith("_"):
+        return None
+    if u.startswith("JUNIOR") or u.endswith("_JUNIOR") or u == "CODE_JUNIOR":
+        return "junior"
+    if u.startswith("MIDDLE") or u.endswith("_MIDDLE") or u == "CODE_MIDDLE":
+        return "middle"
+    if u.startswith("SENIOR") or u.endswith("_SENIOR") or u == "CODE_SENIOR":
+        return "senior"
+    return None
+
+
+def load_extra_plugins() -> dict[str, list[dict]]:
+    """Автообнаружение `*_extra.py`: собирает list[dict] по уровню."""
+    banks: dict[str, list[dict]] = {"junior": [], "middle": [], "senior": []}
+    for path in sorted(ROOT.glob("*_extra.py")):
+        spec = importlib.util.spec_from_file_location(path.stem, path)
+        if spec is None or spec.loader is None:
+            continue
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        found = 0
+        for attr, val in vars(mod).items():
+            level = classify_bank_name(attr)
+            if level is None or not isinstance(val, list) or not val:
+                continue
+            if not isinstance(val[0], dict) or "q" not in val[0]:
+                continue
+            banks[level].extend(val)
+            found += len(val)
+        print(f"plugin {path.name}: +{found}")
+    return banks
+
+
+def diversify_by_group(items: list[dict]) -> list[dict]:
+    """Round-robin по group: все разделы встречаются рано, без засилья крупных тем."""
+    if len(items) <= 2:
+        return items
+    rng = random.Random(42)
+    by_group: dict[str, list[dict]] = defaultdict(list)
+    for it in items:
+        by_group[it.get("group") or it.get("topic") or "Разное"].append(it)
+    for bucket in by_group.values():
+        rng.shuffle(bucket)
+
+    groups = list(by_group.keys())
+    rng.shuffle(groups)
+    out: list[dict] = []
+    while any(by_group.values()):
+        progressed = False
+        for g in groups:
+            bucket = by_group[g]
+            if bucket:
+                out.append(bucket.pop())
+                progressed = True
+        if not progressed:
+            break
+    return out
+
+
 def write_js(name: str, var: str, items: list[dict]) -> None:
     items = [polish_question(assign_group(it, name)) for it in items]
+    items = diversify_by_group(items)
     for i, item in enumerate(items, 1):
         item["id"] = f"{name[0]}{i}"
     path = OUT / f"{name}.js"
@@ -914,23 +975,24 @@ def write_js(name: str, var: str, items: list[dict]) -> None:
         print(f"   · {g}: {n}")
 
 
+def dedupe(items: list[dict]) -> list[dict]:
+    seen = set()
+    out = []
+    for it in items:
+        key = (it["q"], it.get("code"))
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(it)
+    return out
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-
-    def dedupe(items: list[dict]) -> list[dict]:
-        seen = set()
-        out = []
-        for it in items:
-            key = (it["q"], it.get("code"))
-            if key in seen:
-                continue
-            seen.add(key)
-            out.append(it)
-        return out
-
-    j = dedupe(JUNIOR + JUNIOR_EXTRA + CODE_JUNIOR + JUNIOR_W2 + JUNIOR_W3 + JUNIOR_W4 + JUNIOR_VARIANTS + JUNIOR_VARIANTS2)
-    m = dedupe(MIDDLE + MIDDLE_EXTRA + CODE_MIDDLE + MIDDLE_W2 + MIDDLE_W3 + MIDDLE_W4 + MIDDLE_VARIANTS + MIDDLE_VARIANTS2 + MIDDLE_PRINCIPLES)
-    s = dedupe(SENIOR + SENIOR_EXTRA + CODE_SENIOR + SENIOR_W2 + SENIOR_W3 + SENIOR_W4 + SENIOR_VARIANTS + SENIOR_VARIANTS2 + SENIOR_PRINCIPLES)
+    extras = load_extra_plugins()
+    j = dedupe(JUNIOR + extras["junior"])
+    m = dedupe(MIDDLE + extras["middle"])
+    s = dedupe(SENIOR + extras["senior"])
     write_js("junior", "QUESTIONS_JUNIOR", j)
     write_js("middle", "QUESTIONS_MIDDLE", m)
     write_js("senior", "QUESTIONS_SENIOR", s)

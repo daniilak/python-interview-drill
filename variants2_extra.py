@@ -9,45 +9,7 @@ import math
 from typing import Any, Callable, Iterable
 
 
-def q(topic: str, text: str, options: list[str], answer: int, explain: str, code: str | None = None) -> dict:
-    item = {
-        "topic": topic,
-        "q": text,
-        "options": options,
-        "answer": answer,
-        "explain": explain,
-    }
-    if code:
-        item["code"] = code
-    return item
-
-
-def _uniq(opts: Iterable[Any], n: int = 4) -> list[str]:
-    out: list[str] = []
-    for o in opts:
-        s = "None" if o is None else str(o)
-        if s not in out:
-            out.append(s)
-        if len(out) >= n:
-            break
-    pad = 0
-    while len(out) < n:
-        cand = f"?{pad}"
-        pad += 1
-        if cand not in out:
-            out.append(cand)
-    return out[:n]
-
-
-def _mc(correct: Any, distractors: Iterable[Any], n: int = 4) -> tuple[list[str], int]:
-    opts = _uniq([correct, *distractors], n)
-    c = "None" if correct is None else str(correct)
-    if opts[0] != c:
-        opts = [c] + [o for o in opts if o != c]
-        opts = opts[:n]
-        while len(opts) < n:
-            opts.append(f"x{len(opts)}")
-    return opts, 0
+from utils import q, _mc, _uniq
 
 
 # ─── JUNIOR ───────────────────────────────────────────────

@@ -11,48 +11,7 @@ import math
 from typing import Any, Callable, Iterable
 
 
-def q(topic: str, text: str, options: list[str], answer: int, explain: str, code: str | None = None) -> dict:
-    item = {
-        "topic": topic,
-        "q": text,
-        "options": options,
-        "answer": answer,
-        "explain": explain,
-    }
-    if code:
-        item["code"] = code
-    return item
-
-
-def _uniq(opts: Iterable[Any], n: int = 4) -> list[str]:
-    """Уникальные строковые варианты, добиваем до n."""
-    out: list[str] = []
-    for o in opts:
-        s = "None" if o is None else str(o)
-        if s not in out:
-            out.append(s)
-        if len(out) >= n:
-            break
-    pad = 0
-    while len(out) < n:
-        cand = f"?{pad}"
-        pad += 1
-        if cand not in out:
-            out.append(cand)
-    return out[:n]
-
-
-def _mc(correct: Any, distractors: Iterable[Any], n: int = 4) -> tuple[list[str], int]:
-    """Правильный ответ всегда на индексе 0 (как в остальном банке)."""
-    opts = _uniq([correct, *distractors], n)
-    # correct должен быть первым
-    c = "None" if correct is None else str(correct)
-    if opts[0] != c:
-        opts = [c] + [o for o in opts if o != c]
-        opts = opts[:n]
-        while len(opts) < n:
-            opts.append(f"x{len(opts)}")
-    return opts, 0
+from utils import FLOOR_DIV_EXPLAIN, q, _mc, _uniq
 
 
 # ═══════════════════════════════════════════════════════════
@@ -66,7 +25,7 @@ def junior_div_mod() -> list[dict]:
             continue
         div, mod = a // b, a % b
         opts, ans = _mc(div, [a / b, math.ceil(a / b), a - b, mod, a])
-        out.append(q("операторы", f"Что вернёт {a} // {b}?", opts, ans, "// — целочисленное деление вниз.",
+        out.append(q("операторы", f"Что вернёт {a} // {b}?", opts, ans, FLOOR_DIV_EXPLAIN,
                      code=f"print({a} // {b})"))
         opts, ans = _mc(mod, [div, a - b, 0, b, a])
         out.append(q("операторы", f"Что вернёт {a} % {b}?", opts, ans, "% — остаток от деления.",

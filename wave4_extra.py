@@ -3,17 +3,7 @@
 from __future__ import annotations
 
 
-def q(topic, text, options, answer, explain, code=None):
-    item = {
-        "topic": topic,
-        "q": text,
-        "options": options,
-        "answer": answer,
-        "explain": explain,
-    }
-    if code:
-        item["code"] = code
-    return item
+from utils import q
 
 
 def build_junior() -> list[dict]:
@@ -52,7 +42,10 @@ def build_junior() -> list[dict]:
             "Что делает git rebase?",
             ["переносит коммиты на новую базу", "удаляет все ветки", "только merge", "создаёт patch"],
             0,
-            "rebase переписывает историю: коммиты «переигрываются» поверх другой ветки.",
+            "rebase переписывает историю: коммиты «переигрываются» поверх другой базы (новые хеши). "
+            "interactive (-i) — squash/reword/reorder; конфликты покоммитно. "
+            "На shared/запушенной ветке без договорённости опасен — обычно нужен force-with-lease. "
+            "Merge предпочтительнее, когда нельзя переписывать чужую историю.",
         ),
         q(
             "git",
