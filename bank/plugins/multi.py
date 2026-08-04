@@ -2,7 +2,7 @@
 """Вопросы формата «выберите все верные» (kind=multi)."""
 from __future__ import annotations
 
-from utils import q_multi
+from bank.utils import q_multi
 
 JUNIOR_MULTI: list[dict] = [
     q_multi(

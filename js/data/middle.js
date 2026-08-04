@@ -77,16 +77,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m5"
   },
   {
-    "topic": "exceptions",
-    "q": "Что такое ValueError наследует?",
+    "topic": "context",
+    "q": "Что такое ExitStack.enter_context нужен когда?",
     "options": [
-      "Exception",
-      "только object",
-      "Warning",
-      "OSError всегда"
+      "динамическое число CM",
+      "только один with",
+      "вместо try",
+      "async only"
     ],
     "answer": 0,
-    "explain": "От ValueError до Exception через промежуточные типы и далее …",
+    "explain": "Contextlib.ExitStack. Подходит ответ «динамическое число CM».",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m6"
@@ -212,18 +212,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m14"
   },
   {
-    "topic": "functools",
+    "topic": "heapq",
     "q": "Что выведет код?",
     "options": [
-      "10",
-      "11",
-      "1",
-      "4"
+      "[1, 2]",
+      "[1, 2, 7]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Свёртка суммы. Подходит ответ «10». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Два наименьших. Подходит ответ «[1, 2]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [1, 2, 3, 4]))",
+    "code": "import heapq\nprint(heapq.nsmallest(2, [9, 2, 7, 1]))",
     "group": "Collections и itertools",
     "id": "m15"
   },
@@ -274,15 +274,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Что делает HEAD по семантике HTTP?",
+    "q": "Выбери верный вариант: Статус 403 — кратко?",
     "options": [
-      "идемпотентный (в идеале)",
-      "никогда не идемпотентный",
-      "только с телом JSON",
-      "запрещён REST"
+      "запрещено",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "HEAD безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
+    "explain": "HTTP 403: запрещено. Подходит ответ «запрещено». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m19"
@@ -363,18 +363,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m24"
   },
   {
-    "topic": "copy",
+    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "False",
-      "True",
-      "ошибка",
-      "None"
+      "JSONDecodeError",
+      "None",
+      "{}",
+      "ошибка SyntaxError"
     ],
     "answer": 0,
-    "explain": "Deepcopy копирует вложенность. Подходит ответ «False». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Невалидный JSON, а затем JSONDecodeError. Подходит ответ «JSONDecodeError». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [[]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "code": "import json\nprint(json.loads('[1, 2,'))",
     "group": "Stdlib и производительность",
     "id": "m25"
   },
@@ -500,16 +500,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m33"
   },
   {
-    "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 500 обычно значит?",
+    "topic": "SQL",
+    "q": "Выбери верный вариант: Типичная роль `LIMIT`?",
     "options": [
-      "Server Error",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "ограничить число строк",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
     ],
     "answer": 0,
-    "explain": "500 — Server Error. Подходит ответ «Server Error». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "LIMIT в SQL. Подходит ответ «ограничить число строк». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m34"
@@ -728,15 +728,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 301 обычно значит?",
+    "q": "Выбери верный вариант: Статус 502 — кратко?",
     "options": [
-      "Moved Permanently",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "плохой шлюз",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "301 — Moved Permanently. Подходит ответ «Moved Permanently». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "HTTP 502: плохой шлюз. Подходит ответ «плохой шлюз». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m49"
@@ -822,15 +822,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "JSONDecodeError",
-      "None",
-      "{}",
-      "ошибка SyntaxError"
+      "{\"ok\": true, \"n\": null}",
+      "{\"ok\": True, \"n\": None}",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Невалидный JSON, а затем JSONDecodeError. Подходит ответ «JSONDecodeError». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Dumps, а затем строка JSON. Подходит ответ «{\"ok\": true, \"n\": null}». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(json.loads('[1, 2,'))",
+    "code": "import json\nprint(json.dumps({'ok': True, 'n': None}))",
     "group": "Stdlib и производительность",
     "id": "m55"
   },
@@ -895,18 +895,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m59"
   },
   {
-    "topic": "bisect",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "0",
       "4",
-      "?0",
-      "?1"
+      "12",
+      "64",
+      "24"
     ],
     "answer": 0,
-    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «0». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "C(4,3) = 4. Подходит ответ «4». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 0))",
+    "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 3))))",
     "group": "Collections и itertools",
     "id": "m60"
   },
@@ -1131,18 +1131,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m74"
   },
   {
-    "topic": "functools",
+    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
-      "12",
-      "13",
-      "10",
-      "2"
+      "0",
+      "1",
+      "4",
+      "?0"
     ],
     "answer": 0,
-    "explain": "Свёртка суммы. Подходит ответ «12». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «0». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [10, 2]))",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 1))",
     "group": "Collections и itertools",
     "id": "m75"
   },
@@ -1358,18 +1358,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m89"
   },
   {
-    "topic": "match",
-    "q": "Что выведет код?",
+    "topic": "dataclasses",
+    "q": "Выбери верный вариант: @dataclass class Point: x: int = 0 — экземпляры делят x?",
     "options": [
-      "pair",
-      "ошибка",
-      "None",
-      "[1, 2]"
+      "нет, int immutable default ок",
+      "да, как list",
+      "ошибка синтаксиса",
+      "только frozen"
     ],
     "answer": 0,
-    "explain": "Паттерны последовательностей в match. Подходит ответ «pair». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Проблема mutable default; int безопасен. Подходит ответ «нет, int immutable default ок».",
     "kind": "single",
-    "code": "x = [1, 2]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
     "id": "m90"
   },
@@ -1404,16 +1403,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m92"
   },
   {
-    "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 502 обычно значит?",
+    "topic": "SQL",
+    "q": "Выбери верный вариант: Типичная роль `OFFSET`?",
     "options": [
-      "Bad Gateway",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "пропустить N строк",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
     ],
     "answer": 0,
-    "explain": "502 — Bad Gateway. Подходит ответ «Bad Gateway». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "OFFSET в SQL. Подходит ответ «пропустить N строк». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m93"
@@ -1435,7 +1434,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "context",
-    "q": "Как удобнее открыть 3 вложенных with без ExitStack?",
+    "q": "Как удобнее открыть 2 вложенных with без ExitStack?",
     "options": [
       "можно вложить / или один with a, b",
       "нельзя никогда",
@@ -1645,7 +1644,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "exceptions",
-    "q": "Что такое StopIteration наследует?",
+    "q": "Что такое TypeError наследует?",
     "options": [
       "Exception",
       "только object",
@@ -1653,7 +1652,7 @@ window.QUESTIONS_MIDDLE = [
       "OSError всегда"
     ],
     "answer": 0,
-    "explain": "От StopIteration до Exception через промежуточные типы и далее …",
+    "explain": "От TypeError до Exception через промежуточные типы и далее …",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m109"
@@ -1780,17 +1779,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m117"
   },
   {
-    "topic": "typing",
-    "q": "Что вернёт isinstance([1], dict[str, int]) в обычном CPython?",
+    "topic": "match",
+    "q": "Что выведет код?",
     "options": [
-      "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
-      "True всегда",
-      "False всегда без ошибки",
-      "True только в 3.12+"
+      "zero",
+      "ошибка",
+      "None",
+      "0"
     ],
     "answer": 0,
-    "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно. Подходит ответ «TypeError (или False в отдельных случаях) — generic alias не для isinstance так».",
+    "explain": "Match/case сопоставляет значение. Подходит ответ «zero». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "x = 0\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
     "id": "m118"
   },
@@ -1826,16 +1826,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m120"
   },
   {
-    "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 429 обычно значит?",
+    "topic": "SQL",
+    "q": "Выбери верный вариант: Типичная роль `ORDER BY`?",
     "options": [
-      "Too Many Requests",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "сортировка результата",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
     ],
     "answer": 0,
-    "explain": "429 — Too Many Requests. Подходит ответ «Too Many Requests». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "ORDER BY в SQL. Подходит ответ «сортировка результата». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m121"
@@ -1977,18 +1977,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m130"
   },
   {
-    "topic": "heapq",
-    "q": "Что выведет код?",
+    "topic": "collections",
+    "q": "Что делает deque.rotate(1) на 4 элементах?",
     "options": [
-      "[5, 10]",
-      "[5, 10, 20]",
-      "ошибка",
-      "None"
+      "цикл сдвиг на 1 вправо (отриц. — влево)",
+      "сортирует",
+      "удаляет k",
+      "ошибка всегда"
     ],
     "answer": 0,
-    "explain": "Два наименьших. Подходит ответ «[5, 10]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Rotate — циклический сдвиг. Подходит ответ «цикл сдвиг на 1 вправо (отриц. — влево)».",
     "kind": "single",
-    "code": "import heapq\nprint(heapq.nsmallest(2, [10, 20, 5, 30]))",
     "group": "Collections и itertools",
     "id": "m131"
   },
@@ -2041,15 +2040,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Что делает OPTIONS по семантике HTTP?",
+    "q": "Выбери верный вариант: Статус 404 — кратко?",
     "options": [
-      "идемпотентный (в идеале)",
-      "никогда не идемпотентный",
-      "только с телом JSON",
-      "запрещён REST"
+      "не найдено",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "OPTIONS безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
+    "explain": "HTTP 404: не найдено. Подходит ответ «не найдено». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m135"
@@ -2205,18 +2204,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m145"
   },
   {
-    "topic": "typing",
-    "q": "Что выведет код?",
+    "topic": "dataclasses",
+    "q": "Зачем нужен field(default_factory=set)?",
     "options": [
-      "True",
-      "False",
-      "ошибка",
-      "None"
+      "новый set() на каждый экземпляр",
+      "общий один set",
+      "запретить поле",
+      "только JSON"
     ],
     "answer": 0,
-    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «True». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
+    "explain": "Избегаем общего mutable default. Подходит ответ «новый set() на каждый экземпляр».",
     "kind": "single",
-    "code": "print(isinstance([1, 2], list))",
     "group": "Typing и dataclasses",
     "id": "m146"
   },
@@ -2386,18 +2384,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m157"
   },
   {
-    "topic": "collections",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "[('a', 2), ('b', 1)]",
-      "{'a': 2, 'b': 1}",
+      "[1, 2, 0, 1]",
+      "[[1, 2], [0, 1]]",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Топ-2 по частоте. Подходит ответ «[('a', 2), ('b', 1)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Chain склеивает итерируемые. Подходит ответ «[1, 2, 0, 1]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from collections import Counter\nprint(Counter('aab').most_common(2))",
+    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(2)))))",
     "group": "Collections и itertools",
     "id": "m158"
   },
@@ -2449,15 +2447,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Что делает GET по семантике HTTP?",
+    "q": "Выбери верный вариант: Статус 304 — кратко?",
     "options": [
-      "идемпотентный (в идеале)",
-      "никогда не идемпотентный",
-      "только с телом JSON",
-      "запрещён REST"
+      "не изменилось / кэш",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "GET безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
+    "explain": "HTTP 304: не изменилось / кэш. Подходит ответ «не изменилось / кэш». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m162"
@@ -2586,31 +2584,30 @@ window.QUESTIONS_MIDDLE = [
     "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "[1, 2, 0, 1]",
-      "[[1, 2], [0, 1]]",
+      "[1, 2, 3]",
+      "[1, 2, 3, 4]",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Chain склеивает итерируемые. Подходит ответ «[1, 2, 0, 1]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Islice — ленивый срез. Подходит ответ «[1, 2, 3]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(2)))))",
+    "code": "from itertools import islice\nprint(list(islice([1, 2, 3, 4, 5], 3)))",
     "group": "Collections и itertools",
     "id": "m171"
   },
   {
-    "topic": "typing",
-    "q": "Что выведет код?",
+    "topic": "match",
+    "q": "Что такое case _ :?",
     "options": [
-      "True",
-      "False",
-      "ошибка",
-      "None"
+      "wildcard / default ветка",
+      "ошибка синтаксиса",
+      "только для None",
+      "break"
     ],
     "answer": 0,
-    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «True». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
+    "explain": "Ловит всё оставшееся. Подходит ответ «wildcard / default ветка».",
     "kind": "single",
-    "code": "print(isinstance({'a': 1}, dict))",
     "group": "Typing и dataclasses",
     "id": "m172"
   },
@@ -2676,15 +2673,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "exceptions",
-    "q": "Что такое ZeroDivisionError наследует?",
+    "q": "Что такое FileNotFoundError наследует?",
     "options": [
-      "ArithmeticError",
+      "OSError",
       "только object",
       "Warning",
       "OSError всегда"
     ],
     "answer": 0,
-    "explain": "От ZeroDivisionError до ArithmeticError через промежуточные типы и далее …",
+    "explain": "От FileNotFoundError до OSError через промежуточные типы и далее …",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m177"
@@ -2784,15 +2781,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "3",
-      "6",
-      "9",
-      "6"
+      "20",
+      "10",
+      "25",
+      "120"
     ],
     "answer": 0,
-    "explain": "C(3,2) = 3. Подходит ответ «3». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "P(5,2) = 20. Подходит ответ «20». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import combinations\nprint(len(list(combinations(range(3), 2))))",
+    "code": "from itertools import permutations\nprint(len(list(permutations(range(5), 2))))",
     "group": "Collections и itertools",
     "id": "m184"
   },
@@ -2944,7 +2941,7 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Deepcopy копирует вложенность. Подходит ответ «False». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [[1, 2, 3]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "code": "import copy\na = [[1], [2]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m194"
   },
@@ -2979,33 +2976,34 @@ window.QUESTIONS_MIDDLE = [
     "id": "m196"
   },
   {
-    "topic": "collections",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "[('i', 4), ('s', 4)]",
-      "{'m': 1, 'i': 4, 's': 4, 'p': 2}",
+      "[1, 3, 6, 10]",
+      "[1, 2, 3, 4]",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Топ-2 по частоте. Подходит ответ «[('i', 4), ('s', 4)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Накопительная сумма. Подходит ответ «[1, 3, 6, 10]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from collections import Counter\nprint(Counter('mississippi').most_common(2))",
+    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 5))))",
     "group": "Collections и itertools",
     "id": "m197"
   },
   {
-    "topic": "dataclasses",
-    "q": "Выбери верный вариант: @dataclass class Node: x: int = 1 — экземпляры делят x?",
+    "topic": "match",
+    "q": "Что выведет код?",
     "options": [
-      "нет, int immutable default ок",
-      "да, как list",
-      "ошибка синтаксиса",
-      "только frozen"
+      "pair",
+      "ошибка",
+      "None",
+      "[1, 2]"
     ],
     "answer": 0,
-    "explain": "Проблема mutable default; int безопасен. Подходит ответ «нет, int immutable default ок».",
+    "explain": "Паттерны последовательностей в match. Подходит ответ «pair». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "x = [1, 2]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
     "id": "m198"
   },
@@ -3049,15 +3047,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "SQL",
-    "q": "Выбери верный вариант: SELECT … LIMIT 1 без ORDER BY?",
+    "q": "Уровень изоляции SERIALIZABLE — что верно?",
     "options": [
-      "набор из N строк без стабильного порядка",
-      "всегда первые 1 по PK",
-      "ошибка синтаксиса",
-      "полный table lock"
+      "разные аномалии чтения/записи; знай свою СУБД",
+      "все уровни идентичны в PostgreSQL",
+      "только про DDL",
+      "отключает индексы"
     ],
     "answer": 0,
-    "explain": "Без ORDER BY порядок не гарантирован. Подходит ответ «набор из N строк без стабильного порядка». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Изоляции отличаются допустимыми аномалиями. Подходит ответ «разные аномалии чтения/записи; знай свою СУБД».",
     "kind": "single",
     "group": "Веб и API",
     "id": "m201"
@@ -3078,16 +3076,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m202"
   },
   {
-    "topic": "context",
-    "q": "Как удобнее открыть 1 вложенных with без ExitStack?",
+    "topic": "exceptions",
+    "q": "Что такое KeyboardInterrupt наследует?",
     "options": [
-      "можно вложить / или один with a, b",
-      "нельзя никогда",
-      "только async",
-      "нужен GIL"
+      "BaseException",
+      "только object",
+      "Warning",
+      "OSError всегда"
     ],
     "answer": 0,
-    "explain": "With open() as a, open() as b: или ExitStack для динамики. Подходит ответ «можно вложить / или один with a, b».",
+    "explain": "От KeyboardInterrupt до BaseException через промежуточные типы и далее …",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m203"
@@ -3184,32 +3182,32 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "functools",
-    "q": "Выбери верный вариант: Сколько уникальных ключей кэша у fib(4) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "q": "Что такое lru_cache(maxsize=128) хранит?",
     "options": [
-      "примерно 5 (0..n)",
-      "16",
-      "4",
-      "0"
+      "до 128 результатов вызовов",
+      "только последний вызов всегда",
+      "на диске",
+      "в Redis"
     ],
     "answer": 0,
-    "explain": "Каждый k от 0..n кэшируется один раз. Подходит ответ «примерно 5 (0..n)».",
+    "explain": "Кэш в памяти процесса. Подходит ответ «до 128 результатов вызовов».",
     "kind": "single",
     "group": "Collections и itertools",
     "id": "m210"
   },
   {
-    "topic": "walrus",
+    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
-      "no",
-      "0",
+      "True",
+      "False",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": ":= присваивает и использует значение в условии. Подходит ответ «no». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «True». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
     "kind": "single",
-    "code": "if (x := 0):\n    print(x)\nelse:\n    print('no')",
+    "code": "print(isinstance([1, 2], list))",
     "group": "Typing и dataclasses",
     "id": "m211"
   },
@@ -3246,15 +3244,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 409 — кратко?",
+    "q": "Выбери верный вариант: HTTP 301 обычно значит?",
     "options": [
-      "конфликт состояния",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "Moved Permanently",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HTTP 409: конфликт состояния. Подходит ответ «конфликт состояния». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "301 — Moved Permanently. Подходит ответ «Moved Permanently». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m214"
@@ -3335,18 +3333,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m219"
   },
   {
-    "topic": "copy",
+    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "False",
-      "True",
-      "ошибка",
-      "None"
+      "JSONDecodeError",
+      "None",
+      "{}",
+      "ошибка SyntaxError"
     ],
     "answer": 0,
-    "explain": "Deepcopy копирует вложенность. Подходит ответ «False». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Невалидный JSON, а затем JSONDecodeError. Подходит ответ «JSONDecodeError». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [{'a': 1}]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "code": "import json\nprint(json.loads('{'))",
     "group": "Stdlib и производительность",
     "id": "m220"
   },
@@ -3444,15 +3442,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 201 — кратко?",
+    "q": "Что делает PUT по семантике HTTP?",
     "options": [
-      "ресурс создан",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
     ],
     "answer": 0,
-    "explain": "HTTP 201: ресурс создан. Подходит ответ «ресурс создан». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "PUT безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
     "kind": "single",
     "group": "Веб и API",
     "id": "m227"
@@ -3474,15 +3472,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "context",
-    "q": "Что такое ExitStack.enter_context нужен когда?",
+    "q": "Как удобнее открыть 3 вложенных with без ExitStack?",
     "options": [
-      "динамическое число CM",
-      "только один with",
-      "вместо try",
-      "async only"
+      "можно вложить / или один with a, b",
+      "нельзя никогда",
+      "только async",
+      "нужен GIL"
     ],
     "answer": 0,
-    "explain": "Contextlib.ExitStack. Подходит ответ «динамическое число CM».",
+    "explain": "With open() as a, open() as b: или ExitStack для динамики. Подходит ответ «можно вложить / или один with a, b».",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m229"
@@ -3581,15 +3579,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "functools",
     "q": "Что выведет код?",
     "options": [
+      "5",
       "7",
-      "12",
-      "4",
+      "0",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "Partial фиксирует первый аргумент, а затем f(3, 4). Подходит ответ «7». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Свёртка произведения. Подходит ответ «5». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 3)(4))",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [5, 1, 1]))",
     "group": "Collections и itertools",
     "id": "m236"
   },
@@ -3729,18 +3727,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m245"
   },
   {
-    "topic": "pathlib",
+    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
-      "var/log/syslog",
-      "var\\log\\syslog",
+      "False",
+      "True",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Склейка частей пути. Подходит ответ «var/log/syslog». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Deepcopy копирует вложенность. Подходит ответ «False». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'syslog'))",
+    "code": "import copy\na = [[0, 0], [1]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m246"
   },
@@ -3778,15 +3776,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "4",
-      "12",
-      "64",
-      "24"
+      "[(1, 2), (2, 2), (3, 1)]",
+      "[1, 2, 3]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "C(4,3) = 4. Подходит ответ «4». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Groupby группирует только подряд идущие одинаковые. Подходит ответ «[(1, 2), (2, 2), (3, 1)]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 3))))",
+    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 1, 2, 2, 3])])",
     "group": "Collections и itertools",
     "id": "m249"
   },
@@ -3836,16 +3834,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m252"
   },
   {
-    "topic": "SQL",
-    "q": "Выбери верный вариант: Типичная роль `ORDER BY`?",
+    "topic": "HTTP",
+    "q": "Выбери верный вариант: HTTP 503 обычно значит?",
     "options": [
-      "сортировка результата",
-      "создать индекс всегда",
-      "только DDL",
-      "транзакция BEGIN"
+      "Unavailable",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "ORDER BY в SQL. Подходит ответ «сортировка результата». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "503 — Unavailable. Подходит ответ «Unavailable». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m253"
@@ -4258,15 +4256,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "exceptions",
-    "q": "Что такое TypeError наследует?",
+    "q": "Что такое ZeroDivisionError наследует?",
     "options": [
-      "Exception",
+      "ArithmeticError",
       "только object",
       "Warning",
       "OSError всегда"
     ],
     "answer": 0,
-    "explain": "От TypeError до Exception через промежуточные типы и далее …",
+    "explain": "От ZeroDivisionError до ArithmeticError через промежуточные типы и далее …",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m281"
@@ -4362,18 +4360,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m287"
   },
   {
-    "topic": "heapq",
-    "q": "Что выведет код (минимум на [0])?",
+    "topic": "collections",
+    "q": "Что делает deque.rotate(3) на 6 элементах?",
     "options": [
-      "5",
-      "5",
-      "10",
-      "ошибка"
+      "цикл сдвиг на 3 вправо (отриц. — влево)",
+      "сортирует",
+      "удаляет k",
+      "ошибка всегда"
     ],
     "answer": 0,
-    "explain": "После heapify h[0] — минимум (для min-heap). Подходит ответ «5». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Rotate — циклический сдвиг. Подходит ответ «цикл сдвиг на 3 вправо (отриц. — влево)».",
     "kind": "single",
-    "code": "import heapq\nh = [10, 20, 5, 30]\nheapq.heapify(h)\nprint(h[0])",
     "group": "Collections и itertools",
     "id": "m288"
   },
@@ -4425,15 +4422,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 404 — кратко?",
+    "q": "Выбери верный вариант: HTTP 204 обычно значит?",
     "options": [
-      "не найдено",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "No Content",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HTTP 404: не найдено. Подходит ответ «не найдено». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "204 — No Content. Подходит ответ «No Content». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m292"
@@ -4560,18 +4557,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m300"
   },
   {
-    "topic": "itertools",
+    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "[1, 3, 6, 10]",
-      "[1, 2, 3, 4]",
-      "ошибка",
-      "None"
+      "3",
+      "2",
+      "2",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Накопительная сумма. Подходит ответ «[1, 3, 6, 10]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Partial фиксирует первый аргумент, а затем f(1, 2). Подходит ответ «3». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 5))))",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 1)(2))",
     "group": "Collections и itertools",
     "id": "m301"
   },
@@ -4623,16 +4620,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m304"
   },
   {
-    "topic": "SQL",
-    "q": "Выбери верный вариант: Типичная роль `GROUP BY`?",
+    "topic": "HTTP",
+    "q": "Выбери верный вариант: HTTP 500 обычно значит?",
     "options": [
-      "агрегация по ключу",
-      "создать индекс всегда",
-      "только DDL",
-      "транзакция BEGIN"
+      "Server Error",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "GROUP BY в SQL. Подходит ответ «агрегация по ключу». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "500 — Server Error. Подходит ответ «Server Error». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m305"
@@ -4654,7 +4651,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "context",
-    "q": "Как удобнее открыть 2 вложенных with без ExitStack?",
+    "q": "Как удобнее открыть 1 вложенных with без ExitStack?",
     "options": [
       "можно вложить / или один with a, b",
       "нельзя никогда",
@@ -4820,15 +4817,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "SQL",
-    "q": "Уровень изоляции READ COMMITTED — что верно?",
+    "q": "Выбери верный вариант: SELECT … LIMIT 5 без ORDER BY?",
     "options": [
-      "разные аномалии чтения/записи; знай свою СУБД",
-      "все уровни идентичны в PostgreSQL",
-      "только про DDL",
-      "отключает индексы"
+      "набор из N строк без стабильного порядка",
+      "всегда первые 5 по PK",
+      "ошибка синтаксиса",
+      "полный table lock"
     ],
     "answer": 0,
-    "explain": "Изоляции отличаются допустимыми аномалиями. Подходит ответ «разные аномалии чтения/записи; знай свою СУБД».",
+    "explain": "Без ORDER BY порядок не гарантирован. Подходит ответ «набор из N строк без стабильного порядка». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m318"
@@ -4955,18 +4952,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m326"
   },
   {
-    "topic": "functools",
+    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
-      "20",
-      "12",
-      "10",
-      "0"
+      "3",
+      "4",
+      "0",
+      "7"
     ],
     "answer": 0,
-    "explain": "Свёртка произведения. Подходит ответ «20». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «3». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [10, 2]))",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 7))",
     "group": "Collections и itertools",
     "id": "m327"
   },
@@ -5018,15 +5015,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 429 — кратко?",
+    "q": "Выбери верный вариант: HTTP 400 обычно значит?",
     "options": [
-      "лимит запросов",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "Bad Request",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HTTP 429: лимит запросов. Подходит ответ «лимит запросов». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "400 — Bad Request. Подходит ответ «Bad Request». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m331"
@@ -5057,7 +5054,7 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "exceptions",
-    "q": "Что такое IndexError наследует?",
+    "q": "Что такое KeyError наследует?",
     "options": [
       "LookupError",
       "только object",
@@ -5065,7 +5062,7 @@ window.QUESTIONS_MIDDLE = [
       "OSError всегда"
     ],
     "answer": 0,
-    "explain": "От IndexError до LookupError через промежуточные типы и далее …",
+    "explain": "От KeyError до LookupError через промежуточные типы и далее …",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m333"
@@ -5120,15 +5117,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "var/log/app.log",
-      "var/log/app.log/",
+      "var/log/syslog",
+      "var\\log\\syslog",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Path склеивает части. Подходит ответ «var/log/app.log». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Склейка частей пути. Подходит ответ «var/log/syslog». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'app.log'))",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'syslog'))",
     "group": "Stdlib и производительность",
     "id": "m337"
   },
@@ -5166,31 +5163,30 @@ window.QUESTIONS_MIDDLE = [
     "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "11",
+      "20",
+      "12",
       "10",
-      "1",
-      "ошибка"
+      "0"
     ],
     "answer": 0,
-    "explain": "Partial фиксирует первый аргумент, а затем f(10, 1). Подходит ответ «11». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Свёртка произведения. Подходит ответ «20». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 10)(1))",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [10, 2]))",
     "group": "Collections и itertools",
     "id": "m340"
   },
   {
-    "topic": "match",
-    "q": "Что выведет код?",
+    "topic": "dataclasses",
+    "q": "Зачем нужен field(default_factory=dict)?",
     "options": [
-      "empty",
-      "ошибка",
-      "None",
-      "[]"
+      "новый dict() на каждый экземпляр",
+      "общий один dict",
+      "запретить поле",
+      "только JSON"
     ],
     "answer": 0,
-    "explain": "Паттерны последовательностей в match. Подходит ответ «empty». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Избегаем общего mutable default. Подходит ответ «новый dict() на каждый экземпляр».",
     "kind": "single",
-    "code": "x = []\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
     "id": "m341"
   },
@@ -5227,15 +5223,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 200 — кратко?",
+    "q": "Что делает GET по семантике HTTP?",
     "options": [
-      "успех с телом",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
     ],
     "answer": 0,
-    "explain": "HTTP 200: успех с телом. Подходит ответ «успех с телом». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "GET безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
     "kind": "single",
     "group": "Веб и API",
     "id": "m344"
@@ -5362,18 +5358,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m352"
   },
   {
-    "topic": "itertools",
-    "q": "Что выведет код?",
+    "topic": "heapq",
+    "q": "Что выведет код (минимум на [0])?",
     "options": [
-      "[(0, 2), (1, 2), (0, 1)]",
-      "[0, 1]",
-      "ошибка",
-      "None"
+      "1",
+      "1",
+      "9",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Groupby группирует только подряд идущие одинаковые. Подходит ответ «[(0, 2), (1, 2), (0, 1)]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "После heapify h[0] — минимум (для min-heap). Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([0, 0, 1, 1, 0])])",
+    "code": "import heapq\nh = [9, 2, 7, 1]\nheapq.heapify(h)\nprint(h[0])",
     "group": "Collections и itertools",
     "id": "m353"
   },
@@ -5426,15 +5422,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 503 — кратко?",
+    "q": "Выбери верный вариант: HTTP 404 обычно значит?",
     "options": [
-      "сервис недоступен",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "Not Found",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HTTP 503: сервис недоступен. Подходит ответ «сервис недоступен». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "404 — Not Found. Подходит ответ «Not Found». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m357"
@@ -5575,18 +5571,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m366"
   },
   {
-    "topic": "walrus",
+    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
-      "10",
-      "no",
+      "False",
+      "True",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": ":= присваивает и использует значение в условии. Подходит ответ «10». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «False». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
     "kind": "single",
-    "code": "if (x := 10):\n    print(x)\nelse:\n    print('no')",
+    "code": "print(isinstance((1, 2), list))",
     "group": "Typing и dataclasses",
     "id": "m367"
   },
@@ -5758,18 +5754,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m378"
   },
   {
-    "topic": "itertools",
+    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "[1, 2, 0, 1, 2, 3]",
-      "[[1, 2], [0, 1, 2, 3]]",
-      "ошибка",
-      "None"
+      "7",
+      "12",
+      "4",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Chain склеивает итерируемые. Подходит ответ «[1, 2, 0, 1, 2, 3]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "Partial фиксирует первый аргумент, а затем f(3, 4). Подходит ответ «7». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(4)))))",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 3)(4))",
     "group": "Collections и itertools",
     "id": "m379"
   },
@@ -5821,15 +5817,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Что делает PUT по семантике HTTP?",
+    "q": "Выбери верный вариант: Статус 400 — кратко?",
     "options": [
-      "идемпотентный (в идеале)",
-      "никогда не идемпотентный",
-      "только с телом JSON",
-      "запрещён REST"
+      "ошибка клиента",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "PUT безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
+    "explain": "HTTP 400: ошибка клиента. Подходит ответ «ошибка клиента». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m383"
@@ -5851,15 +5847,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "exceptions",
-    "q": "Что такое KeyError наследует?",
+    "q": "Что такое ValueError наследует?",
     "options": [
-      "LookupError",
+      "Exception",
       "только object",
       "Warning",
       "OSError всегда"
     ],
     "answer": 0,
-    "explain": "От KeyError до LookupError через промежуточные типы и далее …",
+    "explain": "От ValueError до Exception через промежуточные типы и далее …",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m385"
@@ -5970,18 +5966,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m392"
   },
   {
-    "topic": "match",
-    "q": "Что выведет код?",
+    "topic": "typing",
+    "q": "Что вернёт isinstance([1], dict[str, int]) в обычном CPython?",
     "options": [
-      "other",
-      "ошибка",
-      "None",
-      "2"
+      "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
+      "True всегда",
+      "False всегда без ошибки",
+      "True только в 3.12+"
     ],
     "answer": 0,
-    "explain": "Match/case сопоставляет значение. Подходит ответ «other». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно. Подходит ответ «TypeError (или False в отдельных случаях) — generic alias не для isinstance так».",
     "kind": "single",
-    "code": "x = 2\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
     "id": "m393"
   },
@@ -6182,15 +6177,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "SQL",
-    "q": "Выбери верный вариант: Типичная роль `OFFSET`?",
+    "q": "Уровень изоляции READ COMMITTED — что верно?",
     "options": [
-      "пропустить N строк",
-      "создать индекс всегда",
-      "только DDL",
-      "транзакция BEGIN"
+      "разные аномалии чтения/записи; знай свою СУБД",
+      "все уровни идентичны в PostgreSQL",
+      "только про DDL",
+      "отключает индексы"
     ],
     "answer": 0,
-    "explain": "OFFSET в SQL. Подходит ответ «пропустить N строк». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Изоляции отличаются допустимыми аномалиями. Подходит ответ «разные аномалии чтения/записи; знай свою СУБД».",
     "kind": "single",
     "group": "Веб и API",
     "id": "m407"
@@ -6212,15 +6207,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "exceptions",
-    "q": "Что такое FileNotFoundError наследует?",
+    "q": "Что такое IndexError наследует?",
     "options": [
-      "OSError",
+      "LookupError",
       "только object",
       "Warning",
       "OSError всегда"
     ],
     "answer": 0,
-    "explain": "От FileNotFoundError до OSError через промежуточные типы и далее …",
+    "explain": "От IndexError до LookupError через промежуточные типы и далее …",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m409"
@@ -6422,18 +6417,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m422"
   },
   {
-    "topic": "pathlib",
+    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
-      "'.JSON'",
-      "'B.JSON'",
+      "False",
+      "True",
       "ошибка",
-      "''"
+      "None"
     ],
     "answer": 0,
-    "explain": "Suffix — последний суффикс (для tar.gz это .gz). Подходит ответ «'.JSON'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Deepcopy копирует вложенность. Подходит ответ «False». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePath\nprint(PurePath('B.JSON').suffix)",
+    "code": "import copy\na = [[]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m423"
   },
@@ -6483,18 +6478,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m426"
   },
   {
-    "topic": "walrus",
+    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
-      "1",
-      "no",
+      "True",
+      "False",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": ":= присваивает и использует значение в условии. Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «True». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
     "kind": "single",
-    "code": "if (x := 1):\n    print(x)\nelse:\n    print('no')",
+    "code": "print(isinstance({'a': 1}, dict))",
     "group": "Typing и dataclasses",
     "id": "m427"
   },
@@ -6514,16 +6509,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m428"
   },
   {
-    "topic": "SQL",
-    "q": "Выбери верный вариант: Типичная роль `JOIN`?",
+    "topic": "HTTP",
+    "q": "Выбери верный вариант: HTTP 429 обычно значит?",
     "options": [
-      "связь таблиц",
-      "создать индекс всегда",
-      "только DDL",
-      "транзакция BEGIN"
+      "Too Many Requests",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "JOIN в SQL. Подходит ответ «связь таблиц». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "429 — Too Many Requests. Подходит ответ «Too Many Requests». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m429"
@@ -6689,15 +6684,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 504 — кратко?",
+    "q": "Выбери верный вариант: HTTP 409 обычно значит?",
     "options": [
-      "таймаут шлюза",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "Conflict",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HTTP 504: таймаут шлюза. Подходит ответ «таймаут шлюза». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "409 — Conflict. Подходит ответ «Conflict». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m440"
@@ -6766,15 +6761,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "\"hi\"",
-      "hi",
+      "{\"a\": 1}",
       "ошибка",
-      "None"
+      "None",
+      "?0"
     ],
     "answer": 0,
-    "explain": "Dumps, а затем строка JSON. Подходит ответ «\"hi\"». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Dumps, а затем строка JSON. Подходит ответ «{\"a\": 1}». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(json.dumps('hi'))",
+    "code": "import json\nprint(json.dumps({'a': 1}))",
     "group": "Stdlib и производительность",
     "id": "m445"
   },
@@ -6839,16 +6834,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m449"
   },
   {
-    "topic": "SQL",
-    "q": "Выбери верный вариант: SELECT … LIMIT 5 без ORDER BY?",
+    "topic": "HTTP",
+    "q": "Выбери верный вариант: Статус 200 — кратко?",
     "options": [
-      "набор из N строк без стабильного порядка",
-      "всегда первые 5 по PK",
-      "ошибка синтаксиса",
-      "полный table lock"
+      "успех с телом",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "Без ORDER BY порядок не гарантирован. Подходит ответ «набор из N строк без стабильного порядка». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "HTTP 200: успех с телом. Подходит ответ «успех с телом». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m450"
@@ -6870,15 +6865,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "exceptions",
-    "q": "Что такое KeyboardInterrupt наследует?",
+    "q": "Что такое StopIteration наследует?",
     "options": [
-      "BaseException",
+      "Exception",
       "только object",
       "Warning",
       "OSError всегда"
     ],
     "answer": 0,
-    "explain": "От KeyboardInterrupt до BaseException через промежуточные типы и далее …",
+    "explain": "От StopIteration до Exception через промежуточные типы и далее …",
     "kind": "single",
     "group": "Исключения и контекст",
     "id": "m452"
@@ -6998,15 +6993,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 403 — кратко?",
+    "q": "Выбери верный вариант: HTTP 201 обычно значит?",
     "options": [
-      "запрещено",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "Created",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HTTP 403: запрещено. Подходит ответ «запрещено». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "201 — Created. Подходит ответ «Created». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m460"
@@ -7133,16 +7128,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m468"
   },
   {
-    "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 422 обычно значит?",
+    "topic": "SQL",
+    "q": "Выбери верный вариант: Типичная роль `HAVING`?",
     "options": [
-      "Unprocessable",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "фильтр после GROUP BY",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
     ],
     "answer": 0,
-    "explain": "422 — Unprocessable. Подходит ответ «Unprocessable». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "HAVING в SQL. Подходит ответ «фильтр после GROUP BY». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m469"
@@ -7313,18 +7308,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m480"
   },
   {
-    "topic": "bisect",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "4",
-      "0",
-      "8",
-      "?0"
+      "10",
+      "10",
+      "25",
+      "120"
     ],
     "answer": 0,
-    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «4». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "C(5,2) = 10. Подходит ответ «10». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 8))",
+    "code": "from itertools import combinations\nprint(len(list(combinations(range(5), 2))))",
     "group": "Collections и itertools",
     "id": "m481"
   },
@@ -7419,17 +7414,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m487"
   },
   {
-    "topic": "functools",
-    "q": "Что такое lru_cache(maxsize=128) хранит?",
+    "topic": "bisect",
+    "q": "Что выведет код?",
     "options": [
-      "до 128 результатов вызовов",
-      "только последний вызов всегда",
-      "на диске",
-      "в Redis"
+      "1",
+      "2",
+      "0",
+      "3"
     ],
     "answer": 0,
-    "explain": "Кэш в памяти процесса. Подходит ответ «до 128 результатов вызовов».",
+    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 4))",
     "group": "Collections и itertools",
     "id": "m488"
   },
@@ -7525,18 +7521,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m494"
   },
   {
-    "topic": "functools",
-    "q": "Что выведет код?",
+    "topic": "heapq",
+    "q": "Что выведет код (минимум на [0])?",
     "options": [
-      "24",
-      "10",
       "1",
-      "0"
+      "1",
+      "4",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Свёртка произведения. Подходит ответ «24». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "После heapify h[0] — минимум (для min-heap). Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [1, 2, 3, 4]))",
+    "code": "import heapq\nh = [4, 4, 1]\nheapq.heapify(h)\nprint(h[0])",
     "group": "Collections и itertools",
     "id": "m495"
   },
@@ -7573,15 +7569,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 401 обычно значит?",
+    "q": "Выбери верный вариант: Статус 504 — кратко?",
     "options": [
-      "Unauthorized",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "таймаут шлюза",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "401 — Unauthorized. Подходит ответ «Unauthorized». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "HTTP 504: таймаут шлюза. Подходит ответ «таймаут шлюза». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m498"
@@ -7678,15 +7674,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "SQL",
-    "q": "Уровень изоляции READ UNCOMMITTED — что верно?",
+    "q": "Выбери верный вариант: SELECT … LIMIT 1 без ORDER BY?",
     "options": [
-      "разные аномалии чтения/записи; знай свою СУБД",
-      "все уровни идентичны в PostgreSQL",
-      "только про DDL",
-      "отключает индексы"
+      "набор из N строк без стабильного порядка",
+      "всегда первые 1 по PK",
+      "ошибка синтаксиса",
+      "полный table lock"
     ],
     "answer": 0,
-    "explain": "Изоляции отличаются допустимыми аномалиями. Подходит ответ «разные аномалии чтения/записи; знай свою СУБД».",
+    "explain": "Без ORDER BY порядок не гарантирован. Подходит ответ «набор из N строк без стабильного порядка». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m505"
@@ -7873,16 +7869,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m517"
   },
   {
-    "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 409 обычно значит?",
+    "topic": "SQL",
+    "q": "Выбери верный вариант: Типичная роль `GROUP BY`?",
     "options": [
-      "Conflict",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "агрегация по ключу",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
     ],
     "answer": 0,
-    "explain": "409 — Conflict. Подходит ответ «Conflict». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "GROUP BY в SQL. Подходит ответ «агрегация по ключу». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m518"
@@ -7933,18 +7929,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m521"
   },
   {
-    "topic": "bisect",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "1",
-      "2",
-      "0",
-      "3"
+      "8",
+      "6",
+      "3",
+      "7"
     ],
     "answer": 0,
-    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "2^3 = 8. Подходит ответ «8». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 4))",
+    "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=3))))",
     "group": "Collections и itertools",
     "id": "m522"
   },
@@ -7965,15 +7961,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 204 обычно значит?",
+    "q": "Выбери верный вариант: Статус 500 — кратко?",
     "options": [
-      "No Content",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "ошибка сервера",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "204 — No Content. Подходит ответ «No Content». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "HTTP 500: ошибка сервера. Подходит ответ «ошибка сервера». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m524"
@@ -8146,15 +8142,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 500 — кратко?",
+    "q": "Выбери верный вариант: HTTP 401 обычно значит?",
     "options": [
-      "ошибка сервера",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "Unauthorized",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HTTP 500: ошибка сервера. Подходит ответ «ошибка сервера». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "401 — Unauthorized. Подходит ответ «Unauthorized». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m536"
@@ -8205,18 +8201,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m539"
   },
   {
-    "topic": "itertools",
-    "q": "Что выведет код?",
+    "topic": "functools",
+    "q": "Выбери верный вариант: Сколько уникальных ключей кэша у fib(3) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
     "options": [
-      "20",
-      "10",
-      "25",
-      "120"
+      "примерно 4 (0..n)",
+      "8",
+      "3",
+      "0"
     ],
     "answer": 0,
-    "explain": "P(5,2) = 20. Подходит ответ «20». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Каждый k от 0..n кэшируется один раз. Подходит ответ «примерно 4 (0..n)».",
     "kind": "single",
-    "code": "from itertools import permutations\nprint(len(list(permutations(range(5), 2))))",
     "group": "Collections и itertools",
     "id": "m540"
   },
@@ -8238,15 +8233,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 204 — кратко?",
+    "q": "Что делает DELETE по семантике HTTP?",
     "options": [
-      "успех без тела",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
     ],
     "answer": 0,
-    "explain": "HTTP 204: успех без тела. Подходит ответ «успех без тела». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "DELETE безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
     "kind": "single",
     "group": "Веб и API",
     "id": "m542"
@@ -8297,18 +8292,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m545"
   },
   {
-    "topic": "itertools",
+    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "6",
-      "3",
-      "9",
-      "?0"
+      "7",
+      "0",
+      "7",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "P(3,2) = 6. Подходит ответ «6». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Partial фиксирует первый аргумент, а затем f(0, 7). Подходит ответ «7». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 2))))",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 0)(7))",
     "group": "Collections и itertools",
     "id": "m546"
   },
@@ -8451,15 +8446,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "JSONDecodeError",
-      "None",
-      "{}",
-      "ошибка SyntaxError"
+      "dict",
+      "str",
+      "JSON",
+      "tuple"
     ],
     "answer": 0,
-    "explain": "Невалидный JSON, а затем JSONDecodeError. Подходит ответ «JSONDecodeError». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Loads парсит в объекты Python. Подходит ответ «dict». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(json.loads('nullish'))",
+    "code": "import json\nprint(type(json.loads('{\"x\": [1, 2]}')).__name__)",
     "group": "Stdlib и производительность",
     "id": "m556"
   },
@@ -8585,18 +8580,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m564"
   },
   {
-    "topic": "typing",
+    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
-      "True",
-      "False",
+      "1",
+      "no",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «True». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
+    "explain": ":= присваивает и использует значение в условии. Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "print(isinstance({1}, set))",
+    "code": "if (x := 1):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
     "id": "m565"
   },
@@ -8661,18 +8656,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m569"
   },
   {
-    "topic": "collections",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "[('a', 5), ('b', 2)]",
-      "{'a': 5, 'b': 2, 'r': 2, 'c': 1, 'd': 1}",
+      "[1, 2, 0, 1, 2, 3]",
+      "[[1, 2], [0, 1, 2, 3]]",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Топ-2 по частоте. Подходит ответ «[('a', 5), ('b', 2)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Chain склеивает итерируемые. Подходит ответ «[1, 2, 0, 1, 2, 3]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "code": "from collections import Counter\nprint(Counter('abracadabra').most_common(2))",
+    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(4)))))",
     "group": "Collections и itertools",
     "id": "m570"
   },
@@ -8738,17 +8733,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m574"
   },
   {
-    "topic": "collections",
-    "q": "Что делает deque.rotate(1) на 4 элементах?",
+    "topic": "itertools",
+    "q": "Что выведет код?",
     "options": [
-      "цикл сдвиг на 1 вправо (отриц. — влево)",
-      "сортирует",
-      "удаляет k",
-      "ошибка всегда"
+      "6",
+      "3",
+      "9",
+      "?0"
     ],
     "answer": 0,
-    "explain": "Rotate — циклический сдвиг. Подходит ответ «цикл сдвиг на 1 вправо (отриц. — влево)».",
+    "explain": "P(3,2) = 6. Подходит ответ «6». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 2))))",
     "group": "Collections и itertools",
     "id": "m575"
   },
@@ -8816,15 +8812,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "[1, 3, 6]",
-      "[1, 2, 3]",
+      "[10, 20]",
+      "[10, 20, 30]",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Накопительная сумма. Подходит ответ «[1, 3, 6]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Islice — ленивый срез. Подходит ответ «[10, 20]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 4))))",
+    "code": "from itertools import islice\nprint(list(islice([10, 20, 30, 40], 2)))",
     "group": "Collections и itertools",
     "id": "m580"
   },
@@ -8845,15 +8841,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 200 обычно значит?",
+    "q": "Выбери верный вариант: Статус 409 — кратко?",
     "options": [
-      "OK",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "конфликт состояния",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "200 — OK. Подходит ответ «OK». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "HTTP 409: конфликт состояния. Подходит ответ «конфликт состояния». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m582"
@@ -8889,18 +8885,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m584"
   },
   {
-    "topic": "itertools",
+    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "[1, 2, 0, 1, 2, 3, 4]",
-      "[[1, 2], [0, 1, 2, 3, 4]]",
-      "ошибка",
-      "None"
+      "11",
+      "10",
+      "1",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Chain склеивает итерируемые. Подходит ответ «[1, 2, 0, 1, 2, 3, 4]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "Partial фиксирует первый аргумент, а затем f(10, 1). Подходит ответ «11». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(5)))))",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 10)(1))",
     "group": "Collections и itertools",
     "id": "m585"
   },
@@ -8921,15 +8917,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "SQL",
-    "q": "Уровень изоляции REPEATABLE READ — что верно?",
+    "q": "Выбери верный вариант: SELECT … LIMIT 50 без ORDER BY?",
     "options": [
-      "разные аномалии чтения/записи; знай свою СУБД",
-      "все уровни идентичны в PostgreSQL",
-      "только про DDL",
-      "отключает индексы"
+      "набор из N строк без стабильного порядка",
+      "всегда первые 50 по PK",
+      "ошибка синтаксиса",
+      "полный table lock"
     ],
     "answer": 0,
-    "explain": "Изоляции отличаются допустимыми аномалиями. Подходит ответ «разные аномалии чтения/записи; знай свою СУБД».",
+    "explain": "Без ORDER BY порядок не гарантирован. Подходит ответ «набор из N строк без стабильного порядка». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m587"
@@ -8995,16 +8991,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m591"
   },
   {
-    "topic": "SQL",
-    "q": "Выбери верный вариант: SELECT … LIMIT 500 без ORDER BY?",
+    "topic": "HTTP",
+    "q": "Выбери верный вариант: Статус 204 — кратко?",
     "options": [
-      "набор из N строк без стабильного порядка",
-      "всегда первые 500 по PK",
-      "ошибка синтаксиса",
-      "полный table lock"
+      "успех без тела",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "Без ORDER BY порядок не гарантирован. Подходит ответ «набор из N строк без стабильного порядка». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "HTTP 204: успех без тела. Подходит ответ «успех без тела». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m592"
@@ -9116,15 +9112,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "functools",
-    "q": "Выбери верный вариант: Сколько уникальных ключей кэша у fib(2) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "q": "Что такое lru_cache(maxsize=2) хранит?",
     "options": [
-      "примерно 3 (0..n)",
-      "4",
-      "2",
-      "0"
+      "до 2 результатов вызовов",
+      "только последний вызов всегда",
+      "на диске",
+      "в Redis"
     ],
     "answer": 0,
-    "explain": "Каждый k от 0..n кэшируется один раз. Подходит ответ «примерно 3 (0..n)».",
+    "explain": "Кэш в памяти процесса. Подходит ответ «до 2 результатов вызовов».",
     "kind": "single",
     "group": "Collections и itertools",
     "id": "m600"
@@ -9146,15 +9142,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "SQL",
-    "q": "Выбери верный вариант: Типичная роль `LIMIT`?",
+    "q": "Уровень изоляции READ UNCOMMITTED — что верно?",
     "options": [
-      "ограничить число строк",
-      "создать индекс всегда",
-      "только DDL",
-      "транзакция BEGIN"
+      "разные аномалии чтения/записи; знай свою СУБД",
+      "все уровни идентичны в PostgreSQL",
+      "только про DDL",
+      "отключает индексы"
     ],
     "answer": 0,
-    "explain": "LIMIT в SQL. Подходит ответ «ограничить число строк». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Изоляции отличаются допустимыми аномалиями. Подходит ответ «разные аномалии чтения/записи; знай свою СУБД».",
     "kind": "single",
     "group": "Веб и API",
     "id": "m602"
@@ -9175,18 +9171,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m603"
   },
   {
-    "topic": "pathlib",
+    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
-      "etc/passwd",
-      "etc\\passwd",
+      "True (shallow)",
+      "False (deep)",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Склейка частей пути. Подходит ответ «etc/passwd». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Shallow копирует верхний уровень. Подходит ответ «True (shallow)». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('etc', 'passwd'))",
+    "code": "import copy\na = [[0, 0], [1]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m604"
   },
@@ -9195,44 +9191,44 @@ window.QUESTIONS_MIDDLE = [
     "q": "Что выведет код?",
     "options": [
       "6",
-      "8",
-      "16",
-      "24"
+      "1",
+      "9",
+      "27"
     ],
     "answer": 0,
-    "explain": "C(4,2) = 6. Подходит ответ «6». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "P(3,3) = 6. Подходит ответ «6». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 2))))",
+    "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 3))))",
     "group": "Collections и itertools",
     "id": "m605"
   },
   {
-    "topic": "typing",
+    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
-      "False",
-      "True",
+      "2",
+      "no",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «False». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
+    "explain": ":= присваивает и использует значение в условии. Подходит ответ «2». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "print(isinstance((1, 2), list))",
+    "code": "if (x := 2):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
     "id": "m606"
   },
   {
     "topic": "HTTP",
-    "q": "Что делает DELETE по семантике HTTP?",
+    "q": "Выбери верный вариант: Статус 401 — кратко?",
     "options": [
-      "идемпотентный (в идеале)",
-      "никогда не идемпотентный",
-      "только с телом JSON",
-      "запрещён REST"
+      "нужна аутентификация",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "DELETE безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
+    "explain": "HTTP 401: нужна аутентификация. Подходит ответ «нужна аутентификация». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m607"
@@ -9299,16 +9295,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m611"
   },
   {
-    "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 403 обычно значит?",
+    "topic": "SQL",
+    "q": "Выбери верный вариант: Типичная роль `WHERE`?",
     "options": [
-      "Forbidden",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "фильтр строк до группировки",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
     ],
     "answer": 0,
-    "explain": "403 — Forbidden. Подходит ответ «Forbidden». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "WHERE в SQL. Подходит ответ «фильтр строк до группировки». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m612"
@@ -9344,18 +9340,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m614"
   },
   {
-    "topic": "functools",
+    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
-      "5",
-      "7",
+      "2",
       "0",
-      "ошибка"
+      "4",
+      "?0"
     ],
     "answer": 0,
-    "explain": "Свёртка произведения. Подходит ответ «5». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «2». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [5, 1, 1]))",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 4))",
     "group": "Collections и itertools",
     "id": "m615"
   },
@@ -9405,18 +9401,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m618"
   },
   {
-    "topic": "heapq",
-    "q": "Что выведет код (минимум на [0])?",
+    "topic": "collections",
+    "q": "Что выведет код?",
     "options": [
-      "1",
-      "1",
-      "5",
-      "ошибка"
+      "[('a', 2), ('b', 1)]",
+      "{'a': 2, 'b': 1}",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "После heapify h[0] — минимум (для min-heap). Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Топ-2 по частоте. Подходит ответ «[('a', 2), ('b', 1)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import heapq\nh = [5, 1, 3]\nheapq.heapify(h)\nprint(h[0])",
+    "code": "from collections import Counter\nprint(Counter('aab').most_common(2))",
     "group": "Collections и itertools",
     "id": "m619"
   },
@@ -9436,16 +9432,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m620"
   },
   {
-    "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 404 обычно значит?",
+    "topic": "SQL",
+    "q": "Выбери верный вариант: Типичная роль `JOIN`?",
     "options": [
-      "Not Found",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "связь таблиц",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
     ],
     "answer": 0,
-    "explain": "404 — Not Found. Подходит ответ «Not Found». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "JOIN в SQL. Подходит ответ «связь таблиц». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m621"
@@ -9482,47 +9478,48 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "match",
-    "q": "Что такое case _ :?",
+    "q": "Что выведет код?",
     "options": [
-      "wildcard / default ветка",
-      "ошибка синтаксиса",
-      "только для None",
-      "break"
+      "empty",
+      "ошибка",
+      "None",
+      "[]"
     ],
     "answer": 0,
-    "explain": "Ловит всё оставшееся. Подходит ответ «wildcard / default ветка».",
+    "explain": "Паттерны последовательностей в match. Подходит ответ «empty». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "x = []\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
     "id": "m624"
   },
   {
-    "topic": "SQL",
-    "q": "Выбери верный вариант: Типичная роль `HAVING`?",
+    "topic": "HTTP",
+    "q": "Выбери верный вариант: HTTP 502 обычно значит?",
     "options": [
-      "фильтр после GROUP BY",
-      "создать индекс всегда",
-      "только DDL",
-      "транзакция BEGIN"
+      "Bad Gateway",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HAVING в SQL. Подходит ответ «фильтр после GROUP BY». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "502 — Bad Gateway. Подходит ответ «Bad Gateway». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m625"
   },
   {
-    "topic": "JSON",
+    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "{\"a\": 1}",
+      "a/b",
+      "a/b/",
       "ошибка",
-      "None",
-      "?0"
+      "None"
     ],
     "answer": 0,
-    "explain": "Dumps, а затем строка JSON. Подходит ответ «{\"a\": 1}». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Path склеивает части. Подходит ответ «a/b». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(json.dumps({'a': 1}))",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('a', 'b'))",
     "group": "Stdlib и производительность",
     "id": "m626"
   },
@@ -9558,15 +9555,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "SQL",
-    "q": "Выбери верный вариант: Типичная роль `RETURNING`?",
+    "q": "Уровень изоляции REPEATABLE READ — что верно?",
     "options": [
-      "вернуть строки после INSERT/UPDATE/DELETE (PG и др.)",
-      "создать индекс всегда",
-      "только DDL",
-      "транзакция BEGIN"
+      "разные аномалии чтения/записи; знай свою СУБД",
+      "все уровни идентичны в PostgreSQL",
+      "только про DDL",
+      "отключает индексы"
     ],
     "answer": 0,
-    "explain": "RETURNING в SQL. Подходит ответ «вернуть строки после INSERT/UPDATE/DELETE (PG и др.)». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Изоляции отличаются допустимыми аномалиями. Подходит ответ «разные аномалии чтения/записи; знай свою СУБД».",
     "kind": "single",
     "group": "Веб и API",
     "id": "m629"
@@ -9587,34 +9584,33 @@ window.QUESTIONS_MIDDLE = [
     "id": "m630"
   },
   {
-    "topic": "heapq",
-    "q": "Что выведет код?",
+    "topic": "collections",
+    "q": "Что делает deque.rotate(2) на 5 элементах?",
     "options": [
-      "[1, 4]",
-      "[1, 4, 4]",
-      "ошибка",
-      "None"
+      "цикл сдвиг на 2 вправо (отриц. — влево)",
+      "сортирует",
+      "удаляет k",
+      "ошибка всегда"
     ],
     "answer": 0,
-    "explain": "Два наименьших. Подходит ответ «[1, 4]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Rotate — циклический сдвиг. Подходит ответ «цикл сдвиг на 2 вправо (отриц. — влево)».",
     "kind": "single",
-    "code": "import heapq\nprint(heapq.nsmallest(2, [4, 4, 1]))",
     "group": "Collections и itertools",
     "id": "m631"
   },
   {
-    "topic": "walrus",
+    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
-      "2",
-      "no",
+      "True",
+      "False",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": ":= присваивает и использует значение в условии. Подходит ответ «2». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «True». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
     "kind": "single",
-    "code": "if (x := 2):\n    print(x)\nelse:\n    print('no')",
+    "code": "print(isinstance((1,), tuple))",
     "group": "Typing и dataclasses",
     "id": "m632"
   },
@@ -9695,18 +9691,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m637"
   },
   {
-    "topic": "JSON",
+    "topic": "regex",
     "q": "Что выведет код?",
     "options": [
-      "[1, 2, 3]",
+      "'42'",
+      "'42'",
       "ошибка",
-      "None",
-      "?0"
+      "[]"
     ],
     "answer": 0,
-    "explain": "Dumps, а затем строка JSON. Подходит ответ «[1, 2, 3]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Search — первое вхождение. Подходит ответ «'42'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(json.dumps([1, 2, 3]))",
+    "code": "import re\nm = re.search('^\\\\d+$', '42')\nprint(None if m is None else m.group())",
     "group": "Stdlib и производительность",
     "id": "m638"
   },
@@ -9771,18 +9767,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m642"
   },
   {
-    "topic": "collections",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "[('a', 3), ('b', 2)]",
-      "{'a': 3, 'b': 2}",
+      "[1, 3, 6]",
+      "[1, 2, 3]",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Топ-2 по частоте. Подходит ответ «[('a', 3), ('b', 2)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Накопительная сумма. Подходит ответ «[1, 3, 6]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from collections import Counter\nprint(Counter('aaabb').most_common(2))",
+    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 4))))",
     "group": "Collections и itertools",
     "id": "m643"
   },
@@ -9817,18 +9813,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m645"
   },
   {
-    "topic": "pathlib",
+    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
-      "tmp/x",
-      "tmp\\x",
+      "True (shallow)",
+      "False (deep)",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Склейка частей пути. Подходит ответ «tmp/x». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Shallow копирует верхний уровень. Подходит ответ «True (shallow)». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('tmp', 'x'))",
+    "code": "import copy\na = [{'a': 1}]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m646"
   },
@@ -9848,18 +9844,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m647"
   },
   {
-    "topic": "match",
-    "q": "Что выведет код?",
+    "topic": "dataclasses",
+    "q": "Выбери верный вариант: @dataclass class Cell: x: int = -1 — экземпляры делят x?",
     "options": [
-      "single",
-      "ошибка",
-      "None",
-      "[1]"
+      "нет, int immutable default ок",
+      "да, как list",
+      "ошибка синтаксиса",
+      "только frozen"
     ],
     "answer": 0,
-    "explain": "Паттерны последовательностей в match. Подходит ответ «single». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Проблема mutable default; int безопасен. Подходит ответ «нет, int immutable default ок».",
     "kind": "single",
-    "code": "x = [1]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
     "id": "m648"
   },
@@ -9894,18 +9889,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m650"
   },
   {
-    "topic": "itertools",
+    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "[1, 3, 6, 10, 15]",
-      "[1, 2, 3, 4, 5]",
-      "ошибка",
-      "None"
+      "10",
+      "25",
+      "5",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Накопительная сумма. Подходит ответ «[1, 3, 6, 10, 15]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Partial фиксирует первый аргумент, а затем f(5, 5). Подходит ответ «10». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 6))))",
+    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 5)(5))",
     "group": "Collections и itertools",
     "id": "m651"
   },
@@ -9925,16 +9920,16 @@ window.QUESTIONS_MIDDLE = [
     "id": "m652"
   },
   {
-    "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 503 обычно значит?",
+    "topic": "SQL",
+    "q": "Выбери верный вариант: Типичная роль `RETURNING`?",
     "options": [
-      "Unavailable",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "вернуть строки после INSERT/UPDATE/DELETE (PG и др.)",
+      "создать индекс всегда",
+      "только DDL",
+      "транзакция BEGIN"
     ],
     "answer": 0,
-    "explain": "503 — Unavailable. Подходит ответ «Unavailable». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "RETURNING в SQL. Подходит ответ «вернуть строки после INSERT/UPDATE/DELETE (PG и др.)». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m653"
@@ -9955,18 +9950,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m654"
   },
   {
-    "topic": "heapq",
+    "topic": "collections",
     "q": "Что выведет код?",
     "options": [
-      "[1, 3]",
-      "[1, 3, 5]",
+      "[('a', 3), ('b', 2)]",
+      "{'a': 3, 'b': 2}",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Два наименьших. Подходит ответ «[1, 3]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Топ-2 по частоте. Подходит ответ «[('a', 3), ('b', 2)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import heapq\nprint(heapq.nsmallest(2, [5, 1, 3]))",
+    "code": "from collections import Counter\nprint(Counter('aaabb').most_common(2))",
     "group": "Collections и itertools",
     "id": "m655"
   },
@@ -9987,15 +9982,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 401 — кратко?",
+    "q": "Выбери верный вариант: HTTP 200 обычно значит?",
     "options": [
-      "нужна аутентификация",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "OK",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HTTP 401: нужна аутентификация. Подходит ответ «нужна аутентификация». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "200 — OK. Подходит ответ «OK». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m657"
@@ -10016,18 +10011,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m658"
   },
   {
-    "topic": "itertools",
+    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "[0, 1, 2, 3]",
-      "[0, 1, 2, 3, 4]",
-      "ошибка",
-      "None"
+      "8",
+      "6",
+      "2",
+      "0"
     ],
     "answer": 0,
-    "explain": "Islice — ленивый срез. Подходит ответ «[0, 1, 2, 3]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Свёртка произведения. Подходит ответ «8». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import islice\nprint(list(islice([0, 1, 2, 3, 4, 5], 4)))",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [2, 2, 2]))",
     "group": "Collections и itertools",
     "id": "m659"
   },
@@ -10062,34 +10057,34 @@ window.QUESTIONS_MIDDLE = [
     "id": "m661"
   },
   {
-    "topic": "pathlib",
+    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
-      "'.gz'",
-      "'archive.tar.gz'",
+      "False",
+      "True",
       "ошибка",
-      "''"
+      "None"
     ],
     "answer": 0,
-    "explain": "Suffix — последний суффикс (для tar.gz это .gz). Подходит ответ «'.gz'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Deepcopy копирует вложенность. Подходит ответ «False». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePath\nprint(PurePath('archive.tar.gz').suffix)",
+    "code": "import copy\na = [[1, 2, 3]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m662"
   },
   {
-    "topic": "bisect",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "3",
-      "4",
-      "0",
-      "7"
+      "6",
+      "8",
+      "16",
+      "24"
     ],
     "answer": 0,
-    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «3». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "C(4,2) = 6. Подходит ответ «6». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 7))",
+    "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 2))))",
     "group": "Collections и itertools",
     "id": "m663"
   },
@@ -10170,15 +10165,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 304 — кратко?",
+    "q": "Что делает HEAD по семантике HTTP?",
     "options": [
-      "не изменилось / кэш",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
     ],
     "answer": 0,
-    "explain": "HTTP 304: не изменилось / кэш. Подходит ответ «не изменилось / кэш». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "HEAD безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
     "kind": "single",
     "group": "Веб и API",
     "id": "m669"
@@ -10214,32 +10209,32 @@ window.QUESTIONS_MIDDLE = [
     "id": "m671"
   },
   {
-    "topic": "walrus",
+    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
-      "5",
-      "no",
+      "True",
+      "False",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": ":= присваивает и использует значение в условии. Подходит ответ «5». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «True». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
     "kind": "single",
-    "code": "if (x := 5):\n    print(x)\nelse:\n    print('no')",
+    "code": "print(isinstance({1}, set))",
     "group": "Typing и dataclasses",
     "id": "m672"
   },
   {
-    "topic": "SQL",
-    "q": "Выбери верный вариант: Типичная роль `WHERE`?",
+    "topic": "HTTP",
+    "q": "Выбери верный вариант: HTTP 422 обычно значит?",
     "options": [
-      "фильтр строк до группировки",
-      "создать индекс всегда",
-      "только DDL",
-      "транзакция BEGIN"
+      "Unprocessable",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "WHERE в SQL. Подходит ответ «фильтр строк до группировки». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "422 — Unprocessable. Подходит ответ «Unprocessable». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m673"
@@ -10306,49 +10301,49 @@ window.QUESTIONS_MIDDLE = [
     "id": "m677"
   },
   {
-    "topic": "copy",
+    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "False",
-      "True",
+      "[1, 2, 3]",
       "ошибка",
-      "None"
+      "None",
+      "?0"
     ],
     "answer": 0,
-    "explain": "Deepcopy копирует вложенность. Подходит ответ «False». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Dumps, а затем строка JSON. Подходит ответ «[1, 2, 3]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [[1], [2]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "code": "import json\nprint(json.dumps([1, 2, 3]))",
     "group": "Stdlib и производительность",
     "id": "m678"
   },
   {
-    "topic": "itertools",
-    "q": "Что выведет код?",
+    "topic": "functools",
+    "q": "Выбери верный вариант: Сколько уникальных ключей кэша у fib(4) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
     "options": [
-      "6",
-      "1",
-      "9",
-      "27"
+      "примерно 5 (0..n)",
+      "16",
+      "4",
+      "0"
     ],
     "answer": 0,
-    "explain": "P(3,3) = 6. Подходит ответ «6». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Каждый k от 0..n кэшируется один раз. Подходит ответ «примерно 5 (0..n)».",
     "kind": "single",
-    "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 3))))",
     "group": "Collections и itertools",
     "id": "m679"
   },
   {
-    "topic": "dataclasses",
-    "q": "Зачем нужен field(default_factory=dict)?",
+    "topic": "match",
+    "q": "Что выведет код?",
     "options": [
-      "новый dict() на каждый экземпляр",
-      "общий один dict",
-      "запретить поле",
-      "только JSON"
+      "single",
+      "ошибка",
+      "None",
+      "[1]"
     ],
     "answer": 0,
-    "explain": "Избегаем общего mutable default. Подходит ответ «новый dict() на каждый экземпляр».",
+    "explain": "Паттерны последовательностей в match. Подходит ответ «single». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "x = [1]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
     "id": "m680"
   },
@@ -10383,18 +10378,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m682"
   },
   {
-    "topic": "heapq",
-    "q": "Что выведет код (минимум на [0])?",
+    "topic": "collections",
+    "q": "Что выведет код?",
     "options": [
-      "1",
-      "1",
-      "4",
-      "ошибка"
+      "[('a', 5), ('b', 2)]",
+      "{'a': 5, 'b': 2, 'r': 2, 'c': 1, 'd': 1}",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "После heapify h[0] — минимум (для min-heap). Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Топ-2 по частоте. Подходит ответ «[('a', 5), ('b', 2)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import heapq\nh = [4, 4, 1]\nheapq.heapify(h)\nprint(h[0])",
+    "code": "from collections import Counter\nprint(Counter('abracadabra').most_common(2))",
     "group": "Collections и itertools",
     "id": "m683"
   },
@@ -10490,18 +10485,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m689"
   },
   {
-    "topic": "copy",
+    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "True (shallow)",
-      "False (deep)",
-      "ошибка",
-      "None"
+      "JSONDecodeError",
+      "None",
+      "{}",
+      "ошибка SyntaxError"
     ],
     "answer": 0,
-    "explain": "Shallow копирует верхний уровень. Подходит ответ «True (shallow)». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Невалидный JSON, а затем JSONDecodeError. Подходит ответ «JSONDecodeError». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [[]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "code": "import json\nprint(json.loads('nullish'))",
     "group": "Stdlib и производительность",
     "id": "m690"
   },
@@ -10567,15 +10562,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "functools",
-    "q": "Выбери верный вариант: Сколько уникальных ключей кэша у fib(3) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "q": "Что такое lru_cache(maxsize=8) хранит?",
     "options": [
-      "примерно 4 (0..n)",
-      "8",
-      "3",
-      "0"
+      "до 8 результатов вызовов",
+      "только последний вызов всегда",
+      "на диске",
+      "в Redis"
     ],
     "answer": 0,
-    "explain": "Каждый k от 0..n кэшируется один раз. Подходит ответ «примерно 4 (0..n)».",
+    "explain": "Кэш в памяти процесса. Подходит ответ «до 8 результатов вызовов».",
     "kind": "single",
     "group": "Collections и itertools",
     "id": "m695"
@@ -10626,18 +10621,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m698"
   },
   {
-    "topic": "collections",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "[('x', 1), ('y', 1)]",
-      "{'x': 1, 'y': 1, 'z': 1}",
+      "[1, 2, 0, 1, 2]",
+      "[[1, 2], [0, 1, 2]]",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Топ-2 по частоте. Подходит ответ «[('x', 1), ('y', 1)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Chain склеивает итерируемые. Подходит ответ «[1, 2, 0, 1, 2]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "code": "from collections import Counter\nprint(Counter('xyz').most_common(2))",
+    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(3)))))",
     "group": "Collections и itertools",
     "id": "m699"
   },
@@ -10702,17 +10697,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m703"
   },
   {
-    "topic": "dataclasses",
-    "q": "Выбери верный вариант: @dataclass class Point: x: int = 0 — экземпляры делят x?",
+    "topic": "match",
+    "q": "Что выведет код?",
     "options": [
-      "нет, int immutable default ок",
-      "да, как list",
-      "ошибка синтаксиса",
-      "только frozen"
+      "other",
+      "ошибка",
+      "None",
+      "2"
     ],
     "answer": 0,
-    "explain": "Проблема mutable default; int безопасен. Подходит ответ «нет, int immutable default ок».",
+    "explain": "Match/case сопоставляет значение. Подходит ответ «other». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "x = 2\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
     "id": "m704"
   },
@@ -10732,18 +10728,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m705"
   },
   {
-    "topic": "JSON",
+    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "dict",
-      "str",
-      "JSON",
-      "tuple"
+      "x/y/z/w",
+      "x/y/z/w/",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Loads парсит в объекты Python. Подходит ответ «dict». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Path склеивает части. Подходит ответ «x/y/z/w». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(type(json.loads('{\"x\": [1, 2]}')).__name__)",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('x', 'y', 'z', 'w'))",
     "group": "Stdlib и производительность",
     "id": "m706"
   },
@@ -10751,31 +10747,30 @@ window.QUESTIONS_MIDDLE = [
     "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "[1, 2, 0, 1, 2]",
-      "[[1, 2], [0, 1, 2]]",
+      "[0, 1, 2, 3]",
+      "[0, 1, 2, 3, 4]",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Chain склеивает итерируемые. Подходит ответ «[1, 2, 0, 1, 2]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "Islice — ленивый срез. Подходит ответ «[0, 1, 2, 3]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(3)))))",
+    "code": "from itertools import islice\nprint(list(islice([0, 1, 2, 3, 4, 5], 4)))",
     "group": "Collections и itertools",
     "id": "m707"
   },
   {
-    "topic": "match",
-    "q": "Что выведет код?",
+    "topic": "typing",
+    "q": "Что вернёт isinstance([1], tuple[int, ...]) в обычном CPython?",
     "options": [
-      "other",
-      "ошибка",
-      "None",
-      "99"
+      "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
+      "True всегда",
+      "False всегда без ошибки",
+      "True только в 3.12+"
     ],
     "answer": 0,
-    "explain": "Match/case сопоставляет значение. Подходит ответ «other». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно. Подходит ответ «TypeError (или False в отдельных случаях) — generic alias не для isinstance так».",
     "kind": "single",
-    "code": "x = 99\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
     "id": "m708"
   },
@@ -10825,18 +10820,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m711"
   },
   {
-    "topic": "match",
-    "q": "Что выведет код?",
+    "topic": "dataclasses",
+    "q": "Выбери верный вариант: @dataclass class Node: x: int = 1 — экземпляры делят x?",
     "options": [
-      "many",
-      "ошибка",
-      "None",
-      "[1, 2, 3]"
+      "нет, int immutable default ок",
+      "да, как list",
+      "ошибка синтаксиса",
+      "только frozen"
     ],
     "answer": 0,
-    "explain": "Паттерны последовательностей в match. Подходит ответ «many». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Проблема mutable default; int безопасен. Подходит ответ «нет, int immutable default ок».",
     "kind": "single",
-    "code": "x = [1, 2, 3]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
     "id": "m712"
   },
@@ -10886,17 +10880,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m715"
   },
   {
-    "topic": "typing",
-    "q": "Что вернёт isinstance([1], list[int]) в обычном CPython?",
+    "topic": "walrus",
+    "q": "Что выведет код?",
     "options": [
-      "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
-      "True всегда",
-      "False всегда без ошибки",
-      "True только в 3.12+"
+      "10",
+      "no",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно. Подходит ответ «TypeError (или False в отдельных случаях) — generic alias не для isinstance так».",
+    "explain": ":= присваивает и использует значение в условии. Подходит ответ «10». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "if (x := 10):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
     "id": "m716"
   },
@@ -10934,15 +10929,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "4",
-      "2",
-      "5",
-      "?0"
+      "[(1, 1), (2, 1), (1, 1)]",
+      "[1, 2]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "2^2 = 4. Подходит ответ «4». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Groupby группирует только подряд идущие одинаковые. Подходит ответ «[(1, 1), (2, 1), (1, 1)]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=2))))",
+    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 2, 1])])",
     "group": "Collections и itertools",
     "id": "m719"
   },
@@ -10995,15 +10990,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "[1, 3]",
-      "[1, 2]",
-      "ошибка",
-      "None"
+      "16",
+      "8",
+      "4",
+      "9"
     ],
     "answer": 0,
-    "explain": "Накопительная сумма. Подходит ответ «[1, 3]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "2^4 = 16. Подходит ответ «16». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 3))))",
+    "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=4))))",
     "group": "Collections и itertools",
     "id": "m723"
   },
@@ -11023,47 +11018,47 @@ window.QUESTIONS_MIDDLE = [
     "id": "m724"
   },
   {
-    "topic": "SQL",
-    "q": "Выбери верный вариант: SELECT … LIMIT 50 без ORDER BY?",
+    "topic": "HTTP",
+    "q": "Выбери верный вариант: Статус 201 — кратко?",
     "options": [
-      "набор из N строк без стабильного порядка",
-      "всегда первые 50 по PK",
-      "ошибка синтаксиса",
-      "полный table lock"
+      "ресурс создан",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "Без ORDER BY порядок не гарантирован. Подходит ответ «набор из N строк без стабильного порядка». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "HTTP 201: ресурс создан. Подходит ответ «ресурс создан». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m725"
   },
   {
-    "topic": "copy",
+    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "False",
-      "True",
+      "\"hi\"",
+      "hi",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Deepcopy копирует вложенность. Подходит ответ «False». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Dumps, а затем строка JSON. Подходит ответ «\"hi\"». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [[0, 0], [1]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
+    "code": "import json\nprint(json.dumps('hi'))",
     "group": "Stdlib и производительность",
     "id": "m726"
   },
   {
     "topic": "functools",
-    "q": "Выбери верный вариант: Сколько уникальных ключей кэша у fib(5) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "q": "Что такое lru_cache(maxsize=None (безлимит)) хранит?",
     "options": [
-      "примерно 6 (0..n)",
-      "32",
-      "5",
-      "0"
+      "неограниченно (осторожно с RAM)",
+      "ровно 0 записей",
+      "на диске",
+      "в Redis"
     ],
     "answer": 0,
-    "explain": "Каждый k от 0..n кэшируется один раз. Подходит ответ «примерно 6 (0..n)».",
+    "explain": "Кэш в памяти процесса. Подходит ответ «неограниченно (осторожно с RAM)».",
     "kind": "single",
     "group": "Collections и itertools",
     "id": "m727"
@@ -11085,32 +11080,32 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 502 — кратко?",
+    "q": "Выбери верный вариант: HTTP 403 обычно значит?",
     "options": [
-      "плохой шлюз",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "Forbidden",
+      "всегда успех",
+      "только редирект",
+      "WebSocket"
     ],
     "answer": 0,
-    "explain": "HTTP 502: плохой шлюз. Подходит ответ «плохой шлюз». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "403 — Forbidden. Подходит ответ «Forbidden». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m729"
   },
   {
-    "topic": "JSON",
+    "topic": "regex",
     "q": "Что выведет код?",
     "options": [
-      "dict",
-      "str",
-      "JSON",
-      "tuple"
+      "'a'",
+      "'stack'",
+      "ошибка",
+      "[]"
     ],
     "answer": 0,
-    "explain": "Loads парсит в объекты Python. Подходит ответ «dict». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Search — первое вхождение. Подходит ответ «'a'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(type(json.loads('{\"ok\": true, \"n\": null}')).__name__)",
+    "code": "import re\nm = re.search('[aeiou]', 'stack')\nprint(None if m is None else m.group())",
     "group": "Stdlib и производительность",
     "id": "m730"
   },
@@ -11220,18 +11215,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m737"
   },
   {
-    "topic": "pathlib",
+    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
-      "'.PNG'",
-      "'photo.PNG'",
+      "True (shallow)",
+      "False (deep)",
       "ошибка",
-      "''"
+      "None"
     ],
     "answer": 0,
-    "explain": "Suffix — последний суффикс (для tar.gz это .gz). Подходит ответ «'.PNG'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Shallow копирует верхний уровень. Подходит ответ «True (shallow)». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePath\nprint(PurePath('photo.PNG').suffix)",
+    "code": "import copy\na = [[1, 2, 3]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m738"
   },
@@ -11299,44 +11294,45 @@ window.QUESTIONS_MIDDLE = [
     "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "8",
-      "6",
-      "3",
-      "7"
+      "[(0, 2), (1, 2), (0, 1)]",
+      "[0, 1]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "2^3 = 8. Подходит ответ «8». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Groupby группирует только подряд идущие одинаковые. Подходит ответ «[(0, 2), (1, 2), (0, 1)]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=3))))",
+    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([0, 0, 1, 1, 0])])",
     "group": "Collections и itertools",
     "id": "m743"
   },
   {
-    "topic": "dataclasses",
-    "q": "Зачем нужен field(default_factory=set)?",
+    "topic": "match",
+    "q": "Что выведет код?",
     "options": [
-      "новый set() на каждый экземпляр",
-      "общий один set",
-      "запретить поле",
-      "только JSON"
+      "many",
+      "ошибка",
+      "None",
+      "[1, 2, 3]"
     ],
     "answer": 0,
-    "explain": "Избегаем общего mutable default. Подходит ответ «новый set() на каждый экземпляр».",
+    "explain": "Паттерны последовательностей в match. Подходит ответ «many». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "x = [1, 2, 3]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
     "group": "Typing и dataclasses",
     "id": "m744"
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: Статус 400 — кратко?",
+    "q": "Что делает OPTIONS по семантике HTTP?",
     "options": [
-      "ошибка клиента",
-      "всегда фатальный краш Python",
-      "только WebSocket",
-      "успех всегда"
+      "идемпотентный (в идеале)",
+      "никогда не идемпотентный",
+      "только с телом JSON",
+      "запрещён REST"
     ],
     "answer": 0,
-    "explain": "HTTP 400: ошибка клиента. Подходит ответ «ошибка клиента». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "OPTIONS безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай). Подходит ответ «идемпотентный (в идеале)».",
     "kind": "single",
     "group": "Веб и API",
     "id": "m745"
@@ -11358,47 +11354,47 @@ window.QUESTIONS_MIDDLE = [
     "id": "m746"
   },
   {
-    "topic": "bisect",
-    "q": "Что выведет код?",
+    "topic": "collections",
+    "q": "Что делает deque.rotate(4) на 7 элементах?",
     "options": [
-      "2",
-      "0",
-      "4",
-      "?0"
+      "цикл сдвиг на 4 вправо (отриц. — влево)",
+      "сортирует",
+      "удаляет k",
+      "ошибка всегда"
     ],
     "answer": 0,
-    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «2». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Rotate — циклический сдвиг. Подходит ответ «цикл сдвиг на 4 вправо (отриц. — влево)».",
     "kind": "single",
-    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 4))",
     "group": "Collections и itertools",
     "id": "m747"
   },
   {
-    "topic": "typing",
-    "q": "Что вернёт isinstance([1], tuple[int, ...]) в обычном CPython?",
+    "topic": "match",
+    "q": "Что выведет код?",
     "options": [
-      "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
-      "True всегда",
-      "False всегда без ошибки",
-      "True только в 3.12+"
+      "one",
+      "ошибка",
+      "None",
+      "1"
     ],
     "answer": 0,
-    "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно. Подходит ответ «TypeError (или False в отдельных случаях) — generic alias не для isinstance так».",
+    "explain": "Match/case сопоставляет значение. Подходит ответ «one». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "x = 1\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
     "id": "m748"
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 400 обычно значит?",
+    "q": "Выбери верный вариант: Статус 503 — кратко?",
     "options": [
-      "Bad Request",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "сервис недоступен",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "400 — Bad Request. Подходит ответ «Bad Request». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "HTTP 503: сервис недоступен. Подходит ответ «сервис недоступен». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m749"
@@ -11420,17 +11416,16 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "functools",
-    "q": "Что выведет код?",
+    "q": "Что такое lru_cache(maxsize=1) хранит?",
     "options": [
-      "7",
-      "0",
-      "7",
-      "ошибка"
+      "до 1 результатов вызовов",
+      "только последний вызов всегда",
+      "на диске",
+      "в Redis"
     ],
     "answer": 0,
-    "explain": "Partial фиксирует первый аргумент, а затем f(0, 7). Подходит ответ «7». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Кэш в памяти процесса. Подходит ответ «до 1 результатов вызовов».",
     "kind": "single",
-    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 0)(7))",
     "group": "Collections и itertools",
     "id": "m751"
   },
@@ -11451,15 +11446,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "SQL",
-    "q": "Уровень изоляции SERIALIZABLE — что верно?",
+    "q": "Выбери верный вариант: SELECT … LIMIT 500 без ORDER BY?",
     "options": [
-      "разные аномалии чтения/записи; знай свою СУБД",
-      "все уровни идентичны в PostgreSQL",
-      "только про DDL",
-      "отключает индексы"
+      "набор из N строк без стабильного порядка",
+      "всегда первые 500 по PK",
+      "ошибка синтаксиса",
+      "полный table lock"
     ],
     "answer": 0,
-    "explain": "Изоляции отличаются допустимыми аномалиями. Подходит ответ «разные аномалии чтения/записи; знай свою СУБД».",
+    "explain": "Без ORDER BY порядок не гарантирован. Подходит ответ «набор из N строк без стабильного порядка». SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m753"
@@ -11483,15 +11478,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "3",
-      "2",
-      "2",
-      "ошибка"
+      "7",
+      "8",
+      "5",
+      "3"
     ],
     "answer": 0,
-    "explain": "Partial фиксирует первый аргумент, а затем f(1, 2). Подходит ответ «3». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Свёртка суммы. Подходит ответ «7». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 1)(2))",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [5, 1, 1]))",
     "group": "Collections и itertools",
     "id": "m755"
   },
@@ -11512,15 +11507,15 @@ window.QUESTIONS_MIDDLE = [
   },
   {
     "topic": "HTTP",
-    "q": "Выбери верный вариант: HTTP 201 обычно значит?",
+    "q": "Выбери верный вариант: Статус 429 — кратко?",
     "options": [
-      "Created",
-      "всегда успех",
-      "только редирект",
-      "WebSocket"
+      "лимит запросов",
+      "всегда фатальный краш Python",
+      "только WebSocket",
+      "успех всегда"
     ],
     "answer": 0,
-    "explain": "201 — Created. Подходит ответ «Created». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "HTTP 429: лимит запросов. Подходит ответ «лимит запросов». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
     "group": "Веб и API",
     "id": "m757"
@@ -11601,17 +11596,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m762"
   },
   {
-    "topic": "collections",
-    "q": "Что делает deque.rotate(2) на 5 элементах?",
+    "topic": "itertools",
+    "q": "Что выведет код?",
     "options": [
-      "цикл сдвиг на 2 вправо (отриц. — влево)",
-      "сортирует",
-      "удаляет k",
-      "ошибка всегда"
+      "[1, 3, 6, 10, 15]",
+      "[1, 2, 3, 4, 5]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Rotate — циклический сдвиг. Подходит ответ «цикл сдвиг на 2 вправо (отриц. — влево)».",
+    "explain": "Накопительная сумма. Подходит ответ «[1, 3, 6, 10, 15]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 6))))",
     "group": "Collections и itertools",
     "id": "m763"
   },
@@ -11692,17 +11688,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m768"
   },
   {
-    "topic": "functools",
-    "q": "Что такое lru_cache(maxsize=None (безлимит)) хранит?",
+    "topic": "itertools",
+    "q": "Что выведет код?",
     "options": [
-      "неограниченно (осторожно с RAM)",
-      "ровно 0 записей",
-      "на диске",
-      "в Redis"
+      "[1, 3]",
+      "[1, 2]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Кэш в памяти процесса. Подходит ответ «неограниченно (осторожно с RAM)».",
+    "explain": "Накопительная сумма. Подходит ответ «[1, 3]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 3))))",
     "group": "Collections и itertools",
     "id": "m769"
   },
@@ -11752,50 +11749,49 @@ window.QUESTIONS_MIDDLE = [
     "id": "m772"
   },
   {
-    "topic": "match",
-    "q": "Что выведет код?",
+    "topic": "typing",
+    "q": "Что вернёт isinstance([1], list[int]) в обычном CPython?",
     "options": [
-      "one",
-      "ошибка",
-      "None",
-      "1"
+      "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
+      "True всегда",
+      "False всегда без ошибки",
+      "True только в 3.12+"
     ],
     "answer": 0,
-    "explain": "Match/case сопоставляет значение. Подходит ответ «one». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно. Подходит ответ «TypeError (или False в отдельных случаях) — generic alias не для isinstance так».",
     "kind": "single",
-    "code": "x = 1\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
     "id": "m773"
   },
   {
-    "topic": "JSON",
+    "topic": "regex",
     "q": "Что выведет код?",
     "options": [
-      "list",
-      "str",
-      "JSON",
-      "tuple"
+      "None",
+      "'42a'",
+      "ошибка",
+      "[]"
     ],
     "answer": 0,
-    "explain": "Loads парсит в объекты Python. Подходит ответ «list». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Search — первое вхождение. Подходит ответ «None». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(type(json.loads('[1, 2, 3]')).__name__)",
+    "code": "import re\nm = re.search('^\\\\d+$', '42a')\nprint(None if m is None else m.group())",
     "group": "Stdlib и производительность",
     "id": "m774"
   },
   {
-    "topic": "itertools",
+    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "[1, 2, 3]",
-      "[1, 2, 3, 4]",
-      "ошибка",
-      "None"
+      "24",
+      "10",
+      "1",
+      "0"
     ],
     "answer": 0,
-    "explain": "Islice — ленивый срез. Подходит ответ «[1, 2, 3]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Свёртка произведения. Подходит ответ «24». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import islice\nprint(list(islice([1, 2, 3, 4, 5], 3)))",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [1, 2, 3, 4]))",
     "group": "Collections и itertools",
     "id": "m775"
   },
@@ -11815,18 +11811,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m776"
   },
   {
-    "topic": "pathlib",
+    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
-      "'.txt'",
-      "'a.txt'",
+      "True (shallow)",
+      "False (deep)",
       "ошибка",
-      "''"
+      "None"
     ],
     "answer": 0,
-    "explain": "Suffix — последний суффикс (для tar.gz это .gz). Подходит ответ «'.txt'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Shallow копирует верхний уровень. Подходит ответ «True (shallow)». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePath\nprint(PurePath('a.txt').suffix)",
+    "code": "import copy\na = [[]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m777"
   },
@@ -11861,18 +11857,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m779"
   },
   {
-    "topic": "copy",
+    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "True (shallow)",
-      "False (deep)",
+      "42",
       "ошибка",
-      "None"
+      "None",
+      "?0"
     ],
     "answer": 0,
-    "explain": "Shallow копирует верхний уровень. Подходит ответ «True (shallow)». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Dumps, а затем строка JSON. Подходит ответ «42». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [{'a': 1}]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "code": "import json\nprint(json.dumps(42))",
     "group": "Stdlib и производительность",
     "id": "m780"
   },
@@ -11923,17 +11919,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m783"
   },
   {
-    "topic": "functools",
-    "q": "Что такое lru_cache(maxsize=2) хранит?",
+    "topic": "bisect",
+    "q": "Что выведет код?",
     "options": [
-      "до 2 результатов вызовов",
-      "только последний вызов всегда",
-      "на диске",
-      "в Redis"
+      "4",
+      "0",
+      "8",
+      "?0"
     ],
     "answer": 0,
-    "explain": "Кэш в памяти процесса. Подходит ответ «до 2 результатов вызовов».",
+    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «4». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 8))",
     "group": "Collections и itertools",
     "id": "m784"
   },
@@ -11968,18 +11965,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m786"
   },
   {
-    "topic": "itertools",
-    "q": "Что выведет код?",
+    "topic": "functools",
+    "q": "Выбери верный вариант: Сколько уникальных ключей кэша у fib(5) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
     "options": [
-      "[(1, 2), (2, 2), (3, 1)]",
-      "[1, 2, 3]",
-      "ошибка",
-      "None"
+      "примерно 6 (0..n)",
+      "32",
+      "5",
+      "0"
     ],
     "answer": 0,
-    "explain": "Groupby группирует только подряд идущие одинаковые. Подходит ответ «[(1, 2), (2, 2), (3, 1)]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "Каждый k от 0..n кэшируется один раз. Подходит ответ «примерно 6 (0..n)».",
     "kind": "single",
-    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 1, 2, 2, 3])])",
     "group": "Collections и itertools",
     "id": "m787"
   },
@@ -12015,18 +12011,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m789"
   },
   {
-    "topic": "heapq",
+    "topic": "collections",
     "q": "Что выведет код?",
     "options": [
-      "[1, 2]",
-      "[1, 2, 7]",
+      "[('i', 4), ('s', 4)]",
+      "{'m': 1, 'i': 4, 's': 4, 'p': 2}",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Два наименьших. Подходит ответ «[1, 2]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Топ-2 по частоте. Подходит ответ «[('i', 4), ('s', 4)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import heapq\nprint(heapq.nsmallest(2, [9, 2, 7, 1]))",
+    "code": "from collections import Counter\nprint(Counter('mississippi').most_common(2))",
     "group": "Collections и itertools",
     "id": "m790"
   },
@@ -12166,18 +12162,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m799"
   },
   {
-    "topic": "typing",
+    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
-      "False",
-      "True",
+      "5",
+      "no",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «False». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
+    "explain": ":= присваивает и использует значение в условии. Подходит ответ «5». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "print(isinstance([1], dict))",
+    "code": "if (x := 5):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
     "id": "m800"
   },
@@ -12197,17 +12193,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m801"
   },
   {
-    "topic": "functools",
-    "q": "Что такое lru_cache(maxsize=8) хранит?",
+    "topic": "bisect",
+    "q": "Что выведет код?",
     "options": [
-      "до 8 результатов вызовов",
-      "только последний вызов всегда",
-      "на диске",
-      "в Redis"
+      "2",
+      "0",
+      "3",
+      "5"
     ],
     "answer": 0,
-    "explain": "Кэш в памяти процесса. Подходит ответ «до 8 результатов вызовов».",
+    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «2». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 5))",
     "group": "Collections и itertools",
     "id": "m802"
   },
@@ -12302,18 +12299,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m808"
   },
   {
-    "topic": "match",
+    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
-      "zero",
+      "False",
+      "True",
       "ошибка",
-      "None",
-      "0"
+      "None"
     ],
     "answer": 0,
-    "explain": "Match/case сопоставляет значение. Подходит ответ «zero». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «False». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
     "kind": "single",
-    "code": "x = 0\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
+    "code": "print(isinstance([1], dict))",
     "group": "Typing и dataclasses",
     "id": "m809"
   },
@@ -12333,17 +12330,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m810"
   },
   {
-    "topic": "collections",
-    "q": "Что делает deque.rotate(3) на 6 элементах?",
+    "topic": "itertools",
+    "q": "Что выведет код?",
     "options": [
-      "цикл сдвиг на 3 вправо (отриц. — влево)",
-      "сортирует",
-      "удаляет k",
-      "ошибка всегда"
+      "[1, 2, 0, 1, 2, 3, 4]",
+      "[[1, 2], [0, 1, 2, 3, 4]]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Rotate — циклический сдвиг. Подходит ответ «цикл сдвиг на 3 вправо (отриц. — влево)».",
+    "explain": "Chain склеивает итерируемые. Подходит ответ «[1, 2, 0, 1, 2, 3, 4]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
+    "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(5)))))",
     "group": "Collections и itertools",
     "id": "m811"
   },
@@ -12438,18 +12436,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m817"
   },
   {
-    "topic": "typing",
+    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
-      "True",
-      "False",
+      "no",
+      "0",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Isinstance с абстрактными/builtin типами. Подходит ответ «True». Аннотации типов — подсказки для анализаторов и IDE; в рантайме Python их обычно не принуждает.",
+    "explain": ":= присваивает и использует значение в условии. Подходит ответ «no». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "print(isinstance((1,), tuple))",
+    "code": "if (x := 0):\n    print(x)\nelse:\n    print('no')",
     "group": "Typing и dataclasses",
     "id": "m818"
   },
@@ -12484,17 +12482,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m820"
   },
   {
-    "topic": "dataclasses",
-    "q": "Выбери верный вариант: @dataclass class Cell: x: int = -1 — экземпляры делят x?",
+    "topic": "match",
+    "q": "Что выведет код?",
     "options": [
-      "нет, int immutable default ок",
-      "да, как list",
-      "ошибка синтаксиса",
-      "только frozen"
+      "other",
+      "ошибка",
+      "None",
+      "99"
     ],
     "answer": 0,
-    "explain": "Проблема mutable default; int безопасен. Подходит ответ «нет, int immutable default ок».",
+    "explain": "Match/case сопоставляет значение. Подходит ответ «other». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "x = 99\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
     "group": "Typing и dataclasses",
     "id": "m821"
   },
@@ -12559,18 +12558,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m825"
   },
   {
-    "topic": "bisect",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
+      "4",
       "2",
-      "0",
-      "3",
-      "5"
+      "5",
+      "?0"
     ],
     "answer": 0,
-    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «2». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "2^2 = 4. Подходит ответ «4». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 5))",
+    "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=2))))",
     "group": "Collections и itertools",
     "id": "m826"
   },
@@ -12605,18 +12604,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m828"
   },
   {
-    "topic": "heapq",
-    "q": "Что выведет код (минимум на [0])?",
+    "topic": "collections",
+    "q": "Что выведет код?",
     "options": [
-      "1",
-      "1",
-      "9",
-      "ошибка"
+      "[('x', 1), ('y', 1)]",
+      "{'x': 1, 'y': 1, 'z': 1}",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "После heapify h[0] — минимум (для min-heap). Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Топ-2 по частоте. Подходит ответ «[('x', 1), ('y', 1)]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import heapq\nh = [9, 2, 7, 1]\nheapq.heapify(h)\nprint(h[0])",
+    "code": "from collections import Counter\nprint(Counter('xyz').most_common(2))",
     "group": "Collections и itertools",
     "id": "m829"
   },
@@ -12639,31 +12638,31 @@ window.QUESTIONS_MIDDLE = [
     "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "x/y/z/w",
-      "x/y/z/w/",
+      "usr/bin/python",
+      "usr\\bin\\python",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Path склеивает части. Подходит ответ «x/y/z/w». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Склейка частей пути. Подходит ответ «usr/bin/python». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('x', 'y', 'z', 'w'))",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('usr', 'bin', 'python'))",
     "group": "Stdlib и производительность",
     "id": "m831"
   },
   {
-    "topic": "itertools",
-    "q": "Что выведет код?",
+    "topic": "heapq",
+    "q": "Что выведет код (минимум на [0])?",
     "options": [
-      "[(5, 3)]",
-      "[5]",
-      "ошибка",
-      "None"
+      "1",
+      "1",
+      "5",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Groupby группирует только подряд идущие одинаковые. Подходит ответ «[(5, 3)]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "После heapify h[0] — минимум (для min-heap). Подходит ответ «1». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([5, 5, 5])])",
+    "code": "import heapq\nh = [5, 1, 3]\nheapq.heapify(h)\nprint(h[0])",
     "group": "Collections и itertools",
     "id": "m832"
   },
@@ -12758,18 +12757,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m838"
   },
   {
-    "topic": "itertools",
+    "topic": "heapq",
     "q": "Что выведет код?",
     "options": [
-      "[(1, 1), (2, 1), (1, 1)]",
-      "[1, 2]",
+      "[1, 3]",
+      "[1, 3, 5]",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Groupby группирует только подряд идущие одинаковые. Подходит ответ «[(1, 1), (2, 1), (1, 1)]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "Два наименьших. Подходит ответ «[1, 3]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 2, 1])])",
+    "code": "import heapq\nprint(heapq.nsmallest(2, [5, 1, 3]))",
     "group": "Collections и itertools",
     "id": "m839"
   },
@@ -12777,15 +12776,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "JSONDecodeError",
+      "{\"x\": [1, 2]}",
+      "ошибка",
       "None",
-      "{}",
-      "ошибка SyntaxError"
+      "?0"
     ],
     "answer": 0,
-    "explain": "Невалидный JSON, а затем JSONDecodeError. Подходит ответ «JSONDecodeError». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Dumps, а затем строка JSON. Подходит ответ «{\"x\": [1, 2]}». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(json.loads('{'))",
+    "code": "import json\nprint(json.dumps({'x': [1, 2]}))",
     "group": "Stdlib и производительность",
     "id": "m840"
   },
@@ -12836,34 +12835,34 @@ window.QUESTIONS_MIDDLE = [
     "id": "m843"
   },
   {
-    "topic": "regex",
+    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "'a'",
-      "'stack'",
+      "'.JSON'",
+      "'B.JSON'",
       "ошибка",
-      "[]"
+      "''"
     ],
     "answer": 0,
-    "explain": "Search — первое вхождение. Подходит ответ «'a'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Suffix — последний суффикс (для tar.gz это .gz). Подходит ответ «'.JSON'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import re\nm = re.search('[aeiou]', 'stack')\nprint(None if m is None else m.group())",
+    "code": "from pathlib import PurePath\nprint(PurePath('B.JSON').suffix)",
     "group": "Stdlib и производительность",
     "id": "m844"
   },
   {
-    "topic": "bisect",
+    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "0",
-      "1",
-      "4",
-      "?0"
+      "3",
+      "6",
+      "9",
+      "6"
     ],
     "answer": 0,
-    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «0». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "C(3,2) = 3. Подходит ответ «3». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 1))",
+    "code": "from itertools import combinations\nprint(len(list(combinations(range(3), 2))))",
     "group": "Collections и itertools",
     "id": "m845"
   },
@@ -12871,31 +12870,31 @@ window.QUESTIONS_MIDDLE = [
     "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "home/user/docs",
-      "home/user/docs/",
+      "tmp/x",
+      "tmp\\x",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Path склеивает части. Подходит ответ «home/user/docs». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Склейка частей пути. Подходит ответ «tmp/x». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('home', 'user', 'docs'))",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('tmp', 'x'))",
     "group": "Stdlib и производительность",
     "id": "m846"
   },
   {
-    "topic": "itertools",
+    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "[10, 20]",
-      "[10, 20, 30]",
-      "ошибка",
-      "None"
+      "6",
+      "7",
+      "2",
+      "3"
     ],
     "answer": 0,
-    "explain": "Islice — ленивый срез. Подходит ответ «[10, 20]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Свёртка суммы. Подходит ответ «6». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import islice\nprint(list(islice([10, 20, 30, 40], 2)))",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [2, 2, 2]))",
     "group": "Collections и itertools",
     "id": "m847"
   },
@@ -12930,18 +12929,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m849"
   },
   {
-    "topic": "pathlib",
+    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
-      "usr/bin/python",
-      "usr\\bin\\python",
+      "False",
+      "True",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Склейка частей пути. Подходит ответ «usr/bin/python». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Deepcopy копирует вложенность. Подходит ответ «False». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('usr', 'bin', 'python'))",
+    "code": "import copy\na = [{'a': 1}]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m850"
   },
@@ -12961,34 +12960,34 @@ window.QUESTIONS_MIDDLE = [
     "id": "m851"
   },
   {
-    "topic": "regex",
+    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "'12'",
-      "'ab12cd'",
+      "'.txt'",
+      "'a.txt'",
       "ошибка",
-      "[]"
+      "''"
     ],
     "answer": 0,
-    "explain": "Search — первое вхождение. Подходит ответ «'12'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Suffix — последний суффикс (для tar.gz это .gz). Подходит ответ «'.txt'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import re\nm = re.search('\\\\d+', 'ab12cd')\nprint(None if m is None else m.group())",
+    "code": "from pathlib import PurePath\nprint(PurePath('a.txt').suffix)",
     "group": "Stdlib и производительность",
     "id": "m852"
   },
   {
-    "topic": "functools",
-    "q": "Что выведет код?",
+    "topic": "heapq",
+    "q": "Что выведет код (минимум на [0])?",
     "options": [
-      "8",
-      "6",
-      "2",
-      "0"
+      "5",
+      "5",
+      "10",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Свёртка произведения. Подходит ответ «8». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "После heapify h[0] — минимум (для min-heap). Подходит ответ «5». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [2, 2, 2]))",
+    "code": "import heapq\nh = [10, 20, 5, 30]\nheapq.heapify(h)\nprint(h[0])",
     "group": "Collections и itertools",
     "id": "m853"
   },
@@ -13008,17 +13007,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m854"
   },
   {
-    "topic": "functools",
-    "q": "Что такое lru_cache(maxsize=1) хранит?",
+    "topic": "bisect",
+    "q": "Что выведет код?",
     "options": [
-      "до 1 результатов вызовов",
-      "только последний вызов всегда",
-      "на диске",
-      "в Redis"
+      "0",
+      "4",
+      "?0",
+      "?1"
     ],
     "answer": 0,
-    "explain": "Кэш в памяти процесса. Подходит ответ «до 1 результатов вызовов».",
+    "explain": "Индекс вставки слева для сохранения порядка. Подходит ответ «0». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 0))",
     "group": "Collections и itertools",
     "id": "m855"
   },
@@ -13038,18 +13038,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m856"
   },
   {
-    "topic": "functools",
+    "topic": "heapq",
     "q": "Что выведет код?",
     "options": [
-      "6",
-      "7",
-      "2",
-      "3"
+      "[1, 4]",
+      "[1, 4, 4]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Свёртка суммы. Подходит ответ «6». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Два наименьших. Подходит ответ «[1, 4]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [2, 2, 2]))",
+    "code": "import heapq\nprint(heapq.nsmallest(2, [4, 4, 1]))",
     "group": "Collections и itertools",
     "id": "m857"
   },
@@ -13069,18 +13069,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m858"
   },
   {
-    "topic": "itertools",
+    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
-      "16",
-      "8",
-      "4",
-      "9"
+      "10",
+      "11",
+      "1",
+      "4"
     ],
     "answer": 0,
-    "explain": "2^4 = 16. Подходит ответ «16». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Свёртка суммы. Подходит ответ «10». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=4))))",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [1, 2, 3, 4]))",
     "group": "Collections и itertools",
     "id": "m859"
   },
@@ -13163,15 +13163,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
-      "10",
-      "10",
-      "25",
-      "120"
+      "[(5, 3)]",
+      "[5]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "C(5,2) = 10. Подходит ответ «10». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Groupby группирует только подряд идущие одинаковые. Подходит ответ «[(5, 3)]». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "code": "from itertools import combinations\nprint(len(list(combinations(range(5), 2))))",
+    "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([5, 5, 5])])",
     "group": "Collections и itertools",
     "id": "m865"
   },
@@ -13360,15 +13360,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "42",
-      "ошибка",
-      "None",
-      "?0"
+      "dict",
+      "str",
+      "JSON",
+      "tuple"
     ],
     "answer": 0,
-    "explain": "Dumps, а затем строка JSON. Подходит ответ «42». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Loads парсит в объекты Python. Подходит ответ «dict». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(json.dumps(42))",
+    "code": "import json\nprint(type(json.loads('{\"a\": 1}')).__name__)",
     "group": "Stdlib и производительность",
     "id": "m878"
   },
@@ -13388,18 +13388,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m879"
   },
   {
-    "topic": "regex",
+    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "None",
-      "'42a'",
+      "'.gz'",
+      "'archive.tar.gz'",
       "ошибка",
-      "[]"
+      "''"
     ],
     "answer": 0,
-    "explain": "Search — первое вхождение. Подходит ответ «None». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Suffix — последний суффикс (для tar.gz это .gz). Подходит ответ «'.gz'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import re\nm = re.search('^\\\\d+$', '42a')\nprint(None if m is None else m.group())",
+    "code": "from pathlib import PurePath\nprint(PurePath('archive.tar.gz').suffix)",
     "group": "Stdlib и производительность",
     "id": "m880"
   },
@@ -13407,15 +13407,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "functools",
     "q": "Что выведет код?",
     "options": [
+      "12",
+      "13",
       "10",
-      "25",
-      "5",
-      "ошибка"
+      "2"
     ],
     "answer": 0,
-    "explain": "Partial фиксирует первый аргумент, а затем f(5, 5). Подходит ответ «10». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Свёртка суммы. Подходит ответ «12». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 5)(5))",
+    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [10, 2]))",
     "group": "Collections и itertools",
     "id": "m881"
   },
@@ -13431,22 +13431,23 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Shallow копирует верхний уровень. Подходит ответ «True (shallow)». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [[1, 2, 3]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "code": "import copy\na = [[1], [2]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
     "group": "Stdlib и производительность",
     "id": "m882"
   },
   {
-    "topic": "collections",
-    "q": "Что делает deque.rotate(4) на 7 элементах?",
+    "topic": "itertools",
+    "q": "Что выведет код?",
     "options": [
-      "цикл сдвиг на 4 вправо (отриц. — влево)",
-      "сортирует",
-      "удаляет k",
-      "ошибка всегда"
+      "12",
+      "6",
+      "8",
+      "16"
     ],
     "answer": 0,
-    "explain": "Rotate — циклический сдвиг. Подходит ответ «цикл сдвиг на 4 вправо (отриц. — влево)».",
+    "explain": "P(4,2) = 12. Подходит ответ «12». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
+    "code": "from itertools import permutations\nprint(len(list(permutations(range(4), 2))))",
     "group": "Collections и itertools",
     "id": "m883"
   },
@@ -13466,18 +13467,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m884"
   },
   {
-    "topic": "functools",
+    "topic": "heapq",
     "q": "Что выведет код?",
     "options": [
-      "7",
-      "8",
-      "5",
-      "3"
+      "[5, 10]",
+      "[5, 10, 20]",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Свёртка суммы. Подходит ответ «7». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Два наименьших. Подходит ответ «[5, 10]». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [5, 1, 1]))",
+    "code": "import heapq\nprint(heapq.nsmallest(2, [10, 20, 5, 30]))",
     "group": "Collections и itertools",
     "id": "m885"
   },
@@ -13515,15 +13516,15 @@ window.QUESTIONS_MIDDLE = [
     "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "a/b",
-      "a/b/",
+      "etc/passwd",
+      "etc\\passwd",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Path склеивает части. Подходит ответ «a/b». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Склейка частей пути. Подходит ответ «etc/passwd». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('a', 'b'))",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('etc', 'passwd'))",
     "group": "Stdlib и производительность",
     "id": "m888"
   },
@@ -13558,18 +13559,17 @@ window.QUESTIONS_MIDDLE = [
     "id": "m890"
   },
   {
-    "topic": "itertools",
-    "q": "Что выведет код?",
+    "topic": "functools",
+    "q": "Выбери верный вариант: Сколько уникальных ключей кэша у fib(2) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
     "options": [
-      "12",
-      "6",
-      "8",
-      "16"
+      "примерно 3 (0..n)",
+      "4",
+      "2",
+      "0"
     ],
     "answer": 0,
-    "explain": "P(4,2) = 12. Подходит ответ «12». itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти. Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Каждый k от 0..n кэшируется один раз. Подходит ответ «примерно 3 (0..n)».",
     "kind": "single",
-    "code": "from itertools import permutations\nprint(len(list(permutations(range(4), 2))))",
     "group": "Collections и itertools",
     "id": "m891"
   },
@@ -13620,34 +13620,34 @@ window.QUESTIONS_MIDDLE = [
     "id": "m894"
   },
   {
-    "topic": "copy",
+    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "True (shallow)",
-      "False (deep)",
-      "ошибка",
-      "None"
+      "list",
+      "str",
+      "JSON",
+      "tuple"
     ],
     "answer": 0,
-    "explain": "Shallow копирует верхний уровень. Подходит ответ «True (shallow)». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Loads парсит в объекты Python. Подходит ответ «list». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [[0, 0], [1]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "code": "import json\nprint(type(json.loads('[1, 2, 3]')).__name__)",
     "group": "Stdlib и производительность",
     "id": "m895"
   },
   {
-    "topic": "JSON",
+    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "{\"x\": [1, 2]}",
+      "home/user/docs",
+      "home/user/docs/",
       "ошибка",
-      "None",
-      "?0"
+      "None"
     ],
     "answer": 0,
-    "explain": "Dumps, а затем строка JSON. Подходит ответ «{\"x\": [1, 2]}». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Path склеивает части. Подходит ответ «home/user/docs». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(json.dumps({'x': [1, 2]}))",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('home', 'user', 'docs'))",
     "group": "Stdlib и производительность",
     "id": "m896"
   },
@@ -13667,18 +13667,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m897"
   },
   {
-    "topic": "JSON",
+    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "dict",
-      "str",
-      "JSON",
-      "tuple"
+      "var/log/app.log",
+      "var/log/app.log/",
+      "ошибка",
+      "None"
     ],
     "answer": 0,
-    "explain": "Loads парсит в объекты Python. Подходит ответ «dict». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Path склеивает части. Подходит ответ «var/log/app.log». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(type(json.loads('{\"a\": 1}')).__name__)",
+    "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'app.log'))",
     "group": "Stdlib и производительность",
     "id": "m898"
   },
@@ -13698,18 +13698,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m899"
   },
   {
-    "topic": "regex",
+    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
-      "'42'",
-      "'42'",
+      "'.PNG'",
+      "'photo.PNG'",
       "ошибка",
-      "[]"
+      "''"
     ],
     "answer": 0,
-    "explain": "Search — первое вхождение. Подходит ответ «'42'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Suffix — последний суффикс (для tar.gz это .gz). Подходит ответ «'.PNG'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import re\nm = re.search('^\\\\d+$', '42')\nprint(None if m is None else m.group())",
+    "code": "from pathlib import PurePath\nprint(PurePath('photo.PNG').suffix)",
     "group": "Stdlib и производительность",
     "id": "m900"
   },
@@ -13759,18 +13759,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m903"
   },
   {
-    "topic": "JSON",
+    "topic": "regex",
     "q": "Что выведет код?",
     "options": [
-      "{\"ok\": true, \"n\": null}",
-      "{\"ok\": True, \"n\": None}",
+      "'12'",
+      "'ab12cd'",
       "ошибка",
-      "None"
+      "[]"
     ],
     "answer": 0,
-    "explain": "Dumps, а затем строка JSON. Подходит ответ «{\"ok\": true, \"n\": null}». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Search — первое вхождение. Подходит ответ «'12'». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import json\nprint(json.dumps({'ok': True, 'n': None}))",
+    "code": "import re\nm = re.search('\\\\d+', 'ab12cd')\nprint(None if m is None else m.group())",
     "group": "Stdlib и производительность",
     "id": "m904"
   },
@@ -13790,18 +13790,18 @@ window.QUESTIONS_MIDDLE = [
     "id": "m905"
   },
   {
-    "topic": "copy",
+    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
-      "True (shallow)",
-      "False (deep)",
-      "ошибка",
-      "None"
+      "dict",
+      "str",
+      "JSON",
+      "tuple"
     ],
     "answer": 0,
-    "explain": "Shallow копирует верхний уровень. Подходит ответ «True (shallow)». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
+    "explain": "Loads парсит в объекты Python. Подходит ответ «dict». Сверь ответ с тем, что реально делает выражение в коде: типы операндов и порядок операций часто важнее «интуиции».",
     "kind": "single",
-    "code": "import copy\na = [[1], [2]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
+    "code": "import json\nprint(type(json.loads('{\"ok\": true, \"n\": null}')).__name__)",
     "group": "Stdlib и производительность",
     "id": "m906"
   },

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Общие хелперы для сборки вопросов (все *_extra.py и generate_questions.py)."""
+"""Общие хелперы для сборки вопросов (ядро и bank/plugins)."""
 from __future__ import annotations
 
 from typing import Any, Iterable, Sequence

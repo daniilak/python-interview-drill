@@ -2,7 +2,7 @@
 """Code-output interview questions («что выведет?»)."""
 
 
-from utils import q
+from bank.utils import q
 
 
 CODE_JUNIOR = [

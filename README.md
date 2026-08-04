@@ -38,24 +38,31 @@ GitHub Pages: https://daniilak.github.io/python-interview-drill/
 
 ```bash
 python3 generate_questions.py
+python3 audit_bank.py
 ```
 
-Новые источники: добавь `*_extra.py` с списками `JUNIOR_*` / `MIDDLE_*` / `SENIOR_*` (или `CODE_JUNIOR` и т.п.) — генератор подхватит их сам. Общие хелперы — в `utils.py`.
+Новые источники: добавь модуль в `bank/plugins/` со списками `JUNIOR_*` / `MIDDLE_*` / `SENIOR_*` (или `CODE_JUNIOR` и т.п.) — генератор подхватит сам. Хелперы карточек — `bank.utils.q` / `q_multi`.
 
 ## Структура
 
 ```
-index.html
+index.html              # UI
 css/style.css
-js/app.js
-js/storage.js
-js/timer.js
-js/data/junior.js
-js/data/middle.js
-js/data/senior.js
-utils.py
-generate_questions.py
-*_extra.py
+js/app.js, storage.js, timer.js, version.js
+js/data/{junior,middle,senior}.js   # сгенерированный банк
+
+generate_questions.py   # CLI-обёртка
+audit_bank.py           # CLI-обёртка
+
+bank/                   # Python-пакет банка
+  builder.py            # BankBuilder: плагины → polish → JS
+  groups.py             # topic → group
+  utils.py              # q / q_multi
+  polish/               # нормализация q и explain
+  core/                 # встроенные JUNIOR/MIDDLE/SENIOR
+  plugins/              # волны и вариации карточек
+
+tools/                  # те же CLI (можно звать отсюда)
 ```
 
 ## Лицензия

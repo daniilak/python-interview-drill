@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 
-from utils import q
+from bank.utils import q
 
 
 MIDDLE_PRINCIPLES: list[dict] = [

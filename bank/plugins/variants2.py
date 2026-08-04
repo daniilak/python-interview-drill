@@ -9,7 +9,7 @@ import math
 from typing import Any, Callable, Iterable
 
 
-from utils import q, _mc, _uniq
+from bank.utils import q, _mc, _uniq
 
 
 # ─── JUNIOR ───────────────────────────────────────────────

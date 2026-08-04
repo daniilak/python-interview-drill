@@ -2,7 +2,7 @@
 """Углублённые Senior-карточки: GIL, память, C-API, git — с нюансами «когда нельзя»."""
 from __future__ import annotations
 
-from utils import q
+from bank.utils import q
 
 SENIOR_DEPTH: list[dict] = [
     q(

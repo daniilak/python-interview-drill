@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 
-from utils import FLOOR_DIV_EXPLAIN, q
+from bank.utils import FLOOR_DIV_EXPLAIN, q
 
 
 def build_junior() -> list[dict]:
