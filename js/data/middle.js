@@ -1,22 +1,22 @@
+// AUTO-BUNDLED from js/data/middle/*.js — не правь руками.
 window.QUESTIONS_MIDDLE = [
   {
-    "topic": "enum",
     "q": "Зачем нужен enum.Enum?",
     "options": [
-      "именованных констант",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "GIL flags"
+      "чтобы задать набор именованных констант с фиксированными значениями",
+      "чтобы ускорить циклы за счёт GIL",
+      "чтобы заменить все int на строки в рантайме",
+      "чтобы отключить проверку типов в mypy"
     ],
     "answer": 0,
-    "explain": "Перечисления — Enum задаёт именованные константы с фиксированным набором значений.",
+    "explain": "Enum — перечисление: именованные члены вместо «магических» чисел/строк. Сравнение идёт по идентичности членов, набор значений фиксирован. Это не про GIL и не про ускорение.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m1",
-    "fixed": true
+    "fixed": true,
+    "topic": "enum",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
     "q": "Что выведет код?",
     "options": [
       "[0, 1, 2, 3]",
@@ -25,48 +25,48 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [0, 1, 2, 3]. Пройди выражение слева направо с учётом типов.",
+    "explain": "Default i=i фиксирует значение на каждой итерации → [0,1,2,3].",
     "kind": "single",
     "code": "fs = [lambda i=i: i for i in range(4)]\nprint([f() for f in fs])",
-    "group": "Декораторы и замыкания",
     "id": "m2",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "итераторы",
     "q": "Что выведет код?",
     "options": [
       "1",
       "StopIteration сразу",
-      "утверждение про другой уровень стека",
-      "[1,2]"
+      "[1, 2]",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "1. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "iter([1, 2]) даёт итератор; next(...) забирает первый элемент — 1. StopIteration будет только когда элементы кончатся.",
     "kind": "single",
     "code": "print(next(iter([1, 2])))",
-    "group": "Генераторы и итераторы",
     "id": "m3",
-    "fixed": true
+    "fixed": true,
+    "topic": "итераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "ASGI",
-    "q": "Что такое Starlette/FastAPI?",
+    "q": "Что такое Starlette и FastAPI?",
     "options": [
-      "ASGI-фреймворки",
-      "только WSGI",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "ASGI-фреймворки (FastAPI построен поверх Starlette)",
+      "только классические WSGI-приложения как Flask 1.x",
+      "замена PostgreSQL",
+      "линтеры для аннотаций типов"
     ],
     "answer": 0,
-    "explain": "ASGI-фреймворки. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Starlette — лёгкий ASGI-фреймворк; FastAPI использует его для HTTP/WebSocket и добавляет валидацию через type hints. Это не WSGI и не СУБД.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m4",
-    "fixed": true
+    "fixed": true,
+    "topic": "ASGI",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что объявляет async def?",
     "options": [
       "корутину",
@@ -77,60 +77,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Корутину. Сверяй с тем, блокирует ли это loop и кто владеет Task.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m5",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Что верно про ExitStack.enter_context нужен когда?",
+    "q": "Когда нужен contextlib.ExitStack.enter_context?",
     "options": [
-      "динамическое число CM",
-      "только один with",
-      "вместо try",
-      "async only"
+      "когда число context manager'ов известно только в рантайме",
+      "когда достаточно одного обычного with",
+      "вместо любого try/except",
+      "только для async with"
     ],
     "answer": 0,
-    "explain": "Динамическое число CM. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "ExitStack позволяет в цикле/по условию открывать произвольное число CM и гарантированно закрыть все при выходе. Для одного фиксированного with он не нужен. Для async есть AsyncExitStack.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m6",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "логирование",
-    "q": "Что такое Предпочтительнее print для libs?",
+    "q": "Чем в библиотеках лучше заменить print для диагностики?",
     "options": [
-      "logging",
-      "sys.stdout.write только",
-      "утверждение про другой уровень стека",
-      "warnings всегда"
+      "модулем logging с уровнями и обработчиками",
+      "только sys.stdout.write без уровней",
+      "обязательно warnings.warn на каждое сообщение",
+      "print в stderr через f-string — этого достаточно в проде"
     ],
     "answer": 0,
-    "explain": "Модуль logging — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "logging даёт уровни, фильтры, хендлеры и отключение шума. print нельзя централизованно настроить в приложении, которое использует твою библиотеку.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m7",
-    "fixed": true
+    "fixed": true,
+    "topic": "логирование",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
     "q": "Что даёт объекту метод __call__?",
     "options": [
-      "вызываемым",
-      "итерируемым",
-      "контекстом",
-      "дескриптором"
+      "возможность вызывать объект как функцию: obj(...)",
+      "возможность писать for x in obj",
+      "использование в with obj",
+      "поведение дескриптора при доступе к атрибуту"
     ],
     "answer": 0,
-    "explain": "Вызываемым. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "__call__ делает экземпляр callable. Итерация — __iter__/__getitem__, контекст — __enter__/__exit__, дескриптор — __get__/__set__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m8",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ABC",
     "q": "Что вернёт abstractmethod + async def?",
     "options": [
       "поддерживается",
@@ -141,28 +141,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — поддерживается. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m9",
-    "fixed": true
+    "fixed": true,
+    "topic": "ABC",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "is",
-    "q": "Что означает: Малые int кэшируются; обычно (256 is 256)?",
+    "q": "Что обычно вернёт выражение `256 is 256` в CPython?",
     "options": [
-      "True",
-      "False",
-      "ошибка",
-      "зависит от OS только"
+      "True — малые int часто закэшированы (intern)",
+      "False всегда",
+      "TypeError",
+      "зависит только от ОС, не от CPython"
     ],
     "answer": 0,
-    "explain": "True. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "CPython кэширует небольшой диапазон целых (часто −5…256). Для них is может быть True. На это нельзя полагаться в логике — сравнивай через ==.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m10",
-    "fixed": true
+    "fixed": true,
+    "topic": "is",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
     "q": "Что верно про nogil / free-threading статус?",
     "options": [
       "эксперименты/опции новых версий",
@@ -173,44 +173,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Следи за релизом CPython — GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m11",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
-    "q": "Почему set.intersection быстрее вложенных циклов для больших множеств?",
+    "q": "Почему set.intersection на больших множествах быстрее наивных вложенных циклов?",
     "options": [
-      "внутренняя оптимизация по меньшему множеству",
-      "утверждение про другой уровень стека",
-      "multithreading list",
-      "поведение, которого в CPython нет"
+      "внутри есть оптимизация: итерация идёт по меньшему множеству и lookup в большем",
+      "intersection всегда запускает отдельный поток на ядро",
+      "list внутри быстрее set для поиска",
+      "GIL на время intersection полностью отключается"
     ],
     "answer": 0,
-    "explain": "Внутренняя оптимизация по меньшему множеству. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Реализация пересечения в CPython выбирает меньшее множество для обхода и проверяет членство в большем за ~O(1). Вложенные циклы по list дают O(n·m).",
     "kind": "single",
-    "group": "Алгоритмы и структуры данных",
     "id": "m12",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "cohesion",
-    "q": "Какой стандартный модуль Python отвечает за utils.py на 3000 строк с HTTP, SQL и PDF — проблема?",
+    "q": "В чём проблема utils.py на тысячи строк с HTTP, SQL и PDF сразу?",
     "options": [
-      "низкой связности / смешения ответственностей",
-      "утверждение про другой уровень стека",
-      "только типов",
-      "поведение, которого в CPython нет"
+      "низкая связность: в одном модуле смешаны разные ответственности",
+      "это запрещено синтаксисом Python",
+      "так нельзя из‑за GIL",
+      "проблема только в отсутствии type hints"
     ],
     "answer": 0,
-    "explain": "Низкой связности / смешения ответственностей. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "God-module смешивает несвязанные задачи — сложно тестировать и менять. Лучше разнести по модулям/пакетам с одной зоной ответственности (high cohesion).",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m13",
-    "fixed": true
+    "fixed": true,
+    "topic": "cohesion",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "git",
     "q": "Что верно про git merge --squash делает?",
     "options": [
       "один коммит из всех изменений ветки без merge-коммита в истории feature",
@@ -221,12 +221,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Один коммит из всех изменений ветки без merge-коммита в истории feature. Подумай, что произойдёт с remote и историей у коллег.",
     "kind": "single",
-    "group": "Инструменты и стиль",
     "id": "m14",
-    "fixed": true
+    "fixed": true,
+    "topic": "git",
+    "group": "Инструменты и стиль"
   },
   {
-    "topic": "heapq",
     "q": "Что выведет код?",
     "options": [
       "[1, 2]",
@@ -235,15 +235,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [1, 2]. Пройди выражение слева направо с учётом типов.",
+    "explain": "После heapify минимум в корне (h[0]). Здесь: [1, 2].",
     "kind": "single",
     "code": "import heapq\nprint(heapq.nsmallest(2, [9, 2, 7, 1]))",
-    "group": "Collections и itertools",
     "id": "m15",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что вернёт case {'x': v} матчит?",
     "options": [
       "mapping с ключом x",
@@ -254,28 +254,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — mapping с ключом x. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m16",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "closures",
-    "q": "Что такое Замыкание?",
+    "q": "Что такое замыкание (closure) в Python?",
     "options": [
-      "функция с enclosing переменными",
-      "декоратор",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "функция, которая помнит переменные из enclosing-области, где её создали",
+      "синоним декоратора @wraps",
+      "обязательный атрибут любого класса",
+      "способ отключить LEGB"
     ],
     "answer": 0,
-    "explain": "Функция с enclosing переменными. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Вложенная функция захватывает свободные переменные внешней области (видно в __closure__). Декоратор часто использует замыкание, но сам по себе им не является.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m17",
-    "fixed": true
+    "fixed": true,
+    "topic": "closures",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что такое throw(exc) в генератор?",
     "options": [
       "возбуждает exc в точке yield",
@@ -286,12 +286,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Протокол генератора — Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m18",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 403 — кратко?",
     "options": [
       "запрещено",
@@ -302,60 +302,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 403: запрещено — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m19",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "Что такое Future?",
+    "q": "Что такое asyncio.Future?",
     "options": [
-      "ожидаемый результат асинхронной операции",
-      "блокирующий time.sleep внутри корутины",
+      "объект «результат когда-нибудь будет» — его можно await",
+      "блокирующий вызов time.sleep",
       "новый OS-поток на каждый await",
-      "создание нового процесса на каждый await"
+      "отдельный процесс multiprocessing"
     ],
     "answer": 0,
-    "explain": "Ожидаемый результат асинхронной операции. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Future — низкоуровневый контейнер будущего результата; Task — Future, привязанный к корутине на loop. Это не thread и не process.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m20",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Что вызывает closing(obj)?",
+    "q": "Что делает contextlib.closing(obj) при выходе из with?",
     "options": [
-      "obj.close() на выходе",
-      "del obj",
-      "obj.end()",
-      "утверждение про другой уровень стека"
+      "вызывает obj.close()",
+      "делает del obj",
+      "вызывает obj.end()",
+      "только подавляет исключения"
     ],
     "answer": 0,
-    "explain": "Obj.close() на выходе. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "closing оборачивает объект без протокола CM и на выходе зовёт close(). Удобно для urlopen и похожих API.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m21",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
     "q": "Что делает pytest.mark.parametrize?",
     "options": [
-      "тест на набор входных данных",
-      "утверждение про другой уровень стека",
-      "процессы",
-      "coverage магически"
+      "запускает один тест много раз на наборе входных данных",
+      "создаёт отдельные процессы ОС на каждый кейс",
+      "сам включает coverage.py",
+      "заменяет все assert на print"
     ],
     "answer": 0,
-    "explain": "Тест на набор входных данных. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "parametrize разворачивает тест в несколько кейсов с разными аргументами. Это про данные, не про multiprocessing и не про coverage.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m22",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
     "q": "Что определяет метод __eq__?",
     "options": [
       "сравнение на равенство через ==",
@@ -366,12 +366,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "__eq__ задаёт поведение == (и косвенно !=). Для сортировки нужен __lt__ и компания; для dict/set — согласованный __hash__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m23",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ABC",
     "q": "Можно ли создать экземпляр ABC, если у него нет abstractmethod?",
     "options": [
       "да — без абстрактных методов ABC уже обычный конкретный класс",
@@ -382,12 +382,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "ABCMeta запрещает инстанцирование, пока есть нереализованные @abstractmethod. Если абстрактных методов нет — экземпляр создать можно.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m24",
-    "fixed": true
+    "fixed": true,
+    "topic": "ABC",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "JSONDecodeError",
@@ -396,64 +396,64 @@ window.QUESTIONS_MIDDLE = [
       "ошибка SyntaxError"
     ],
     "answer": 0,
-    "explain": "Код падает с ошибкой (JSONDecodeError). Смотри типы аргументов и допустимые операции.",
+    "explain": "json.loads падает с JSONDecodeError на невалидном JSON.",
     "kind": "single",
     "code": "import json\nprint(json.loads('[1, 2,'))",
-    "group": "Stdlib и производительность",
     "id": "m25",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
-    "q": "Что выведет код?",
+    "q": "Для CPU-bound задачи в CPython что обычно выбирают?",
     "options": [
-      "multiprocessing / native",
-      "больше threading",
-      "time.sleep",
-      "утверждение про другой уровень стека"
+      "multiprocessing (или native-расширение), а не голый threading",
+      "больше потоков threading — GIL не мешает CPU",
+      "time.sleep в каждом потоке",
+      "только asyncio без процессов"
     ],
     "answer": 0,
-    "explain": "GIL мешает CPU threads — GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
+    "explain": "GIL не даёт нескольким Python-потокам крутить байткод параллельно на CPU. Для параллелизма CPU — процессы или код вне GIL (C/Rust). threading хорош для I/O.",
     "kind": "single",
     "code": "# cpu_bound()\n# threading vs multiprocessing?",
-    "group": "Потоки, процессы, GIL",
     "id": "m26",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
-    "q": "Что верно про DFS на графе можно через?",
+    "q": "Как реализовать DFS по графу?",
     "options": [
-      "рекурсию или явный stack",
-      "только queue",
-      "только sorted",
-      "утверждение про другой уровень стека"
+      "рекурсией или явным стеком",
+      "только очередью (это как раз BFS)",
+      "только через sorted() рёбер",
+      "только через set.intersection"
     ],
     "answer": 0,
-    "explain": "Рекурсию или явный stack. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "DFS — глубина: стек или рекурсия. Очередь — BFS. sorted и intersection тут ни при чём.",
     "kind": "single",
-    "group": "Алгоритмы и структуры данных",
     "id": "m27",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "принципы",
-    "q": "Что такое Premature optimization?",
+    "q": "Что такое premature optimization?",
     "options": [
-      "оптимизация до измерения узкого места",
-      "профилирование",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "оптимизация до того, как измерили узкое место",
+      "любое профилирование cProfile",
+      "запрет на list comprehension",
+      "обязательный отказ от алгоритмов O(n)"
     ],
     "answer": 0,
-    "explain": "Оптимизация до измерения узкого места. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "«Преждевременная оптимизация» — ускорять наугад без замеров. Сначала ясный код и профайлер, потом точечные правки.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m28",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "git",
     "q": "Что верно про git reflog полезен чтобы?",
     "options": [
       "найти «потерянные» коммиты после reset",
@@ -464,28 +464,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Журнал перемещений HEAD — Коммиты после reset». Git хранит историю коммитов; merge и rebase по-разному влияют на историю и на общей ветки.",
     "kind": "single",
-    "group": "Инструменты и стиль",
     "id": "m29",
-    "fixed": true
+    "fixed": true,
+    "topic": "git",
+    "group": "Инструменты и стиль"
   },
   {
-    "topic": "heapq",
-    "q": "Что такое nlargest(k, it)?",
+    "q": "Что делает heapq.nlargest(k, iterable)?",
     "options": [
-      "k наибольших эффективно",
-      "полная сортировка always обязательна видимо",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "эффективно находит k наибольших элементов (куча), без полной сортировки всего",
+      "всегда полностью сортирует весь iterable и режет хвост",
+      "удаляет k наименьших из исходного списка на месте",
+      "работает только с числами int"
     ],
     "answer": 0,
-    "explain": "K наибольших эффективно. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "nlargest/nsmallest используют кучу размера k — выгоднее полной сортировки, когда k ≪ n. Для k≈n проще sorted(... )[:k].",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m30",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт list[int] в аннотации (3.9+) значит?",
     "options": [
       "подсказка типов, на runtime не проверяет сама",
@@ -496,12 +496,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Подсказка типов, на runtime не проверяет сама. Это про проверку типов/сигнатуры, не про ускорение runtime.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m31",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Что делает декоратор @f над def g?",
     "options": [
       "g = f(g)",
@@ -512,12 +512,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Декоратор оборачивает функцию. Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m32",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что верно про yield в функции делает её?",
     "options": [
       "генератором",
@@ -528,12 +528,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Generator function — Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m33",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
     "q": "Что такое Типичная роль `LIMIT`?",
     "options": [
       "ограничить число строк",
@@ -544,12 +544,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "LIMIT в SQL — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m34",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что вернёт Runner (3.11)?",
     "options": [
       "управление loop run упрощённо",
@@ -560,60 +560,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — управление loop run упрощённо. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m35",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "исключения",
-    "q": "Что верно про except Exception не ловит?",
+    "q": "Что не ловит `except Exception`?",
     "options": [
-      "BaseException вроде KeyboardInterrupt/SystemExit",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "RuntimeError"
+      "потомков BaseException вроде KeyboardInterrupt и SystemExit",
+      "обычный ValueError",
+      "RuntimeError",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "BaseException вроде KeyboardInterrupt/SystemExit. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Exception — ветка «обычных» ошибок. KeyboardInterrupt/SystemExit наследуют BaseException напрямую и except Exception их не глотает — это сделано нарочно.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m36",
-    "fixed": true
+    "fixed": true,
+    "topic": "исключения",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
-    "q": "Что вернёт pytest-asyncio mode?",
+    "q": "Для чего нужен pytest-asyncio?",
     "options": [
-      "запуск async тестов",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "Twisted only"
+      "чтобы запускать и корректно завершать async-тесты на event loop",
+      "чтобы заменить unittest на Twisted",
+      "чтобы ускорить sync-тесты без async def",
+      "чтобы отключить assert в async-коде"
     ],
     "answer": 0,
-    "explain": "Результат выражения — запуск async тестов. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Плагин поднимает loop и позволяет писать `async def test_...`. Без него pytest не умеет await'ить корутины-тесты из коробки.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m37",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "staticmethod",
-    "q": "Что верно про staticmethod отличается тем, что?",
+    "q": "Чем @staticmethod отличается от обычного метода?",
     "options": [
-      "нет авто-self/cls — обычная функция в классе",
-      "всегда виртуальный",
-      "только в ABC",
-      "быстрее C"
+      "не получает ни self, ни cls — просто функция в пространстве класса",
+      "всегда виртуальный в смысле C++",
+      "можно объявлять только внутри ABC",
+      "компилируется в C и поэтому быстрее"
     ],
     "answer": 0,
-    "explain": "Нет авто-self/cls — обычная функция в классе. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "staticmethod не привязывает экземпляр/класс. Это обычная функция, лежащая в классе для организации API. Не путать с classmethod (получает cls).",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m38",
-    "fixed": true
+    "fixed": true,
+    "topic": "staticmethod",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
     "q": "Что выведет код?",
     "options": [
       "True",
@@ -625,12 +625,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде истинно. Пройди операторы и типы операндов по шагам.",
     "kind": "single",
     "code": "print(issubclass(bool, int))",
-    "group": "ООП продвинутый",
     "id": "m39",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "performance",
     "q": "Что верно про локальная переменная в горячем цикле?",
     "options": [
       "часто быстрее атрибута/global",
@@ -641,12 +641,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "LOAD_FAST — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m40",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
     "q": "Что верно про numpy отпускает GIL в тяжёлых C-циклах часто?",
     "options": [
       "да, многие операции",
@@ -657,44 +657,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "C-extensions pattern — GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m41",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
-    "q": "Что верно про functools.lru_cache ускоряет за счёт?",
+    "q": "За счёт чего functools.lru_cache ускоряет вызовы?",
     "options": [
-      "мемоизации результатов чистой функции",
-      "GIL off",
-      "утверждение про другой уровень стека",
-      "multiprocessing"
+      "мемоизации результатов для одинаковых аргументов у чистой функции",
+      "отключения GIL на время вызова",
+      "автоматического запуска в другом процессе",
+      "JIT-компиляции всего модуля"
     ],
     "answer": 0,
-    "explain": "Мемоизации результатов чистой функции. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "lru_cache хранит последние результаты. Имеет смысл для чистых функций без сайд-эффектов. Это не multiprocessing и не снятие GIL.",
     "kind": "single",
-    "group": "Алгоритмы и структуры данных",
     "id": "m42",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "patterns",
     "q": "В чём суть паттерна Observer?",
     "options": [
-      "подписка наблюдателей на изменения субъекта",
-      "один поток на CPU",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "наблюдатели подписываются на события субъекта и получают уведомления",
+      "один OS-поток жёстко привязан к одному CPU",
+      "запрет любых колбэков",
+      "замена всех событий на polling раз в час"
     ],
     "answer": 0,
-    "explain": "Подписка наблюдателей на изменения субъекта. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Subject хранит подписчиков и при изменении зовёт их. В Python это callbacks, signals, event bus. Не про планировщик CPU.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m43",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "git",
     "q": "Что верно про Merge conflict возникает когда?",
     "options": [
       "Git не может автоматически слить изменения одних строк",
@@ -705,12 +705,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Git не может автоматически слить изменения одних строк. Подумай, что произойдёт с remote и историей у коллег.",
     "kind": "single",
-    "group": "Инструменты и стиль",
     "id": "m44",
-    "fixed": true
+    "fixed": true,
+    "topic": "git",
+    "group": "Инструменты и стиль"
   },
   {
-    "topic": "collections",
     "q": "Что вернёт Counter.most_common(2)?",
     "options": [
       "список пар (элемент, счёт) топ-2",
@@ -721,12 +721,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — список пар (элемент, счёт) топ-2. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m45",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
     "q": "Что возвращает dataclasses.fields()?",
     "options": [
       "кортеж объектов Field с описанием полей",
@@ -737,29 +737,29 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "`fields(class_or_instance)` даёт кортеж `Field`: имя, тип, default, metadata и т.д. Это интроспекция схемы dataclass, а не `asdict` со значениями.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m46",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Что выведет код?",
     "options": [
       "wrap",
-      "ошибка",
-      "ошибка",
+      "f",
+      "deco",
       "None"
     ],
     "answer": 0,
-    "explain": "Без functools.wraps у обёртки остаётся имя wrap, не f. Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
+    "explain": "Без @functools.wraps обёртка сохраняет своё имя: f.__name__ == 'wrap', а не 'f'.",
     "kind": "single",
     "code": "def deco(fn):\n    def wrap():\n        return fn()\n    return wrap\n@deco\ndef f():\n    pass\nprint(f.__name__)",
-    "group": "Декораторы и замыкания",
     "id": "m47",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что вернёт list(x for x in range(3))?",
     "options": [
       "[0,1,2]",
@@ -770,12 +770,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "List поглощает genexp — Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m48",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 502 — кратко?",
     "options": [
       "плохой шлюз",
@@ -786,12 +786,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 502: плохой шлюз — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m49",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что нужно для await?",
     "options": [
       "async def",
@@ -800,15 +800,15 @@ window.QUESTIONS_MIDDLE = [
       "новый OS-поток на каждый await"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в async def. Пройди выражение слева направо с учётом типов.",
+    "explain": "async def объявляет корутинную функцию; тело с await не выполнить без event loop.",
     "kind": "single",
     "code": "async def main():\n    await asyncio.sleep(0)",
-    "group": "Asyncio",
     "id": "m50",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
     "q": "Что в e?",
     "options": [
       "сообщение 'x'",
@@ -817,63 +817,63 @@ window.QUESTIONS_MIDDLE = [
       "ошибка"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в сообщение 'x'. Пройди выражение слева направо с учётом типов.",
+    "explain": "except ловит указанное исключение и продолжает выполнение → сообщение 'x'.",
     "kind": "single",
     "code": "try:\n    raise ValueError('x')\nexcept ValueError as e:\n    print(e)",
-    "group": "Исключения и контекст",
     "id": "m51",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
-    "q": "Зачем нужен parametrize?",
+    "q": "Зачем в тестах используют parametrize?",
     "options": [
-      "набора вход и ожидаемый результат",
-      "фикстур только",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "чтобы описать набор входов и ожидаемых результатов без копипасты теста",
+      "только чтобы создавать фикстуры",
+      "чтобы мокать сеть",
+      "чтобы отключить discovery"
     ],
     "answer": 0,
-    "explain": "Набора вход и ожидаемый результат. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Один тест + таблица данных вместо десятка почти одинаковых функций. Фикстуры и моки — отдельные механизмы pytest.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m52",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "classmethod",
-    "q": "Что такое альтернатива constructor через?",
+    "q": "Как часто делают альтернативный конструктор класса?",
     "options": [
-      "@classmethod from_…",
-      "staticmethod only",
-      "утверждение про другой уровень стека",
-      "metaclasses обязателен"
+      "через @classmethod вроде from_dict / from_json",
+      "только через @staticmethod",
+      "только через обязательный метакласс",
+      "только через eval строки с кодом"
     ],
     "answer": 0,
-    "explain": "@classmethod from_…. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "classmethod получает cls и может вернуть экземпляр. Классика: `@classmethod def from_json(cls, data): ...`. staticmethod не знает класс.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m53",
-    "fixed": true
+    "fixed": true,
+    "topic": "classmethod",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
-    "q": "Что такое classmethod получает?",
+    "q": "Что получает метод с @classmethod первым аргументом?",
     "options": [
-      "класс (cls), не экземпляр",
-      "только self",
-      "утверждение про другой уровень стека",
-      "метакласс всегда"
+      "класс (cls), а не экземпляр",
+      "только экземпляр self",
+      "метакласс всегда",
+      "ничего — аргументов нет"
     ],
     "answer": 0,
-    "explain": "Класс (cls), не экземпляр. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "classmethod видит класс: удобно для фабрик и доступа к атрибутам класса. Обычный метод получает self.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m54",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "{\"ok\": true, \"n\": null}",
@@ -882,63 +882,63 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в {\"ok\": true, \"n\": null}. Пройди выражение слева направо с учётом типов.",
+    "explain": "json.dumps сериализует Python-объект в JSON-строку → {\"ok\": true, \"n\": null}.",
     "kind": "single",
     "code": "import json\nprint(json.dumps({'ok': True, 'n': None}))",
-    "group": "Stdlib и производительность",
     "id": "m55",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
-    "q": "Что такое Queue между процессами?",
+    "q": "Как multiprocessing.Queue передаёт объекты между процессами?",
     "options": [
-      "сериализует объекты",
-      "делит память напрямую always",
-      "только str",
-      "GIL share"
+      "сериализует (обычно pickle) и копирует данные",
+      "всегда разделяет ту же память Python-объекта без копирования",
+      "умеет передавать только str",
+      "обходит GIL, шаря байткод"
     ],
     "answer": 0,
-    "explain": "Сериализует объекты. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Между процессами нет общего адресного пространства объектов Python: Queue пиклит/депиклит. Не всё пиклится; мутабельный шаринг «как в потоках» тут не работает.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m56",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
-    "q": "Что означает: Сложность dict.keys() итерации по n ключам?",
+    "q": "Какова сложность итерации по всем ключам dict из n элементов?",
     "options": [
       "O(n)",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "O(1)",
+      "O(log n)",
+      "O(n²)"
     ],
     "answer": 0,
-    "explain": "O(n). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Обойти n ключей — линейно. Поиск одного ключа в среднем O(1), но это другая операция.",
     "kind": "single",
-    "group": "Алгоритмы и структуры данных",
     "id": "m57",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "принципы",
-    "q": "Что такое Composition over inheritance?",
+    "q": "Что значит принцип «composition over inheritance»?",
     "options": [
-      "собирать поведение из объектов, а не только наследовать",
+      "собирать поведение из объектов-частей, а не тянуть всё через наследование",
       "никогда не использовать классы",
-      "только множественное наследование",
-      "запрет delegate"
+      "всегда писать только множественное наследование",
+      "запретить делегирование"
     ],
     "answer": 0,
-    "explain": "Собирать поведение из объектов, а не только наследовать. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Композиция («has-a») часто гибче глубоких иерархий («is-a»). Наследование не запрещено — просто не первый инструмент по умолчанию.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m58",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "git",
     "q": "Что верно про git bisect применяют для?",
     "options": [
       "поиска коммита, внесшего баг",
@@ -949,45 +949,45 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Бинарный поиск по истории — Git хранит историю коммитов; merge и rebase по-разному влияют на историю и на общей ветки.",
     "kind": "single",
-    "group": "Инструменты и стиль",
     "id": "m59",
-    "fixed": true
+    "fixed": true,
+    "topic": "git",
+    "group": "Инструменты и стиль"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "4",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "3",
+      "6",
+      "0"
     ],
     "answer": 0,
-    "explain": "C(4,3) = 4 — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "combinations(range(4), 3) — все сочетания из 4 по 3: C(4,3)=4. Это ленивый itertools, list(...) только считает длину.",
     "kind": "single",
     "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 3))))",
-    "group": "Collections и itertools",
     "id": "m60",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Что такое TypedDict описывает?",
+    "q": "Что описывает typing.TypedDict?",
     "options": [
-      "словари с известными ключами/типами",
-      "обязательная проверка типов на каждом вызове в CPython",
-      "ускорение байткода аннотациями",
-      "замена исключений кодами возврата"
+      "словарь с известным набором ключей и типами значений для чекера",
+      "обязательную runtime-проверку типов на каждом обращении",
+      "ускорение байткода за счёт аннотаций",
+      "замену исключений кодами возврата"
     ],
     "answer": 0,
-    "explain": "Словари с известными ключами/типами. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "TypedDict — контракт для type checker (mypy/pyright). В рантайме это обычный dict, аннотации сами по себе не проверяются и не ускоряют VM.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m61",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "В чём разница: @decorator без скобок vs @decorator()?",
     "options": [
       "объект vs вызов фабрики",
@@ -998,12 +998,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "() нужны, если декоратор-фабрика. Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m62",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что выведет код?",
     "options": [
       "10 20",
@@ -1015,12 +1015,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два next() забирают первые элементы. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
     "code": "g = (x for x in [10, 20, 30])\nprint(next(g), next(g))",
-    "group": "Генераторы и итераторы",
     "id": "m63",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
     "q": "Что такое Isolation level Serializable?",
     "options": [
       "самый строгий из классических",
@@ -1031,92 +1031,92 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Меньше аномалий, больше конфликтов. SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m64",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "async",
     "q": "Зачем нужен async for?",
     "options": [
-      "async-итераторов",
-      "обычных list",
-      "утверждение про другой уровень стека",
-      "multiprocessing"
+      "чтобы итерировать async-итераторы (__aiter__/__anext__) без блокировки loop",
+      "чтобы быстрее обходить обычный list",
+      "вместо multiprocessing.Pool",
+      "чтобы запретить for в корутинах"
     ],
     "answer": 0,
-    "explain": "Async-итераторов. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "async for ждёт __anext__ у асинхронного итератора (потоки данных, курсоры). Обычный list обходят обычным for — async for ему не нужен.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m65",
-    "fixed": true
+    "fixed": true,
+    "topic": "async",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Что такое nullcontext?",
+    "q": "Зачем нужен contextlib.nullcontext?",
     "options": [
-      "пустой CM-заглушка",
-      "suppress all",
-      "file open",
-      "утверждение про другой уровень стека"
+      "как пустая заглушка CM, когда with нужен условно",
+      "чтобы подавить все исключения как suppress(BaseException)",
+      "чтобы открыть файл",
+      "чтобы заменить async with"
     ],
     "answer": 0,
-    "explain": "Пустой CM-заглушка. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "nullcontext() — no-op context manager. Удобно писать один with, а CM выбирать: реальный или nullcontext(), если ничего делать не надо.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m66",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "testing",
-    "q": "Что верно про test discovery в pytest по умолчанию ищет?",
+    "q": "Что pytest ищет по умолчанию при discovery?",
     "options": [
-      "файлы test_*.py и функции test_*",
-      "только TestCase классы",
-      "main.py",
-      "setup.py"
+      "файлы test_*.py / *_test.py и функции/методы test_*",
+      "только классы unittest.TestCase",
+      "только main.py",
+      "только setup.py"
     ],
     "answer": 0,
-    "explain": "Файлы test_*.py и функции test_*. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Стандартные правила имён. unittest.TestCase тоже подхватится, но не «только они». main.py/setup.py сами по себе тестами не считаются.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m67",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "property",
-    "q": "Что верно про setter может менять тип хранимого?",
+    "q": "Может ли @property.setter поменять тип хранимого значения?",
     "options": [
-      "да, на твоей логике",
-      "нет языком запрещено",
-      "только int",
-      "только str"
+      "да — это твоя логика в setter",
+      "нет, язык это запрещает",
+      "можно хранить только int",
+      "можно хранить только str"
     ],
     "answer": 0,
-    "explain": "Да, на твоей логике. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "В setter ты волен нормализовать, конвертировать или хранить что угодно. Язык тип поля не фиксирует — только соглашения и type hints.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m68",
-    "fixed": true
+    "fixed": true,
+    "topic": "property",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ABC",
-    "q": "Зачем нужен __subclasshook__ у ABC?",
+    "q": "Зачем ABC нужен __subclasshook__?",
     "options": [
-      "кастом isinstance без register",
-      "MRO rewrite",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "чтобы кастомизировать isinstance/issubclass без явного register",
+      "чтобы переписать MRO всех классов",
+      "чтобы ускорить import",
+      "чтобы запретить наследование"
     ],
     "answer": 0,
-    "explain": "Кастом isinstance без register. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "__subclasshook__ позволяет ABC сказать: «считай класс виртуальным подклассом, если есть такие-то методы» — структурная проверка для isinstance.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m69",
-    "fixed": true
+    "fixed": true,
+    "topic": "ABC",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "performance",
     "q": "Что такое интернирование маленьких строк?",
     "options": [
       "деталь CPython, не контракт логики",
@@ -1127,12 +1127,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Не строй логику на is для str. Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m70",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
     "q": "Выбери все верные про GIL в CPython?",
     "options": [
       "GIL мешает параллельному исполнению байткода Python-потоками",
@@ -1152,44 +1152,44 @@ window.QUESTIONS_MIDDLE = [
       "concurrency"
     ],
     "difficulty": "middle",
-    "group": "Потоки, процессы, GIL",
     "id": "m71",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
-    "q": "Что означает: Два указателя (two pointers) на отсортированном массиве дают?",
+    "q": "Что даёт техника two pointers на отсортированном массиве для задачи «пара с суммой»?",
     "options": [
-      "O(n) вместо O(n²) для пар суммы",
-      "O(1) память всегда для sort",
-      "только для строк",
-      "только рекурсия"
+      "часто O(n) вместо наивных O(n²)",
+      "гарантию O(1) доп. памяти при любой сортировке",
+      "приём только для строк",
+      "обязательную рекурсию"
     ],
     "answer": 0,
-    "explain": "O(n) вместо O(n²) для пар суммы. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Два указателя с краёв сходятся: сравниваешь сумму с таргетом и двигаешь левый/правый. На отсортированных данных это линейный проход.",
     "kind": "single",
-    "group": "Алгоритмы и структуры данных",
     "id": "m72",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "принципы",
-    "q": "Класс Car наследует Engine, Wheels, Radio вместо «имеет» их — что нарушено?",
+    "q": "Car наследует Engine, Wheels, Radio вместо «имеет» их — что здесь не так?",
     "options": [
-      "разумную композицию",
-      "только PEP 8",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "сломана разумная композиция: это has-a, а не is-a",
+      "нарушен только PEP 8 про имена",
+      "так нельзя из‑за GIL",
+      "Python запрещает множественное наследование"
     ],
     "answer": 0,
-    "explain": "Разумную композицию. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Машина не является двигателем — она его содержит. Наследование здесь путает модель; лучше поля/композиция. Множественное наследование в Python разрешено, но не оправдывает такую модель.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m73",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "git",
     "q": "Что позволяет Interactive rebase (-i)?",
     "options": [
       "переупорядочить/squash/edit коммиты",
@@ -1200,45 +1200,45 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Чистка истории перед PR — Git хранит историю коммитов; merge и rebase по-разному влияют на историю и на общей ветки.",
     "kind": "single",
-    "group": "Инструменты и стиль",
     "id": "m74",
-    "fixed": true
+    "fixed": true,
+    "topic": "git",
+    "group": "Инструменты и стиль"
   },
   {
-    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
       "0",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
+      "1",
+      "-1",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "0. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "bisect_left([1,3,5,7], 1) — индекс, куда вставить 1, чтобы сохранить порядок: уже стоит на позиции 0.",
     "kind": "single",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 1))",
-    "group": "Collections и itertools",
     "id": "m75",
-    "fixed": true
+    "fixed": true,
+    "topic": "bisect",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Что ограничивает TypeVar(bound=...)?",
+    "q": "Что задаёт TypeVar(..., bound=...)?",
     "options": [
-      "верхнюю границу допустимых типов",
-      "только литералы",
-      "длину списка",
-      "это ускорение байткода в runtime"
+      "верхнюю границу допустимых подстановок типа",
+      "что параметр обязан быть литералом",
+      "максимальную длину list",
+      "ускорение байткода в runtime"
     ],
     "answer": 0,
-    "explain": "Верхнюю границу допустимых типов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "bound=Base значит: вместо TypeVar можно подставить только Base и его подтипы. Это подсказка для чекера, не runtime-ускорение.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m76",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Каков порядок применения @a @b def f:?",
     "options": [
       "f = a(b(f))",
@@ -1249,60 +1249,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Ближний декоратор применяется первым. Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m77",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "listcomp",
-    "q": "Что верно про Вложенный for в listcomp порядок?",
+    "q": "В каком порядке идут вложенные for в list comprehension?",
     "options": [
-      "как вложенные for слева направо",
+      "слева направо — как у обычных вложенных for",
       "справа налево",
-      "параллельно",
-      "утверждение про другой уровень стека"
+      "параллельно без порядка",
+      "сначала все if, потом for"
     ],
     "answer": 0,
-    "explain": "Как вложенные for слева направо. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "`[x for a in A for b in B]` читается как for a in A: for b in B. Порядок как в императивном коде, не «наоборот».",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m78",
-    "fixed": true
+    "fixed": true,
+    "topic": "listcomp",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "ASGI",
-    "q": "Что такое lifespan protocol?",
+    "q": "Что такое lifespan protocol в ASGI?",
     "options": [
-      "startup/shutdown приложения",
-      "только websocket",
-      "WSGI sync",
-      "утверждение про другой уровень стека"
+      "хуки startup/shutdown приложения вокруг обработки запросов",
+      "протокол только для WebSocket-кадров",
+      "то же самое, что WSGI sync callable",
+      "замена OpenAPI-схемы"
     ],
     "answer": 0,
-    "explain": "Startup/shutdown приложения. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Lifespan — события запуска и остановки приложения (инициализация пулов, закрытие соединений) до/после обслуживания запросов. Это не про кадры WebSocket и не WSGI.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m79",
-    "fixed": true
+    "fixed": true,
+    "topic": "ASGI",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "Что верно про wait_for(aw, timeout) при таймауте?",
+    "q": "Что делает asyncio.wait_for(awaitable, timeout) при истечении времени?",
     "options": [
-      "cancels и TimeoutError",
-      "блокирующий time.sleep внутри корутины",
-      "убивает process",
-      "возвращает None"
+      "отменяет awaitable и бросает TimeoutError",
+      "вызывает блокирующий time.sleep",
+      "убивает весь процесс ОС",
+      "молча возвращает None"
     ],
     "answer": 0,
-    "explain": "Cancels и TimeoutError. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "wait_for ставит дедлайн: по таймауту внутренний awaitable отменяется, снаружи — TimeoutError. Это не kill процесса и не sleep.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m80",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
     "q": "Что делает contextlib.redirect_stdout?",
     "options": [
       "временно подменяет sys.stdout на другой поток",
@@ -1313,12 +1313,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Redirect_stdout(new_target) на время with перенаправляет print/stdout. Удобно тестировать CLI. Это не logging и не subprocess.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m81",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "logging",
     "q": "Что такое QueueHandler?",
     "options": [
       "логи из потоков в очередь",
@@ -1329,109 +1329,109 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Централизация — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m82",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "В чём разница: __str__ vs __repr__?",
+    "q": "В чём разница между __str__ и __repr__?",
     "options": [
-      "str для пользователя, repr для отладки",
-      "нет разницы",
-      "str только для print чисел",
-      "repr запрещён"
+      "__str__ — для пользователя, __repr__ — однозначное представление для отладки",
+      "разницы нет, методы полные синонимы",
+      "__str__ можно только у чисел",
+      "__repr__ в языке запрещён"
     ],
     "answer": 0,
-    "explain": "Str для пользователя, repr для отладки. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "print и str() зовут __str__; в интерактивке и для отладки предпочтителен __repr__ (желательно eval-able). Если __str__ нет — падают на __repr__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m83",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ABC",
-    "q": "Что делает ABC.register()?",
+    "q": "Что делает ABC.register(cls)?",
     "options": [
-      "виртуальное подклассство без наследования",
-      "создаёт файл",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "объявляет cls виртуальным подклассом ABC без наследования",
+      "создаёт файл на диске",
+      "регистрирует класс в sys.modules",
+      "добавляет класс в MRO всех потомков принудительно"
     ],
     "answer": 0,
-    "explain": "Виртуальное подклассство без наследования. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "После register isinstance(obj, ABC) может быть True, даже если cls не наследует ABC в MRO. Это виртуальное подклассство, не запись на диск.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m84",
-    "fixed": true
+    "fixed": true,
+    "topic": "ABC",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "pathlib",
     "q": "Что делает Path.resolve()?",
     "options": [
-      "абсолютный путь + symlink resolve",
-      "только str",
-      "удаляет файл",
-      "утверждение про другой уровень стека"
+      "возвращает абсолютный путь и разрешает symlink'и",
+      "только превращает Path в str",
+      "удаляет файл по этому пути",
+      "создаёт недостающие каталоги"
     ],
     "answer": 0,
-    "explain": "Абсолютный путь + symlink resolve. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "resolve() нормализует путь до абсолютного и следует по символическим ссылкам (есть нюансы strict=). Это не unlink и не mkdir.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m85",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
-    "q": "Что верно про RLock отличается тем что?",
+    "q": "Чем threading.RLock отличается от Lock?",
     "options": [
-      "реентерабельный",
-      "быстрее всегда",
-      "для процессов",
-      "async only"
+      "тот же поток может захватить RLock повторно (реентерабельность)",
+      "RLock всегда быстрее Lock",
+      "RLock работает между процессами",
+      "RLock можно использовать только в asyncio"
     ],
     "answer": 0,
-    "explain": "Реентерабельный. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Обычный Lock повторный acquire тем же потоком — deadlock. RLock считает глубину захвата. Для процессов — другие примитивы multiprocessing.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m86",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
     "q": "Что выведет код?",
     "options": [
       "5",
-      "утверждение про другой уровень стека",
-      "ошибка",
-      "поведение, которого здесь нет"
+      "1",
+      "3",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "5. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "max([1, 5, 3]) возвращает наибольший элемент — 5.",
     "kind": "single",
     "code": "print(max([1, 5, 3]))",
-    "group": "Алгоритмы и структуры данных",
     "id": "m87",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "Zen",
-    "q": "Что означает: «There should be one obvious way to do it» близко к?",
+    "q": "К чему близок принцип «There should be one–and preferably only one–obvious way to do it»?",
     "options": [
-      "KISS и ясному стилю",
-      "10 способам сделать одно",
-      "отказу от stdlib",
-      "только ООП"
+      "к ясному стилю и духу KISS: один очевидный путь",
+      "к тому, чтобы иметь 10 равноправных способов сделать одно и то же",
+      "к отказу от стандартной библиотеки",
+      "к обязательному ООП в каждом скрипте"
     ],
     "answer": 0,
-    "explain": "KISS и ясному стилю. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Из Zen of Python: предпочитай один очевидный способ, а не зоопарк равноценных API. Это про ясность, не про запрет stdlib.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m88",
-    "fixed": true
+    "fixed": true,
+    "topic": "Zen",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что даёт product('ab', repeat=2)?",
     "options": [
       "aa ab ba bb (как кортежи)",
@@ -1442,12 +1442,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Декартово произведение — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m89",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
     "q": "Делят ли экземпляры @dataclass Point поле `x: int = 0`?",
     "options": [
       "нет — immutable default для int безопасен, у каждого экземпляра своё значение",
@@ -1458,44 +1458,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Проблемный shared default — мутабельный (`list`, `dict`). У `int = 0` каждый экземпляр получает своё значение поля; это не общий список на класс.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m90",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
-    "q": "Как починить late binding в цикле?",
+    "q": "Как починить late binding у lambda в цикле for i in ...?",
     "options": [
-      "lambda i=i: i  (default аргумент)",
-      "только global",
-      "утверждение про другой уровень стека",
-      "использовать list обязательно"
+      "зафиксировать значение default-аргументом: lambda i=i: ...",
+      "только объявить i как global",
+      "обязательно завернуть всё в list() заранее",
+      "переименовать lambda в def без других изменений — само починится"
     ],
     "answer": 0,
-    "explain": "Default фиксирует значение на каждой итерации. Lambda i=i: i (default аргумент). lambda i=i: i (default аргумент).",
+    "explain": "Замыкание видит переменную i, а не значение на итерации. Default `i=i` вычисляется в момент создания функции и «замораживает» число.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m91",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "итераторы",
-    "q": "Что вызывает iter(callable, sentinel)?",
+    "q": "Как работает iter(callable, sentinel)?",
     "options": [
-      "результат != sentinel",
-      "пока True",
-      "один раз",
-      "бесконечно без sentinel"
+      "вызывает callable, пока результат не станет равен sentinel",
+      "всегда делает ровно один вызов",
+      "игнорирует sentinel и крутится бесконечно",
+      "работает только с list"
     ],
     "answer": 0,
-    "explain": "Результат != sentinel. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Двухаргументный iter — классика для `iter(file.readline, '')`: читаем, пока не пустая строка-sentinel.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m92",
-    "fixed": true
+    "fixed": true,
+    "topic": "итераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
     "q": "Что такое Типичная роль `OFFSET`?",
     "options": [
       "пропустить N строк",
@@ -1506,44 +1506,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "OFFSET в SQL — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m93",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "Что верно про Shield отмены не отменяет?",
+    "q": "От чего asyncio.shield защищает внутренний awaitable?",
     "options": [
-      "внутренний awaitable сразу снаружи",
-      "KeyboardInterrupt OS",
-      "process kill",
-      "MemoryError"
+      "от немедленной отмены снаружи (с нюансами)",
+      "от KeyboardInterrupt на уровне ОС",
+      "от kill процесса",
+      "от MemoryError"
     ],
     "answer": 0,
-    "explain": "Внутренний awaitable сразу снаружи. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "shield не даёт внешней отмене Task сразу пробросить CancelledError внутрь. OS-сигналы и OOM он не «экранирует».",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m94",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Как удобнее открыть 2 вложенных with без ExitStack?",
+    "q": "Как открыть два контекста без ExitStack?",
     "options": [
-      "можно вложить / или один with a, b",
-      "нельзя никогда",
-      "только async",
-      "нужен GIL"
+      "вложить with или написать with a, b",
+      "никак — ExitStack обязателен всегда",
+      "только через async with",
+      "нужно удерживать GIL вручную"
     ],
     "answer": 0,
-    "explain": "Можно вложить / или один with a, b. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Фиксированное число CM: `with a, b:` или вложенность. ExitStack нужен, когда набор CM динамический.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m95",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
     "q": "Для чего в pytest фикстуры capsys/capfd?",
     "options": [
       "перехватить stdout/stderr внутри теста",
@@ -1554,12 +1554,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "`capsys` / `capfd` ловят то, что тест (и тестируемый код) пишет в stdout/stderr. Удобно проверять CLI-вывод. Для файлов — `tmp_path`, для времени — freeze/mock.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m96",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
     "q": "Что обслуживает метод __contains__?",
     "options": [
       "оператор in / not in для объекта",
@@ -1570,12 +1570,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "__contains__ реализует проверку `x in obj`. Если метода нет, Python может перебрать объект через итерацию. Это не __eq__ и не __hash__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m97",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "MRO",
     "q": "Верно ли, что object всегда в конце MRO?",
     "options": [
       "обычно да для new-style",
@@ -1586,12 +1586,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Корень иерархии — MRO (Method Resolution Order) задаёт порядок поиска методов при множественном наследовании по алгоритму C3.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m98",
-    "fixed": true
+    "fixed": true,
+    "topic": "MRO",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "regex",
     "q": "Что вернёт atomic grouping / possessive?",
     "options": [
       "в stdlib re ограничено; смотри сторонние",
@@ -1602,12 +1602,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — в stdlib re ограничено; смотри сторонние. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m99",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
     "q": "Что верно про PyPy GIL тоже есть, но?",
     "options": [
       "другой runtime/оптимизации",
@@ -1618,92 +1618,92 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Не переноси ожидания 1:1 — GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m100",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
-    "q": "Что означает: Сортировка встроенным sorted() — какой алгоритм в CPython?",
+    "q": "Какой алгоритм сортировки у встроенного sorted()/list.sort() в CPython?",
     "options": [
-      "Timsort (адаптивный merge/insertion)",
-      "quicksort всегда",
+      "Timsort — адаптивный гибрид merge/insertion",
+      "всегда классический quicksort",
       "bubble sort",
-      "radix только"
+      "только radix sort"
     ],
     "answer": 0,
-    "explain": "Timsort (адаптивный merge/insertion). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "CPython использует Timsort: стабильный, хорошо работает на частично упорядоченных данных. Не quicksort и не bubble.",
     "kind": "single",
-    "group": "Алгоритмы и структуры данных",
     "id": "m101",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "Zen",
-    "q": "Что верно про «Explicit is better than implicit»?",
+    "q": "Что означает «Explicit is better than implicit»?",
     "options": [
       "явный код лучше скрытой магии",
-      "больше глобальных переменных",
-      "меньше типов",
-      "только list comprehensions"
+      "нужно больше глобальных переменных",
+      "нужно меньше аннотаций типов",
+      "разрешены только list comprehensions"
     ],
     "answer": 0,
-    "explain": "Явный код лучше скрытой магии. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Из Zen: лучше писать явно (аргументы, зависимости, поведение), чем полагаться на неочевидные побочные эффекты и «магию».",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m102",
-    "fixed": true
+    "fixed": true,
+    "topic": "Zen",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
-    "q": "Что верно про defaultdict(int) при отсутствии ключа?",
+    "q": "Что сделает defaultdict(int), если ключа ещё не было?",
     "options": [
-      "создаёт 0",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "создаст значение 0 и вернёт его",
+      "бросит KeyError",
+      "вернёт None",
+      "создаст пустой list"
     ],
     "answer": 0,
-    "explain": "Создаёт 0. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "factory для defaultdict(int) — вызов int() → 0. Для списков берут defaultdict(list).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m103",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "enum",
-    "q": "Что такое Enum functional API?",
+    "q": "Что такое functional API у Enum?",
     "options": [
-      "Enum('Color', 'R G B')",
-      "только class syntax",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "динамическое создание: Enum('Color', 'RED GREEN BLUE')",
+      "единственный способ — только class Color(Enum): ...",
+      "API только для IntFlag",
+      "замена dataclass"
     ],
     "answer": 0,
-    "explain": "Динамическое создание — Enum задаёт именованные константы с фиксированным набором значений.",
+    "explain": "Кроме class-синтаксиса Enum можно собрать вызовом-фабрикой со строкой имён или списком. Удобно для кодогенерации.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m104",
-    "fixed": true
+    "fixed": true,
+    "topic": "enum",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "closures",
     "q": "Зачем нужен nonlocal x?",
     "options": [
-      "присваивать enclosing переменной",
-      "читать global",
-      "создать threadlocal",
-      "удалить x"
+      "чтобы присваивать переменной из enclosing (не global) области",
+      "чтобы читать builtin open",
+      "чтобы создать threading.local",
+      "чтобы удалить имя x из builtins"
     ],
     "answer": 0,
-    "explain": "Присваивать enclosing переменной. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Без nonlocal присваивание создаёт локальную переменную. nonlocal помечает: пишем во внешнюю функцию, не в global.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m105",
-    "fixed": true
+    "fixed": true,
+    "topic": "closures",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "listcomp",
     "q": "Что вернёт [i for i in range(5) if i%2==0]?",
     "options": [
       "[0, 2, 4]",
@@ -1714,28 +1714,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — [0, 2, 4]. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m106",
-    "fixed": true
+    "fixed": true,
+    "topic": "listcomp",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что вернёт HTTP/2 multiplexing?",
+    "q": "Что даёт multiplexing в HTTP/2?",
     "options": [
-      "много стримов на соединении",
-      "только один request",
-      "ошибка",
-      "утверждение про другой уровень стека"
+      "несколько независимых стримов на одном TCP-соединении",
+      "ровно один request на соединение, как в HTTP/1.0 без keep-alive",
+      "обязательный отказ от TLS",
+      "замену DNS"
     ],
     "answer": 0,
-    "explain": "Меньше head-of-line на уровне HTTP/1. В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "HTTP/2 мультиплексирует стримы: параллельные запросы без head-of-line на уровне HTTP/1. Не отменяет TCP HOL полностью, но сильно лучше.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m107",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что планирует asyncio.create_task?",
     "options": [
       "выполнение корутины на текущем event loop",
@@ -1746,44 +1746,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Create_task оборачивает корутину в Task и планирует её на loop. Это не thread/process и не обычный sync-вызов.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m108",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
-    "q": "От чего наследует TypeError?",
+    "q": "От какого класса наследует TypeError?",
     "options": [
       "Exception",
-      "только object",
-      "утверждение про другой уровень стека",
-      "OSError всегда"
+      "только object, минуя Exception",
+      "всегда OSError",
+      "BaseException напрямую, минуя Exception"
     ],
     "answer": 0,
-    "explain": "Exception. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "TypeError — обычная ошибка: Exception → TypeError. except Exception его поймает.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m109",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
     "q": "Что такое fixture в pytest?",
     "options": [
-      "подготовка данных/ресурсов",
-      "утверждение про другой уровень стека",
-      "мок только",
-      "поведение, которого в CPython нет"
+      "переиспользуемая подготовка данных/ресурсов с автоматическим teardown",
+      "только синоним unittest.mock",
+      "обязательный sleep в начале теста",
+      "файл coverage.xml"
     ],
     "answer": 0,
-    "explain": "Подготовка данных/ресурсов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Фикстуры через @pytest.fixture дают setup/teardown и dependency injection в аргументы теста. Mock — отдельный инструмент.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m110",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "property",
     "q": "Что вернёт obj.__dict__ у slots-only?",
     "options": [
       "часто отсутствует",
@@ -1794,45 +1794,45 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — часто отсутствует. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m111",
-    "fixed": true
+    "fixed": true,
+    "topic": "property",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
     "q": "Что выведет код?",
     "options": [
       "3",
-      "ошибка",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет"
+      "AttributeError",
+      "None",
+      "property"
     ],
     "answer": 0,
-    "explain": "3. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Обращение к c.x вызывает getter property и возвращает self._x, то есть 3.",
     "kind": "single",
     "code": "class C:\n    def __init__(self):\n        self._x = 3\n    @property\n    def x(self):\n        return self._x\nprint(C().x)",
-    "group": "ООП продвинутый",
     "id": "m112",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "sort",
-    "q": "Что такое Сортировка в Python?",
+    "q": "Какое важное свойство у сортировки в CPython?",
     "options": [
-      "стабильная (Timsort)",
-      "утверждение про другой уровень стека",
-      "quicksort гарантирован",
-      "только числа"
+      "она стабильная (Timsort сохраняет порядок равных элементов)",
+      "это всегда нестабильный quicksort",
+      "sorted работает только с числами",
+      "list.sort запрещён для строк"
     ],
     "answer": 0,
-    "explain": "Стабильная (Timsort). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Стабильность значит: равные ключи остаются в исходном относительном порядке. Timsort это гарантирует.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m113",
-    "fixed": true
+    "fixed": true,
+    "topic": "sort",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
     "q": "Что вернёт if __name__ == '__main__' критичен на?",
     "options": [
       "Windows/macOS spawn",
@@ -1843,110 +1843,110 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — Windows/macOS spawn. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m114",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
-    "q": "Что верно про BFS на графе в Python обычно с?",
+    "q": "Чем обычно реализуют BFS по графу в Python?",
     "options": [
-      "deque и visited set",
-      "list.pop(0) только",
-      "heapq только",
-      "утверждение про другой уровень стека"
+      "очередью collections.deque и множеством visited",
+      "только list.pop(0) без deque",
+      "только heapq",
+      "только рекурсией без очереди"
     ],
     "answer": 0,
-    "explain": "Deque и visited set. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "BFS — ширина: FIFO-очередь. deque.popleft() — O(1), list.pop(0) — O(n). heapq — для приоритетов, не классический BFS.",
     "kind": "single",
-    "group": "Алгоритмы и структуры данных",
     "id": "m115",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "KISS",
-    "q": "Что такое KISS в Python часто?",
+    "q": "Что на практике значит KISS в Python-коде?",
     "options": [
-      "прямолинейный код вместо магии",
-      "всегда метаклассы",
-      "только C-расширения",
-      "отказ от функций"
+      "прямолинейный понятный код вместо лишней «магии»",
+      "всегда метаклассы и дескрипторы",
+      "писать всё только на C-расширениях",
+      "отказаться от функций и модулей"
     ],
     "answer": 0,
-    "explain": "Прямолинейный код вместо магии. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Keep It Simple: сначала ясное решение. Метаклассы и native — когда простота уже не тянет требования.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m116",
-    "fixed": true
+    "fixed": true,
+    "topic": "KISS",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
-    "q": "Что вернёт defaultdict(list): d['k'].append(1) — если ключа не было?",
+    "q": "Что произойдёт при d['k'].append(1), если d = defaultdict(list) и ключа 'k' не было?",
     "options": [
-      "создаст [] и append",
-      "утверждение про другой уровень стека",
-      "NoneType error",
-      "игнор"
+      "создастся [], затем append(1)",
+      "KeyError",
+      "AttributeError: NoneType",
+      "операция тихо проигнорируется"
     ],
     "answer": 0,
-    "explain": "Результат выражения — создаст [] и append. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Нет ключа → factory list() → пустой список кладётся в d['k'] → append. Удобно для группировки.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m117",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что выведет код?",
     "options": [
       "zero",
+      "one",
       "ошибка",
-      "None",
-      "False"
+      "None"
     ],
     "answer": 0,
-    "explain": "Zero. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "match/case сопоставляет x=0 с case 0 и печатает zero.",
     "kind": "single",
     "code": "x = 0\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
-    "group": "Typing и dataclasses",
     "id": "m118",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
     "q": "Что выведет код?",
     "options": [
       "10",
-      "утверждение про другой уровень стека",
-      "ошибка",
-      "поведение, которого здесь нет"
+      "0",
+      "UnboundLocalError",
+      "NameError"
     ],
     "answer": 0,
-    "explain": "10. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "nonlocal n позволяет inc увеличить enclosing n с 0 до 10; make() возвращает это значение.",
     "kind": "single",
     "code": "def make():\n    n = 0\n    def inc():\n        nonlocal n\n        n += 10\n        return n\n    return inc\nprint(make()())",
-    "group": "Декораторы и замыкания",
     "id": "m119",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
-    "q": "Что вызывает gen.close()?",
+    "q": "Что происходит при gen.close()?",
     "options": [
-      "GeneratorExit",
-      "StopIteration только",
-      "KeyboardInterrupt",
-      "утверждение про другой уровень стека"
+      "внутрь генератора бросается GeneratorExit и он завершается",
+      "только обычный StopIteration без GeneratorExit",
+      "всегда KeyboardInterrupt",
+      "генератор перезапускается с первого yield"
     ],
     "answer": 0,
-    "explain": "Завершение генератора — Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
+    "explain": "close() шлёт GeneratorExit. Генератор должен завершиться; глотать GeneratorExit и продолжать yield — ошибка.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m120",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
     "q": "Что такое Типичная роль `ORDER BY`?",
     "options": [
       "сортировка результата",
@@ -1957,12 +1957,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "ORDER BY в SQL — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m121",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что вернёт CancelledError с 3.8+?",
     "options": [
       "BaseException subclass (не Exception)",
@@ -1973,12 +1973,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Не глотать широким except Exception бездумно ранее — уточняй версию/практику.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m122",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
     "q": "Что напечатает?",
     "options": [
       "enter\nbody\nexit",
@@ -1987,159 +1987,159 @@ window.QUESTIONS_MIDDLE = [
       "ошибка"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в enter\nbody\nexit. Пройди выражение слева направо с учётом типов.",
+    "explain": "with вызывает __enter__, тело, затем __exit__. Вывод: enter\nbody\nexit.",
     "kind": "single",
     "code": "class CM:\n    def __enter__(self):\n        print('enter')\n        return self\n    def __exit__(self, *a):\n        print('exit')\nwith CM():\n    print('body')",
-    "group": "Исключения и контекст",
     "id": "m123",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "mock",
-    "q": "Что умеет side_effect у мока?",
+    "q": "Что умеет side_effect у unittest.mock?",
     "options": [
-      "кидать/итерировать/вызывать",
-      "только return_value",
-      "патчить диск",
-      "утверждение про другой уровень стека"
+      "кидать исключения, отдавать значения из итерируемого или звать callable",
+      "только фиксированный return_value",
+      "патчить файлы на диске",
+      "заменять sys.modules"
     ],
     "answer": 0,
-    "explain": "Кидать/итерировать/вызывать. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "side_effect гибче return_value: последовательность ответов, исключение или своя функция. Диск сам по себе не трогает.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m124",
-    "fixed": true
+    "fixed": true,
+    "topic": "mock",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Что такое __len__ должен возвращать?",
+    "q": "Что должен возвращать __len__?",
     "options": [
-      "int >= 0",
+      "целое int ≥ 0",
       "любой float",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "строку с длиной",
+      "None"
     ],
     "answer": 0,
-    "explain": "Int >= 0. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Протокол длины требует неотрицательный int. Иначе TypeError при len(obj).",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m125",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ABC",
-    "q": "Что вернёт update_abstractmethods (3.10)?",
+    "q": "Для чего abc.update_abstractmethods (3.10+)?",
     "options": [
-      "пересчёт абстрактности после правок",
-      "ошибка",
-      "None",
-      "утверждение про другой уровень стека"
+      "пересчитать набор абстрактных методов после динамических правок класса",
+      "всегда бросить TypeError",
+      "вернуть None и ничего не делать полезного",
+      "удалить все abstractmethod"
     ],
     "answer": 0,
-    "explain": "Результат выражения — пересчёт абстрактности после правок. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Если вы на лету добавляете/убираете @abstractmethod, update_abstractmethods обновляет статус абстрактности класса.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m126",
-    "fixed": true
+    "fixed": true,
+    "topic": "ABC",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "subprocess",
-    "q": "Что такое timeout в run?",
+    "q": "Что делает timeout у subprocess.run?",
     "options": [
-      "убивает по истечении (TimeoutExpired)",
-      "утверждение про другой уровень стека",
-      "только warn",
-      "поведение, которого в CPython нет"
+      "по истечении убивает процесс и бросает TimeoutExpired",
+      "только пишет warning в stderr",
+      "игнорирует лимит на Windows",
+      "меняет приоритет nice"
     ],
     "answer": 0,
-    "explain": "Убивает по истечении (TimeoutExpired). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "run(..., timeout=N) ждёт не дольше N секунд, затем terminate/kill (с нюансами) и TimeoutExpired.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m127",
-    "fixed": true
+    "fixed": true,
+    "topic": "subprocess",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
-    "q": "В чём разница: Lock vs RLock?",
+    "q": "В чём практическая разница Lock и RLock?",
     "options": [
-      "RLock можно захватывать тем же потоком повторно",
-      "Lock быстрее всегда и reentrant",
-      "одно и то же",
-      "RLock только async"
+      "RLock тот же поток может взять повторно; обычный Lock — нет",
+      "Lock всегда быстрее и тоже reentrant",
+      "это одно и то же под разными именами",
+      "RLock существует только в asyncio"
     ],
     "answer": 0,
-    "explain": "RLock можно захватывать тем же потоком повторно. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Нужен ли reentrancy — главный критерий выбора. Оба — для потоков одного процесса, не для multiprocessing.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m128",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
-    "q": "Что верно про Counter.most_common(k) — сложность примерно?",
+    "q": "Какова типичная сложность Counter.most_common(k)?",
     "options": [
-      "O(n log k) через heap",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "примерно O(n log k) через кучу",
+      "всегда O(1)",
+      "O(n²) обязательно",
+      "O(log n) как бинарный поиск"
     ],
     "answer": 0,
-    "explain": "O(n log k) через heap. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Считаем частоты за O(n), затем heapq.nlargest по счётчикам — O(n log k) для топ-k.",
     "kind": "single",
-    "group": "Алгоритмы и структуры данных",
     "id": "m129",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "YAGNI",
     "q": "Чем YAGNI отличается от KISS?",
     "options": [
-      "YAGNI — не делать лишнее; KISS — делать просто",
-      "утверждение про другой уровень стека",
-      "YAGNI только для тестов",
-      "KISS только для SQL"
+      "YAGNI — не делать незапрошенное; KISS — делать просто то, что делаешь",
+      "YAGNI только про тесты, KISS только про SQL",
+      "это полные синонимы без оттенков",
+      "KISS запрещает функции, YAGNI запрещает классы"
     ],
     "answer": 0,
-    "explain": "YAGNI — не делать лишнее; KISS — делать просто. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "YAGNI отсекает лишние фичи «на будущее». KISS — про простоту реализации нужного. Часто идут рядом, но это разные акценты.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m130",
-    "fixed": true
+    "fixed": true,
+    "topic": "YAGNI",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
-    "q": "Что делает deque.rotate(1) на 4 элементах?",
+    "q": "Что делает deque.rotate(1) для очереди из 4 элементов?",
     "options": [
-      "цикл сдвиг на 1 вправо (отриц. — влево)",
-      "сортирует",
-      "удаляет k",
-      "ошибка всегда"
+      "циклический сдвиг на 1 вправо (отрицательный n — влево)",
+      "сортирует элементы",
+      "удаляет один элемент",
+      "всегда бросает ошибку"
     ],
     "answer": 0,
-    "explain": "Цикл сдвиг на 1 вправо (отриц. — влево). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "rotate(n) крутит deque на n шагов. Это не sort и не pop.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m131",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
-    "q": "Что такое match/case появился в?",
+    "q": "В какой версии Python появился match/case?",
     "options": [
       "3.10",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "3.12"
+      "3.8",
+      "3.12",
+      "2.7"
     ],
     "answer": 0,
-    "explain": "3.10. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Structural pattern matching (PEP 634) — с Python 3.10.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m132",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
     "q": "Что выведет код?",
     "options": [
       "[2, 2, 2]",
@@ -2148,15 +2148,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [2, 2, 2]. Пройди выражение слева направо с учётом типов.",
+    "explain": "lambda: i без default ловит i по имени; после цикла все дают последнее i.",
     "kind": "single",
     "code": "fs = [lambda: i for i in range(3)]\nprint([f() for f in fs])",
-    "group": "Декораторы и замыкания",
     "id": "m133",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "generators",
     "q": "Что выведет код?",
     "options": [
       "[1]",
@@ -2168,12 +2168,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Return в генераторе становится StopIteration.value; list() его не включает — только yield:.",
     "kind": "single",
     "code": "def g():\n    yield 1\n    return 0\nprint(list(g()))",
-    "group": "Генераторы и итераторы",
     "id": "m134",
-    "fixed": true
+    "fixed": true,
+    "topic": "generators",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 404 — кратко?",
     "options": [
       "не найдено",
@@ -2184,188 +2184,188 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 404: не найдено — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m135",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "async",
-    "q": "Что такое gather(..., return_exceptions=True)?",
+    "q": "Что меняет asyncio.gather(..., return_exceptions=True)?",
     "options": [
-      "кладёт исключения в результаты вместо raise",
-      "игнорит все задачи",
-      "отменяет всегда",
-      "только sync"
+      "исключения кладутся в список результатов вместо немедленного raise",
+      "все задачи молча отменяются",
+      "gather начинает работать только с sync-функциями",
+      "event loop останавливается"
     ],
     "answer": 0,
-    "explain": "Кладёт исключения в результаты вместо raise. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "По умолчанию первая ошибка пробрасывается. С return_exceptions=True получишь смесь результатов и exception-объектов.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m136",
-    "fixed": true
+    "fixed": true,
+    "topic": "async",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Что делает ExitStack.callback?",
+    "q": "Что делает ExitStack.callback(...)",
     "options": [
-      "регистрирует произвольный teardown",
-      "только CM",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "регистрирует произвольный teardown-колбэк на выход из стека",
+      "умеет входить только в context manager'ы, не в голые функции",
+      "заменяет sys.excepthook",
+      "включает GC"
     ],
     "answer": 0,
-    "explain": "Регистрирует произвольный teardown. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "callback регистрирует функцию, которая вызовется при раскрутке ExitStack — удобно для ручной очистки без CM.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m137",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "warnings",
-    "q": "Что такое catch_warnings?",
+    "q": "Зачем нужен warnings.catch_warnings?",
     "options": [
-      "временный контроль warnings",
-      "except Exception",
-      "утверждение про другой уровень стека",
-      "pytest only"
+      "временно перехватить/настроить warnings в блоке with",
+      "это синоним except Exception",
+      "это фикстура только pytest",
+      "отключает SyntaxWarning навсегда в процессе"
     ],
     "answer": 0,
-    "explain": "Временный контроль warnings. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "catch_warnings — контекст для тестов и локальной политики предупреждений. Не замена except и не глобальный kill switch навсегда.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m138",
-    "fixed": true
+    "fixed": true,
+    "topic": "warnings",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Что такое __length_hint__?",
+    "q": "Для чего нужен __length_hint__?",
     "options": [
-      "оценка длины для list(it)",
-      "точный len обязателен",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "дать оценку длины итератора (например для list(it)), не обязан быть точным len",
+      "обязан вернуть точный len, иначе TypeError",
+      "заменить __len__ у всех контейнеров",
+      "нужен только для str"
     ],
     "answer": 0,
-    "explain": "Оценка длины для list(it). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "length_hint — подсказка для предаллокации. Это не строгий протокол len(); hint может врать.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m139",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "slots",
-    "q": "Что верно про объявить пустые slots у subclass?",
+    "q": "Зачем у subclass с __slots__ часто пишут __slots__ = ()?",
     "options": [
-      "часто нужно [], чтобы не вернуть __dict__",
-      "утверждение про другой уровень стека",
-      "удаляет parent slots",
-      "создаёт list attr"
+      "чтобы не вернуть экземпляру __dict__, сохранив экономию памяти",
+      "чтобы удалить slots родителя",
+      "чтобы создать атрибут-список с именем slots",
+      "это синтаксический сахар без эффекта"
     ],
     "answer": 0,
-    "explain": "Часто нужно [], чтобы не вернуть __dict__. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Если у потомка не объявить slots, снова появится __dict__ и смысл slots родителя теряется. Пустой кортеж — «своих полей нет, dict не нужен».",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m140",
-    "fixed": true
+    "fixed": true,
+    "topic": "slots",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "tempfile",
-    "q": "Что возвращает mkstemp?",
+    "q": "Что возвращает tempfile.mkstemp?",
     "options": [
-      "fd и path",
-      "только Path",
-      "file object always",
-      "утверждение про другой уровень стека"
+      "пару (fd, path) — дескриптор и путь",
+      "только pathlib.Path",
+      "всегда готовый текстовый file object",
+      "только имя без fd"
     ],
     "answer": 0,
-    "explain": "Fd и path. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "mkstemp низкоуровневый: os-level fd + путь. Закрывать fd и удалять файл — твоя ответственность (или бери NamedTemporaryFile).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m141",
-    "fixed": true
+    "fixed": true,
+    "topic": "tempfile",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "concurrency",
-    "q": "Когда threading уместен?",
+    "q": "Когда уместен threading в CPython?",
     "options": [
-      "много I/O ожидания",
-      "чистый CPU без release GIL",
-      "вместо процессов всегда",
-      "только Windows"
+      "когда много времени уходит на ожидание I/O",
+      "для чистого CPU-bound Python без отпускания GIL",
+      "как полная замена multiprocessing всегда",
+      "только на Windows"
     ],
     "answer": 0,
-    "explain": "Много I/O ожидания. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Потоки хороши для I/O: пока один ждёт сеть/диск, другие работают. Чистый Python CPU упирается в GIL — бери процессы/native.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m142",
-    "fixed": true
+    "fixed": true,
+    "topic": "concurrency",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "алгоритмы",
     "q": "Для чего удобен defaultdict(list)?",
     "options": [
-      "группировки элементов по ключу",
-      "сортировки O(1)",
-      "хеширования паролей",
-      "async queue"
+      "группировать элементы по ключу без проверки «есть ли ключ»",
+      "сортировать за O(1)",
+      "хешировать пароли",
+      "заменить asyncio.Queue"
     ],
     "answer": 0,
-    "explain": "Группировки элементов по ключу. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Классика: d[key].append(item) при группировке. Сортировка, крипто и очереди — другие инструменты.",
     "kind": "single",
-    "group": "Алгоритмы и структуры данных",
     "id": "m143",
-    "fixed": true
+    "fixed": true,
+    "topic": "алгоритмы",
+    "group": "Алгоритмы и структуры данных"
   },
   {
-    "topic": "cohesion",
-    "q": "Что такое Высокая связность (cohesion) модуля?",
+    "q": "Что значит высокая связность (cohesion) модуля?",
     "options": [
       "элементы модуля работают на одну цель",
       "модуль знает обо всём проекте",
-      "много import *",
-      "один гигантский файл"
+      "везде import *",
+      "один гигантский файл на всё приложение"
     ],
     "answer": 0,
-    "explain": "Элементы модуля работают на одну цель. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "High cohesion — функции и типы модуля про одну тему. Обратное — «свалка» несвязанных утилит. Это не про размер файла сам по себе.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m144",
-    "fixed": true
+    "fixed": true,
+    "topic": "cohesion",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
-    "q": "Что такое namedtuple _asdict?",
+    "q": "Что возвращает namedtuple._asdict()?",
     "options": [
-      "OrderedDict/dict полей",
-      "json dumps auto",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "словарь (раньше OrderedDict) с полями экземпляра",
+      "автоматически JSON через dumps",
+      "кортеж только имён полей",
+      "глубокую копию вложенных объектов"
     ],
     "answer": 0,
-    "explain": "OrderedDict/dict полей. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "_asdict() отдаёт mapping поле→значение. JSON сам не пишет — для этого json.dumps.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m145",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Зачем нужен field(default_factory=set)?",
+    "q": "Зачем field(default_factory=set) в dataclass?",
     "options": [
-      "новый set() на каждый экземпляр",
-      "общий один set",
-      "запретить поле",
-      "только JSON"
+      "чтобы у каждого экземпляра был свой новый set()",
+      "чтобы все экземпляры делили один общий set",
+      "чтобы запретить поле",
+      "только для сериализации в JSON"
     ],
     "answer": 0,
-    "explain": "Новый set() на каждый экземпляр. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Мутабельный default нельзя писать как x: set = set(). default_factory вызывает фабрику на каждый экземпляр — иначе shared state.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m146",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Что такое Декоратор с аргументами?",
     "options": [
       "фабрика, возвращающая декоратор",
@@ -2376,44 +2376,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Тройная вложенность функций — Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m147",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "comprehensions",
-    "q": "Чем listcomp отличается от map+lambda часто?",
+    "q": "Чем простой list comprehension часто удобнее map+lambda?",
     "options": [
-      "читаемее для простых преобразований",
-      "всегда быстрее C",
-      "не создаёт list",
-      "запрещена в pep8"
+      "обычно читаемее для простых преобразований",
+      "всегда быстрее чистого C без исключений",
+      "не создаёт list (ленивый)",
+      "запрещён PEP 8"
     ],
     "answer": 0,
-    "explain": "Читаемее для простых преобразований. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Listcomp явно показывает цикл и условие. map+lambda часто хуже читается; listcomp всё равно строит список (не ленивый genexp).",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m148",
-    "fixed": true
+    "fixed": true,
+    "topic": "comprehensions",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "FastAPI",
-    "q": "Что такое response_model?",
+    "q": "Для чего в FastAPI параметр response_model?",
     "options": [
-      "фильтрует/валидирует ответ",
-      "меняет HTTP method",
+      "валидирует и фильтрует поля ответа по схеме",
+      "меняет HTTP-метод запроса",
       "отключает OpenAPI",
-      "async off"
+      "выключает async"
     ],
     "answer": 0,
-    "explain": "Фильтрует/валидирует ответ. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "response_model (обычно Pydantic) обрезает лишние поля и проверяет типы на выходе. На method/OpenAPI «выключить» он не влияет так.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m149",
-    "fixed": true
+    "fixed": true,
+    "topic": "FastAPI",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что означает: gather n=2 корутин без return_exceptions при одной ошибке?",
     "options": [
       "пробросит исключение (остальные могут продолжать до отмены политики)",
@@ -2424,124 +2424,124 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Пробросит исключение (остальные могут продолжать до отмены политики). Сверяй с тем, блокирует ли это loop и кто владеет Task.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m150",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "исключения",
-    "q": "Что верно про raise X from Y связывает?",
+    "q": "Что связывает конструкция raise X from Y?",
     "options": [
-      "__cause__",
-      "только message",
-      "traceback удаляет",
-      "утверждение про другой уровень стека"
+      "__cause__ — явную цепочку исключений",
+      "только текст message",
+      "удаляет traceback",
+      "заменяет sys.exc_info навсегда"
     ],
     "answer": 0,
-    "explain": "Exception chaining — Исключения лучше ловить точечно: широкий except Exception маскирует настоящие ошибки.",
+    "explain": "`raise New from old` ставит __cause__ (explicit chaining). Traceback не стирается — наоборот, оба видны.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m151",
-    "fixed": true
+    "fixed": true,
+    "topic": "исключения",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "logging",
-    "q": "Что такое filters на handler?",
+    "q": "Для чего filters у logging.Handler?",
     "options": [
-      "отсекают записи",
-      "меняют уровень root",
-      "удаляют logger",
-      "утверждение про другой уровень стека"
+      "отсекать записи, которые handler не должен обрабатывать",
+      "менять уровень корневого logger глобально",
+      "удалять сам Logger из менеджера",
+      "ротировать файлы логов"
     ],
     "answer": 0,
-    "explain": "Тонкая настройка — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "Filter решает, пропустить LogRecord дальше. Уровень — отдельно; ротация — у RotatingFileHandler и т.п.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m152",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Что верно про __iter__ + __next__ на одном классе?",
+    "q": "Что значит, если класс реализует и __iter__, и __next__?",
     "options": [
-      "объект и iterable и iterator",
-      "запрещено",
-      "только gen",
-      "только async"
+      "экземпляр одновременно iterable и iterator",
+      "так делать запрещено языком",
+      "нужен только generator",
+      "так можно только в async"
     ],
     "answer": 0,
-    "explain": "Объект и iterable и iterator. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Iterable даёт iterator через __iter__; iterator ещё имеет __next__. Совместить можно (одноразовый объект), но чаще разделяют.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m153",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
-    "q": "Что такое Миксин обычно?",
+    "q": "Что такое миксин обычно?",
     "options": [
-      "класс с доп. поведением без самостоятельной роли",
-      "абстрактный модуль",
-      "декоратор",
-      "metaclasses only"
+      "класс с дополнительным поведением без самостоятельной «главной» роли",
+      "абстрактный модуль sys",
+      "синоним декоратора",
+      "обязательный метакласс"
     ],
     "answer": 0,
-    "explain": "Класс с доп. поведением без самостоятельной роли. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Mixin подмешивают в наследование ради методов (логирование, сериализация). Сам по себе как доменная сущность не живёт.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m154",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "sort",
-    "q": "Что делает operator.itemgetter?",
+    "q": "Для чего часто используют operator.itemgetter в сортировке?",
     "options": [
-      "быстрый key для сортировки",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "как быстрый key= для sorted/min/max по индексу/ключу",
+      "чтобы отключить Timsort",
+      "чтобы сравнивать только id() объектов",
+      "это замена heapq"
     ],
     "answer": 0,
-    "explain": "Быстрый key для сортировки. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "itemgetter(1) быстрее и короче lambda t: t[1] на горячих сортировках. Алгоритм sorted не меняет.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m155",
-    "fixed": true
+    "fixed": true,
+    "topic": "sort",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
-    "q": "Что даёт local()?",
+    "q": "Что даёт threading.local()?",
     "options": [
-      "thread-local storage",
-      "process share",
-      "async local",
-      "утверждение про другой уровень стека"
+      "хранилище, своё для каждого потока",
+      "общую память между процессами",
+      "contextvars для asyncio",
+      "файловый lock ОС"
     ],
     "answer": 0,
-    "explain": "Thread-local storage. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "thread-local: у каждого Thread свои атрибуты на local(). Для процессов не шарится; для async-задач смотри contextvars.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m156",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "принципы",
-    "q": "Какая Global mutable state в библиотеке — проблема для?",
+    "q": "Почему глобальное мутабельное состояние в библиотеке — проблема?",
     "options": [
-      "тестируемости и предсказуемости",
-      "скорости всегда",
-      "утверждение про другой уровень стека",
-      "async only"
+      "ломает тестируемость и предсказуемость между вызовами",
+      "всегда замедляет интерпретатор вдвое",
+      "запрещено синтаксисом",
+      "мешает только asyncio"
     ],
     "answer": 0,
-    "explain": "Тестируемости и предсказуемости. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Глобалы утекают между тестами и пользователями API. Лучше явные аргументы/контекст. Скорость тут вторична.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m157",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[1, 2, 0, 1]",
@@ -2553,28 +2553,28 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Chain склеивает итерируемые — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(2)))))",
-    "group": "Collections и itertools",
     "id": "m158",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "enum",
-    "q": "Что верно про Enum'ы сравнимы с int если?",
+    "q": "Когда члены Enum сравнимы с int?",
     "options": [
-      "IntEnum / IntFlag",
-      "утверждение про другой уровень стека",
+      "если это IntEnum или IntFlag",
+      "всегда у любого Enum",
       "никогда",
-      "только StrEnum"
+      "только у StrEnum"
     ],
     "answer": 0,
-    "explain": "Отдельные типы — Enum задаёт именованные константы с фиксированным набором значений.",
+    "explain": "Обычный Enum с int не равен числу. IntEnum/IntFlag ведут себя как int. StrEnum — про строки.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m159",
-    "fixed": true
+    "fixed": true,
+    "topic": "enum",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
     "q": "Что выведут все вызовы?",
     "options": [
       "2 2 2",
@@ -2583,31 +2583,31 @@ window.QUESTIONS_MIDDLE = [
       "None None None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в 2 2 2. Пройди выражение слева направо с учётом типов.",
+    "explain": "Классический late binding в цикле: все замыкания видят финальное i=2.",
     "kind": "single",
     "code": "funcs = []\nfor i in range(3):\n    funcs.append(lambda: i)\nprint(funcs[0](), funcs[1](), funcs[2]())",
-    "group": "Декораторы и замыкания",
     "id": "m160",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "итераторы",
-    "q": "Что вызывает iter(x)?",
+    "q": "Что вызывает iter(x) у обычного объекта?",
     "options": [
       "x.__iter__()",
-      "x.__next__()",
-      "list(x)",
-      "x.next() в Py3"
+      "сразу x.__next__()",
+      "обязательно list(x)",
+      "x.next() как в Python 2"
     ],
     "answer": 0,
-    "explain": "X.__iter__(). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "iter запрашивает итератор через __iter__ (или sequence protocol). __next__ зовёт уже у итератора.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m161",
-    "fixed": true
+    "fixed": true,
+    "topic": "итераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 304 — кратко?",
     "options": [
       "не изменилось / кэш",
@@ -2618,28 +2618,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 304: не изменилось / кэш. В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m162",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "В чём риск create_task ×2 без await/ссылок?",
+    "q": "В чём риск create_task без await и без сохранения ссылки?",
     "options": [
-      "задачи могут быть собраны GC / потеря исключений",
-      "выполнятся надёжнее",
-      "синхронно",
-      "запрещены"
+      "задачу может собрать GC; исключения легко потерять",
+      "задачи выполняются надёжнее",
+      "они становятся синхронными",
+      "create_task так запрещён"
     ],
     "answer": 0,
-    "explain": "Задачи могут быть собраны GC / потеря исключений. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "«Fire-and-forget» без strong ref — риск сборки и «Task exception was never retrieved». Держи ссылку или явно обрабатывай.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m163",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
     "q": "Можно ли передать в contextlib.suppress несколько типов исключений?",
     "options": [
       "да — suppress(TypeError, ValueError) и т.п.",
@@ -2650,28 +2650,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Suppress(*exceptions) принимает несколько типов: внутри with эти исключения глотаются. Удобно вместо длинного try/except pass.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m164",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
-    "q": "В чём разница: mark.skip vs skipif?",
+    "q": "Чем pytest.mark.skip отличается от skipif?",
     "options": [
-      "безусловно vs условие",
-      "одно и то же",
-      "skipif удаляет файл",
-      "skip = xfail"
+      "skip — всегда; skipif — по условию",
+      "это полные синонимы",
+      "skipif удаляет файл теста с диска",
+      "skip то же, что xfail"
     ],
     "answer": 0,
-    "explain": "Безусловно vs условие. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "skip безусловен, skipif(expr) пропускает при истинном условии. xfail — ожидаемый провал, другая семантика.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m165",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "classmethod",
     "q": "Какой первый аргумент у метода с @classmethod?",
     "options": [
       "cls — сам класс, а не экземпляр",
@@ -2682,76 +2682,76 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "`@classmethod` получает класс (`cls`). Так пишут альтернативные конструкторы (`from_json`). Обычный метод получает `self`, `@staticmethod` — ничего неявного.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m166",
-    "fixed": true
+    "fixed": true,
+    "topic": "classmethod",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ABC",
-    "q": "Что такое @abstractmethod на property?",
+    "q": "Можно ли поставить @abstractmethod на property?",
     "options": [
-      "возможно",
-      "утверждение про другой уровень стека",
-      "только methods",
-      "только classmethod"
+      "да — абстрактный геттер/сеттер в ABC",
+      "нет, только на обычные methods",
+      "только вместе с classmethod",
+      "только в Python 2"
     ],
     "answer": 0,
-    "explain": "Возможно. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "@abstractmethod может декорировать property: подкласс обязан реализовать свойство. Это штатный приём ABC.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m167",
-    "fixed": true
+    "fixed": true,
+    "topic": "ABC",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "import",
-    "q": "Что верно про from __future__ import annotations делает?",
+    "q": "Что делает from __future__ import annotations?",
     "options": [
-      "откладывает оценку аннотаций (строки)",
-      "включает GIL free",
-      "Py2 mode",
-      "оптимизирует abs"
+      "откладывает вычисление аннотаций (хранит как строки / отложенно)",
+      "включает free-threading без GIL",
+      "режим совместимости с Python 2",
+      "ускоряет встроенную abs"
     ],
     "answer": 0,
-    "explain": "Откладывает оценку аннотаций (строки). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "PEP 563/649-направление: аннотации не вычисляются сразу при определении класса/функции — удобно для forward refs. Не про GIL.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m168",
-    "fixed": true
+    "fixed": true,
+    "topic": "import",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
-    "q": "В чём разница: Pipe vs Queue?",
+    "q": "Чем multiprocessing.Pipe отличается от Queue?",
     "options": [
-      "Pipe двусторонняя пара, Queue многоучастников",
-      "одно и то же",
-      "Pipe только async",
-      "Queue без pickle"
+      "Pipe — пара концов на двоих; Queue — очередь для многих участников",
+      "это одно и то же API",
+      "Pipe работает только с asyncio",
+      "Queue передаёт объекты без сериализации"
     ],
     "answer": 0,
-    "explain": "Pipe двусторонняя пара, Queue многоучастников. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Pipe удобен для двух процессов. Queue — многопроизводителей/потребителей, с пиклом. Оба не шарят сырые py-объекты.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m169",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "patterns",
-    "q": "Что такое Паттерн Command полезен для?",
+    "q": "Для чего полезен паттерн Command?",
     "options": [
-      "отложенного выполнения и undo/redo",
-      "только SQL",
-      "только HTTP",
-      "утверждение про другой уровень стека"
+      "отложенное выполнение, очередь действий, undo/redo",
+      "только для SQL-запросов",
+      "только для HTTP",
+      "замена enum"
     ],
     "answer": 0,
-    "explain": "Отложенного выполнения и undo/redo. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Command инкапсулирует действие как объект — можно класть в очередь, логировать, откатывать. Не привязан к SQL/HTTP.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m170",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[1, 2, 3]",
@@ -2763,28 +2763,28 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Islice — ленивый срез — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import islice\nprint(list(islice([1, 2, 3, 4, 5], 3)))",
-    "group": "Collections и itertools",
     "id": "m171",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
-    "q": "Что такое case _ :?",
+    "q": "Что означает ветка `case _:` в match?",
     "options": [
-      "wildcard / default ветка",
-      "ошибка синтаксиса",
-      "только для None",
-      "утверждение про другой уровень стека"
+      "wildcard — срабатывает, если ничего выше не подошло",
+      "синтаксическая ошибка",
+      "матчит только None",
+      "обязательна в каждом match"
     ],
     "answer": 0,
-    "explain": "Wildcard / default ветка. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "_ — общий случай (default). Не обязан быть, но удобен как «иначе».",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m172",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Зачем нужен functools.wraps?",
     "options": [
       "сохранить __name__/__doc__ обёрнутой",
@@ -2795,44 +2795,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Копирует метаданные — Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m173",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "comprehensions",
-    "q": "Есть ли у listcomp своей scope?",
+    "q": "Есть ли у list comprehension своя область видимости?",
     "options": [
-      "да (с 3), локальные переменные не утекают",
-      "нет как в 2.7",
-      "только для async",
-      "только dictcomp"
+      "да, с Python 3 переменные comprehension не утекают наружу",
+      "нет, как было в 2.7",
+      "только у async for",
+      "только у dict comprehension"
     ],
     "answer": 0,
-    "explain": "Да (с 3), локальные переменные не утекают. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "В Py3 `[i for i in ...]`: i не остаётся снаружи. В 2.7 listcomp утекал — частая ловушка миграции.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m174",
-    "fixed": true
+    "fixed": true,
+    "topic": "comprehensions",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
     "q": "Что такое SQLAlchemy?",
     "options": [
-      "ORM/toolkit для БД",
-      "NoSQL база",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "ORM и SQL toolkit для работы с БД",
+      "отдельная NoSQL-база данных",
+      "встроенный модуль stdlib вместо sqlite3",
+      "брокер сообщений"
     ],
     "answer": 0,
-    "explain": "Популярный ORM — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "SQLAlchemy — библиотека: Core (SQL expression) и ORM. Это не СУБД и не часть стандартной библиотеки.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m175",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что вернёт ensure_future / create_task?",
     "options": [
       "планируют корутину",
@@ -2843,142 +2843,142 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — планируют корутину. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m176",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
     "q": "От чего наследует FileNotFoundError?",
     "options": [
-      "OSError",
+      "OSError (иерархия ошибок ОС/I/O)",
       "только object",
-      "утверждение про другой уровень стека",
-      "OSError всегда"
+      "напрямую Exception, минуя OSError",
+      "Warning"
     ],
     "answer": 0,
-    "explain": "OSError. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "С PEP 3151 детализировали OSError: FileNotFoundError — его подкласс. except OSError поймает и его.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m177",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "testing",
-    "q": "Что такое pytest -k 'not slow'?",
+    "q": "Что делает pytest -k 'not slow'?",
     "options": [
-      "запустить тесты, имя которых не матчит slow",
-      "удалить медленные",
-      "только slow",
-      "skip CI"
+      "запускает тесты, чьи имена не матчят выражение slow",
+      "удаляет медленные тесты с диска",
+      "запускает только slow",
+      "отключает CI"
     ],
     "answer": 0,
-    "explain": "Запустить тесты, имя которых не матчит slow. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "-k фильтрует по подстроке/выражению в имени ноды. Файлы не трогает.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m178",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Что вызовет a + b?",
+    "q": "Что вызывается при выражении a + b?",
     "options": [
-      "a.__add__(b) или b.__radd__(a)",
-      "только __iadd__",
-      "утверждение про другой уровень стека",
-      "hash(a)"
+      "сначала a.__add__(b), иначе b.__radd__(a)",
+      "только a.__iadd__(b)",
+      "обязательно hash(a)",
+      "только b.__add__(a)"
     ],
     "answer": 0,
-    "explain": "A.__add__(b) или b.__radd__(a). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Бинарный +: левый __add__, при NotImplemented — отражённый __radd__. __iadd__ — для +=.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m179",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
-    "q": "Что верно про MRO при diamond: C(A,B) порядок?",
+    "q": "Каков типичный MRO при diamond: class C(A, B)?",
     "options": [
-      "C, а затем A, и далее B, а затем object (примерно, C3)",
-      "C, а затем B, и далее A всегда",
-      "случайный",
-      "ошибка всегда"
+      "C, затем A, затем B, затем общие базы по C3 (упрощённо)",
+      "всегда C, B, A без исключений",
+      "случайный порядок каждый запуск",
+      "всегда TypeError"
     ],
     "answer": 0,
-    "explain": "C, а затем A, и далее B, а затем object (примерно, C3). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "C3 линеаризация фиксирует порядок: слева направо с учётом монотонности. Точный хвост зависит от баз A/B; смотри Class.__mro__.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m180",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "sort",
-    "q": "Что выведет код?",
+    "q": "Что выведет/покажет код про стабильность sorted?",
     "options": [
-      "стабильный (сохраняет порядок)",
-      "утверждение про другой уровень стека",
-      "по id",
-      "ошибка"
+      "порядок равных по ключу элементов сохранится (стабильная сортировка)",
+      "элементы переставятся случайно при равном ключе",
+      "сортировка по id() объектов",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в стабильный (сохраняет порядок). Пройди выражение слева направо с учётом типов.",
+    "explain": "Оба кортежа с ключом 1: Timsort сохранит исходный относительный порядок ('b' перед 'a').",
     "kind": "single",
     "code": "xs = [('b', 1), ('a', 1)]\nprint(sorted(xs, key=lambda t: t[1]))",
-    "group": "Stdlib и производительность",
     "id": "m181",
-    "fixed": true
+    "fixed": true,
+    "topic": "sort",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
-    "q": "Что верно про Barrier для N потоков?",
+    "q": "Для чего threading.Barrier на N потоков?",
     "options": [
-      "синхронная встреча",
-      "lock one",
-      "async gather",
-      "process barrier OS"
+      "чтобы N потоков встретились в одной точке синхронизации",
+      "это обычный Lock на один поток",
+      "это asyncio.gather",
+      "барьер ядра ОС между процессами"
     ],
     "answer": 0,
-    "explain": "Синхронная встреча. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Barrier.wait() блокирует, пока не соберётся parties потоков, затем отпускает всех. Не путать с process-барьерами.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m182",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "YAGNI",
-    "q": "Что такое YAGNI не противоречит?",
+    "q": "С чем YAGNI совместим?",
     "options": [
-      "простому расширяемому дизайну без лишних фич",
-      "написанию всего заранее",
-      "100 уровней наследования",
-      "преждевременной оптимизации"
+      "с простым расширяемым дизайном без лишних фич «на вырост»",
+      "с написанием всего возможного API заранее",
+      "с сотней уровней наследования",
+      "с преждевременной микрооптимизацией"
     ],
     "answer": 0,
-    "explain": "Простому расширяемому дизайну без лишних фич. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "YAGNI не запрещает хороший дизайн — запрещает строить то, что никто не просил. Преждевременная оптимизация — как раз противник.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m183",
-    "fixed": true
+    "fixed": true,
+    "topic": "YAGNI",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "20",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "10",
+      "5",
+      "25"
     ],
     "answer": 0,
-    "explain": "P(5,2) = 20 — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "permutations(range(5), 2) — размещения из 5 по 2: P(5,2)=5×4=20.",
     "kind": "single",
     "code": "from itertools import permutations\nprint(len(list(permutations(range(5), 2))))",
-    "group": "Collections и itertools",
     "id": "m184",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт Annotated[int, ...] несёт?",
     "options": [
       "метаданные для инструментов",
@@ -2989,12 +2989,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — метаданные для инструментов. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m185",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Что делает @functools.wraps(f)?",
     "options": [
       "копирует __name__/__doc__ с обёрнутой функции",
@@ -3005,12 +3005,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Иначе инспекция видит wrapper. Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m186",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что создаёт выражение (x for x in range(3))?",
     "options": [
       "generator expression — ленивый итератор",
@@ -3021,28 +3021,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Круглые скобки с for — generator expression, не tuple. Значения считаются по мере next(). Для кортежа нужен tuple(...), для списка — [...].",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m187",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
     "q": "Что такое covering index?",
     "options": [
-      "индекс закрывает запрос без heap",
+      "индекс, из которого СУБД может ответить на запрос, не читая heap/таблицу",
       "полный table scan",
-      "foreign key",
-      "утверждение про другой уровень стека"
+      "синоним foreign key",
+      "обязательный PRIMARY KEY"
     ],
     "answer": 0,
-    "explain": "Меньше I/O — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Covering/index-only scan: все нужные колонки есть в индексе. Это про план запроса, не про FK.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m188",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что вернёт eager_task_factory (3.12)?",
     "options": [
       "задачи стартуют немедленно",
@@ -3053,12 +3053,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — задачи стартуют немедленно. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m189",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "with",
     "q": "Что вернёт with A() as a, B() as b?",
     "options": [
       "да, поддерживается",
@@ -3069,61 +3069,61 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — да, поддерживается. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m190",
-    "fixed": true
+    "fixed": true,
+    "topic": "with",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "testing",
     "q": "Что позволяет monkeypatch в pytest?",
     "options": [
-      "временно подменить атрибут/ENV/путь",
-      "патчить prod",
-      "удалить git",
+      "временно подменить атрибут, переменную окружения или путь в тесте",
+      "патчить прод без отката",
+      "удалить git-репозиторий",
       "отключить GIL"
     ],
     "answer": 0,
-    "explain": "Временно подменить атрибут/ENV/путь. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "monkeypatch безопасен в рамках теста и откатывается. Это не про прод и не про GIL.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m191",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "staticmethod",
     "q": "Что делает декоратор @staticmethod?",
     "options": [
-      "не принимает self/cls автоматически",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "только в metaclasses"
+      "метод не получает автоматически self/cls — обычная функция в классе",
+      "включает JIT для метода",
+      "делает метод абстрактным",
+      "разрешён только внутри метакласса"
     ],
     "answer": 0,
-    "explain": "Не принимает self/cls автоматически. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "staticmethod — namespace класса без привязки экземпляра. Не путать с classmethod.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m192",
-    "fixed": true
+    "fixed": true,
+    "topic": "staticmethod",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "MRO",
-    "q": "Что выведет C.__mro__[0].__name__?",
+    "q": "Что выведет код?",
     "options": [
       "C",
-      "ошибка",
-      "None",
-      "утверждение про другой уровень стека"
+      "B",
+      "A",
+      "object"
     ],
     "answer": 0,
-    "explain": "Первый в MRO — сам класс — MRO (Method Resolution Order) задаёт порядок поиска методов при множественном наследовании по алгоритму C3.",
+    "explain": "C.__mro__[0] — сам класс C, поэтому имя 'C'.",
     "kind": "single",
     "code": "class A: pass\nclass B(A): pass\nclass C(B): pass\nprint(C.__mro__[0].__name__)",
-    "group": "ООП продвинутый",
     "id": "m193",
-    "fixed": true
+    "fixed": true,
+    "topic": "MRO",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "False",
@@ -3135,44 +3135,44 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде ложно. Проверь сравнения, пустоту коллекций и приоритет операций.",
     "kind": "single",
     "code": "import copy\na = [[1], [2]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m194",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
-    "q": "Что такое Timer запускает?",
+    "q": "Что делает threading.Timer?",
     "options": [
-      "функцию через delay в потоке",
-      "async sleep",
-      "cron OS",
-      "утверждение про другой уровень стека"
+      "запускает функцию в отдельном потоке после delay секунд",
+      "это asyncio.sleep",
+      "ставит системный cron",
+      "блокирует главный поток без нового Thread"
     ],
     "answer": 0,
-    "explain": "Функцию через delay в потоке. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Timer — Thread с отложенным start. Не cron ОС и не корутина.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m195",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "принципы",
-    "q": "Что верно про Spaghetti code — признак?",
+    "q": "Что такое spaghetti code?",
     "options": [
-      "запутанных зависимостей и потока управления",
-      "только async",
-      "только ООП",
-      "утверждение про другой уровень стека"
+      "запутанные зависимости и поток управления",
+      "обязательно только async-код",
+      "обязательно только ООП",
+      "синоним чистой архитектуры"
     ],
     "answer": 0,
-    "explain": "Запутанных зависимостей и потока управления. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "«Спагетти» — goto-подобная каша связей. Не привязано к async или ООП как таковым.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m196",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[1, 3, 6, 10]",
@@ -3184,29 +3184,29 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Накопительная сумма — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 5))))",
-    "group": "Collections и itertools",
     "id": "m197",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что выведет код?",
     "options": [
       "pair",
-      "ошибка",
-      "None",
+      "empty",
+      "single",
       "[1, 2]"
     ],
     "answer": 0,
-    "explain": "Pair. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Список из двух элементов матчит case [_, _] (в обрезанном коде — ветка pair).",
     "kind": "single",
     "code": "x = [1, 2]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
-    "group": "Typing и dataclasses",
     "id": "m198",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Выбери все верные про декораторы?",
     "options": [
       "@f над def g равносильно g = f(g)",
@@ -3225,44 +3225,44 @@ window.QUESTIONS_MIDDLE = [
       "decorators"
     ],
     "difficulty": "middle",
-    "group": "Декораторы и замыкания",
     "id": "m199",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
-    "q": "Что верно про return value в генераторе (3.3+)?",
+    "q": "Куда попадает значение `return x` внутри генератора (3.3+)?",
     "options": [
-      "кладёт value в StopIteration.value",
-      "синтаксическая ошибка",
-      "как обычный return из caller",
-      "игнорируется"
+      "в StopIteration.value (его забирает yield from)",
+      "это SyntaxError",
+      "сразу return в вызывающий кадр как у обычной функции",
+      "значение всегда игнорируется"
     ],
     "answer": 0,
-    "explain": "Кладёт value в StopIteration.value. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "return в генераторе завершает его с StopIteration.value. yield from пробрасывает это значение наружу.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m200",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
-    "q": "Уровень изоляции SERIALIZABLE — что верно?",
+    "q": "Что важно помнить про SERIALIZABLE?",
     "options": [
-      "разные аномалии чтения/записи; знай свою СУБД",
-      "все уровни идентичны в PostgreSQL",
-      "только про DDL",
-      "отключает индексы"
+      "это самый строгий уровень, но аномалии/реализация зависят от СУБД",
+      "во всех СУБД SERIALIZABLE ведёт себя идентично",
+      "уровень только про DDL",
+      "он отключает индексы"
     ],
     "answer": 0,
-    "explain": "Разные аномалии чтения/записи; знай свою СУБД. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Имя одно, семантика (SSI vs S2PL и т.д.) разная. Читай документацию своей БД.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m201",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что означает: gather n=4 корутин без return_exceptions при одной ошибке?",
     "options": [
       "пробросит исключение (остальные могут продолжать до отмены политики)",
@@ -3273,92 +3273,92 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Пробросит исключение (остальные могут продолжать до отмены политики). Сверяй с тем, блокирует ли это loop и кто владеет Task.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m202",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
     "q": "От чего наследует KeyboardInterrupt?",
     "options": [
-      "BaseException",
+      "BaseException (не Exception)",
       "только object",
-      "утверждение про другой уровень стека",
-      "OSError всегда"
+      "Exception напрямую",
+      "OSError"
     ],
     "answer": 0,
-    "explain": "BaseException. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Ctrl+C → KeyboardInterrupt ⊂ BaseException. except Exception его не глотает — выход остаётся возможным.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m203",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "warnings",
     "q": "Что делает warnings.simplefilter('error')?",
     "options": [
-      "предупреждение превращается в исключение",
-      "silence all",
-      "log only",
-      "утверждение про другой уровень стека"
+      "превращает подходящие warnings в исключения",
+      "глушит все предупреждения",
+      "только пишет в log",
+      "отключает SyntaxError"
     ],
     "answer": 0,
-    "explain": "Предупреждение превращается в исключение. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "filter 'error' полезен в тестах: предупреждение не проскользнёт молча. 'ignore' — наоборот глушит.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m204",
-    "fixed": true
+    "fixed": true,
+    "topic": "warnings",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
     "q": "Что обслуживает метод __getitem__?",
     "options": [
-      "obj[key]",
-      "obj.key",
-      "утверждение про другой уровень стека",
-      "with obj"
+      "доступ obj[key] / срезы",
+      "доступ obj.key через точку",
+      "вход в with obj",
+      "вызов obj()"
     ],
     "answer": 0,
-    "explain": "Obj[key]. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Квадратные скобки → __getitem__/__setitem__. Точка — __getattribute__, with — __enter__, вызов — __call__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m205",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "MRO",
     "q": "Что такое MRO?",
     "options": [
-      "порядок поиска методов",
-      "утверждение про другой уровень стека",
-      "тип ошибки",
-      "менеджер памяти"
+      "Method Resolution Order — порядок поиска атрибутов/методов у класса",
+      "тип исключения импорта",
+      "менеджер памяти pymalloc",
+      "формат wheel-файла"
     ],
     "answer": 0,
-    "explain": "Method Resolution Order (C3). MRO (Method Resolution Order) задаёт порядок поиска методов при множественном наследовании по алгоритму C3.",
+    "explain": "MRO (C3) видно в Class.__mro__. От него зависит, чей метод вызовется при множественном наследовании.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m206",
-    "fixed": true
+    "fixed": true,
+    "topic": "MRO",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "pickle",
-    "q": "Что верно про find_class можно ограничить для?",
+    "q": "Зачем ограничивать find_class при Unpickler?",
     "options": [
-      "безопасной загрузки whitelist",
-      "ускорения",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "чтобы whitelist'ить безопасные классы при загрузке",
+      "чтобы ускорить pickle в 10 раз",
+      "чтобы отключить GC",
+      "это нужно только для json"
     ],
     "answer": 0,
-    "explain": "Безопасной загрузки whitelist. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Кастомный find_class — база безопасного unpickle. Иначе pickle с недоверенных данных = RCE.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m207",
-    "fixed": true
+    "fixed": true,
+    "topic": "pickle",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
     "q": "Что такое threading.Condition?",
     "options": [
       "монитор: lock плюс wait/notify для ожидания условия",
@@ -3369,44 +3369,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Condition = lock + wait/notify_all. Поток ждёт условия под локом и просыпается по notify. Event проще (флаг), Condition — классический монитор.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m208",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "Zen",
     "q": "Как посмотреть Zen of Python в интерпретаторе?",
     "options": [
       "import this",
-      "утверждение про другой уровень стека",
       "python -m zen",
-      "help(zen)"
+      "help(zen)",
+      "print(__zen__)"
     ],
     "answer": 0,
-    "explain": "Import this. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Пасхалка: `import this` печатает Zen. Отдельного модуля zen в stdlib нет.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m209",
-    "fixed": true
+    "fixed": true,
+    "topic": "Zen",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "functools",
-    "q": "Что верно про lru_cache(maxsize=128) хранит?",
+    "q": "Что хранит lru_cache(maxsize=128)?",
     "options": [
-      "до 128 результатов вызовов",
-      "только последний вызов всегда",
-      "на диске",
-      "в Redis"
+      "до 128 закэшированных результатов вызовов (LRU)",
+      "только самый последний вызов",
+      "кэш обязательно на диске",
+      "кэш в Redis"
     ],
     "answer": 0,
-    "explain": "До 128 результатов вызовов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "maxsize — ёмкость in-memory LRU. None = безлимит (осторожно с утечками). Диск/Redis сами не подключены.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m210",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
       "True",
@@ -3418,12 +3418,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде истинно. Пройди операторы и типы операндов по шагам.",
     "kind": "single",
     "code": "print(isinstance([1, 2], list))",
-    "group": "Typing и dataclasses",
     "id": "m211",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Что выведет код (по порядку)?",
     "options": [
       "before, затем 1",
@@ -3432,47 +3432,47 @@ window.QUESTIONS_MIDDLE = [
       "только before"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в before, затем 1. Пройди выражение слева направо с учётом типов.",
+    "explain": "Выполнение кода даёт before, затем 1. Разбери операции по строкам: присваивания, вызовы и то, что реально печатает print.",
     "kind": "single",
     "code": "def deco(f):\n    def wrap():\n        print('before')\n        return f()\n    return wrap\n@deco\ndef f():\n    return 1\nprint(f())",
-    "group": "Декораторы и замыкания",
     "id": "m212",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "comprehensions",
-    "q": "Что вернёт [(x, y) for x in range(2) for y in range(2)] длина?",
+    "q": "Какова длина [(x, y) for x in range(2) for y in range(2)]?",
     "options": [
       "4",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
+      "2",
+      "0",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "Результат выражения — 4. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Два по два: (0,0),(0,1),(1,0),(1,1) — четыре пары.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m213",
-    "fixed": true
+    "fixed": true,
+    "topic": "comprehensions",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 301 обычно значит?",
+    "q": "Что обычно значит HTTP 301?",
     "options": [
-      "Moved Permanently",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Moved Permanently — постоянный редирект",
+      "успех 200-го класса",
+      "временный редирект 302 по определению",
+      "ошибка клиента 4xx"
     ],
     "answer": 0,
-    "explain": "301 — Moved Permanently — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "301 — постоянный перенос URI. Временные — 302/307; успех — 2xx.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m214",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "В чём разница: create_task vs await coro напрямую?",
     "options": [
       "task планирует конкурентно; await — последовательно",
@@ -3483,76 +3483,76 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Task планирует конкурентно; await — последовательно. Сверяй с тем, блокирует ли это loop и кто владеет Task.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m215",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Что такое Если __exit__ вернул True?",
+    "q": "Что будет, если __exit__ вернул True?",
     "options": [
-      "подавляет исключение",
-      "ре-рейзит всегда",
-      "закрывает GIL",
-      "игнор return"
+      "исключение из with-блока подавляется",
+      "исключение всегда пробрасывается снова",
+      "закрывается GIL",
+      "return из функции игнорируется"
     ],
     "answer": 0,
-    "explain": "Подавляет исключение. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "True из __exit__ означает «я обработал исключение». False/None — проброс дальше. Так работает contextlib.suppress.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m216",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "testing",
-    "q": "Что верно про unittest.mock.patch лучше использовать как?",
+    "q": "Как лучше использовать unittest.mock.patch в тесте?",
     "options": [
-      "context manager или decorator на время теста",
-      "глобально в prod",
-      "вместо DI всегда",
-      "в __init__ модуля"
+      "как context manager или декоратор — только на время теста",
+      "патчить прод навсегда при импорте модуля",
+      "только через eval строки с путём",
+      "patch нельзя откатить"
     ],
     "answer": 0,
-    "explain": "Context manager или decorator на время теста. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "patch как with/decorator гарантирует откат. Глобальный патч при import ломает другие тесты и прод.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m217",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Зачем нужен метод `__bytes__`?",
+    "q": "Зачем объекту метод __bytes__?",
     "options": [
-      "bytes(obj)",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "чтобы bytes(obj) вернул байтовое представление",
+      "чтобы заменить str(obj)",
+      "это обязательный метод любого класса",
+      "только для pathlib"
     ],
     "answer": 0,
-    "explain": "Bytes(obj). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Протокол bytes(obj) → __bytes__. Не путать со __str__/__repr__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m218",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
-    "q": "Что такое @property обычно?",
+    "q": "Что обычно даёт @property?",
     "options": [
-      "даёт доступ как к атрибуту, считая через метод",
-      "делает метод статическим",
-      "удаляет атрибут",
-      "только для private"
+      "доступ как к атрибуту, а внутри — вычисление через метод",
+      "обязательное хранение значения в __dict__ без геттера",
+      "запрет на setter навсегда",
+      "ускорение за счёт слотов"
     ],
     "answer": 0,
-    "explain": "Даёт доступ как к атрибуту, считая через метод. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "property маскирует метод под атрибут: obj.x вызывает getter. Setter/deleter опциональны.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m219",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "JSONDecodeError",
@@ -3561,63 +3561,63 @@ window.QUESTIONS_MIDDLE = [
       "ошибка SyntaxError"
     ],
     "answer": 0,
-    "explain": "Код падает с ошибкой (JSONDecodeError). Смотри типы аргументов и допустимые операции.",
+    "explain": "json.loads падает с JSONDecodeError на невалидном JSON.",
     "kind": "single",
     "code": "import json\nprint(json.loads('{'))",
-    "group": "Stdlib и производительность",
     "id": "m220",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
-    "q": "Что означает: время в чистом Python CPU bound на 2 threads?",
+    "q": "Что часто происходит с CPU-bound чистым Python на 2 threading-потоках?",
     "options": [
-      "часто ≈1 ядро из-за GIL",
-      "линейный x2 всегда",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "упираетесь примерно в одно ядро из‑за GIL",
+      "линейный прирост ×2 всегда",
+      "GIL автоматически отключается",
+      "интерпретатор создаёт 2 процесса"
     ],
     "answer": 0,
-    "explain": "Классический вопрос собеса — GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
+    "explain": "GIL сериализует исполнение байткода. Два CPU-потока редко дают ×2. Для CPU — multiprocessing/native.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m221",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "patterns",
-    "q": "Что такое Паттерн Adapter нужен когда?",
+    "q": "Когда нужен паттерн Adapter?",
     "options": [
-      "нужно подогнать чужой интерфейс под свой",
-      "нужен singleton",
-      "нужен GIL",
-      "нужен pickle"
+      "когда чужой интерфейс надо подогнать под ожидаемый вами",
+      "когда нужно ускорить GIL",
+      "только при работе с JSON",
+      "вместо любых тестов"
     ],
     "answer": 0,
-    "explain": "Нужно подогнать чужой интерфейс под свой. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Adapter переводит вызовы вашего API в API легаси/библиотеки, не меняя её код.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m222",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
-    "q": "Что делает chain.from_iterable?",
+    "q": "Что делает itertools.chain.from_iterable?",
     "options": [
-      "сплющивает один уровень",
-      "deep flatten any",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "сплющивает один уровень вложенности итерируемых",
+      "рекурсивно раскрывает любую глубину",
+      "сортирует элементы",
+      "удаляет дубликаты"
     ],
     "answer": 0,
-    "explain": "Без распаковки *huge — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "from_iterable([[1,2],[3]]) → 1,2,3. Только один уровень; для глубокого flatten нужен свой код.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m223",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
     "q": "Для чего нужен dataclasses.make_dataclass?",
     "options": [
       "динамически создать класс-dataclass во время выполнения",
@@ -3628,12 +3628,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Make_dataclass собирает dataclass из имени и списка полей в runtime — удобно для кодогенерации/динамических схем. NamedTuple/TypedDict — другие инструменты.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m224",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
     "q": "Что выведет код?",
     "options": [
       "[3, 3, 3, 3]",
@@ -3642,15 +3642,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [3, 3, 3, 3]. Пройди выражение слева направо с учётом типов.",
+    "explain": "То же late binding: range(4) → последнее i=3 у всех lambda.",
     "kind": "single",
     "code": "fs = [lambda: i for i in range(4)]\nprint([f() for f in fs])",
-    "group": "Декораторы и замыкания",
     "id": "m225",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что выведет код?",
     "options": [
       "a b",
@@ -3662,12 +3662,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два next() забирают первые элементы. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
     "code": "g = (x for x in ['a', 'b'])\nprint(next(g), next(g))",
-    "group": "Генераторы и итераторы",
     "id": "m226",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что делает PUT по семантике HTTP?",
     "options": [
       "идемпотентный (в идеале)",
@@ -3678,12 +3678,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "PUT безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m227",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "В чём разница: create_task vs await coro сразу?",
     "options": [
       "create_task планирует в фоне event loop",
@@ -3694,157 +3694,157 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Create_task планирует в фоне event loop. Сверяй с тем, блокирует ли это loop и кто владеет Task.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m228",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Как удобнее открыть 3 вложенных with без ExitStack?",
+    "q": "Как открыть три контекста без ExitStack?",
     "options": [
-      "можно вложить / или один with a, b",
-      "нельзя никогда",
-      "только async",
-      "нужен GIL"
+      "вложить with или написать with a, b, c",
+      "нельзя — ExitStack обязателен",
+      "только async with",
+      "только через try/finally вручную без with"
     ],
     "answer": 0,
-    "explain": "Можно вложить / или один with a, b. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Фиксированный набор CM: синтаксис with a, b, c. ExitStack — когда набор динамический.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m229",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "mock",
-    "q": "Что такое assert_called_once_with?",
+    "q": "Что проверяет mock.assert_called_once_with(...)",
     "options": [
-      "проверяет единственный вызов с args",
-      "всегда True",
-      "мокает time",
-      "утверждение про другой уровень стека"
+      "что мок вызвали ровно один раз с такими аргументами",
+      "что мок никогда не вызывали",
+      "что файл на диске изменился",
+      "что покрыты все ветки"
     ],
     "answer": 0,
-    "explain": "Проверяет единственный вызов с args. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Это assert на историю вызовов мока. Не про файлы и не про coverage.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m230",
-    "fixed": true
+    "fixed": true,
+    "topic": "mock",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "property",
-    "q": "Что такое cached_property сброс?",
+    "q": "Как сбросить functools.cached_property у экземпляра?",
     "options": [
-      "del obj.attr / pop из __dict__",
-      "авто каждый доступ",
-      "утверждение про другой уровень стека",
-      "GC only"
+      "del obj.attr (или убрать ключ из obj.__dict__)",
+      "вызвать gc.collect() — этого достаточно всегда",
+      "cached_property нельзя сбросить",
+      "только перезапустить процесс"
     ],
     "answer": 0,
-    "explain": "Del obj.attr / pop из __dict__. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Значение кэшируется в __dict__ экземпляра. del obj.attr заставит пересчитать при следующем доступе.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m231",
-    "fixed": true
+    "fixed": true,
+    "topic": "property",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "slots",
-    "q": "Что такое Наследование slots требует?",
+    "q": "Что важно при наследовании классов с __slots__?",
     "options": [
-      "аккуратности с объявлением слотов в цепочке",
-      "ничего особенного always",
-      "запрета subclass",
-      "dict always"
+      "аккуратно объявлять slots в каждом звене цепочки",
+      "slots родителя копируются автоматически без объявления",
+      "у потомка slots запрещены",
+      "slots работают только с multiple inheritance"
     ],
     "answer": 0,
-    "explain": "Аккуратности с объявлением слотов в цепочке. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Потомок без своего __slots__ снова получает __dict__. Нужно явно объявлять (хотя бы пустые) slots.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m232",
-    "fixed": true
+    "fixed": true,
+    "topic": "slots",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "pickle",
     "q": "Для чего используется pickle?",
     "options": [
-      "сериализации объектов Python",
-      "JSON веба",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "сериализация/десериализация объектов Python",
+      "безопасный обмен данными с интернетом по умолчанию",
+      "замена JSON во всех API",
+      "компиляция в байткод .pyc"
     ],
     "answer": 0,
-    "explain": "Сериализации объектов Python. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "pickle сохраняет граф объектов Python. На недоверенных данных опасен (RCE). Для обмена с внешним миром чаще JSON и схема.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m233",
-    "fixed": true
+    "fixed": true,
+    "topic": "pickle",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
-    "q": "Что такое массив Array('i', n)?",
+    "q": "Что такое multiprocessing.Array('i', n)?",
     "options": [
-      "shared typed buffer",
-      "list proxy",
-      "numpy always",
-      "bytes string"
+      "разделяемый между процессами типизированный буфер из n int",
+      "обычный list Python в общей куче без ограничений",
+      "массив только для asyncio",
+      "NumPy ndarray"
     ],
     "answer": 0,
-    "explain": "Shared typed buffer. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Array из multiprocessing — shared memory с ctypes-типом. Это не прозрачный list со ссылками на py-объекты.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m234",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "принципы",
-    "q": "Почему except: pass без логирования — плохо?",
+    "q": "Почему `except: pass` без логирования — плохо?",
     "options": [
-      "глотает ошибки и скрывает баги",
-      "ускоряет код",
-      "требование PEP 8",
-      "нужно для asyncio"
+      "глотает любые ошибки и прячет баги",
+      "ускоряет программу незаконно",
+      "запрещено синтаксисом",
+      "ломает только async"
     ],
     "answer": 0,
-    "explain": "Глотает ошибки и скрывает баги. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Голый except ловит даже KeyboardInterrupt/SystemExit (через BaseException в старых привычках — на деле bare except ловит BaseException). Без лога вы не узнаете о сбое.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m235",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "5",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "ошибка"
+      "0",
+      "1",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "5. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "reduce умножает элементы: 5*1*1 = 5. Начальное значение не задано — берётся первый элемент как аккумулятор.",
     "kind": "single",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [5, 1, 1]))",
-    "group": "Collections и itertools",
     "id": "m236",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Что верно про KeywordTypeError при лишнем имени?",
+    "q": "Что будет при вызове функции с лишним именованным аргументом?",
     "options": [
       "TypeError",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "SyntaxError runtime"
+      "молчаливое игнорирование",
+      "Warning",
+      "аргумент попадёт в **kwargs всегда, даже если их нет"
     ],
     "answer": 0,
-    "explain": "TypeError. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Лишнее имя без **kwargs → TypeError: got an unexpected keyword argument.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m237",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Чем помогает functools.wraps?",
     "options": [
       "сохранить __name__/__doc__ исходной функции",
@@ -3855,28 +3855,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Копирует метаданные на обёртку. Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m238",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "итераторы",
-    "q": "Что такое collections.abc.Iterable требует?",
+    "q": "Что требует collections.abc.Iterable?",
     "options": [
-      "__iter__",
-      "__next__ обязательно",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "метод __iter__ (или sequence protocol)",
+      "обязательно __len__",
+      "обязательно __call__",
+      "наследование от list"
     ],
     "answer": 0,
-    "explain": "__iter__. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Iterable — тот, у кого есть __iter__. Iterator дополнительно даёт __next__.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m239",
-    "fixed": true
+    "fixed": true,
+    "topic": "итераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое requests.get timeout?",
     "options": [
       "ограничивает ожидание",
@@ -3887,92 +3887,92 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Защита от зависаний — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m240",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "Что такое asyncio.gather(*tasks)?",
+    "q": "Что делает asyncio.gather(*awaitables)?",
     "options": [
-      "запускает конкурентно и ждёт все",
-      "строго последовательно",
-      "только первый",
-      "убивает loop"
+      "запускает их конкурентно на loop и ждёт все результаты",
+      "выполняет строго последовательно без concurrency",
+      "создаёт новый процесс на каждую задачу",
+      "блокирует OS-поток через sleep"
     ],
     "answer": 0,
-    "explain": "Запускает конкурентно и ждёт все. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "gather планирует awaitable'ы и собирает результаты (или первую ошибку — см. return_exceptions).",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m241",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Что такое aclosing для async?",
+    "q": "Для чего contextlib.aclosing?",
     "options": [
-      "async close аналог closing",
-      "sync only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "async-аналог closing: на выходе await obj.aclose()",
+      "только для sync close()",
+      "замена async with навсегда",
+      "отключение event loop"
     ],
     "answer": 0,
-    "explain": "Async close аналог closing. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "aclosing гарантирует aclose() у async-генераторов/ресурсов при выходе из async with.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m242",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "logging",
-    "q": "Что такое LoggerAdapter?",
+    "q": "Зачем нужен logging.LoggerAdapter?",
     "options": [
-      "контекстные поля в логах",
-      "утверждение про другой уровень стека",
-      "filter ban",
-      "root replace"
+      "добавлять контекстные поля (user_id и т.п.) к каждой записи",
+      "менять уровень root logger",
+      "ротировать файлы",
+      "заменять print"
     ],
     "answer": 0,
-    "explain": "Request_id и т.п — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "Adapter оборачивает logger и подмешивает extra-контекст. Уровни/хендлеры настраиваются отдельно.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m243",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "дескрипторы",
-    "q": "Что такое `property` в Python?",
+    "q": "Чем является встроенный property с точки зрения дескрипторов?",
     "options": [
-      "data descriptor",
-      "non-data only",
-      "classmethod",
-      "утверждение про другой уровень стека"
+      "data descriptor (__get__/__set__/__delete__)",
+      "non-data descriptor только с __get__",
+      "обычный dict в экземпляре",
+      "метакласс"
     ],
     "answer": 0,
-    "explain": "__set__ есть — Дескрипторы управляют доступом к атрибутам через __get__, __set__ и __delete__.",
+    "explain": "property — data descriptor: перехватывает get/set/delete и поэтому сильнее instance __dict__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m244",
-    "fixed": true
+    "fixed": true,
+    "topic": "дескрипторы",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
     "q": "Что такое staticmethod?",
     "options": [
-      "функция в классе без self/cls",
-      "то же что classmethod",
-      "абстрактный метод",
-      "утверждение про другой уровень стека"
+      "функция в классе без неявных self/cls",
+      "метод, который всегда видит экземпляр",
+      "абстрактный метод ABC",
+      "генератор"
     ],
     "answer": 0,
-    "explain": "Функция в классе без self/cls. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "staticmethod не биндится. Нужен, когда логически функция относится к классу, но не использует состояние.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m245",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "False",
@@ -3984,12 +3984,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде ложно. Проверь сравнения, пустоту коллекций и приоритет операций.",
     "kind": "single",
     "code": "import copy\na = [[0, 0], [1]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m246",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
     "q": "Что верно про I/O в socket обычно?",
     "options": [
       "отпускает GIL на время ожидания",
@@ -4000,28 +4000,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Потоки полезны для I/O — GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m247",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "patterns",
-    "q": "Что такое Паттерн Template Method?",
+    "q": "В чём суть паттерна Template Method?",
     "options": [
-      "базовый класс задаёт скелет, подклассы — шаги",
-      "копирование HTML",
-      "утверждение про другой уровень стека",
-      "async template"
+      "базовый класс задаёт скелет алгоритма, подклассы переопределяют шаги",
+      "это только про HTML-шаблоны Jinja",
+      "запрет наследования",
+      "замена Strategy навсегда"
     ],
     "answer": 0,
-    "explain": "Базовый класс задаёт скелет, подклассы — шаги. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Шаблонный метод фиксирует порядок шагов в базе; детали — в override. Не путать с шаблонизаторами веб-страниц.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m248",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[(1, 2), (2, 2), (3, 1)]",
@@ -4033,108 +4033,108 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Groupby группирует только подряд идущие одинаковые. Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 1, 2, 2, 3])])",
-    "group": "Collections и itertools",
     "id": "m249",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "protocols",
-    "q": "Что даёт @runtime_checkable у Protocol?",
+    "q": "Что даёт @runtime_checkable у typing.Protocol?",
     "options": [
-      "isinstance может проверить методы",
-      "всегда без runtime",
-      "заменяет ABC полностью без оговорок",
-      "утверждение про другой уровень стека"
+      "isinstance/issubclass могут проверить наличие методов структурно",
+      "обязательную проверку типов на каждом вызове в CPython",
+      "ускорение байткода",
+      "сериализацию в JSON"
     ],
     "answer": 0,
-    "explain": "Isinstance может проверить методы. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "По умолчанию Protocol только для чекера. runtime_checkable включает ограниченный isinstance по наличию атрибутов.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m250",
-    "fixed": true
+    "fixed": true,
+    "topic": "protocols",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
-    "q": "Верно ли, что cell в замыкании хранит?",
+    "q": "Что хранит cell замыкания?",
     "options": [
-      "cell_contents enclosing переменной",
-      "утверждение про другой уровень стека",
-      "GIL lock",
-      "только int"
+      "cell_contents — текущее значение enclosing-переменной",
+      "байткод всей внешней функции",
+      "только имя переменной без значения",
+      "ссылку на GIL"
     ],
     "answer": 0,
-    "explain": "Cell_contents enclosing переменной. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "В __closure__ лежат cell; у каждой есть cell_contents. Это живая привязка к переменной enclosing scope.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m251",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "coroutines",
-    "q": "Что такое gen.send(x) передаёт?",
+    "q": "Что делает gen.send(x)?",
     "options": [
-      "значение в yield",
-      "в return",
-      "в global",
-      "утверждение про другой уровень стека"
+      "передаёт x результатом текущего yield и возобновляет генератор",
+      "всегда бросает StopIteration",
+      "эквивалент close()",
+      "создаёт новый генератор"
     ],
     "answer": 0,
-    "explain": "Значение в yield. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "После первого next, send(value) становится тем, что получает `y = yield ...`. Первый запуск — только next/send(None).",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m252",
-    "fixed": true
+    "fixed": true,
+    "topic": "coroutines",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 503 обычно значит?",
+    "q": "Что обычно значит HTTP 503?",
     "options": [
-      "Unavailable",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Service Unavailable — сервис временно недоступен",
+      "успешный OK",
+      "постоянный редирект 301",
+      "ошибка клиента 400"
     ],
     "answer": 0,
-    "explain": "503 — Unavailable — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "503 — серверная недоступность (перегруз, maintenance). Часто с Retry-After.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m253",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "Что такое incomplete Task на shutdown?",
+    "q": "Что делать с незавершёнными Task при остановке loop?",
     "options": [
-      "нужно cancel/await корректно",
-      "игнор безопасен всегда",
-      "auto join threads",
-      "OS kill only"
+      "корректно cancel и await, иначе предупреждения и утечки",
+      "ничего — GC всегда безопасен",
+      "вызвать os._exit без отмены",
+      "перевести их в threading"
     ],
     "answer": 0,
-    "explain": "Нужно cancel/await корректно. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "На shutdown отменяй и дожидайся задач, иначе «Task was destroyed but it is pending» и потерянные ошибки.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m254",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Что такое suppress(FileNotFoundError)?",
+    "q": "Что делает contextlib.suppress(FileNotFoundError)?",
     "options": [
-      "молчаливый пропуск",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "молча пропускает FileNotFoundError внутри with",
+      "создаёт отсутствующий файл",
+      "глушит все BaseException",
+      "логирует ошибку обязательно"
     ],
     "answer": 0,
-    "explain": "Молчаливый пропуск. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "suppress(*exceptions) — узкий try/except pass для указанных типов. Остальное пробрасывается.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m255",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "testing",
     "q": "Чем integration test отличается от unit?",
     "options": [
       "проверяет связку компонентов (БД, API)",
@@ -4145,60 +4145,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Проверяет связку компонентов (БД, API). Смотри, что именно проверяет инструмент и чего он не делает.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m256",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Что верно про __hash__ должен быть согласован с?",
+    "q": "С чем должен быть согласован __hash__?",
     "options": [
-      "__eq__",
-      "__str__",
-      "__len__",
-      "id always only"
+      "с __eq__: равные объекты → одинаковый hash",
+      "только с __repr__",
+      "только с id()",
+      "hash может быть любым даже при =="
     ],
     "answer": 0,
-    "explain": "__eq__. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Инвариант: если a == b, то hash(a) == hash(b). Иначе dict/set ломаются.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m257",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "slots",
     "q": "Что ограничивает __slots__?",
     "options": [
-      "набор атрибутов, экономит память",
-      "число методов",
-      "наследование",
-      "утверждение про другой уровень стека"
+      "набор допустимых атрибутов экземпляра и часто экономит память",
+      "скорость импорта модулей",
+      "версию Python",
+      "число методов класса"
     ],
     "answer": 0,
-    "explain": "Набор атрибутов, экономит память. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Без __dict__ (и часто без __weakref__) экземпляры компактнее, но нельзя свободно вешать новые атрибуты.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m258",
-    "fixed": true
+    "fixed": true,
+    "topic": "slots",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "secrets",
-    "q": "Что такое compare_digest?",
+    "q": "Зачем secrets.compare_digest?",
     "options": [
-      "защита от timing attacks",
-      "быстрее ==",
-      "hash lib",
-      "утверждение про другой уровень стека"
+      "сравнивать секреты за примерно постоянное время (анти timing attack)",
+      "быстрее обычного == на длинных строках всегда",
+      "хешировать пароли",
+      "генерировать JWT"
     ],
     "answer": 0,
-    "explain": "Защита от timing attacks. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Обычное == может коротко замкнуться на первом отличии. compare_digest снижает утечку по времени.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m259",
-    "fixed": true
+    "fixed": true,
+    "topic": "secrets",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
     "q": "Что такое GIL мешает?",
     "options": [
       "CPU-bound многопоточности",
@@ -4209,77 +4209,77 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Для CPU — multiprocessing/C-ext. GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m260",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "принципы",
     "q": "Когда композиция предпочтительнее наследования?",
     "options": [
-      "когда нужно комбинировать разное поведение",
-      "всегда запрещено наследование",
+      "когда нужно комбинировать разное поведение без жёсткой иерархии is-a",
+      "когда в языке нет классов",
       "только для dataclass",
-      "только в C-API"
+      "никогда — наследование всегда лучше"
     ],
     "answer": 0,
-    "explain": "Когда нужно комбинировать разное поведение. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Has-a гибче глубоких is-a деревьев. Наследование оставляй для настоящей подтипизации.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m261",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
-    "q": "Что такое Counter сложение?",
+    "q": "Что делает сложение двух Counter?",
     "options": [
-      "складывает счётчики",
-      "ошибка",
-      "set union only",
-      "list concat"
+      "складывает счётчики по ключам",
+      "конкатенирует как строки",
+      "убирает все ключи",
+      "возвращает set ключей"
     ],
     "answer": 0,
-    "explain": "Складывает счётчики. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Counter({'a':1}) + Counter({'a':2}) → {'a':3}. Вычитание обнуляет неположительные.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m262",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Что верно про NewType создаёт?",
+    "q": "Что создаёт typing.NewType?",
     "options": [
-      "отдельный тип для чекера (runtime тонкий)",
-      "новый class always heavy",
-      "обязательная проверка типов на каждом вызове в CPython",
-      "ускорение байткода аннотациями"
+      "отдельный тип для type checker; в runtime — тонкая обёртка/функция",
+      "новый класс с другим MRO обязательно",
+      "ускорение словаря",
+      "таблицу в БД"
     ],
     "answer": 0,
-    "explain": "Отдельный тип для чекера (runtime тонкий). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "UserId = NewType('UserId', int): для mypy UserId ≠ int, в runtime это всё ещё int-подобные значения.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m263",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Что выведет код?",
     "options": [
       "wrap\nf",
       "f\nwrap",
-      "утверждение про другой уровень стека",
-      "ошибка"
+      "только wrap",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "G = deco(g) при определении — Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
+    "explain": "@deco срабатывает при определении: печатает wrap и возвращает ту же f. Вызов f() печатает f. Итого две строки: wrap, затем f.",
     "kind": "single",
     "code": "def deco(fn):\n    print('wrap')\n    return fn\n@deco\ndef f():\n    print('f')\nf()",
-    "group": "Декораторы и замыкания",
     "id": "m264",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что будет при next(gen) после исчерпания генератора?",
     "options": [
       "исключение StopIteration",
@@ -4290,44 +4290,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Исчерпанный генератор при next() бросает StopIteration. for это глотает сам; вручную next() — лови или используй default: next(gen, sentinel).",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m265",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что такое idempotency-key header паттерн?",
+    "q": "Зачем паттерн Idempotency-Key в заголовках?",
     "options": [
-      "безопасный повтор POST",
-      "кэш ETag",
-      "утверждение про другой уровень стека",
-      "JWT refresh only"
+      "чтобы безопасные повторы POST не создавали дубликаты операций",
+      "чтобы ускорить TLS",
+      "чтобы отключить кэш",
+      "это замена CSRF-токена"
     ],
     "answer": 0,
-    "explain": "Платёжные API — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "Клиент шлёт уникальный ключ; сервер дедуплицирует запросы. Важно при ретраях сети.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m266",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "Зачем нужен run_in_executor?",
+    "q": "Зачем asyncio.run_in_executor?",
     "options": [
-      "блокирующего кода в thread/process pool",
-      "быстрее await sleep",
-      "замены gather",
-      "GUI only"
+      "выполнить блокирующий код в thread/process pool, не стопоря loop",
+      "заменить все await на sync",
+      "убить event loop",
+      "создать новый интерпретатор"
     ],
     "answer": 0,
-    "explain": "Блокирующего кода в thread/process pool. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Блокирующий I/O или CPU в executor: loop продолжает крутить другие задачи. Выбор pool зависит от типа нагрузки.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m267",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "исключения",
     "q": "Что вернёт except* (3.11) ловит?",
     "options": [
       "подисключения ExceptionGroup",
@@ -4338,44 +4338,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "PEP 654 — Исключения лучше ловить точечно: широкий except Exception маскирует настоящие ошибки.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m268",
-    "fixed": true
+    "fixed": true,
+    "topic": "исключения",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "testing",
-    "q": "Что верно про snapshot-тест (golden file) полезен для?",
+    "q": "Чем полезен snapshot/golden-file тест?",
     "options": [
-      "фиксации эталонного вывода/сериализации",
-      "perf only",
-      "security audit",
-      "это замена тестов одним ручным кликом"
+      "фиксирует эталонный вывод/сериализацию и ловит случайные изменения",
+      "заменяет все unit-тесты",
+      "измеряет RPS",
+      "проверяет только типы mypy"
     ],
     "answer": 0,
-    "explain": "Фиксации эталонного вывода/сериализации. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Сравниваешь актуальный артефакт с сохранённым эталоном. Удобно для отчётов/сериализации; хрупко при частых легитимных изменениях формата.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m269",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Что верно про __bool__ если нет, берётся?",
+    "q": "Если нет __bool__, откуда берётся истинность объекта?",
     "options": [
-      "__len__ != 0",
-      "всегда True",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "из __len__ != 0 (если есть), иначе объект обычно truthy",
+      "всегда False",
+      "всегда из hash",
+      "из __repr__"
     ],
     "answer": 0,
-    "explain": "__len__ != 0. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Правило: __bool__, иначе __len__, иначе True. Пустой контейнер с __len__==0 ложен.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m270",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ABC",
     "q": "Что вернёт abc.ABC / @abstractmethod?",
     "options": [
       "запрещает инстанс без реализации",
@@ -4386,28 +4386,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — запрещает инстанс без реализации. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m271",
-    "fixed": true
+    "fixed": true,
+    "topic": "ABC",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "import",
-    "q": "Что делает importlib.reload?",
+    "q": "Что делает importlib.reload(module)?",
     "options": [
-      "перезагружает модуль",
-      "удаляет пакет",
-      "чистит pip",
-      "restart OS"
+      "переисполняет модуль в том же объекте из sys.modules",
+      "удаляет модуль без повторного import",
+      "создаёт отдельный интерпретатор",
+      "очищает pip cache"
     ],
     "answer": 0,
-    "explain": "Перезагружает модуль. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "reload обновляет уже импортированный модуль. Ссылки на старые объекты у клиентов могут остаться — это тонкое место.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m272",
-    "fixed": true
+    "fixed": true,
+    "topic": "import",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
     "q": "Что вернёт Pool.map chunksize?",
     "options": [
       "влияет на нарезку задач",
@@ -4418,12 +4418,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — влияет на нарезку задач. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m273",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "KISS",
     "q": "Команда пишет «фабрику фабрик» ради одного if — что нарушено?",
     "options": [
       "KISS — решение сложнее задачи",
@@ -4434,44 +4434,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Оверинжиниринг ради одного условия ломает KISS. Сначала простой if/функция; фабрики фабрик — когда вариативность реально выросла.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m274",
-    "fixed": true
+    "fixed": true,
+    "topic": "KISS",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
-    "q": "Что вернёт list(accumulate([1,2,3]))?",
+    "q": "Что вернёт list(accumulate([1, 2, 3]))?",
     "options": [
       "[1, 3, 6]",
-      "ошибка",
       "[1, 2, 3]",
-      "ошибка"
+      "[6]",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "Накопительная сумма — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "itertools.accumulate — накопительная свёртка: 1, 1+2=3, 3+3=6.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m275",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Что такое Protocol с @property?",
+    "q": "Что означает Protocol с @property в typing?",
     "options": [
-      "структурные атрибуты",
-      "запрещено",
-      "только methods",
-      "runtime always full"
+      "структурное требование: у объекта должен быть такой атрибут/свойство",
+      "обязательный runtime property decorator",
+      "генерацию __slots__",
+      "запрет dataclass"
     ],
     "answer": 0,
-    "explain": "Структурные атрибуты. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "В Protocol свойство описывает наличие атрибута для чекера (и runtime_checkable — ограниченно). Это не создаёт property само.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m276",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
     "q": "Что такое stacked decorators применяются?",
     "options": [
       "снизу вверх",
@@ -4482,12 +4482,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Ближний к def первый — Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m277",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что такое Генератор — одноразовый?",
     "options": [
       "да, после исчерпания пуст",
@@ -4498,12 +4498,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Нужен новый вызов функции — Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m278",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что верно про httpx хорош тем что?",
     "options": [
       "поддерживает sync и async",
@@ -4514,108 +4514,108 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Современный клиент — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m279",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "Что такое asyncio.gather запускает?",
+    "q": "Что запускает asyncio.gather?",
     "options": [
-      "корутины конкурентно",
-      "строго по очереди всегда",
-      "потоки OS",
-      "процессы"
+      "переданные awaitable конкурентно на текущем loop",
+      "строго один за другим без concurrency",
+      "отдельный OS-процесс на каждый",
+      "только sync def"
     ],
     "answer": 0,
-    "explain": "Корутины конкурентно. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "gather — удобный fan-out/fan-in по корутинам/tasks. Последовательность — через обычный await по очереди.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m280",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
     "q": "От чего наследует ZeroDivisionError?",
     "options": [
       "ArithmeticError",
-      "только object",
-      "утверждение про другой уровень стека",
-      "OSError всегда"
+      "только OSError",
+      "Warning",
+      "StopIteration"
     ],
     "answer": 0,
-    "explain": "ArithmeticError. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "ZeroDivisionError ⊂ ArithmeticError ⊂ Exception. except ArithmeticError поймает и его.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m281",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "warnings",
-    "q": "Что означает: filterwarnings('ignore', category=DeprecationWarning)?",
+    "q": "Что делает filterwarnings('ignore', category=DeprecationWarning)?",
     "options": [
-      "глушит deprecations",
-      "превращает в error",
-      "удаляет API",
-      "CI fail"
+      "глушит предупреждения указанной категории",
+      "превращает их в ошибки",
+      "удаляет deprecated API из stdlib",
+      "включает -Werror глобально"
     ],
     "answer": 0,
-    "explain": "Глушит deprecations. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Это политика warnings: ignore скрывает, error повышает до исключения. На код stdlib не влияет.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m282",
-    "fixed": true
+    "fixed": true,
+    "topic": "warnings",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "дескрипторы",
-    "q": "Что такое Дескриптор — объект с?",
+    "q": "Что такое дескриптор?",
     "options": [
-      "__get__/__set__/__delete__",
-      "только __call__",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "объект с __get__/__set__/__delete__, управляющий доступом к атрибуту",
+      "любой модуль в sys.modules",
+      "только property из C",
+      "файл .pyc"
     ],
     "answer": 0,
-    "explain": "Протокол дескрипторов; property на нём. Дескрипторы управляют доступом к атрибутам через __get__, __set__ и __delete__.",
+    "explain": "Протокол дескрипторов лежит в основе property, classmethod, functions-as-bound-methods.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m283",
-    "fixed": true
+    "fixed": true,
+    "topic": "дескрипторы",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
-    "q": "В чём разница: __init__ vs __new__?",
+    "q": "В чём разница __new__ и __init__?",
     "options": [
-      "__new__ создаёт объект, __init__ инициализирует",
-      "синонимы",
-      "__init__ создаёт, __new__ нет",
-      "только __init__ существует"
+      "__new__ создаёт экземпляр, __init__ его инициализирует",
+      "это полные синонимы",
+      "__init__ вызывается до __new__",
+      "__new__ нельзя переопределять"
     ],
     "answer": 0,
-    "explain": "__new__ создаёт объект, __init__ инициализирует. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "__new__ — конструктор (возвращает instance), затем __init__ настраивает поля. Для immutable часто важнее __new__.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m284",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "регулярки",
-    "q": "Что позволяет re.VERBOSE?",
+    "q": "Что позволяет флаг re.VERBOSE?",
     "options": [
-      "комментарии и пробелы в паттерне",
-      "быстрее match",
-      "только bytes",
-      "утверждение про другой уровень стека"
+      "писать пробелы и комментарии внутри regexp для читаемости",
+      "ускорить match в 100 раз",
+      "отключить unicode",
+      "запретить группы"
     ],
     "answer": 0,
-    "explain": "Комментарии и пробелы в паттерне. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "VERBOSE (X) игнорирует незаэкранированные пробелы и #комментарии в паттерне. На скорость сам по себе почти не влияет.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m285",
-    "fixed": true
+    "fixed": true,
+    "topic": "регулярки",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
     "q": "Что такое GIL в CPython?",
     "options": [
       "глобальная блокировка интерпретатора",
@@ -4626,44 +4626,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Один поток bytecode одновременно. GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m286",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "patterns",
     "q": "Что такое Null Object pattern?",
     "options": [
-      "объект-заглушка с безопасным no-op поведением",
-      "NoneType only",
-      "Optional всегда",
-      "raise всегда"
+      "объект-заглушка с безопасным no-op поведением вместо None",
+      "обязательный None в каждом поле",
+      "паттерн только для SQL NULL",
+      "удаление объекта через gc"
     ],
     "answer": 0,
-    "explain": "Объект-заглушка с безопасным no-op поведением. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Вместо проверок if x is None дают объект с пустыми методами. Убирает ветвления, но маскирует отсутствие реальной зависимости — осторожно.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m287",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
     "q": "Что делает deque.rotate(3) на 6 элементах?",
     "options": [
-      "цикл сдвиг на 3 вправо (отриц. — влево)",
-      "сортирует",
-      "удаляет k",
-      "ошибка всегда"
+      "циклический сдвиг на 3 вправо",
+      "удаляет 3 элемента",
+      "сортирует по возрастанию",
+      "разворачивает всю очередь"
     ],
     "answer": 0,
-    "explain": "Цикл сдвиг на 3 вправо (отриц. — влево). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "rotate(n) крутит вправо на n; отрицательный n — влево. Длина сохраняется.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m288",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
       "обычно нет",
@@ -4672,63 +4672,63 @@ window.QUESTIONS_MIDDLE = [
       "GIL check"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в обычно нет. Пройди выражение слева направо с учётом типов.",
+    "explain": "Аннотации list[int] в runtime обычно не проверяют элементы сами по себе.",
     "kind": "single",
     "code": "def f(xs: list[int]):\n    return xs\nprint(f(['a']))",
-    "group": "Typing и dataclasses",
     "id": "m289",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
-    "q": "Что хранит __closure__ у функции?",
+    "q": "Что лежит в function.__closure__?",
     "options": [
-      "кортеж cell или None",
-      "dict locals",
-      "список args",
-      "утверждение про другой уровень стека"
+      "кортеж cell с захваченными enclosing-переменными или None",
+      "всегда пустой list",
+      "байткод функции",
+      "глобальный dict модуля"
     ],
     "answer": 0,
-    "explain": "Кортеж cell или None. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Если свободных переменных нет — __closure__ is None. Иначе tuple cell'ов с cell_contents.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m290",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "итераторы",
-    "q": "Что такое iter(obj) ожидает?",
+    "q": "Что ожидает iter(obj) у объекта?",
     "options": [
-      "__iter__ или __getitem__",
-      "только len",
-      "только __next__",
-      "утверждение про другой уровень стека"
+      "__iter__ или протокол последовательности через __getitem__",
+      "обязательно только __next__",
+      "обязательно __len__",
+      "метод close()"
     ],
     "answer": 0,
-    "explain": "__iter__ или __getitem__. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "iter сначала ищет __iter__. Если его нет — пробует sequence protocol (__getitem__ с 0,1,2,…). __next__ — у уже полученного итератора.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m291",
-    "fixed": true
+    "fixed": true,
+    "topic": "итераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 204 обычно значит?",
+    "q": "Что обычно значит HTTP 204?",
     "options": [
-      "No Content",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "No Content — успех без тела ответа",
+      "ошибка клиента",
+      "постоянный редирект",
+      "сервис недоступен"
     ],
     "answer": 0,
-    "explain": "204 — No Content — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "204 — запрос обработан, тела нет (часто после DELETE/PUT). Это 2xx, не ошибка.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m292",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Зачем нужен loop.call_soon_threadsafe?",
     "options": [
       "запланировать колбэк на loop из другого потока",
@@ -4739,142 +4739,142 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Call_soon_threadsafe — безопасный способ дернуть loop из чужого потока. Из корутин на том же loop обычно create_task/call_soon.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m293",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
     "q": "Что выведет код?",
     "options": [
       "enter\nexit",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
+      "exit\nenter",
+      "только enter",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в enter\nexit. Пройди выражение слева направо с учётом типов.",
+    "explain": "with вызывает __enter__ (печатает enter), затем тело, затем __exit__ (печатает exit).",
     "kind": "single",
     "code": "class CM:\n    def __enter__(self):\n        print('enter')\n        return self\n    def __exit__(self, *a):\n        print('exit')\nwith CM():\n    pass",
-    "group": "Исключения и контекст",
     "id": "m294",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "LBYL",
     "q": "Что такое LBYL?",
     "options": [
-      "Look Before You Leap",
-      "Lazy Binding",
-      "List By Yield",
-      "Linux Build"
+      "Look Before You Leap — сначала проверка, потом действие",
+      "Easier to Ask Forgiveness — только про try/except",
+      "запрет на исключения",
+      "стиль только для C"
     ],
     "answer": 0,
-    "explain": "Look Before You Leap. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "LBYL: if key in d: ... Противоположный идиоматичный стиль в Python часто EAFP (try/except KeyError).",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m295",
-    "fixed": true
+    "fixed": true,
+    "topic": "LBYL",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
     "q": "Что обслуживает метод __format__?",
     "options": [
-      "format(obj, spec) / f'{obj:spec}'",
-      "str only",
-      "repr only",
-      "утверждение про другой уровень стека"
+      "format(obj, spec) и f-строки с форматом {obj:spec}",
+      "только str(obj)",
+      "только repr(obj)",
+      "hash(obj)"
     ],
     "answer": 0,
-    "explain": "Format(obj, spec) / f'{obj:spec}'. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Спецификация формата после двоеточия идёт в __format__. str/repr — отдельные протоколы.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m296",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
-    "q": "Зачем нужен __slots__?",
+    "q": "Зачем объявляют __slots__?",
     "options": [
-      "фиксирует атрибуты, экономит память (нет __dict__)",
-      "ускоряет import",
-      "включает GIL",
-      "нужен для async"
+      "зафиксировать набор атрибутов и часто сэкономить память (без __dict__)",
+      "ускорить import модуля",
+      "запретить методы класса",
+      "включить JIT"
     ],
     "answer": 0,
-    "explain": "Фиксирует атрибуты, экономит память (нет __dict__). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Слоты убирают per-instance __dict__ (если не добавить его явно) — меньше RAM, жёстче схема атрибутов.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m297",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "bytes",
-    "q": "Что такое b'hi'.decode() по умолчанию?",
+    "q": "Что вернёт b'hi'.decode() по умолчанию?",
     "options": [
-      "utf-8 даёт 'hi'",
-      "ascii only fail",
-      "latin-1 always error",
-      "возвращает bytes"
+      "строку 'hi' в UTF-8",
+      "байт за байтом как Latin-1 всегда без UTF-8",
+      "ошибку без encoding=",
+      "bytearray"
     ],
     "answer": 0,
-    "explain": "Utf-8 даёт 'hi'. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "decode() по умолчанию использует UTF-8 (с 3.x). 'hi' из двух ASCII-байт декодируется в 'hi'.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m298",
-    "fixed": true
+    "fixed": true,
+    "topic": "bytes",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
-    "q": "Что даёт Manager().dict()?",
+    "q": "Что даёт Manager().dict() в multiprocessing?",
     "options": [
-      "прокси-словарь между процессами",
-      "обычный dict shared memory transparently for any object graph без цены",
-      "утверждение про другой уровень стека",
-      "GIL off"
+      "прокси-словарь, которым могут пользоваться разные процессы",
+      "обычный dict в общей куче без прокси",
+      "только локальный dict текущего процесса",
+      "Redis-клиент"
     ],
     "answer": 0,
-    "explain": "Прокси-словарь между процессами. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Manager поднимает серверный процесс и отдаёт прокси. Доступ идёт через IPC/pickle, это не прозрачный shared dict.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m299",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "YAGNI",
-    "q": "Что такое YAGNI?",
+    "q": "Что значит YAGNI?",
     "options": [
-      "You Aren't Gonna Need It — не пиши «на будущее»",
-      "Your API Never Gets Installed",
-      "Yield All Generated Items",
-      "Yet Another Generic Interface"
+      "You Aren't Gonna Need It — не пиши функциональность «на будущее» без запроса",
+      "пиши всё заранее на вырост",
+      "запрет рефакторинга",
+      "обязательный микросервис на каждую функцию"
     ],
     "answer": 0,
-    "explain": "You Aren't Gonna Need It — не пиши «на будущее». Не путай с соседними похожими терминами из той же темы.",
+    "explain": "YAGNI из XP: не усложняй систему фичами, которые ещё не нужны. Совместим с простым чистым дизайном.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m300",
-    "fixed": true
+    "fixed": true,
+    "topic": "YAGNI",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "3",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "ошибка"
+      "1",
+      "2",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "3. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "partial закрепляет часть аргументов; вызов добирает остальные → 3.",
     "kind": "single",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 1)(2))",
-    "group": "Collections и itertools",
     "id": "m301",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "enum",
     "q": "Что даёт StrEnum в Python 3.11+?",
     "options": [
       "перечисление, члены которого являются str и сравнимы со строками",
@@ -4885,29 +4885,29 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Enum.StrEnum (3.11+): члены — и Enum, и str. Удобно для статусов/кодов API: можно сравнивать с обычными строками и сериализовать без .value вручную.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m302",
-    "fixed": true
+    "fixed": true,
+    "topic": "enum",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
-    "q": "Что напечатают funcs[0]() при классической ошибке позднего связывания?",
+    "q": "Что вернут все funcs[i]() при late binding в цикле без default?",
     "options": [
-      "2",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "ошибка"
+      "последнее значение i (часто одинаковое у всех)",
+      "разные 0,1,2 без фиксации",
+      "всегда TypeError",
+      "None"
     ],
     "answer": 0,
-    "explain": "2. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Замыкания захватывают переменную i, не значение на итерации. После цикла i == последнее; чинится lambda i=i.",
     "kind": "single",
     "code": "funcs = []\nfor i in range(3):\n    funcs.append(lambda: i)\n# funcs[0]()",
-    "group": "Декораторы и замыкания",
     "id": "m303",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что выведет код?",
     "options": [
       "0 1",
@@ -4919,28 +4919,28 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два next() забирают первые элементы. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
     "code": "g = (x for x in [0, 1])\nprint(next(g), next(g))",
-    "group": "Генераторы и итераторы",
     "id": "m304",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 500 обычно значит?",
+    "q": "Что обычно значит HTTP 500?",
     "options": [
-      "Server Error",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Internal Server Error — ошибка на стороне сервера",
+      "успех",
+      "клиентский 4xx",
+      "редирект"
     ],
     "answer": 0,
-    "explain": "500 — Server Error — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "5xx — вина/сбой сервера. 500 — общий внутренний сбой без более точного кода.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m305",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что вернёт to_thread (3.9)?",
     "options": [
       "await блокирующую функцию в thread",
@@ -4951,44 +4951,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — await блокирующую функцию в thread. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m306",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Как удобнее открыть 1 вложенных with без ExitStack?",
+    "q": "Нужен ли ExitStack для одного фиксированного with?",
     "options": [
-      "можно вложить / или один with a, b",
-      "нельзя никогда",
-      "только async",
-      "нужен GIL"
+      "нет — достаточно обычного with",
+      "да, ExitStack обязателен всегда",
+      "только async ExitStack",
+      "только с GIL"
     ],
     "answer": 0,
-    "explain": "Можно вложить / или один with a, b. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "ExitStack нужен при динамическом числе CM. Один-два известных — обычный with.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m307",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "logging",
-    "q": "Что такое Structured logging?",
+    "q": "Что такое structured logging?",
     "options": [
-      "поля/JSON, не только текст",
-      "только print",
-      "pickle logs",
-      "утверждение про другой уровень стека"
+      "логи с полями/JSON, а не только свободный текст",
+      "обязательный print в stdout",
+      "логирование только ошибок без info",
+      "запись логов в pickle"
     ],
     "answer": 0,
-    "explain": "Наблюдаемость — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "Структурированные логи удобно фильтровать и парсить (level, request_id, …). Текст «как получится» хуже для продакшена.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m308",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "дескрипторы",
     "q": "Что такое __get__/__set__/__delete__?",
     "options": [
       "протокол дескрипторов (property так устроен)",
@@ -4999,12 +4999,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Data vs non-data descriptors. Дескрипторы управляют доступом к атрибутам через __get__, __set__ и __delete__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m309",
-    "fixed": true
+    "fixed": true,
+    "topic": "дескрипторы",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "MRO",
     "q": "Какую задачу решает diamond inheritance?",
     "options": [
       "C3 linearization",
@@ -5015,125 +5015,125 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Предсказуемый MRO — MRO (Method Resolution Order) задаёт порядок поиска методов при множественном наследовании по алгоритму C3.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m310",
-    "fixed": true
+    "fixed": true,
+    "topic": "MRO",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "csv",
     "q": "Что читает csv.DictReader?",
     "options": [
-      "строки как dict по заголовку",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "строки файла как dict по заголовкам колонок",
+      "только список списков без ключей",
+      "JSON-объекты",
+      "бинарный Excel"
     ],
     "answer": 0,
-    "explain": "Строки как dict по заголовку. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Первая строка — имена полей; дальше каждая запись — dict[field]=value.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m311",
-    "fixed": true
+    "fixed": true,
+    "topic": "csv",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
-    "q": "Для чего хорошо подходит threading?",
+    "q": "Для каких задач хорошо подходит threading в CPython?",
     "options": [
-      "I/O-bound задач",
-      "чистого CPU всегда",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "I/O-bound: сеть, диск, ожидание",
+      "чистый CPU-bound Python без native",
+      "вместо любых процессов всегда",
+      "только GUI на macOS"
     ],
     "answer": 0,
-    "explain": "I/O-bound задач. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Пока поток ждёт I/O, другие могут работать. CPU-байткод упирается в GIL.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m312",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "patterns",
-    "q": "Как проявляется Chain of Responsibility в middleware веб-фреймворка?",
+    "q": "Как выглядит Chain of Responsibility в middleware веб-фреймворка?",
     "options": [
-      "цепочка обработчиков запроса",
-      "linked list в БД",
-      "GIL chain",
-      "утверждение про другой уровень стека"
+      "цепочка обработчиков: каждый может обработать запрос или передать дальше",
+      "один гигантский if без делегирования",
+      "только паттерн Singleton",
+      "обязательный SQL trigger"
     ],
     "answer": 0,
-    "explain": "Цепочка обработчиков запроса. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Middleware/pipeline — классическая цепочка ответственности для HTTP-запроса.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m313",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "functools",
-    "q": "Чем помогает total_ordering?",
+    "q": "Чем помогает functools.total_ordering?",
     "options": [
-      "достроить сравнения из немногих методов",
-      "сортировать быстрее C",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "достраивает остальные сравнения, если задать __eq__ и одно из < ≤ > ≥",
+      "ускоряет Timsort в C",
+      "заменяет dataclass",
+      "отключает __hash__"
     ],
     "answer": 0,
-    "explain": "Достроить сравнения из немногих методов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Декоратор класса генерирует недостающие rich comparisons из минимального набора.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m314",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Что такое Unpack/TypeVarTuple связаны с?",
+    "q": "С чем связаны Unpack и TypeVarTuple?",
     "options": [
-      "вариативными generics",
-      "это ускорение байткода в runtime",
-      "это обязательная проверка типов на каждом вызове",
-      "обязательная проверка типов на каждом вызове в CPython"
+      "с вариативными generics (произвольное число type-параметров)",
+      "с ускорением runtime",
+      "только с Enum",
+      "с файловым I/O"
     ],
     "answer": 0,
-    "explain": "Вариативными generics. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "TypeVarTuple/Unpack (PEP 646) описывают *Ts в типах — для чекера, не для скорости VM.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m315",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
-    "q": "Как зафиксировать i в lambda в цикле?",
+    "q": "Как зафиксировать значение i в lambda внутри for-цикла?",
     "options": [
-      "lambda i=i: i",
-      "lambda: i.copy()",
-      "global i",
-      "nonlocal i в цикле"
+      "default-аргументом: lambda i=i: ...",
+      "только через global i",
+      "никак — язык запрещает",
+      "переименовать lambda в list"
     ],
     "answer": 0,
-    "explain": "Lambda i=i: i. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Default вычисляется в момент создания функции и захватывает текущее i.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m316",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что выведет код?",
     "options": [
       "[0, 1]",
-      "[0, 1]",
-      "ошибка",
-      "None"
+      "[0, 1, 4]",
+      "0 1",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "Generator expression материализуется через list. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
+    "explain": "Generator expression x*x for x in range(2) → 0, 1. list(...) материализует в [0, 1].",
     "kind": "single",
     "code": "print(list(x * x for x in range(2)))",
-    "group": "Генераторы и итераторы",
     "id": "m317",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
     "q": "Что верно про SELECT … LIMIT 5 без ORDER BY?",
     "options": [
       "набор из N строк без стабильного порядка",
@@ -5144,125 +5144,125 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Без ORDER BY порядок не гарантирован. SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m318",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "В чём риск create_task ×3 без await/ссылок?",
+    "q": "Чем опасен create_task «в столсую» без ссылки и без await?",
     "options": [
-      "задачи могут быть собраны GC / потеря исключений",
-      "выполнятся надёжнее",
-      "синхронно",
-      "запрещены"
+      "задачу может собрать GC; исключения легко потерять",
+      "задачи становятся надёжнее",
+      "это синтаксическая ошибка",
+      "loop сразу падает"
     ],
     "answer": 0,
-    "explain": "Задачи могут быть собраны GC / потеря исключений. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Держи ссылку на Task или явно обрабатывай результат/исключение. Иначе — предупреждения и тихие фейлы.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m319",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
     "q": "Что такое ContextDecorator?",
     "options": [
-      "CM + decorator сразу",
-      "только async",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "база, чтобы объект был и context manager, и decorator",
+      "только async CM",
+      "замена ExitStack",
+      "фикстура pytest"
     ],
     "answer": 0,
-    "explain": "CM + decorator сразу. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "contextlib.ContextDecorator позволяет писать класс, работающий и как with, и как @decorator.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m320",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "testing",
     "q": "Что проверяет pytest.raises(ValueError)?",
     "options": [
-      "что код бросает ожидаемое исключение",
-      "что исключения нет",
-      "типы mypy",
-      "только ручная проверка без автотестов"
+      "что код внутри бросает ValueError (иначе тест красный)",
+      "что исключений нет",
+      "покрытие строк",
+      "скорость теста"
     ],
     "answer": 0,
-    "explain": "Что код бросает ожидаемое исключение. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Контекст raises ловит ожидаемый тип; если его не было или тип другой — assert падает.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m321",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Что такое Если __eq__ определён, __hash__?",
+    "q": "Если определили __eq__, что часто делают с __hash__ у мутабельных объектов?",
     "options": [
-      "часто ставят None для mutable",
-      "обязателен всегда",
-      "удаляется интерпретатором насильно",
-      "наследуется от object всегда ок"
+      "ставят __hash__ = None, чтобы объект был unhashable",
+      "оставляют hash от id и ломают инвариант",
+      "обязательно хешируют все поля всегда",
+      "удаляют __eq__"
     ],
     "answer": 0,
-    "explain": "Часто ставят None для mutable. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "После своего __eq__ наследуемый __hash__ отключается (None). Для ключей dict нужен согласованный неизменяемый hash.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m322",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
     "q": "Что выведет код?",
     "options": [
       "B",
-      "ошибка",
+      "A",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "B. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "У экземпляра B свой hello перекрывает A → печатается B.",
     "kind": "single",
     "code": "class A:\n    def hello(self):\n        return 'A'\nclass B(A):\n    def hello(self):\n        return 'B'\nprint(B().hello())",
-    "group": "ООП продвинутый",
     "id": "m323",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "memory",
-    "q": "Что вернёт sys.getsizeof([1,2]) учитывает?",
+    "q": "Что учитывает sys.getsizeof([1, 2])?",
     "options": [
-      "overhead контейнера, не глубоко элементы всегда",
-      "всю глубокую структуру",
-      "только int",
-      "утверждение про другой уровень стека"
+      "overhead самого контейнера list, не глубокий размер элементов",
+      "рекурсивно всю память всех вложенных объектов всегда",
+      "только один указатель",
+      "размер файла .pyc"
     ],
     "answer": 0,
-    "explain": "Результат выражения — overhead контейнера, не глубоко элементы всегда. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "getsizeof не глубокий: для списка — структура списка + указатели, без sizeof(1) и sizeof(2) как отдельных объектов.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m324",
-    "fixed": true
+    "fixed": true,
+    "topic": "memory",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
-    "q": "Для чего используется Event?",
+    "q": "Для чего threading.Event?",
     "options": [
-      "сигнализации между потоками",
-      "CPU parallel magic",
-      "process share objects",
-      "async await"
+      "сигнализация между потоками: wait/set/clear",
+      "замена multiprocessing.Queue",
+      "async sleep",
+      "файловый lock"
     ],
     "answer": 0,
-    "explain": "Сигнализации между потоками. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Event — флаг: один поток set(), другие wait(). Проще Condition, когда нужно только «случилось».",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m325",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "patterns",
     "q": "Как обычно делают Dependency Injection вручную в Python?",
     "options": [
       "передают зависимость в __init__ (или фабрику) явно",
@@ -5273,45 +5273,45 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Ручной DI в Python — это явные аргументы конструктора/фабрики. Фреймворк не обязателен. Global/import-внутри/eval ухудшают тестируемость.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m326",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
       "3",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "2",
+      "4",
+      "-1"
     ],
     "answer": 0,
-    "explain": "3. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "bisect_left по отсортированному списку возвращает индекс вставки; для значения из кода это 3.",
     "kind": "single",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 7))",
-    "group": "Collections и itertools",
     "id": "m327",
-    "fixed": true
+    "fixed": true,
+    "topic": "bisect",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
-    "q": "Что такое паттерн match case _ if guard в Python 3.10+?",
+    "q": "Что такое guard в `case … if условие:`?",
     "options": [
-      "guard условие",
-      "wildcard запрещён с if",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "доп. условие: ветка срабатывает только если guard истинен",
+      "синтаксическая ошибка до 3.12",
+      "замена match",
+      "только для чисел"
     ],
     "answer": 0,
-    "explain": "Guard условие. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Pattern matching + if-guard (PEP 634). Паттерн совпал, но guard False — идём к следующей ветке.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m328",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
     "q": "Что выведет код?",
     "options": [
       "[4, 4, 4, 4, 4]",
@@ -5320,15 +5320,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [4, 4, 4, 4, 4]. Пройди выражение слева направо с учётом типов.",
+    "explain": "Late binding: после range(5) все lambda возвращают 4.",
     "kind": "single",
     "code": "fs = [lambda: i for i in range(5)]\nprint([f() for f in fs])",
-    "group": "Декораторы и замыкания",
     "id": "m329",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что такое Генератор хранит?",
     "options": [
       "состояние между next",
@@ -5339,28 +5339,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Ленивость и мало памяти — Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m330",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 400 обычно значит?",
+    "q": "Что обычно значит HTTP 400?",
     "options": [
-      "Bad Request",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Bad Request — некорректный запрос клиента",
+      "успех",
+      "ошибка только сервера 5xx",
+      "редирект"
     ],
     "answer": 0,
-    "explain": "400 — Bad Request — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "4xx — клиентская ошибка. 400 — общий «запрос кривой» (валидация, синтаксис).",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m331",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Выбери все верные про asyncio?",
     "options": [
       "корутина стартует только при await/создании Task",
@@ -5380,77 +5380,77 @@ window.QUESTIONS_MIDDLE = [
       "asyncio"
     ],
     "difficulty": "middle",
-    "group": "Asyncio",
     "id": "m332",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
     "q": "От чего наследует KeyError?",
     "options": [
       "LookupError",
-      "только object",
-      "утверждение про другой уровень стека",
-      "OSError всегда"
+      "OSError",
+      "Warning",
+      "StopIteration"
     ],
     "answer": 0,
-    "explain": "LookupError. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "KeyError ⊂ LookupError ⊂ Exception. IndexError тоже из LookupError.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m333",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
-    "q": "Что такое coverage.py измеряет?",
+    "q": "Что измеряет coverage.py?",
     "options": [
-      "покрытие строк/веток",
-      "скорость",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "покрытие строк/веток кода тестами",
+      "скорость HTTP",
+      "число уязвимостей",
+      "размер wheel"
     ],
     "answer": 0,
-    "explain": "Покрытие строк/веток. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Coverage показывает, какие строки исполнялись. Это не нагрузка и не security scanner.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m334",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
     "q": "Что напечатает print(obj)?",
     "options": [
       "hi",
-      "Obj()",
+      "Obj",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "Hi. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "print зовёт str → __str__, который в коде возвращает 'hi'.",
     "kind": "single",
     "code": "class Obj:\n    def __str__(self):\n        return 'hi'\nprint(Obj())",
-    "group": "Контекст и магические методы",
     "id": "m335",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ABC",
-    "q": "Что такое abstractclassmethod существует?",
+    "q": "Как сейчас задают абстрактный classmethod?",
     "options": [
-      "исторически да, сейчас комбинации decorator",
-      "никогда не было",
-      "только Py2",
-      "запрещено 3"
+      "комбинацией @classmethod и @abstractmethod (порядок важен)",
+      "только устаревшим abstractclassmethod без альтернатив",
+      "нельзя никак",
+      "только через __slots__"
     ],
     "answer": 0,
-    "explain": "Исторически да, сейчас комбинации decorator. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "abstractclassmethod устарел; пиши @classmethod над/под @abstractmethod по документации ABC.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m336",
-    "fixed": true
+    "fixed": true,
+    "topic": "ABC",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "var/log/syslog",
@@ -5459,80 +5459,80 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в var/log/syslog. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: var/log/syslog.",
     "kind": "single",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'syslog'))",
-    "group": "Stdlib и производительность",
     "id": "m337",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
-    "q": "Что верно про Lock.acquire в том же потоке повторно без RLock?",
+    "q": "Что будет, если тот же поток второй раз сделает Lock.acquire() без RLock?",
     "options": [
-      "дедлок",
-      "утверждение про другой уровень стека",
-      "ошибка импорта",
-      "auto-release"
+      "дедлок — поток ждёт сам себя",
+      "счётчик увеличится как у RLock",
+      "ошибка TypeError сразу",
+      "lock молча игнорируется"
     ],
     "answer": 0,
-    "explain": "Дедлок. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Не-реентерабельный Lock повторно из того же потока не отпускается → deadlock. Нужен RLock.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m338",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "KISS",
-    "q": "Что такое KISS?",
+    "q": "Что значит KISS?",
     "options": [
-      "Keep It Simple, Stupid — проще решение лучше",
-      "Keep It Super Short",
-      "Kill Invalid Syntax Silently",
-      "Key In Secure Storage"
+      "Keep It Simple, Stupid — предпочитай простое решение",
+      "пиши максимальное число абстракций сразу",
+      "запрет функций",
+      "только микросервисы"
     ],
     "answer": 0,
-    "explain": "Keep It Simple, Stupid — проще решение лучше. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "KISS — простота реализации. Не путать с YAGNI (не делать лишнее) хотя часто рядом.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m339",
-    "fixed": true
+    "fixed": true,
+    "topic": "KISS",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "20",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "5",
+      "0",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "20. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "reduce последовательно сворачивает последовательность бинарной функцией → 20.",
     "kind": "single",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [10, 2]))",
-    "group": "Collections и itertools",
     "id": "m340",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Зачем нужен field(default_factory=dict)?",
+    "q": "Зачем field(default_factory=dict) в dataclass?",
     "options": [
       "новый dict() на каждый экземпляр",
-      "общий один dict",
-      "запретить поле",
-      "только JSON"
+      "один общий dict на все экземпляры",
+      "запрет поля",
+      "только для JSON"
     ],
     "answer": 0,
-    "explain": "Новый dict() на каждый экземпляр. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Мутабельный default нельзя шарить. default_factory вызывает dict() при создании каждого instance.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m341",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
     "q": "Что выведет код?",
     "options": [
       "[0, 1, 2, 3, 4]",
@@ -5541,31 +5541,31 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [0, 1, 2, 3, 4]. Пройди выражение слева направо с учётом типов.",
+    "explain": "lambda i=i сохраняет текущее i → независимые значения 0..4.",
     "kind": "single",
     "code": "fs = [lambda i=i: i for i in range(5)]\nprint([f() for f in fs])",
-    "group": "Декораторы и замыкания",
     "id": "m342",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что делает next(gen) на исчерпанном генераторе?",
     "options": [
-      "StopIteration",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "перезапуск"
+      "бросает StopIteration",
+      "возвращает None без исключения",
+      "перезапускает генератор",
+      "SyntaxError"
     ],
     "answer": 0,
-    "explain": "Итератор закончился — Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
+    "explain": "Исчерпанный gen при next → StopIteration. for глотает его сам; next(gen, default) безопаснее.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m343",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что делает GET по семантике HTTP?",
     "options": [
       "идемпотентный (в идеале)",
@@ -5576,12 +5576,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "GET безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m344",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что такое as_completed итерирует?",
     "options": [
       "по мере готовности",
@@ -5592,93 +5592,93 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "По мере готовности. Сверяй с тем, блокирует ли это loop и кто владеет Task.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m345",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Что реализует Контекстный менеджер?",
+    "q": "Что должен реализовать контекстный менеджер?",
     "options": [
-      "__enter__/__exit__",
-      "open/close только",
-      "__init__/__del__",
-      "with/as keywords внутри класса"
+      "__enter__ и __exit__",
+      "только __call__",
+      "только __iter__",
+      "только close()"
     ],
     "answer": 0,
-    "explain": "__enter__/__exit__. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Протокол with: __enter__ при входе, __exit__ при выходе (и при исключении).",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m346",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
-    "q": "Что такое xfail?",
+    "q": "Что такое pytest.mark.xfail?",
     "options": [
-      "ожидаемый провал",
-      "утверждение про другой уровень стека",
-      "pass force",
-      "error CI"
+      "ожидаемый провал теста (известная проблема)",
+      "безусловный skip",
+      "успешный тест",
+      "удаление теста"
     ],
     "answer": 0,
-    "explain": "Ожидаемый провал. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "xfail помечает, что тест сейчас красный осознанно. Отличается от skip (не запускаем).",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m347",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "classmethod",
-    "q": "Что верно про classmethod получает первым аргументом?",
+    "q": "Какой первый аргумент у @classmethod?",
     "options": [
-      "класс (cls), не экземпляр",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "metaclass всегда"
+      "класс cls, не экземпляр",
+      "экземпляр self",
+      "метакласс всегда",
+      "ничего"
     ],
     "answer": 0,
-    "explain": "Класс (cls), не экземпляр. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "classmethod получает класс — удобно для альтернативных конструкторов.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m348",
-    "fixed": true
+    "fixed": true,
+    "topic": "classmethod",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
     "q": "Что выведет код?",
     "options": [
       "A.x",
-      "ошибка",
+      "B.x",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "A.x. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Атрибут/метод резолвится в A (см. код) — результат A.x.",
     "kind": "single",
     "code": "class A:\n    def hello(self):\n        return 'A.x'\nclass B(A):\n    def hello(self):\n        return super().hello()\nprint(B().hello())",
-    "group": "ООП продвинутый",
     "id": "m349",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "copy",
-    "q": "Что означает: Для объекта с циклическими ссылками deepcopy?",
+    "q": "Как deepcopy справляется с циклами ссылок?",
     "options": [
-      "справляется через memo",
-      "всегда падает",
-      "игнорирует циклы молча теряя",
-      "утверждение про другой уровень стека"
+      "через memo — словарь уже скопированных id",
+      "падает RecursionError всегда",
+      "игнорирует циклы и портит данные молча без memo",
+      "deepcopy запрещён для циклов"
     ],
     "answer": 0,
-    "explain": "Справляется через memo. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "copy.deepcopy ведёт memo, чтобы не зациклиться и сохранить структуру графа.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m350",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
     "q": "Что означает: Продление CPU в C-extension без отпуска GIL?",
     "options": [
       "блокирует другие Python-потоки",
@@ -5689,111 +5689,111 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Держи ALLOW_THREADS для тяжёлого C. GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m351",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "patterns",
-    "q": "Что такое Паттерн Facade?",
+    "q": "Что такое паттерн Facade?",
     "options": [
-      "простой интерфейс к сложной подсистеме",
-      "singleton БД",
-      "ORM миграция",
-      "async loop"
+      "простой фасад-интерфейс над сложной подсистемой",
+      "обязательное наследование от всех классов подсистемы",
+      "только UI-кнопка",
+      "замена Adapter"
     ],
     "answer": 0,
-    "explain": "Простой интерфейс к сложной подсистеме. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Фасад прячет кучу сервисов за одним понятным API. Adapter — про совместимость интерфейсов, близко, но другая цель.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m352",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "heapq",
-    "q": "Что выведет код (минимум на [0])?",
+    "q": "Что выведет код?",
     "options": [
       "1",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
+      "9",
+      "2",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "1. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "После heapify минимум в h[0]; heappop/печать по коду даёт 1.",
     "kind": "single",
     "code": "import heapq\nh = [9, 2, 7, 1]\nheapq.heapify(h)\nprint(h[0])",
-    "group": "Collections и itertools",
     "id": "m353",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
       "5",
-      "утверждение про другой уровень стека",
+      "True",
       "ошибка",
-      "поведение, которого здесь нет"
+      "None"
     ],
     "answer": 0,
-    "explain": "5. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Морж := присваивает n = len('hello') == 5 и условие > 3 истинно → печатается 5.",
     "kind": "single",
     "code": "if (n := len('hello')) > 3:\n    print(n)",
-    "group": "Typing и dataclasses",
     "id": "m354",
-    "fixed": true
+    "fixed": true,
+    "topic": "walrus",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "декораторы",
-    "q": "Что такое Декоратор класса получает?",
+    "q": "Что получает декоратор класса?",
     "options": [
-      "класс как аргумент",
+      "класс как аргумент (и должен вернуть класс/замену)",
       "только экземпляр",
-      "утверждение про другой уровень стека",
-      "MRO list"
+      "только функцию",
+      "модуль"
     ],
     "answer": 0,
-    "explain": "@decorator над class — Декоратор — это функция, которая принимает другую функцию и возвращает обёртку с доп. Поведением.",
+    "explain": "@deco над class X передаёт в deco сам класс X после создания тела.",
     "kind": "single",
-    "group": "Декораторы и замыкания",
     "id": "m355",
-    "fixed": true
+    "fixed": true,
+    "topic": "декораторы",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что выведет код?",
     "options": [
       "1",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "ошибка"
+      "None",
+      "ошибка",
+      "x"
     ],
     "answer": 0,
-    "explain": "Первый next() доходит до первого yield и отдаёт 1. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
+    "explain": "Первый next(gen) выполняет до yield 1 и отдаёт 1. (Дальше send передаст значение в x.)",
     "kind": "single",
     "code": "def g():\n    x = yield 1\n    yield x\ngen = g()\nprint(next(gen))",
-    "group": "Генераторы и итераторы",
     "id": "m356",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 404 обычно значит?",
+    "q": "Что обычно значит HTTP 404?",
     "options": [
-      "Not Found",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Not Found — ресурс не найден",
+      "успех",
+      "ошибка сервера 500",
+      "редирект 301"
     ],
     "answer": 0,
-    "explain": "404 — Not Found — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "404 — клиент обратился к несуществующему URI. Это 4xx.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m357",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что означает: gather n=3 корутин без return_exceptions при одной ошибке?",
     "options": [
       "пробросит исключение (остальные могут продолжать до отмены политики)",
@@ -5804,108 +5804,108 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Пробросит исключение (остальные могут продолжать до отмены политики). Сверяй с тем, блокирует ли это loop и кто владеет Task.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m358",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "исключения",
-    "q": "Что такое contextlib.suppress(Error)?",
+    "q": "Что делает contextlib.suppress(SomeError)?",
     "options": [
-      "игнорирует указанные исключения",
-      "логирует",
-      "превращает в warning",
-      "утверждение про другой уровень стека"
+      "игнорирует указанные типы исключений внутри with",
+      "логирует и пробрасывает всегда",
+      "создаёт файл при ошибке",
+      "глушит BaseException целиком по умолчанию"
     ],
     "answer": 0,
-    "explain": "Молчаливый пропуск — Исключения лучше ловить точечно: широкий except Exception маскирует настоящие ошибки.",
+    "explain": "Узкий try/except pass для перечисленных типов. Остальное не глотается.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m359",
-    "fixed": true
+    "fixed": true,
+    "topic": "исключения",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "mock",
     "q": "Что подменяет unittest.mock.patch?",
     "options": [
-      "объект в пространстве имён",
-      "исходник на диске",
-      "утверждение про другой уровень стека",
-      "байткод навсегда"
+      "объект по имени в указанном пространстве имён на время патча",
+      "файл на диске с исходником",
+      "байткод интерпретатора навсегда",
+      "версию Python"
     ],
     "answer": 0,
-    "explain": "Объект в пространстве имён. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "patch('pkg.mod.attr') подменяет имя там, куда смотрит код. Важно патчить место использования.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m360",
-    "fixed": true
+    "fixed": true,
+    "topic": "mock",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "property",
     "q": "Зачем нужен @property.setter?",
     "options": [
-      "разрешить присваивание атрибуту-property",
-      "сделать classmethod",
-      "удалить атрибут",
-      "ускорить"
+      "разрешить присваивание obj.x = ... через property",
+      "запретить любые присваивания",
+      "создать classmethod",
+      "включить slots"
     ],
     "answer": 0,
-    "explain": "Разрешить присваивание атрибуту-property. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Без setter property read-only. @x.setter задаёт логику записи.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m361",
-    "fixed": true
+    "fixed": true,
+    "topic": "property",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ABC",
-    "q": "Что такое @abstractmethod гарантирует?",
+    "q": "Что гарантирует @abstractmethod в ABC?",
     "options": [
-      "нельзя инстанцировать подкласс без реализации",
-      "runtime скорость",
-      "GIL off",
-      "утверждение про другой уровень стека"
+      "нельзя создать экземпляр подкласса, пока абстрактные методы не реализованы",
+      "метод нельзя переопределить",
+      "метод станет staticmethod",
+      "рантайм проверит типы аргументов"
     ],
     "answer": 0,
-    "explain": "Нельзя инстанцировать подкласс без реализации. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "ABCMeta блокирует инстанцирование при незакрытых abstractmethod.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m362",
-    "fixed": true
+    "fixed": true,
+    "topic": "ABC",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "copy",
-    "q": "Что такое shallow copy копирует?",
+    "q": "Что копирует shallow copy?",
     "options": [
-      "контейнер, но не вложенные объекты глубоко",
-      "весь граф",
-      "только int",
-      "утверждение про другой уровень стека"
+      "контейнер верхнего уровня; вложенные объекты остаются общими",
+      "полный глубокий граф всегда",
+      "только id() без данных",
+      "ничего — это no-op"
     ],
     "answer": 0,
-    "explain": "Контейнер, но не вложенные объекты глубоко. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "list.copy()/copy.copy — новая оболочка, те же вложения. Для полного графа — deepcopy.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m363",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
-    "q": "Что верно про multiprocessing обходит GIL через?",
+    "q": "Как multiprocessing обходит ограничение GIL для CPU?",
     "options": [
-      "отдельные процессы",
-      "больше потоков",
-      "снятие GIL флагом",
-      "утверждение про другой уровень стека"
+      "отдельными процессами со своими интерпретаторами",
+      "отключением GIL флагом в threading",
+      "только через asyncio",
+      "увеличением числа зелёных потоков"
     ],
     "answer": 0,
-    "explain": "Отдельные процессы. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "У каждого процесса свой GIL. Цена — IPC и pickle. threading GIL не снимает.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m364",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "DRY",
     "q": "Что такое принцип DRY?",
     "options": [
       "Don't Repeat Yourself — не дублировать знание/логику",
@@ -5916,12 +5916,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "DRY про одну точку правды для бизнес-правил и логики; копипаста расходится со временем.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m365",
-    "fixed": true
+    "fixed": true,
+    "topic": "DRY",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что такое zip_longest заполняет?",
     "options": [
       "fillvalue для коротких",
@@ -5932,12 +5932,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Itertools.zip_longest — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m366",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
       "False",
@@ -5949,12 +5949,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде ложно. Проверь сравнения, пустоту коллекций и приоритет операций.",
     "kind": "single",
     "code": "print(isinstance((1, 2), list))",
-    "group": "Typing и dataclasses",
     "id": "m367",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
     "q": "Что выведут все вызовы?",
     "options": [
       "0 1 2",
@@ -5963,15 +5963,15 @@ window.QUESTIONS_MIDDLE = [
       "1 1 1"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в 0 1 2. Пройди выражение слева направо с учётом типов.",
+    "explain": "lambda i=i (или аналог в коде) фиксирует значение на итерации → 0 1 2.",
     "kind": "single",
     "code": "funcs = []\nfor i in range(3):\n    funcs.append(lambda i=i: i)\nprint(funcs[0](), funcs[1](), funcs[2]())",
-    "group": "Декораторы и замыкания",
     "id": "m368",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Что выведет код?",
     "options": [
       "1 2",
@@ -5983,12 +5983,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Два next() забирают первые элементы. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
     "code": "g = (x for x in [1, 2])\nprint(next(g), next(g))",
-    "group": "Генераторы и итераторы",
     "id": "m369",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что вернёт keep-alive?",
     "options": [
       "переиспользование TCP",
@@ -5999,44 +5999,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Меньше handshake — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m370",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "В чём риск create_task ×4 без await/ссылок?",
+    "q": "Чем рискован create_task без сохранения ссылки?",
     "options": [
-      "задачи могут быть собраны GC / потеря исключений",
-      "выполнятся надёжнее",
-      "синхронно",
-      "запрещены"
+      "сборщик может уничтожить задачу; исключения теряются",
+      "задачи выполняются синхронно",
+      "это SyntaxError",
+      "loop запрещает больше одной задачи"
     ],
     "answer": 0,
-    "explain": "Задачи могут быть собраны GC / потеря исключений. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Сохраняй Task или await/gather. Иначе — «exception never retrieved».",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m371",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
-    "q": "Что вернёт add_note (3.11)?",
+    "q": "Что делает BaseException.add_note в 3.11+?",
     "options": [
-      "добавляет текст к исключению",
-      "меняет тип",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "добавляет текстовую заметку к исключению",
+      "меняет тип исключения",
+      "удаляет traceback",
+      "глушит логирование"
     ],
     "answer": 0,
-    "explain": "Результат выражения — добавляет текст к исключению. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "add_note дополняет сообщение для отладки; заметки видны при печати исключения (__notes__).",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m372",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
     "q": "Как pytest находит тесты по умолчанию?",
     "options": [
       "по именам test_*.py / *_test.py и функциям test_*",
@@ -6047,44 +6047,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Discovery pytest смотрит на конвенции имён файлов и тест-функций. Не каждый .py подхватится, и main/doctest — другие механизмы.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m373",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "property",
-    "q": "Что такое doc у property?",
+    "q": "Откуда берётся docstring у `property`?",
     "options": [
-      "можно задать доку геттера",
-      "утверждение про другой уровень стека",
-      "только class docstring",
-      "pep8 ban"
+      "из docstring геттера (или аргумента doc= у property)",
+      "только из docstring самого класса",
+      "у property docstring задать нельзя",
+      "только из комментария # рядом с полем по PEP 8"
     ],
     "answer": 0,
-    "explain": "Можно задать доку геттера. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "У `@property` в `__doc__` попадает docstring метода-геттера. Его же можно передать явно: `property(fget, doc=\"...\")`. `help(obj.prop)` и IDE показывают именно это — не docstring класса и не обычный `#` комментарий.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m374",
-    "fixed": true
+    "fixed": true,
+    "topic": "property",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "MRO",
     "q": "Что показывает Class.__mro__?",
     "options": [
-      "цепочку базовых классов",
-      "только родителей 1 уровня",
-      "атрибуты",
-      "утверждение про другой уровень стека"
+      "кортеж цепочки базовых классов в порядке поиска методов",
+      "только прямых родителей",
+      "список всех атрибутов экземпляра",
+      "размер объекта в байтах"
     ],
     "answer": 0,
-    "explain": "Линеаризация наследования — MRO (Method Resolution Order) задаёт порядок поиска методов при множественном наследовании по алгоритму C3.",
+    "explain": "MRO — линейный порядок для attribute lookup при множественном наследовании (C3).",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m375",
-    "fixed": true
+    "fixed": true,
+    "topic": "MRO",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "JSON",
     "q": "Что вернёт json.loads('[1, 2]') вернёт?",
     "options": [
       "[1, 2]",
@@ -6095,61 +6095,61 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — [1, 2]. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m376",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
-    "q": "Что такое initializer у Pool?",
+    "q": "Зачем initializer у multiprocessing.Pool?",
     "options": [
-      "setup в worker process",
-      "в parent only",
-      "утверждение про другой уровень стека",
-      "import ban"
+      "выполнить setup в каждом worker-процессе при старте",
+      "инициализировать только главный процесс",
+      "заменить map",
+      "отключить pickle"
     ],
     "answer": 0,
-    "explain": "Setup в worker process. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "initializer(initargs) зовётся в воркерах один раз — удобно открыть соединения/загрузить модель.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m377",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "принципы",
-    "q": "Что верно про Copy-paste programming ведёт к?",
+    "q": "К чему ведёт copy-paste programming?",
     "options": [
-      "расхождению копий и багам при правках",
-      "лучшему DRY",
-      "ускорению",
-      "типизации"
+      "к расхождению копий и багам при правках в одном месте",
+      "к обязательному ускорению",
+      "к меньшему числу тестов автоматически",
+      "к запрету функций"
     ],
     "answer": 0,
-    "explain": "Расхождению копий и багам при правках. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Дублируешь код — правишь в одном месте, забываешь в другом. Выноси общую функцию/модуль.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m378",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "7",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "ошибка"
+      "3",
+      "4",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "7. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "partial фиксирует аргументы; вызов даёт сумму/операцию из кода — 7.",
     "kind": "single",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 3)(4))",
-    "group": "Collections и itertools",
     "id": "m379",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что означает аннотация typing.NoReturn?",
     "options": [
       "функция не завершается нормальным return (exit/throw/бесконечный цикл)",
@@ -6160,12 +6160,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "NoReturn — для функций вроде sys.exit или вечного loop: нормального возврата нет. Это не `-> None`. В новых версиях близок typing.Never.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m380",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "замыкания",
     "q": "Что выведет код?",
     "options": [
       "[0, 1, 2]",
@@ -6174,15 +6174,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [0, 1, 2]. Пройди выражение слева направо с учётом типов.",
+    "explain": "Default-аргумент фиксирует i → [0,1,2], не late binding.",
     "kind": "single",
     "code": "fs = [lambda i=i: i for i in range(3)]\nprint([f() for f in fs])",
-    "group": "Декораторы и замыкания",
     "id": "m381",
-    "fixed": true
+    "fixed": true,
+    "topic": "замыкания",
+    "group": "Декораторы и замыкания"
   },
   {
-    "topic": "генераторы",
     "q": "Как передать значение внутрь генератора через yield-выражение?",
     "options": [
       "методом gen.send(value)",
@@ -6193,12 +6193,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "`x = yield` получает то, что передали `gen.send(x)`. `next` шлёт None, `throw` кидает исключение внутрь, `close` завершает генератор.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m382",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 400 — кратко?",
     "options": [
       "ошибка клиента",
@@ -6209,92 +6209,92 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 400: ошибка клиента — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m383",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "Что такое StreamReader/Writer?",
+    "q": "Что такое asyncio StreamReader/StreamWriter?",
     "options": [
-      "высокоуровневые потоки TCP",
-      "файлы pathlib",
-      "блокирующий time.sleep внутри корутины",
-      "subprocess only"
+      "высокоуровневые обёртки над TCP-потоками",
+      "только UDP",
+      "файловые дескрипторы без сети",
+      "синхронный socket API без loop"
     ],
     "answer": 0,
-    "explain": "Высокоуровневые потоки TCP. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "open_connection/start_server дают reader/writer для асинхронного чтения/записи байтов по TCP.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m384",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
     "q": "От чего наследует ValueError?",
     "options": [
       "Exception",
-      "только object",
-      "утверждение про другой уровень стека",
-      "OSError всегда"
+      "OSError",
+      "Warning",
+      "BaseException напрямую минуя Exception"
     ],
     "answer": 0,
-    "explain": "Exception. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "ValueError — обычная прикладная ошибка значения ⊂ Exception.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m385",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
-    "q": "Что такое pytest hook pytest_configure?",
+    "q": "Для чего хук pytest_configure?",
     "options": [
-      "плагинная настройка",
-      "fixture data",
-      "assert rewrite off auto",
-      "collect only ban"
+      "плагинная настройка на старте pytest-сессии",
+      "обязательный sleep",
+      "удаление тестов",
+      "замена assert"
     ],
     "answer": 0,
-    "explain": "Плагинная настройка. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "В conftest/плагине pytest_configure вызывается при инициализации — регистрация маркеров и т.п.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m386",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "property",
-    "q": "Что такое deleter у property?",
+    "q": "Что делает @property.deleter?",
     "options": [
-      "обрабатывает del obj.x",
-      "удаляет class",
-      "GC freeze",
-      "утверждение про другой уровень стека"
+      "обрабатывает del obj.x для property",
+      "удаляет класс из модуля",
+      "чистит весь __dict__",
+      "вызывает gc.collect"
     ],
     "answer": 0,
-    "explain": "Обрабатывает del obj.x. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "@x.deleter задаёт логику удаления атрибута-property. Без него del obj.x может быть запрещён.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m387",
-    "fixed": true
+    "fixed": true,
+    "topic": "property",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "ООП",
-    "q": "Для чего используется super()?",
+    "q": "Для чего используют super()?",
     "options": [
-      "вызова метода родителя по MRO",
-      "создания потока",
-      "импорта",
-      "утверждение про другой уровень стека"
+      "вызов метода следующего класса в MRO (часто «родителя»)",
+      "создание нового процесса",
+      "отключение наследования",
+      "доступ только к object.__init__ минуя MRO"
     ],
     "answer": 0,
-    "explain": "Вызова метода родителя по MRO. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "super() следует MRO — критично при diamond inheritance и cooperative multiple inheritance.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m388",
-    "fixed": true
+    "fixed": true,
+    "topic": "ООП",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "performance",
     "q": "В чём разница: set membership vs list?",
     "options": [
       "set средний O(1)",
@@ -6305,60 +6305,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Хеш-таблица — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m389",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "threading",
-    "q": "Что верно про daemon thread при выходе main?",
+    "q": "Что будет с daemon-потоком при выходе main?",
     "options": [
-      "может оборваться",
-      "всегда join",
-      "становится process",
-      "утверждение про другой уровень стека"
+      "он может оборваться, не дождавшись завершения",
+      "всегда join'ится автоматически до конца",
+      "превращается в процесс",
+      "становится non-daemon"
     ],
     "answer": 0,
-    "explain": "Может оборваться. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "daemon=True не удерживает процесс. Критичную работу не оставляй только в daemon без join.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m390",
-    "fixed": true
+    "fixed": true,
+    "topic": "threading",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "patterns",
-    "q": "Что такое Паттерн Builder подходит когда?",
+    "q": "Когда уместен паттерн Builder?",
     "options": [
-      "много опциональных параметров объекта",
-      "один int",
-      "только dataclass frozen",
-      "только dict"
+      "когда у объекта много опциональных шагов/параметров сборки",
+      "когда достаточно одного позиционного аргумента",
+      "только для GUI",
+      "вместо любых фабрик всегда хуже"
     ],
     "answer": 0,
-    "explain": "Много опциональных параметров объекта. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Builder пошагово собирает сложный объект. Для 1–2 полей обычно хватит конструктора/dataclass.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m391",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "bisect",
-    "q": "Что такое bisect_left?",
+    "q": "Что возвращает bisect.bisect_left?",
     "options": [
-      "точка вставки слева от равных",
-      "удаление",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "индекс вставки слева от равных элементов",
+      "индекс удаления элемента",
+      "всегда -1 если нет точного match",
+      "новый отсортированный список"
     ],
     "answer": 0,
-    "explain": "Точка вставки слева от равных. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "bisect_left/right — точки вставки в отсортированную последовательность за O(log n).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m392",
-    "fixed": true
+    "fixed": true,
+    "topic": "bisect",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт isinstance([1], dict[str, int]) в обычном CPython?",
     "options": [
       "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
@@ -6369,156 +6369,156 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m393",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "coroutines",
-    "q": "Что означает: await gen — нельзя; await coroutine — да. Генератор awaitable?",
+    "q": "Можно ли напрямую await обычный generator?",
     "options": [
-      "нет (пока не @types.coroutine нюансы)",
-      "да всегда",
-      "только list",
-      "только async for"
+      "нет (нужна корутина; @types.coroutine — отдельный нюанс)",
+      "да, любой gen await'ится",
+      "да, если есть yield from",
+      "только в Python 2"
     ],
     "answer": 0,
-    "explain": "Нет (пока не @types.coroutine нюансы). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "await ждёт awaitable (coroutine, Task, Future…). Обычный generator — не awaitable, пока специально не обёрнут.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m394",
-    "fixed": true
+    "fixed": true,
+    "topic": "coroutines",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что такое status 429?",
+    "q": "Что значит HTTP 429?",
     "options": [
-      "too many requests",
-      "not found",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "Too Many Requests — сработали rate limits",
+      "успех",
+      "не найден ресурс",
+      "ошибка TLS"
     ],
     "answer": 0,
-    "explain": "Rate limit — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "429 — клиент превысил лимит частоты. Часто вместе с Retry-After.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m395",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "Что будет при необработанном исключении в Task?",
+    "q": "Что будет с необработанным исключением в asyncio.Task?",
     "options": [
-      "логируется при GC task (и в 3.11+ лучше видно)",
-      "тихо глотается навсегда",
-      "роняет процесс всегда",
-      "чинит само"
+      "его логируют при уничтожении Task (в новых версиях заметнее)",
+      "оно всегда тихо пропадает без следа в любом случае",
+      "убивает весь OS-процесс мгновенно гарантированно",
+      "превращает Task в generator"
     ],
     "answer": 0,
-    "explain": "Логируется при GC task (и в 3.11+ лучше видно). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Не забирай результат — получишь warning при GC. Лучше await/gather и явная обработка.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m396",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
-    "q": "Что вернёт Exception.__notes__ (3.11)?",
+    "q": "Что такое Exception.__notes__ (3.11+)?",
     "options": [
-      "доп. заметки к исключению",
-      "stack only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "список дополнительных текстовых заметок к исключению",
+      "стек вызовов",
+      "код возврата процесса",
+      "уровень логирования"
     ],
     "answer": 0,
-    "explain": "Результат выражения — доп. заметки к исключению. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "add_note наполняет __notes__; они печатаются вместе с исключением.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m397",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "mock",
-    "q": "В чём разница: MagicMock vs Mock?",
+    "q": "Чем MagicMock отличается от Mock?",
     "options": [
-      "MagicMock имеет магические методы по умолчанию",
-      "Mock быстрее C",
-      "одно и то же строго",
-      "Magic только async"
+      "MagicMock заранее имеет заглушки магических методов",
+      "Mock быстрее в 100 раз всегда",
+      "MagicMock нельзя использовать в assert",
+      "разницы нет"
     ],
     "answer": 0,
-    "explain": "MagicMock имеет магические методы по умолчанию. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "У MagicMock из коробки __iter__, __int__ и т.д. Обычный Mock их не создаёт автоматически.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m398",
-    "fixed": true
+    "fixed": true,
+    "topic": "mock",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Зачем нужен `__matmul__`?",
+    "q": "Зачем нужен __matmul__?",
     "options": [
-      "оператор @",
-      "утверждение про другой уровень стека",
-      "matrix only NumPy language ban",
-      "поведение, которого в CPython нет"
+      "оператор @ (матричное умножение / другие семантики)",
+      "только декораторы",
+      "только async with",
+      "форматирование строк"
     ],
     "answer": 0,
-    "explain": "Оператор @. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "PEP 465 ввёл @. NumPy использует для matmul; можно определить свою семантику.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m399",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "MRO",
-    "q": "Что верно про super() без аргументов в Py3?",
+    "q": "Как super() без аргументов находит класс и self в Python 3?",
     "options": [
-      "берёт класс/self из ячейки",
-      "только object",
-      "утверждение про другой уровень стека",
-      "первый base hardcode"
+      "из неявной ячейки __class__ / кадра метода",
+      "только через глобальный MRO lookup без привязки",
+      "по имени файла",
+      "случайным выбором базы"
     ],
     "answer": 0,
-    "explain": "Zero-arg super — MRO (Method Resolution Order) задаёт порядок поиска методов при множественном наследовании по алгоритму C3.",
+    "explain": "В методе супер без аргументов опирается на __class__ cell. В обычной функции так вызвать нельзя.",
     "kind": "single",
-    "group": "ООП продвинутый",
     "id": "m400",
-    "fixed": true
+    "fixed": true,
+    "topic": "MRO",
+    "group": "ООП продвинутый"
   },
   {
-    "topic": "secrets",
-    "q": "Что такое SystemRandom?",
+    "q": "Что такое random.SystemRandom?",
     "options": [
-      "OS RNG интерфейс как random.Random",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "интерфейс как у Random, но энтропия из OS RNG",
+      "быстрее random.random всегда без оговорок",
+      "ГПСЧ только для тестов с фиксированным seed",
+      "замена secrets.compare_digest"
     ],
     "answer": 0,
-    "explain": "OS RNG интерфейс как random.Random. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "SystemRandom.cryptographically опирается на os.urandom. Для токенов чаще модуль secrets.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m401",
-    "fixed": true
+    "fixed": true,
+    "topic": "secrets",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
-    "q": "Что верно про Время переключения GIL roughly связано с?",
+    "q": "С чем roughly связан интервал переключения GIL?",
     "options": [
-      "check interval / eval breaker",
-      "только OS quantum",
-      "GC only",
-      "утверждение про другой уровень стека"
+      "check interval / eval breaker (счётчик инструкций и проверки)",
+      "только частотой GC поколений",
+      "только размером heap",
+      "частотой fsync диска"
     ],
     "answer": 0,
-    "explain": "Sys.setswitchinterval — GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
+    "explain": "Исторически sys.setcheckinterval, позже switchinterval/eval breaker. GIL отпускается периодически и на blocking I/O.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m402",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "DRY",
     "q": "Когда дублирование допустимо по здравому смыслу?",
     "options": [
       "когда общий абстракция дороже двух копий",
@@ -6529,12 +6529,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Принцип — ориентир; иногда две похожие вещи лучше не склеивать насильно.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m403",
-    "fixed": true
+    "fixed": true,
+    "topic": "DRY",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что такое count(10, 2) начнёт?",
     "options": [
       "10,12,14…",
@@ -6545,140 +6545,140 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Бесконечный счётчик — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m404",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что такое field(repr=False) скрывает?",
+    "q": "Что делает field(repr=False) в dataclass?",
     "options": [
-      "поле из __repr__",
-      "из __init__",
-      "утверждение про другой уровень стека",
-      "из hash always"
+      "скрывает поле из автогенерируемого __repr__",
+      "удаляет поле из экземпляра",
+      "запрещает сравнение",
+      "делает поле ClassVar"
     ],
     "answer": 0,
-    "explain": "Поле из __repr__. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Удобно не светить секреты/тяжёлые поля в repr. На хранение значения не влияет.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m405",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "итераторы",
-    "q": "Верно ли, что У list итератор отдельный объект?",
+    "q": "Верно ли, что у list итератор — отдельный объект?",
     "options": [
-      "да",
-      "нет, list is iterator",
+      "да — iter(list) создаёт отдельный list_iterator",
+      "нет — list сам себе итератор без объекта",
       "только для tuple",
-      "только dict"
+      "только после reverse()"
     ],
     "answer": 0,
-    "explain": "Да. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "У списка нет __next__; iter(lst) возвращает новый list_iterator. Можно иметь несколько независимых итераторов.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m406",
-    "fixed": true
+    "fixed": true,
+    "topic": "итераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
-    "q": "Уровень изоляции READ COMMITTED — что верно?",
+    "q": "Что характерно для уровня изоляции READ COMMITTED?",
     "options": [
-      "разные аномалии чтения/записи; знай свою СУБД",
-      "все уровни идентичны в PostgreSQL",
-      "только про DDL",
-      "отключает индексы"
+      "не видишь незакоммиченные чужие данные; dirty read обычно нет, но возможны non-repeatable read",
+      "полный serializable без аномалий всегда",
+      "то же, что READ UNCOMMITTED во всех СУБД",
+      "запрет любых SELECT"
     ],
     "answer": 0,
-    "explain": "Разные аномалии чтения/записи; знай свою СУБД. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "READ COMMITTED — типичный default (PostgreSQL и др.). Детали аномалий зависят от СУБД и MVCC.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m407",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
-    "q": "В чём разница: async with vs обычный with для lock?",
+    "q": "Почему для asyncio.Lock нужен async with, а не обычный with?",
     "options": [
-      "нужен async CM с __aenter__/__aexit__",
-      "можно смешивать свободно",
-      "with быстрее",
-      "запрещено"
+      "нужен async CM с __aenter__/__aexit__, иначе нельзя await внутри acquire",
+      "обычный with быстрее и предпочтительнее",
+      "async with запрещён для Lock",
+      "разницы нет"
     ],
     "answer": 0,
-    "explain": "Нужен async CM с __aenter__/__aexit__. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Синхронный with не умеет await. asyncio.Lock — async context manager.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m408",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
     "q": "От чего наследует IndexError?",
     "options": [
       "LookupError",
-      "только object",
-      "утверждение про другой уровень стека",
-      "OSError всегда"
+      "OSError",
+      "Warning",
+      "StopIteration"
     ],
     "answer": 0,
-    "explain": "LookupError. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "IndexError ⊂ LookupError, рядом с KeyError.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m409",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "warnings",
-    "q": "Что такое warnings.filterwarnings управляет?",
+    "q": "Что делает warnings.filterwarnings?",
     "options": [
-      "показом предупреждений",
-      "утверждение про другой уровень стека",
-      "logs level only",
-      "поведение, которого в CPython нет"
+      "настраивает показ/игнор/ошибку для категорий предупреждений",
+      "удаляет модуль warnings",
+      "включает только logging",
+      "чинит байткод"
     ],
     "answer": 0,
-    "explain": "Показом предупреждений. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Можно превратить Warning в exception, скрыть DeprecationWarning и т.д.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m410",
-    "fixed": true
+    "fixed": true,
+    "topic": "warnings",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
-    "q": "Что такое __set_name__ у дескриптора?",
+    "q": "Зачем дескриптору __set_name__?",
     "options": [
-      "узнаёт имя атрибута в owner",
-      "вызывается при print",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "узнать имя атрибута и класс-владельца при создании класса",
+      "вызывать при каждом get",
+      "заменить __get__",
+      "только для slots"
     ],
     "answer": 0,
-    "explain": "Узнаёт имя атрибута в owner. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "PEP 487: при определении класса дескриптор получает owner и name — удобно для Field/validators.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m411",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "JSON",
-    "q": "Что такое parse_float=Decimal?",
+    "q": "Зачем json.loads(..., parse_float=Decimal)?",
     "options": [
-      "точные десятичные из JSON",
-      "быстрее float",
-      "int only",
-      "ошибка"
+      "парсить числа как Decimal вместо float — точные десятичные",
+      "ускорить парсинг в 10 раз",
+      "запретить числа в JSON",
+      "вернуть int всегда"
     ],
     "answer": 0,
-    "explain": "Точные десятичные из JSON. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "float двоичный и теряет точность денег. Decimal через parse_float сохраняет десятичную запись.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m412",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "GIL",
     "q": "Что такое sys.setswitchinterval меняет?",
     "options": [
       "частоту попыток переключения потоков",
@@ -6689,28 +6689,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Бывший check interval — GIL (Global Interpreter Lock) в CPython не даёт нескольким потокам одновременно исполнять байткод Python.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m413",
-    "fixed": true
+    "fixed": true,
+    "topic": "GIL",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "KISS",
     "q": "Что ближе к KISS при обработке ошибки?",
     "options": [
-      "явный try/except с понятным сообщением",
-      "цепочка из 5 декораторов",
-      "eval для обработки",
-      "глобальный except: pass"
+      "явный try/except с понятным сообщением/действием",
+      "десять слоёв абстрактных ErrorHandlerFactory",
+      "глотать все Exception молча",
+      "перезапуск процесса на любой KeyError"
     ],
     "answer": 0,
-    "explain": "Явный try/except с понятным сообщением. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Простая понятная обработка лучше «архитектуры ради архитектуры».",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m414",
-    "fixed": true
+    "fixed": true,
+    "topic": "KISS",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что верно про islice(it, 2, 5) берёт?",
     "options": [
       "элементы с 2 по 4 (как range)",
@@ -6721,12 +6721,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Ленивый срез итератора — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m415",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт Self вместо «Type[Self]» хаков?",
     "options": [
       "удобнее для fluent API",
@@ -6737,29 +6737,29 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — удобнее для fluent API. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m416",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "генераторы",
-    "q": "Что будет после исчерпания?",
+    "q": "Что будет после исчерпания генератора при next()?",
     "options": [
       "StopIteration",
-      "ошибка",
-      "утверждение про другой уровень стека",
-      "None"
+      "None без исключения",
+      "перезапуск с начала",
+      "MemoryError"
     ],
     "answer": 0,
-    "explain": "Протокол итератора — Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
+    "explain": "Исчерпанный генератор поднимает StopIteration. for ловит его сам.",
     "kind": "single",
     "code": "g = (x for x in range(1))\nnext(g)\nnext(g)",
-    "group": "Генераторы и итераторы",
     "id": "m417",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "DI",
     "q": "Что такое composition root?",
     "options": [
       "место, где собирают граф зависимостей приложения",
@@ -6770,12 +6770,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Composition root — обычно main/bootstrap: там связывают реализации с портами. Остальной код принимает зависимости явно, а не разбрасывает new/global.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m418",
-    "fixed": true
+    "fixed": true,
+    "topic": "DI",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что верно про Queue в asyncio безопасна для?",
     "options": [
       "корутин одного loop",
@@ -6786,28 +6786,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Корутин одного loop. Сверяй с тем, блокирует ли это loop и кто владеет Task.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m419",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Зачем нужен ExitStack?",
+    "q": "Зачем нужен contextlib.ExitStack?",
     "options": [
-      "динамического набора контекстов",
-      "одного with",
-      "async only",
-      "утверждение про другой уровень стека"
+      "динамически набирать и гарантированно закрывать набор контекстов",
+      "заменить любой with одним print",
+      "только для async",
+      "ускорить open()"
     ],
     "answer": 0,
-    "explain": "Динамического набора контекстов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Когда число CM неизвестно заранее — enter_context в цикле, выход закроет все в обратном порядке.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m420",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
     "q": "Что вернёт pytest fixture с scope='module'?",
     "options": [
       "один раз на модуль тестов",
@@ -6818,28 +6818,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — один раз на модуль тестов. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m421",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "property",
-    "q": "Во что превращает @property?",
+    "q": "Во что превращает функция @property?",
     "options": [
-      "атрибут-геттер",
-      "статический метод",
-      "классметод",
-      "дескриптор записи только"
+      "атрибут с геттером (и опционально setter/deleter)",
+      "staticmethod",
+      "classmethod без self",
+      "модульную функцию"
     ],
     "answer": 0,
-    "explain": "Атрибут-геттер. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "@property делает вызов метода через доступ obj.x без скобок.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m422",
-    "fixed": true
+    "fixed": true,
+    "topic": "property",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "False",
@@ -6851,60 +6851,60 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде ложно. Проверь сравнения, пустоту коллекций и приоритет операций.",
     "kind": "single",
     "code": "import copy\na = [[]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m423",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
-    "q": "Что такое sharedctypes?",
+    "q": "Что такое multiprocessing.sharedctypes?",
     "options": [
-      "общие ctypes-объекты",
-      "любые py objects transparently",
-      "asyncio Queue",
-      "GIL share"
+      "общие ctypes-значения/массивы между процессами",
+      "обычный list без IPC",
+      "только TCP-сокеты",
+      "замена pickle"
     ],
     "answer": 0,
-    "explain": "Общие ctypes-объекты. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Value/Array из sharedctypes живут в shared memory; удобно для чисел, не для произвольных объектов.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m424",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "DRY",
     "q": "Два модуля копируют одну и ту же валидацию email — что нарушено?",
     "options": [
-      "DRY",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "DRY — Don't Repeat Yourself",
+      "только SOLID Liskov",
+      "GIL",
+      "HTTP/2"
     ],
     "answer": 0,
-    "explain": "DRY. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Одинаковая логика в двух местах расходится. Вынеси в общую функцию/модуль.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m425",
-    "fixed": true
+    "fixed": true,
+    "topic": "DRY",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
     "q": "Что вернёт Counter.most_common(2)?",
     "options": [
-      "топ-2 частых",
-      "сортирует keys",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "топ-2 самых частых элементов как (элемент, счётчик)",
+      "все ключи в алфавите",
+      "только сумму счётчиков",
+      "очищенный Counter"
     ],
     "answer": 0,
-    "explain": "Результат выражения — топ-2 частых. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "most_common(n) — n пар по убыванию частоты; без n — все.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m426",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
       "True",
@@ -6916,12 +6916,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде истинно. Пройди операторы и типы операндов по шагам.",
     "kind": "single",
     "code": "print(isinstance({'a': 1}, dict))",
-    "group": "Typing и dataclasses",
     "id": "m427",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "генераторы",
     "q": "Что вернёт gen.send(x) до первого yield?",
     "options": [
       "нужно сначала next()/send(None)",
@@ -6932,28 +6932,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Генератор должен дойти до yield. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m428",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 429 обычно значит?",
+    "q": "Что обычно значит HTTP 429?",
     "options": [
-      "Too Many Requests",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Too Many Requests — лимит частоты",
+      "успех 2xx",
+      "Not Found",
+      "Internal Server Error"
     ],
     "answer": 0,
-    "explain": "429 — Too Many Requests — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "Rate limiting. Смотри Retry-After. Не путать с 503.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m429",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что такое await можно внутри?",
     "options": [
       "async def",
@@ -6964,44 +6964,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Async def. Сверяй с тем, блокирует ли это loop и кто владеет Task.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m430",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Во что превращает contextlib.contextmanager?",
+    "q": "Во что превращает @contextlib.contextmanager генератор?",
     "options": [
-      "генератор в CM",
-      "класс в функцию",
-      "async в sync",
-      "list в with"
+      "в контекстный менеджер (__enter__/__exit__)",
+      "в async iterator обязательно",
+      "в thread lock",
+      "в dataclass"
     ],
     "answer": 0,
-    "explain": "Генератор в CM. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Код до yield — вход, после — выход/очистка. Исключения пробрасываются в генератор.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m431",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "EAFP",
     "q": "Что такое EAFP?",
     "options": [
-      "Easier to Ask Forgiveness than Permission",
-      "Always Find Path",
-      "Error After Function",
-      "Python anti-pattern"
+      "Easier to Ask Forgiveness than Permission — try/except вместо предварительных проверок",
+      "Look Before You Leap",
+      "запрет исключений",
+      "стиль только для Java"
     ],
     "answer": 0,
-    "explain": "Easier to Ask Forgiveness than Permission. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Идиома Python: пробуй операцию, лови ожидаемую ошибку. LBYL — противоположный стиль.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m432",
-    "fixed": true
+    "fixed": true,
+    "topic": "EAFP",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
     "q": "Зачем нужен __reversed__?",
     "options": [
       "чтобы объект поддерживал reversed(obj) со своей логикой",
@@ -7012,12 +7012,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "__reversed__ — протокол для reversed(). Если его нет, reversed может идти через последовательность (__len__/__getitem__). Это не sort и не замена __iter__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m433",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "строки",
     "q": "Что выведет код?",
     "options": [
       "True",
@@ -7029,60 +7029,60 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде истинно. Пройди операторы и типы операндов по шагам.",
     "kind": "single",
     "code": "print('X'.casefold() == 'x')",
-    "group": "Stdlib и производительность",
     "id": "m434",
-    "fixed": true
+    "fixed": true,
+    "topic": "строки",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "multiprocessing",
-    "q": "Что такое forkserver start method?",
+    "q": "Что такое start method forkserver?",
     "options": [
-      "промежуточный сервер для форков",
-      "только Windows",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "отдельный сервер-процесс, от которого форкают воркеры",
+      "то же, что spawn без отличий",
+      "только Windows default",
+      "отключение multiprocessing"
     ],
     "answer": 0,
-    "explain": "Промежуточный сервер для форков. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "forkserver безопаснее/предсказуемее голого fork после многопоточности; spawn — чистый старт интерпретатора.",
     "kind": "single",
-    "group": "Потоки, процессы, GIL",
     "id": "m435",
-    "fixed": true
+    "fixed": true,
+    "topic": "multiprocessing",
+    "group": "Потоки, процессы, GIL"
   },
   {
-    "topic": "принципы",
     "q": "Что такое God object?",
     "options": [
-      "один класс знает и делает слишком много",
-      "singleton модуль",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "один класс, который знает и делает слишком много",
+      "идеальный SRP-класс",
+      "пустой интерфейс",
+      "только DI-контейнер"
     ],
     "answer": 0,
-    "explain": "Один класс знает и делает слишком много. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Антипаттерн: всё свалено в одном месте → сложно тестировать и менять. Дроби по ответственностям.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m436",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
-    "q": "Зачем нужен UserDict?",
+    "q": "Зачем collections.UserDict?",
     "options": [
-      "удобное наследование под dict-like",
-      "быстрее dict",
-      "замена OrderedDict",
-      "async map"
+      "удобная база для своего dict-like класса через наследование",
+      "быстрее встроенного dict всегда",
+      "замена defaultdict",
+      "только для JSON"
     ],
     "answer": 0,
-    "explain": "Удобное наследование под dict-like. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Наследовать встроенный dict исторически неудобно; UserDict.data — нормальный путь кастомизации.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m437",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Выбери все верные про аннотации типов?",
     "options": [
       "в рантайме CPython обычно не проверяет list[int]",
@@ -7101,12 +7101,12 @@ window.QUESTIONS_MIDDLE = [
       "typing"
     ],
     "difficulty": "middle",
-    "group": "Typing и dataclasses",
     "id": "m438",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "генераторы",
     "q": "Что означает: gen = (x for x in range(3)); list(gen); list(gen) второй раз?",
     "options": [
       "[]",
@@ -7117,92 +7117,92 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Генератор одноразовый — после exhaust пусто. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m439",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 409 обычно значит?",
+    "q": "Что обычно значит HTTP 409?",
     "options": [
-      "Conflict",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Conflict — конфликт состояния ресурса",
+      "успех",
+      "неавторизован",
+      "редирект"
     ],
     "answer": 0,
-    "explain": "409 — Conflict — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "409 — конфликт версий/состояния (optimistic locking, duplicate create).",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m440",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "async",
     "q": "Зачем нужен async with?",
     "options": [
-      "async context managers",
-      "обычного open только",
-      "утверждение про другой уровень стека",
-      "files sync"
+      "для асинхронных контекстных менеджеров (__aenter__/__aexit__)",
+      "замена любого with синхронного всегда",
+      "только для print",
+      "отключение event loop"
     ],
     "answer": 0,
-    "explain": "Async context managers. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Ресурсы с await на входе/выходе (Lock, сессии aiohttp) требуют async with.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m441",
-    "fixed": true
+    "fixed": true,
+    "topic": "async",
+    "group": "Asyncio"
   },
   {
-    "topic": "context",
-    "q": "Что такое asynccontextmanager?",
+    "q": "Что такое contextlib.asynccontextmanager?",
     "options": [
-      "async CM из генератора",
-      "sync only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "превращает async-генератор в async context manager",
+      "только синхронный CM",
+      "замена create_task",
+      "фикстура pytest"
     ],
     "answer": 0,
-    "explain": "Async CM из генератора. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Аналог @contextmanager, но с async def и await до/после yield.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m442",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "logging",
-    "q": "Что такое handlers определяют?",
+    "q": "Что определяют handlers у логгера?",
     "options": [
-      "куда писать",
-      "формат only",
-      "уровень only",
-      "утверждение про другой уровень стека"
+      "куда писать записи: файл, stderr, syslog, …",
+      "только формат времени без назначения",
+      "уровень root навсегда фиксированно без handler",
+      "имя логгера"
     ],
     "answer": 0,
-    "explain": "Stream/File/… Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "Logger → Filter → Handler → Formatter. Handler — «куда».",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m443",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
     "q": "Зачем нужен __index__?",
     "options": [
-      "преобразования к int индекса/среза",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "bool only"
+      "преобразование к int для индексов/срезов/bin/hex/oct",
+      "только для float",
+      "хеширование строк",
+      "async await"
     ],
     "answer": 0,
-    "explain": "Преобразования к int индекса/среза. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Объекты вроде numpy.int64 реализуют __index__, чтобы работать как индексы без потери точности __int__.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m444",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "{\"a\": 1}",
@@ -7211,15 +7211,15 @@ window.QUESTIONS_MIDDLE = [
       "False"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в {\"a\": 1}. Пройди выражение слева направо с учётом типов.",
+    "explain": "json.dumps сериализует Python-объект в JSON-строку → {\"a\": 1}.",
     "kind": "single",
     "code": "import json\nprint(json.dumps({'a': 1}))",
-    "group": "Stdlib и производительность",
     "id": "m445",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "принципы",
     "q": "Верно ли утверждение: Easier to Ask Forgiveness than Permission» в Python?",
     "options": [
       "сначала попробовать, поймать исключение",
@@ -7230,60 +7230,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Сначала попробовать, поймать исключение. в Python».",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m446",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
-    "q": "Что такое deque хорош для?",
+    "q": "Для чего хорошо подходит collections.deque?",
     "options": [
       "быстрых append/pop с обоих концов",
-      "случайного доступа O(1) лучше list",
-      "ключей dict",
-      "утверждение про другой уровень стека"
+      "только случайного доступа O(1) лучше list",
+      "замены dict",
+      "SQL-запросов"
     ],
     "answer": 0,
-    "explain": "Быстрых append/pop с обоих концов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Двусторонняя очередь: O(1) на концах. Индексация в середине дороже, чем у list.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m447",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "enum",
-    "q": "Что такое unique() декоратор?",
+    "q": "Что делает @enum.unique?",
     "options": [
-      "запрещает дубли значений",
-      "сортирует",
-      "авто int",
-      "утверждение про другой уровень стека"
+      "запрещает дублирующиеся значения членов Enum",
+      "делает Enum быстрее",
+      "разрешает любые дубли",
+      "конвертирует в IntFlag"
     ],
     "answer": 0,
-    "explain": "Enum.unique — Enum задаёт именованные константы с фиксированным набором значений.",
+    "explain": "При дубле значения unique поднимает ValueError на этапе определения класса.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m448",
-    "fixed": true
+    "fixed": true,
+    "topic": "enum",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "итераторы",
-    "q": "Что такое Итератор должен иметь?",
+    "q": "Что должен иметь итератор?",
     "options": [
-      "__iter__ и __next__",
-      "только len",
-      "утверждение про другой уровень стека",
-      "__getitem__ обязательно"
+      "__iter__ (обычно return self) и __next__",
+      "только __len__",
+      "только __getitem__",
+      "только close()"
     ],
     "answer": 0,
-    "explain": "__iter__ и __next__. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Протокол итератора: __next__ отдаёт следующий или StopIteration; __iter__ возвращает себя.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m449",
-    "fixed": true
+    "fixed": true,
+    "topic": "итераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 200 — кратко?",
     "options": [
       "успех с телом",
@@ -7294,12 +7294,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 200: успех с телом — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m450",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "asyncio",
     "q": "Что вернёт get_running_loop()?",
     "options": [
       "loop текущей корутины",
@@ -7310,124 +7310,124 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — loop текущей корутины. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Asyncio",
     "id": "m451",
-    "fixed": true
+    "fixed": true,
+    "topic": "asyncio",
+    "group": "Asyncio"
   },
   {
-    "topic": "exceptions",
     "q": "От чего наследует StopIteration?",
     "options": [
       "Exception",
-      "только object",
-      "утверждение про другой уровень стека",
-      "OSError всегда"
+      "BaseException напрямую минуя Exception",
+      "OSError",
+      "Warning"
     ],
     "answer": 0,
-    "explain": "Exception. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "StopIteration ⊂ Exception. GeneratorExit — уже из BaseException (не глотать в except Exception вслепую в генераторах — отдельная тема).",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m452",
-    "fixed": true
+    "fixed": true,
+    "topic": "exceptions",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "logging",
-    "q": "Что возвращает Filter.filter?",
+    "q": "Что должен вернуть logging.Filter.filter, чтобы запись прошла?",
     "options": [
-      "True чтобы пропустить запись",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "True (или truthy)",
+      "False чтобы пропустить дальше",
+      "всегда None",
+      "уровень CRITICAL"
     ],
     "answer": 0,
-    "explain": "Булев отбор — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "filter возвращает True — запись идёт дальше; False — отбрасывается.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m453",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "property",
-    "q": "Что верно про obj.x = 1 при property без setter?",
+    "q": "Что будет при obj.x = 1, если x — property без setter?",
     "options": [
       "AttributeError",
-      "создаст в __dict__ всегда",
-      "утверждение про другой уровень стека",
-      "TypeError only"
+      "тихое игнорирование",
+      "создание обычного атрибута в обход всегда",
+      "TypeError от int"
     ],
     "answer": 0,
-    "explain": "AttributeError. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Read-only property запрещает присваивание → AttributeError: can't set attribute.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m454",
-    "fixed": true
+    "fixed": true,
+    "topic": "property",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "secrets",
-    "q": "Что такое token_urlsafe?",
+    "q": "Что делает secrets.token_urlsafe?",
     "options": [
-      "криптостойкий токен для URL",
-      "утверждение про другой уровень стека",
-      "random.random",
-      "hash lib name"
+      "криптостойкий токен, безопасный для URL (Base64url)",
+      "только UUID1 из MAC",
+      "предсказуемый счётчик",
+      "MD5 от пароля"
     ],
     "answer": 0,
-    "explain": "Криптостойкий токен для URL. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Для session id/CSRF используй secrets, не random. token_urlsafe удобен в query/path.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m455",
-    "fixed": true
+    "fixed": true,
+    "topic": "secrets",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "SoC",
-    "q": "View смешивает SQL-запросы и HTML-шаблон в одной функции — что нарушено?",
+    "q": "View смешивает SQL и HTML в одной функции — что нарушено?",
     "options": [
-      "Separation of Concerns",
-      "утверждение про другой уровень стека",
-      "только LSP",
-      "поведение, которого в CPython нет"
+      "Separation of Concerns — разные обязанности свалены вместе",
+      "только DRY без SoC",
+      "GIL",
+      "UTF-8"
     ],
     "answer": 0,
-    "explain": "Separation of Concerns. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Разделяй доступ к данным, бизнес-логику и представление — проще тестировать и менять.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m456",
-    "fixed": true
+    "fixed": true,
+    "topic": "SoC",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
-    "q": "Что такое islice(it, 10)?",
+    "q": "Что делает itertools.islice(it, 10)?",
     "options": [
-      "первые 10 элементов лениво",
-      "сортировка",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "лениво берёт первые 10 элементов итератора",
+      "создаёт list из всего it сразу всегда",
+      "сортирует it",
+      "удаляет 10 элементов из источника"
     ],
     "answer": 0,
-    "explain": "Срез итератора — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "islice — срез без материализации всего потока. Есть варианты start/stop/step.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m457",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что делает asdict не?",
+    "q": "Что dataclasses.asdict делает неидеально?",
     "options": [
-      "глубокую магию произвольных объектов идеально всегда",
-      "рекурсию dataclass/dict/list в простых случаях",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "не волшебно сериализует произвольные вложенные объекты «как надо всегда»",
+      "всегда падает на любом dataclass",
+      "удаляет поля",
+      "меняет исходный объект in-place"
     ],
     "answer": 0,
-    "explain": "Глубокую магию произвольных объектов идеально всегда. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "asdict рекурсивно обходит dataclasses/dict/list, но кастомные типы могут потребовать своего encoder.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m458",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "генераторы",
     "q": "Выбери все верные про генераторы?",
     "options": [
       "yield приостанавливает функцию и возвращает значение",
@@ -7446,28 +7446,28 @@ window.QUESTIONS_MIDDLE = [
       "generators"
     ],
     "difficulty": "middle",
-    "group": "Генераторы и итераторы",
     "id": "m459",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 201 обычно значит?",
+    "q": "Что обычно значит HTTP 201?",
     "options": [
-      "Created",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Created — ресурс создан",
+      "No Content",
+      "Bad Request",
+      "Not Found"
     ],
     "answer": 0,
-    "explain": "201 — Created — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "201 после успешного POST/создания; часто с Location на новый URI.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m460",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "исключения",
     "q": "Что верно про except Exception as e: — e доступен?",
     "options": [
       "в блоке except (и очищается после в 3)",
@@ -7478,76 +7478,76 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Имя исключения — Исключения лучше ловить точечно: широкий except Exception маскирует настоящие ошибки.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m461",
-    "fixed": true
+    "fixed": true,
+    "topic": "исключения",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "тесты",
     "q": "Что такое monkeypatch в pytest?",
     "options": [
-      "временно патчит атрибуты/env",
-      "меняет CPython",
-      "удаляет тесты",
-      "CI matrix"
+      "временная подмена атрибутов/env/dict с автооткатом",
+      "постоянный патч продакшена",
+      "замена интерпретатора",
+      "только mock из unittest без отката"
     ],
     "answer": 0,
-    "explain": "Временно патчит атрибуты/env. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Фикстура monkeypatch.setenv/setattr безопасна: после теста всё восстанавливается.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m462",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "магические",
     "q": "Что возвращает __enter__?",
     "options": [
-      "то, что попадёт в as",
-      "всегда None",
-      "self обязателен языком",
-      "утверждение про другой уровень стека"
+      "значение, которое попадёт в переменную после as",
+      "всегда None обязательно",
+      "только True/False успеха",
+      "исключение"
     ],
     "answer": 0,
-    "explain": "То, что попадёт в as. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "with CM() as x: — x = результат __enter__. Часто возвращают self.",
     "kind": "single",
-    "group": "Контекст и магические методы",
     "id": "m463",
-    "fixed": true
+    "fixed": true,
+    "topic": "магические",
+    "group": "Контекст и магические методы"
   },
   {
-    "topic": "refcount",
-    "q": "Что такое sys.getrefcount(obj)?",
+    "q": "Что показывает sys.getrefcount(obj)?",
     "options": [
-      "считает ссылки (+временные)",
-      "размер байт",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "число ссылок на объект (часто +1 из‑за временной ссылки аргумента)",
+      "размер в байтах",
+      "поколение GC",
+      "число потоков"
     ],
     "answer": 0,
-    "explain": "Считает ссылки (+временные). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Счётчик ссылок CPython. Вызов getrefcount сам добавляет временную ссылку — не удивляйся +1.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m464",
-    "fixed": true
+    "fixed": true,
+    "topic": "refcount",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "принципы",
     "q": "Когда LBYL уместнее EAFP?",
     "options": [
-      "когда проверка дешевле и предсказуема",
-      "никогда",
-      "утверждение про другой уровень стека",
-      "только в C"
+      "когда проверка дешёвая и предсказуемая, а исключение дорогое/редкое неожиданно",
+      "всегда в Python без исключений",
+      "только в C++",
+      "никогда — EAFP единственный стиль"
     ],
     "answer": 0,
-    "explain": "Когда проверка дешевле и предсказуема. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Пример: if path.exists() перед лёгкой веткой UI. Для dict чаще EAFP (KeyError). Гонки TOCTOU — отдельный риск LBYL.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m465",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что вернёт list(permutations('ab', 2))?",
     "options": [
       "[('a', 'b'), ('b', 'a')]",
@@ -7558,28 +7558,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Перестановки — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m466",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что такое field(hash=False)?",
+    "q": "Что делает field(hash=False) в dataclass?",
     "options": [
-      "исключает из __hash__",
-      "из init",
-      "из repr always",
-      "из annotations"
+      "исключает поле из автогенерируемого __hash__",
+      "запрещает хранить поле",
+      "делает поле ClassVar",
+      "включает slots"
     ],
     "answer": 0,
-    "explain": "Исключает из __hash__. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "При hash=True у dataclass можно выкинуть мутабельные/шумные поля из хеша.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m467",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "генераторы",
     "q": "Что выведет код?",
     "options": [
       "[0, 1, 4, 9]",
@@ -7591,12 +7591,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Generator expression материализуется через list. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
     "code": "print(list(x * x for x in range(4)))",
-    "group": "Генераторы и итераторы",
     "id": "m468",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
     "q": "Что такое Типичная роль `HAVING`?",
     "options": [
       "фильтр после GROUP BY",
@@ -7607,92 +7607,92 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HAVING в SQL — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m469",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "context",
-    "q": "Что такое chdir контекст (3.11)?",
+    "q": "Что делает contextlib.chdir (3.11+)?",
     "options": [
-      "временная смена cwd",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "временно меняет текущую рабочую директорию внутри with",
+      "удаляет каталог",
+      "только читает cwd без смены",
+      "меняет PYTHONPATH"
     ],
     "answer": 0,
-    "explain": "Временная смена cwd. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "На входе os.chdir(path), на выходе возврат прежнего cwd — даже при исключении.",
     "kind": "single",
-    "group": "Исключения и контекст",
     "id": "m470",
-    "fixed": true
+    "fixed": true,
+    "topic": "context",
+    "group": "Исключения и контекст"
   },
   {
-    "topic": "testing",
-    "q": "Что такое scope='session' у фикстуры?",
+    "q": "Что значит scope='session' у pytest-фикстуры?",
     "options": [
-      "создать один раз на всю сессию pytest",
-      "на каждый тест",
-      "никогда не кэшировать",
-      "только module"
+      "создать ресурс один раз на всю тестовую сессию",
+      "на каждый тест заново обязательно",
+      "только на один модуль без session",
+      "отключить фикстуру"
     ],
     "answer": 0,
-    "explain": "Создать один раз на всю сессию pytest. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "session > package > module > class > function. Тяжёлые ресурсы (БД) часто session-scoped.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m471",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "tempfile",
-    "q": "Что такое NamedTemporaryFile удаляется?",
+    "q": "Когда удаляется NamedTemporaryFile?",
     "options": [
-      "часто при закрытии (зависит от delete)",
-      "никогда",
-      "только reboot",
-      "вручную обязателен всегда"
+      "часто при закрытии (параметр delete; на Windows нюансы)",
+      "никогда автоматически",
+      "только при reboot ОС",
+      "сразу при создании до записи"
     ],
     "answer": 0,
-    "explain": "Часто при закрытии (зависит от delete). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "delete=True (default) — unlink при close. На Windows нельзя открыть второй раз, пока файл открыт — классическая ловушка.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m472",
-    "fixed": true
+    "fixed": true,
+    "topic": "tempfile",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "Zen",
-    "q": "Что такое «Readability counts» про что?",
+    "q": "О чём «Readability counts» в Zen of Python?",
     "options": [
-      "код читают чаще, чем пишут",
-      "короче = лучше",
-      "комментарии не нужны",
-      "только PEP 8"
+      "код читают чаще, чем пишут — читаемость важна",
+      "нужно писать максимально коротко любой ценой",
+      "запрет комментариев",
+      "только про скорость CPU"
     ],
     "answer": 0,
-    "explain": "Код читают чаще, чем пишут. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Один из афоризмов import this: ясность важнее «гольф-кода».",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m473",
-    "fixed": true
+    "fixed": true,
+    "topic": "Zen",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "functools",
-    "q": "Что такое singledispatch регистрирует?",
+    "q": "Что регистрирует functools.singledispatch?",
     "options": [
-      "перегрузки по типу",
-      "по имени аргумента любому",
-      "по kwargs only",
-      "утверждение про другой уровень стека"
+      "перегрузки функции по типу первого аргумента",
+      "перегрузки по имени функции в C",
+      "только методы класса",
+      "async задачи"
     ],
     "answer": 0,
-    "explain": "Перегрузки по типу. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "@singledispatch + @func.register(int) выбирает реализацию по type(arg0).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m474",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что переносит ParamSpec (PEP 612)?",
     "options": [
       "параметры callable — чтобы декораторы сохраняли сигнатуру",
@@ -7703,44 +7703,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "ParamSpec нужен в декораторах/обёртках: сохранить *args/**kwargs типы исходной функции. Это typing для checker'а, не runtime-ускорение.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m475",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "generators",
-    "q": "Что такое yield from subgen?",
+    "q": "Что делает yield from subgen?",
     "options": [
-      "делегирует итерацию подгенератору",
-      "копирует list",
-      "создаёт thread",
-      "закрывает файл"
+      "делегирует итерацию (и send/throw) подгенератору",
+      "только копирует list(subgen)",
+      "создаёт поток",
+      "эквивалент return subgen"
     ],
     "answer": 0,
-    "explain": "Делегирует итерацию подгенератору. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "yield from прозрачно прокидывает протокол генератора в subgen и пробрасывает StopIteration.value.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m476",
-    "fixed": true
+    "fixed": true,
+    "topic": "generators",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
-    "q": "Что вернёт UPSERT (ON CONFLICT)?",
+    "q": "Что делает UPSERT (INSERT … ON CONFLICT)?",
     "options": [
-      "вставить или обновить",
-      "только delete",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "вставляет строку или обновляет её при конфликте уникального ключа",
+      "только удаляет строки",
+      "только делает SELECT",
+      "создаёт новую базу данных"
     ],
     "answer": 0,
-    "explain": "Идемпотентные записи — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "UPSERT = insert or update. В PostgreSQL: INSERT … ON CONFLICT (…) DO UPDATE/NOTHING. В SQLite похожий синтаксис; в MySQL чаще ON DUPLICATE KEY UPDATE.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m477",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "тесты",
     "q": "Что вернёт freezegun / time-machine?",
     "options": [
       "заморозка времени в тестах",
@@ -7751,77 +7751,77 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — заморозка времени в тестах. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m478",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "struct",
-    "q": "Что такое bool в format?",
+    "q": "Какой format-символ struct для bool (1 байт)?",
     "options": [
       "'?'",
-      "'b' only",
+      "'b' всегда для bool",
+      "'s'",
+      "'p'"
+    ],
+    "answer": 0,
+    "explain": "struct: '?' — _Bool. 'b'/'B' — signed/unsigned char.",
+    "kind": "single",
+    "id": "m479",
+    "fixed": true,
+    "topic": "struct",
+    "group": "Stdlib и производительность"
+  },
+  {
+    "q": "Типичный симптом circular dependency модулей A и B?",
+    "options": [
+      "импорт на уровне модуля друг друга → частично инициализированные модули / ImportError",
+      "обязательное ускорение старта",
+      "запрет функций",
+      "автоматический deadlock ОС"
+    ],
+    "answer": 0,
+    "explain": "Лечится: отложенный импорт, общий третий модуль, инверсия зависимостей.",
+    "kind": "single",
+    "id": "m480",
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
+  },
+  {
+    "q": "Что выведет код?",
+    "options": [
+      "10",
+      "0",
       "ошибка",
       "None"
     ],
     "answer": 0,
-    "explain": "'?'. Не путай с соседними похожими терминами из той же темы.",
-    "kind": "single",
-    "group": "Stdlib и производительность",
-    "id": "m479",
-    "fixed": true
-  },
-  {
-    "topic": "принципы",
-    "q": "Какой типичный симптом Circular dependency между модулями A и B — типичный?",
-    "options": [
-      "импорт на уровне модуля в обе стороны",
-      "только typing",
-      "только pytest",
-      "утверждение про другой уровень стека"
-    ],
-    "answer": 0,
-    "explain": "Импорт на уровне модуля в обе стороны. Не путай с соседними похожими терминами из той же темы.",
-    "kind": "single",
-    "group": "Архитектура и дизайн",
-    "id": "m480",
-    "fixed": true
-  },
-  {
-    "topic": "itertools",
-    "q": "Что выведет код?",
-    "options": [
-      "10",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
-    ],
-    "answer": 0,
-    "explain": "C(5,2) = 10 — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "range(start, stop[, step]) не включает stop. list(range(...)) → 10.",
     "kind": "single",
     "code": "from itertools import combinations\nprint(len(list(combinations(range(5), 2))))",
-    "group": "Collections и itertools",
     "id": "m481",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Что такое Final[x]?",
+    "q": "Что означает typing.Final?",
     "options": [
-      "не должен переназначаться",
-      "константа CPU",
-      "frozen dataclass",
-      "обязательная проверка типов на каждом вызове в CPython"
+      "имя не должно переназначаться (для type checker)",
+      "значение вычисляется в runtime как const в C",
+      "запрет чтения",
+      "только для классов"
     ],
     "answer": 0,
-    "explain": "Не должен переназначаться. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Final — контракт для mypy/pyright. В runtime обычное присваивание всё ещё возможно.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m482",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "генераторы",
     "q": "Что такое yield from делегирует?",
     "options": [
       "итерацию/yield во вложенный итератор/генератор",
@@ -7832,60 +7832,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Также пробрасывает send/throw. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m483",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
-    "q": "Что такое eager load?",
+    "q": "Что такое eager load связей в ORM?",
     "options": [
-      "заранее подгружает связи",
-      "откладывает forever",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "заранее подгрузить связанные объекты одним/несколькими запросами",
+      "всегда ленивая загрузка по одному SELECT на доступ",
+      "удаление связей",
+      "только raw SQL без ORM"
     ],
     "answer": 0,
-    "explain": "Joinedload/selectin — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Eager (joined/selectin) борется с N+1. Lazy — по умолчанию во многих ORM.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m484",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "testing",
-    "q": "Зачем нужен conftest.py в pytest?",
+    "q": "Зачем conftest.py в pytest?",
     "options": [
-      "общие фикстуры и хуки для каталога тестов",
-      "запуск prod",
-      "конфиг pip",
-      "проверку только вручную без автотестов"
+      "общие фикстуры и хуки для каталога тестов без импорта",
+      "конфиг продакшен-сервера",
+      "замена pytest.ini полностью всегда",
+      "компиляция C-расширений"
     ],
     "answer": 0,
-    "explain": "Общие фикстуры и хуки для каталога тестов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "pytest сам подхватывает conftest.py вверх по дереву — фикстуры видны тестам ниже.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m485",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "JSON",
-    "q": "Что такое sort_keys=True?",
+    "q": "Что делает json.dumps(..., sort_keys=True)?",
     "options": [
-      "сортирует ключи в dumps",
-      "сортирует list",
-      "меняет loads",
-      "ускоряет"
+      "сортирует ключи объектов для стабильного вывода",
+      "сортирует значения массивов",
+      "удаляет ключи",
+      "включает pretty-print без indent"
     ],
     "answer": 0,
-    "explain": "Сортирует ключи в dumps. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Удобно для диффов и канонического представления. Не влияет на семантику JSON-объекта.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m486",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "patterns",
     "q": "Registry плагинов вместо giant if/elif — пример каких принципов?",
     "options": [
       "Open/Closed и Strategy: новые ветки — новые реализации",
@@ -7896,45 +7896,45 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Регистр стратегий/плагинов позволяет добавить обработчик без правки гигантского if/elif — Open/Closed + Strategy.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m487",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
       "1",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "0",
+      "2",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "1. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "bisect_left/right — индекс вставки в отсортированную последовательность → 1.",
     "kind": "single",
     "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 4))",
-    "group": "Collections и itertools",
     "id": "m488",
-    "fixed": true
+    "fixed": true,
+    "topic": "bisect",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Что верно про def f(*args, **kwargs) порядок в сигнатуре?",
+    "q": "Какой порядок *args и **kwargs в сигнатуре?",
     "options": [
-      "*args затем **kwargs",
+      "*args затем **kwargs (kwargs всегда последние)",
       "**kwargs затем *args",
-      "утверждение про другой уровень стека",
-      "только kwargs"
+      "только kwargs без позиции",
+      "порядок не важен синтаксически"
     ],
     "answer": 0,
-    "explain": "*args затем **kwargs. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "def f(a, *args, **kwargs). Keyword-only после * тоже возможны.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m489",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "генераторы",
     "q": "Что выведет код?",
     "options": [
       "0\n1\n2",
@@ -7946,28 +7946,28 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Генератор по next — Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
     "code": "def g():\n    yield 0\n    yield 1\n    yield 2\nfor x in g():\n    print(x)",
-    "group": "Генераторы и итераторы",
     "id": "m490",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "ASGI",
     "q": "Что такое websocket в ASGI?",
     "options": [
-      "отдельный тип соединения",
-      "HTTP only hack",
-      "WSGI feature",
-      "утверждение про другой уровень стека"
+      "отдельный тип соединения (не обычный HTTP request/response)",
+      "то же, что HTTP/1.0 без отличий",
+      "только UDP",
+      "синхронный WSGI-сокет"
     ],
     "answer": 0,
-    "explain": "Отдельный тип соединения. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "ASGI различает http, websocket, lifespan. Websocket — долгоживущий двунаправленный канал.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m491",
-    "fixed": true
+    "fixed": true,
+    "topic": "ASGI",
+    "group": "Веб и API"
   },
   {
-    "topic": "тесты",
     "q": "Что такое mutation testing?",
     "options": [
       "намеренно ломает код и смотрит, падают ли тесты",
@@ -7978,77 +7978,77 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Mutation testing «убивает» мутантов: если после мелкой порчи кода тесты зелёные — suite слаб. Это не load/fuzz/snapshot, а оценка силы проверок.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m492",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "weakref",
-    "q": "Зачем нужен weakref?",
+    "q": "Зачем weakref?",
     "options": [
-      "ссылаться без удержания GC",
-      "ускорить dict",
-      "шифровать",
-      "сериализовать"
+      "ссылаться на объект, не мешая сборщику его удалить",
+      "увеличить refcount навсегда",
+      "заменить все обычные ссылки",
+      "ускорить dict"
     ],
     "answer": 0,
-    "explain": "Ссылаться без удержания GC. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Кэши, наблюдатели, графы без циклов удержания. WeakValueDictionary и т.п.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m493",
-    "fixed": true
+    "fixed": true,
+    "topic": "weakref",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "SoC",
-    "q": "Верно ли утверждение: Separation of Concerns (разделение ответственности)?",
+    "q": "Что такое Separation of Concerns?",
     "options": [
-      "разные аспекты системы в разных модулях",
-      "один класс на весь проект",
-      "только микросервисы",
-      "отказ от слоёв"
+      "разные аспекты системы живут в разных модулях/слоях",
+      "всё в одном God object",
+      "запрет функций",
+      "только про UI-цвета"
     ],
     "answer": 0,
-    "explain": "Разные аспекты системы в разных модулях. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "SoC снижает связность: меняешь представление — не трогаешь БД-слой.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m494",
-    "fixed": true
+    "fixed": true,
+    "topic": "SoC",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "heapq",
     "q": "Что выведет код (минимум на [0])?",
     "options": [
       "1",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
+      "9",
+      "0",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "1. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "После heapify минимум в корне (h[0]). Здесь: 1.",
     "kind": "single",
     "code": "import heapq\nh = [4, 4, 1]\nheapq.heapify(h)\nprint(h[0])",
-    "group": "Collections и itertools",
     "id": "m495",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что такое order=True добавляет?",
+    "q": "Что добавляет dataclass(order=True)?",
     "options": [
-      "сравнения < <= и т.д.",
-      "hash всегда",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "методы сравнения < <= > >= по полям",
+      "только __hash__",
+      "сортировку полей в памяти",
+      "запрет eq"
     ],
     "answer": 0,
-    "explain": "Сравнения < <= и т.д. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "order=True требует eq=True и генерирует ordering из порядка полей.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m496",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "генераторы",
     "q": "Что выведет код?",
     "options": [
       "[0, 1, 4]",
@@ -8060,12 +8060,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Generator expression материализуется через list. Генератор отдаёт значения через yield и сохраняет состояние между вызовами next.",
     "kind": "single",
     "code": "print(list(x * x for x in range(3)))",
-    "group": "Генераторы и итераторы",
     "id": "m497",
-    "fixed": true
+    "fixed": true,
+    "topic": "генераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 504 — кратко?",
     "options": [
       "таймаут шлюза",
@@ -8076,108 +8076,108 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 504: таймаут шлюза — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m498",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "logging",
-    "q": "Что такое getLogger(__name__)?",
+    "q": "Зачем logging.getLogger(__name__)?",
     "options": [
-      "иерархия логгеров по модулю",
-      "root always",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "логгер с иерархическим именем модуля (pkg.mod)",
+      "всегда один глобальный root без имени",
+      "отключение логов",
+      "создание файла .log автоматически без handler"
     ],
     "answer": 0,
-    "explain": "Best practice — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "Иерархия: настройка pkg влияет на pkg.mod. Привычный паттерн в библиотеках.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m499",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "копирование",
     "q": "Что делает copy.copy?",
     "options": [
-      "shallow copy",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "shallow copy — новая оболочка, общие вложения",
+      "глубокую копию всего графа",
+      "перемещение объекта",
+      "сериализацию в JSON"
     ],
     "answer": 0,
-    "explain": "Shallow copy. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Для полного графа — copy.deepcopy. У list есть и lst.copy().",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m500",
-    "fixed": true
+    "fixed": true,
+    "topic": "копирование",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "patterns",
-    "q": "Что такое Repository pattern отделяет?",
+    "q": "Что отделяет Repository pattern?",
     "options": [
       "доступ к данным от бизнес-логики",
-      "UI от CSS",
-      "CPU от IO",
-      "sync от async"
+      "UI от CSS только",
+      "потоки от процессов",
+      "HTTP от TCP на уровне ядра"
     ],
     "answer": 0,
-    "explain": "Доступ к данным от бизнес-логики. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Репозиторий прячет ORM/SQL; доменный код говорит «дай пользователя», не зная таблиц.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m501",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "array",
-    "q": "В чём разница: array.array vs list?",
+    "q": "Чем array.array отличается от list?",
     "options": [
-      "типизированный компактный массив",
-      "то же самое",
-      "всегда быстрее dict",
-      "утверждение про другой уровень стека"
+      "типизированный компактный массив однотипных C-значений",
+      "хранит любые объекты Python как list",
+      "это то же, что ndarray всегда",
+      "только строки"
     ],
     "answer": 0,
-    "explain": "Типизированный компактный массив. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "array('i', ...) экономит память vs list[int], но без векторных операций NumPy.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m502",
-    "fixed": true
+    "fixed": true,
+    "topic": "array",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что даёт frozen=True?",
+    "q": "Что даёт dataclass(frozen=True)?",
     "options": [
-      "неизменяемые экземпляры (приблизительно)",
-      "быстрее всегда",
-      "slots автоматически до 3.9",
-      "утверждение про другой уровень стека"
+      "неизменяемые экземпляры (присваивание полей → ошибка)",
+      "ускорение в 100 раз",
+      "запрет __init__",
+      "mutable по умолчанию сильнее"
     ],
     "answer": 0,
-    "explain": "Неизменяемые экземпляры (приблизительно). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "frozen генерирует __setattr__, запрещающий изменения; удобно для hashable value-objects.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m503",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "итераторы",
-    "q": "Для чего используется StopIteration.value?",
+    "q": "Для чего StopIteration.value?",
     "options": [
-      "для return из генератора",
-      "для list index",
-      "для dict",
-      "для async only"
+      "значение return из генератора/корутины",
+      "код ошибки ОС",
+      "номер строки",
+      "уровень логирования"
     ],
     "answer": 0,
-    "explain": "Для return из генератора. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "return x в генераторе → StopIteration(value=x). yield from пробрасывает это значение.",
     "kind": "single",
-    "group": "Генераторы и итераторы",
     "id": "m504",
-    "fixed": true
+    "fixed": true,
+    "topic": "итераторы",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "SQL",
     "q": "Что верно про SELECT … LIMIT 1 без ORDER BY?",
     "options": [
       "набор из N строк без стабильного порядка",
@@ -8188,60 +8188,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Без ORDER BY порядок не гарантирован. SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m505",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "logging",
-    "q": "Что такое basicConfig повторный вызов?",
+    "q": "Что часто бывает при повторном logging.basicConfig?",
     "options": [
-      "часто no-op если уже handlers",
-      "всегда пересоздаёт",
-      "удаляет root",
-      "утверждение про другой уровень стека"
+      "no-op, если у root уже есть handlers",
+      "всегда полностью перезаписывает конфиг",
+      "удаляет все логгеры",
+      "поднимает SystemExit"
     ],
     "answer": 0,
-    "explain": "Идиома один раз — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "basicConfig срабатывает один раз «из коробки». Для перенастройки — dictConfig/handlers вручную force=True (3.8+).",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m506",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "regex",
-    "q": "В чём разница: re.FULLMATCH vs match?",
+    "q": "Чем re.fullmatch отличается от re.match?",
     "options": [
-      "вся строка vs с начала",
-      "одно и то же",
-      "только bytes",
-      "утверждение про другой уровень стека"
+      "fullmatch — вся строка; match — только с начала (хвост может остаться)",
+      "разницы нет",
+      "match требует всю строку, fullmatch — нет",
+      "fullmatch только для bytes"
     ],
     "answer": 0,
-    "explain": "Вся строка vs с начала. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Частая ловушка: match('a', 'abc') успешен. Для «вся строка» — fullmatch или \\Z.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m507",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "принципы",
-    "q": "Что верно про Shotgun surgery — когда?",
+    "q": "Когда говорят о shotgun surgery?",
     "options": [
-      "одно изменение требует правок во многих файлах",
-      "один файл меняется",
-      "только тесты",
-      "только docs"
+      "одно изменение требует правок во многих разрозненных местах",
+      "одна правка в одном модуле всегда",
+      "удаление всего репозитория",
+      "только про CI"
     ],
     "answer": 0,
-    "explain": "Одно изменение требует правок во многих файлах. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Запах кода: ответственность размазана. Лечится сбором связанного в одно место / модуль.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m508",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
     "q": "Что вернёт Counter.subtract?",
     "options": [
       "может уйти в минус",
@@ -8252,28 +8252,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — может уйти в минус. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m509",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
-    "q": "Что означает: паттерн match case point.x: без кавычек в Python 3.10+?",
+    "q": "Что значит `case point.x:` в match (без кавычек)?",
     "options": [
-      "value pattern / dotted",
-      "всегда capture name",
-      "ошибка",
-      "утверждение про другой уровень стека"
+      "value pattern — сравнение с уже существующим значением point.x",
+      "захват имени в новую переменную point",
+      "синтаксическая ошибка",
+      "только type pattern"
     ],
     "answer": 0,
-    "explain": "Value pattern / dotted. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Имя с точкой — value pattern. Голое имя — capture. Для констант часто пишут case MyEnum.X:.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m510",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "comprehensions",
     "q": "Что выведет код?",
     "options": [
       "нет (Py3)",
@@ -8282,15 +8282,15 @@ window.QUESTIONS_MIDDLE = [
       "только в dictcomp"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в нет (Py3). Пройди выражение слева направо с учётом типов.",
+    "explain": "В Python 3 переменная comprehension не протекает во внешнюю область.",
     "kind": "single",
     "code": "[i for i in range(3)]\n# i ?",
-    "group": "Генераторы и итераторы",
     "id": "m511",
-    "fixed": true
+    "fixed": true,
+    "topic": "comprehensions",
+    "group": "Генераторы и итераторы"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое идемпотентный HTTP-метод пример?",
     "options": [
       "GET / PUT (в идеале)",
@@ -8301,44 +8301,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Повтор не должен менять состояние (семантика). В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m512",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "тесты",
     "q": "Что проверяет doctest?",
     "options": [
-      "примеры в docstring",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "интерактивные примеры из docstring на совпадение вывода",
+      "покрытие ветвлений как coverage",
+      "нагрузочное тестирование",
+      "типы аргументов в runtime"
     ],
     "answer": 0,
-    "explain": "Примеры в docstring. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "doctest гоняет >>> примеры. Хорош для документации; для сложной логики обычно pytest.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m513",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "regex",
-    "q": "Что такое possessive quantifiers в regex module?",
+    "q": "Про possessive quantifiers в стандартном re?",
     "options": [
-      "сторонний regex иногда богаче re",
-      "идентичен re всегда",
-      "нет нигде",
-      "только bytes re"
+      "в stdlib re их нет; сторонний модуль regex богаче",
+      "они есть как ++ в re всегда",
+      "это то же, что possessive в str.split",
+      "только в bytes-режиме"
     ],
     "answer": 0,
-    "explain": "Сторонний regex иногда богаче re. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Пакет regex (PyPI) ближе к Perl/PCRE. Стандартный re — умеренный набор.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m514",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "принципы",
     "q": "Что вернёт Mutable default argument def f(x=[]) — ловушка потому что?",
     "options": [
       "список один на все вызовы",
@@ -8349,12 +8349,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — список один на все вызовы. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m515",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
     "q": "Какова амортизированная сложность deque.appendleft?",
     "options": [
       "O(1)",
@@ -8365,28 +8365,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Collections.deque заточен под O(1) append/appendleft/pop/popleft. У list appendleft был бы O(n) из-за сдвига.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m516",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Зачем нужен Protocol?",
+    "q": "Зачем typing.Protocol?",
     "options": [
-      "структурной типизации (duck typing)",
-      "наследования классов",
-      "это ускорение байткода в runtime",
-      "это обязательная проверка типов на каждом вызове"
+      "структурная типизация: «есть нужные методы» без наследования",
+      "ускорение CPython",
+      "создание процессов",
+      "только Enum"
     ],
     "answer": 0,
-    "explain": "Структурной типизации (duck typing). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Protocol (PEP 544) — duck typing для чекера. runtime_checkable — опционально.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m517",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что такое Типичная роль `GROUP BY`?",
     "options": [
       "агрегация по ключу",
@@ -8397,12 +8397,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "GROUP BY в SQL — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m518",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "testing",
     "q": "Что такое fixture autouse=True?",
     "options": [
       "фикстура подключается ко всем тестам в scope автоматически",
@@ -8413,12 +8413,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Фикстура подключается ко всем тестам в scope автоматически. Смотри, что именно проверяет инструмент и чего он не делает.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m519",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "sort",
     "q": "Что вернёт sorted(xs, key=lambda x: x[1])?",
     "options": [
       "сортирует по второму элементу",
@@ -8429,45 +8429,45 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — сортирует по второму элементу. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m520",
-    "fixed": true
+    "fixed": true,
+    "topic": "sort",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "patterns",
-    "q": "Что такое Паттерн Factory Method создаёт?",
+    "q": "Что создаёт Factory Method?",
     "options": [
-      "объект через метод подкласса/фабрики",
-      "только singleton",
-      "только metaclass",
-      "утверждение про другой уровень стека"
+      "объект через метод, который подкласс/фабрика может переопределить",
+      "обязательно один глобальный Singleton",
+      "только файлы на диске",
+      "HTTP-ответ"
     ],
     "answer": 0,
-    "explain": "Объект через метод подкласса/фабрики. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Фабричный метод прячет конкретный класс продукта за «создай X».",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m521",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "8",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "0",
+      "1",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "8. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "itertools строит комбинаторный итератор; len(...) здесь 8.",
     "kind": "single",
     "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=3))))",
-    "group": "Collections и itertools",
     "id": "m522",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что вернёт case {'x': _, **rest}:?",
     "options": [
       "остальные ключи в rest",
@@ -8478,12 +8478,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — остальные ключи в rest. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m523",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 500 — кратко?",
     "options": [
       "ошибка сервера",
@@ -8494,76 +8494,76 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 500: ошибка сервера — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m524",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "testing",
     "q": "Зачем capsys / capfd в pytest?",
     "options": [
-      "перехватить stdout/stderr в тесте",
-      "ускорить CPU",
-      "mock сеть",
-      "snapshot HTML"
+      "перехватить stdout/stderr теста и проверить вывод",
+      "задать cap на CPU",
+      "мок сети",
+      "создать временный каталог"
     ],
     "answer": 0,
-    "explain": "Перехватить stdout/stderr в тесте. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "capsys — уровень Python; capfd — на уровне FD (print/C-extensions).",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m525",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "pathlib",
-    "q": "В чём разница: Path.match vs glob?",
+    "q": "Чем Path.match отличается от Path.glob?",
     "options": [
-      "match — паттерн на путь, glob — поиск в дереве",
-      "одно и то же",
-      "match удаляет",
-      "glob regex only"
+      "match проверяет паттерн на сам путь; glob ищет файлы в дереве",
+      "glob только для одного файла, match — рекурсия",
+      "разницы нет",
+      "match удаляет файлы"
     ],
     "answer": 0,
-    "explain": "Match — паттерн на путь, glob — поиск в дереве. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "p.match('*.py') vs list(Path('.').glob('**/*.py')).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m526",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "cohesion",
-    "q": "Что означает: Сильная связанность (tight coupling) между модулями?",
+    "q": "Что значит сильная связанность (tight coupling) модулей?",
     "options": [
-      "плохо: изменение в одном ломает другой",
-      "всегда хорошо",
-      "только про потоки",
-      "синоним cohesion"
+      "плохо: изменение в одном часто ломает другой",
+      "хорошо всегда — чем жёстче, тем лучше",
+      "только про GIL",
+      "про кодировку файлов"
     ],
     "answer": 0,
-    "explain": "Плохо: изменение в одном ломает другой. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Слабая связанность + сильная связность внутри модуля — цель дизайна. Coupling ≠ cohesion.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m527",
-    "fixed": true
+    "fixed": true,
+    "topic": "cohesion",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
     "q": "defaultdict(list): d['x'].append(1) — что с d['x']?",
     "options": [
-      "[1], ключ создался сам",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "ошибка типа"
+      "[1], ключ создался фабрикой list сам",
+      "KeyError",
+      "None",
+      "ошибка append"
     ],
     "answer": 0,
-    "explain": "[1], ключ создался сам. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "При отсутствии ключа вызывается default_factory → list(), затем append.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m528",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт Optional[str] эквивалент?",
     "options": [
       "str | None",
@@ -8574,12 +8574,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — str | None. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m529",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что такое буква A в ACID?",
     "options": [
       "Atomicity — транзакция либо полностью применяется, либо полностью откатывается",
@@ -8590,28 +8590,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "A в ACID — Atomicity: промежуточного «наполовину записали» для клиента не видно. Упал посередине — откат. Не путать с Availability из CAP.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m530",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "testing",
-    "q": "Что верно про Coverage 100% не гарантирует?",
+    "q": "Coverage 100% гарантирует отсутствие логических багов?",
     "options": [
-      "отсутствие логических багов",
-      "что строки выполнялись",
-      "что тесты есть",
-      "отчёт pytest-cov"
+      "нет — покрытые строки ≠ правильная логика всех входов",
+      "да, полностью",
+      "да, если есть doctest",
+      "да для async кода"
     ],
     "answer": 0,
-    "explain": "Отсутствие логических багов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Покрытие — необходимое, но не достаточное. Нужны осмысленные ассерты и кейсы.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m531",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "f-string",
     "q": "Что выведет код?",
     "options": [
       "'x=10'",
@@ -8620,95 +8620,95 @@ window.QUESTIONS_MIDDLE = [
       "ошибка"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в 'x=10'. Пройди выражение слева направо с учётом типов.",
+    "explain": "f-строка подставляет значение с форматом. Печать: 'x=10'.",
     "kind": "single",
     "code": "x = 10\nprint(f'{x=}')",
-    "group": "Stdlib и производительность",
     "id": "m532",
-    "fixed": true
+    "fixed": true,
+    "topic": "f-string",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "DRY",
-    "q": "Какой рефакторинг чаще всего помогает соблюсти DRY?",
+    "q": "Какой рефакторинг чаще помогает DRY?",
     "options": [
       "вынести общую функцию/модуль",
-      "скопировать ещё раз",
-      "закомментировать дубликат",
-      "переименовать переменную"
+      "скопировать ещё раз «на всякий»",
+      "увеличить число God objects",
+      "удалить все тесты"
     ],
     "answer": 0,
-    "explain": "Вынести общую функцию/модуль. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Одна реализация в одном месте + вызовы. Не путать с преждевременной абстракцией.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m533",
-    "fixed": true
+    "fixed": true,
+    "topic": "DRY",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
-    "q": "Что такое deque(maxlen=n) при переполнении?",
+    "q": "Что делает deque(maxlen=n) при переполнении?",
     "options": [
-      "выбрасывает с противоположного конца",
-      "ошибка",
-      "растёт бесконечно",
-      "блокирует"
+      "выбрасывает элемент с противоположного конца",
+      "поднимает IndexError",
+      "растёт без лимита",
+      "очищает всю deque"
     ],
     "answer": 0,
-    "explain": "Выбрасывает с противоположного конца. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Кольцевой буфер фиксированной длины — удобно для последних N событий.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m534",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что такое InitVar?",
+    "q": "Что такое InitVar в dataclass?",
     "options": [
-      "поле только для __init__, не хранится",
-      "classmethod",
-      "утверждение про другой уровень стека",
-      "slots field"
+      "поле только для __init__/__post_init__, в экземпляре не хранится",
+      "обычное поле в __dict__",
+      "ClassVar",
+      "property"
     ],
     "answer": 0,
-    "explain": "Поле только для __init__, не хранится. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "InitVar передаётся в конструктор и __post_init__, но не становится атрибутом instance.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m535",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 401 обычно значит?",
+    "q": "Что обычно значит HTTP 401?",
     "options": [
-      "Unauthorized",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Unauthorized — нужна аутентификация",
+      "Forbidden без нюансов 403",
+      "успех",
+      "Not Found"
     ],
     "answer": 0,
-    "explain": "401 — Unauthorized — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "401 — «кто ты?». 403 — «знаю кто, но нельзя». Часто WWW-Authenticate.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m536",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "logging",
-    "q": "Что такое logger.exception внутри except?",
+    "q": "Что делает logger.exception внутри except?",
     "options": [
-      "лог + traceback",
-      "только message",
-      "raise снова",
-      "утверждение про другой уровень стека"
+      "пишет лог уровня ERROR с traceback",
+      "только print без traceback",
+      "глотает исключение молча",
+      "меняет тип исключения"
     ],
     "answer": 0,
-    "explain": "Удобный helper — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "exception() = error(..., exc_info=True). Вне except traceback может быть пустым.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m537",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "строки",
     "q": "Зачем нужно Интернирование строк: sys.intern?",
     "options": [
       "принудительно дедуплицирует str",
@@ -8719,61 +8719,61 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Для частых ключей — Строки в Python неизменяемы: любой «изменяющий» метод возвращает новую строку, а срезы работают так же, как у последовательностей.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m538",
-    "fixed": true
+    "fixed": true,
+    "topic": "строки",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "принципы",
-    "q": "Что верно про Magic numbers в коде — проблема потому что?",
+    "q": "Почему magic numbers — проблема?",
     "options": [
-      "непонятен смысл без именованной константы",
-      "медленнее int",
-      "ломает GIL",
-      "запрещены PEP 8"
+      "непонятен смысл числа без именованной константы/контекста",
+      "числа запрещены в Python",
+      "интерпретатор падает на литералах",
+      "только про float"
     ],
     "answer": 0,
-    "explain": "Непонятен смысл без именованной константы. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "86400 vs SECONDS_PER_DAY — второй читается. Константы документируют намерение.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m539",
-    "fixed": true
+    "fixed": true,
+    "topic": "принципы",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "functools",
-    "q": "Что означает: Сколько уникальных ключей кэша у fib(3) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "q": "Сколько примерно уникальных ключей кэша у fib(n) с lru_cache при наивной рекурсии?",
     "options": [
-      "примерно 4 (0..n)",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "порядка n+1 значений (0..n)",
+      "только 1",
+      "2^n отдельных ключей без повторов",
+      "0 — кэш не работает с int"
     ],
     "answer": 0,
-    "explain": "Примерно 4 (0..n). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Каждый k из 0..n считается один раз и кэшируется; дальше hit. Без кэша — экспонента вызовов.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m540",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
       "3 True",
-      "ошибка",
-      "ошибка",
-      "None"
+      "True",
+      "3",
+      "SyntaxError"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в 3 True. Пройди выражение слева направо с учётом типов.",
+    "explain": "(n := 3) присваивает n и даёт 3; затем n == 3 → True. print печатает оба значения: 3 True.",
     "kind": "single",
     "code": "print((n := 3), n == 3)",
-    "group": "Typing и dataclasses",
     "id": "m541",
-    "fixed": true
+    "fixed": true,
+    "topic": "walrus",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что делает DELETE по семантике HTTP?",
     "options": [
       "идемпотентный (в идеале)",
@@ -8784,109 +8784,109 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "DELETE безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m542",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "testing",
     "q": "Что делает @pytest.fixture?",
     "options": [
-      "подготавливает данные/ресурс для теста",
-      "маркирует skip",
+      "объявляет фикстуру — подготовку данных/ресурса для тестов",
+      "помечает тест как skipped",
       "заменяет assert",
-      "компилирует C"
+      "компилирует C-код"
     ],
     "answer": 0,
-    "explain": "Подготавливает данные/ресурс для теста. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Тест принимает имя фикстуры аргументом — pytest инжектит результат.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m543",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "JSON",
-    "q": "Что верно про json.dumps({1: 'a'}) ключ станет?",
+    "q": "Что станет с ключом в json.dumps({1: 'a'})?",
     "options": [
-      "строкой '1'",
-      "int 1 в JSON",
-      "байтами",
-      "ошибка всегда"
+      "числовой ключ станет строкой '1'",
+      "останется int 1 в JSON",
+      "ошибка всегда",
+      "ключ удалится"
     ],
     "answer": 0,
-    "explain": "Строкой '1'. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "JSON допускает только строковые ключи объектов. Python молча конвертирует int→str.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m544",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "patterns",
-    "q": "Допустим ли синтаксис Паттерн Decorator (GoF) отличается от @decorator?",
+    "q": "Чем GoF Decorator отличается от Python @decorator?",
     "options": [
-      "оба оборачивают объект/функцию; GoF — про композицию объектов",
-      "утверждение про другой уровень стека",
-      "GoF только для классов C++",
-      "@ только для async"
+      "оба оборачивают; GoF — композиция объектов, @ — обычно функции/классы на этапе определения",
+      "это одно и то же без нюансов",
+      "@decorator запрещён в Python",
+      "GoF только про HTTP"
     ],
     "answer": 0,
-    "explain": "Оба оборачивают объект/функцию; GoF — про композицию объектов. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Идея «обернуть поведение» общая; реализация и момент применения разные.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m545",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "7",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "ошибка"
+      "3",
+      "4",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "7. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "functools.partial фиксирует часть аргументов; полный вызов даёт 7.",
     "kind": "single",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 0)(7))",
-    "group": "Collections и itertools",
     "id": "m546",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Что такое list[int] в 3.9+?",
+    "q": "Что такое list[int] в Python 3.9+?",
     "options": [
-      "параметризованный тип",
-      "runtime list только int enforced",
-      "синтаксис ошибки до 3.12",
-      "обязательная проверка типов на каждом вызове в CPython"
+      "параметризованный тип для аннотаций (встроенный generic)",
+      "создаёт list только из int в runtime всегда",
+      "синтаксическая ошибка до 3.12",
+      "замена array.array"
     ],
     "answer": 0,
-    "explain": "Параметризованный тип. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "PEP 585: list[int] вместо List[int] из typing. В runtime list[int] — generic alias, не валидатор.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m547",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое CORS preflight?",
     "options": [
-      "OPTIONS перед «сложным» запросом",
-      "GET always",
-      "TLS handshake",
-      "утверждение про другой уровень стека"
+      "запрос OPTIONS перед «сложным» кросс-доменным запросом",
+      "обязательный GET перед каждым POST",
+      "сжатие gzip",
+      "редирект 301"
     ],
     "answer": 0,
-    "explain": "Браузерная безопасность — Запросом». В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "Браузер спрашивает сервер разрешения (методы/заголовки). Простые запросы могут идти без preflight.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m548",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "logging",
     "q": "Почему logger = logging.getLogger(__name__)?",
     "options": [
       "иерархия логгеров по модулю",
@@ -8897,44 +8897,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Удобно фильтровать по имени пакета. Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m549",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "weakref",
-    "q": "Что такое finalize(obj, callback)?",
+    "q": "Что делает weakref.finalize(obj, callback)?",
     "options": [
-      "вызов при GC объекта",
-      "утверждение про другой уровень стека",
-      "при import",
-      "никогда"
+      "регистрирует вызов callback при уничтожении объекта GC",
+      "увеличивает refcount навсегда",
+      "немедленно удаляет obj",
+      "заменяет __del__"
     ],
     "answer": 0,
-    "explain": "Вызов при GC объекта. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Надёжнее __del__ для очистки: finalize живёт отдельно и не создаёт цикл так же легко.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m550",
-    "fixed": true
+    "fixed": true,
+    "topic": "weakref",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "patterns",
-    "q": "Что такое Идиоматичный Singleton в Python?",
+    "q": "Идиоматичный Singleton в Python часто выглядит как?",
     "options": [
-      "модуль как единственный экземпляр",
-      "metaclass обязателен",
-      "__new__ с lock всегда",
-      "global везде"
+      "модуль как единственный экземпляр состояния",
+      "обязательный класс с кучей __new__ магии всегда",
+      "только Borg",
+      "запрет модулей"
     ],
     "answer": 0,
-    "explain": "Модуль как единственный экземпляр. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "import один раз → один модуль. Часто проще и яснее классического GoF Singleton.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m551",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что делает islice(it, None, None, 2)?",
     "options": [
       "берёт каждый второй элемент из итератора",
@@ -8945,110 +8945,110 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Itertools.islice(it, start, stop, step): start/stop = None значит «с начала / до конца», step=2 — каждый второй элемент, лениво, без полного списка.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m552",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "walrus",
-    "q": "Для чего в условии пишут (n := len(a)) > 0?",
+    "q": "Зачем в условии пишут (n := len(a)) > 0?",
     "options": [
-      "присваивание в выражении",
-      "аннотацию",
-      "утверждение про другой уровень стека",
-      "comprehension only"
+      "присвоить и сразу использовать значение в выражении (walrus)",
+      "это синтаксическая ошибка",
+      "только для async",
+      "создаёт отдельный поток"
     ],
     "answer": 0,
-    "explain": "Присваивание в выражении. Не путай с соседними похожими терминами из той же темы.",
+    "explain": ":= позволяет не звать len дважды. Скобки часто нужны из‑за приоритета.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m553",
-    "fixed": true
+    "fixed": true,
+    "topic": "walrus",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что такое connection pool exhaustion?",
     "options": [
-      "все коннекты заняты — очередь/ошибки",
-      "всегда OOM",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "все соединения из пула заняты — очередь или ошибки у клиентов",
+      "слишком много свободных коннектов всегда хорошо без лимита",
+      "только про HTTP keep-alive",
+      "исчерпание диска"
     ],
     "answer": 0,
-    "explain": "Лимиты пула — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Пул конечен. Утечки (не вернули коннект), долгие транзакции → таймауты. Смотри размер пула и время жизни.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m554",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "тесты",
-    "q": "Что даёт tmp_path?",
+    "q": "Что даёт фикстура tmp_path?",
     "options": [
-      "временную директорию pathlib",
-      "только str /tmp fixed",
-      "s3 bucket",
-      "memory fs always"
+      "временную директорию pathlib.Path на тест",
+      "временный TCP-порт",
+      "мок БД",
+      "кэш pytest"
     ],
     "answer": 0,
-    "explain": "Временную директорию pathlib. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "pytest создаёт уникальный каталог и чистит по политике. Удобно писать файлы в тестах.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m555",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "dict",
-      "ошибка",
-      "None",
-      "tuple"
+      "list",
+      "str",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Dict. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "json.loads парсит JSON-текст в объекты Python → dict.",
     "kind": "single",
     "code": "import json\nprint(type(json.loads('{\"x\": [1, 2]}')).__name__)",
-    "group": "Stdlib и производительность",
     "id": "m556",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "patterns",
-    "q": "Что такое Паттерн Strategy в Python чаще всего?",
+    "q": "Как чаще всего делают Strategy в Python?",
     "options": [
-      "передача callable/класса стратегии",
-      "только наследование от AbstractStrategy",
-      "global switch",
-      "утверждение про другой уровень стека"
+      "передачей callable или класса стратегии",
+      "только через огромную иерархию с 10 интерфейсами",
+      "через GIL",
+      "через HTTP 418"
     ],
     "answer": 0,
-    "explain": "Передача callable/класса стратегии. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Функции первого класса: strategy=fn или strategy.do(). Меньше бойлерплейта, чем в Java.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m557",
-    "fixed": true
+    "fixed": true,
+    "topic": "patterns",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "dict",
-    "q": "В чём опасность?",
+    "q": "В чём опасность dict.fromkeys(['a','b'], [])?",
     "options": [
-      "один list на все ключи",
-      "утверждение про другой уровень стека",
-      "нет опасности",
-      "поведение, которого в CPython нет"
+      "один и тот же list шарится всеми ключами",
+      "ключи удаляются",
+      "всегда TypeError",
+      "создаётся deepcopy автоматически"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в один list на все ключи. Пройди выражение слева направо с учётом типов.",
+    "explain": "Мутабельный default один объект. d['a'].append(1) видно в d['b']. Нужна фабрика на ключ.",
     "kind": "single",
     "code": "d = dict.fromkeys(['a', 'b'], [])\nd['a'].append(1)\nprint(d['b'])",
-    "group": "Collections и itertools",
     "id": "m558",
-    "fixed": true
+    "fixed": true,
+    "topic": "dict",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что вернёт case [x, *rest]: матчит?",
     "options": [
       "последовательность ≥1 с хвостом",
@@ -9059,76 +9059,76 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — последовательность ≥1 с хвостом. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m559",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "FastAPI",
-    "q": "Что такое OAuth2PasswordBearer?",
+    "q": "Что такое OAuth2PasswordBearer в FastAPI?",
     "options": [
-      "схема доставания токена",
-      "ORM user",
-      "JWT decode auto complete security",
-      "утверждение про другой уровень стека"
+      "схема извлечения Bearer-токена из заголовка Authorization",
+      "хеширование паролей",
+      "ORM-модель пользователя",
+      "CORS middleware"
     ],
     "answer": 0,
-    "explain": "Схема доставания токена. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Depends(oauth2_scheme) достаёт token string; проверка/JWT — уже твоя логика.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m560",
-    "fixed": true
+    "fixed": true,
+    "topic": "FastAPI",
+    "group": "Веб и API"
   },
   {
-    "topic": "logging",
-    "q": "Что такое RotatingFileHandler?",
+    "q": "Что делает RotatingFileHandler?",
     "options": [
-      "ротация по размеру",
-      "по времени only Timed",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "ротирует лог-файл по размеру (backupCount)",
+      "ротирует только по времени (это TimedRotating)",
+      "пишет только в syslog",
+      "сжимает HTTP"
     ],
     "answer": 0,
-    "explain": "Файловые логи — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "При maxBytes файл переименовывается, открывается новый. TimedRotatingFileHandler — по времени.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m561",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "performance",
-    "q": "Что верно про bytearray для накопления байт?",
+    "q": "Зачем bytearray для накопления байт?",
     "options": [
-      "мутабельный буфер",
-      "immutable как bytes",
-      "утверждение про другой уровень стека",
-      "memoryview ban"
+      "мутабельный буфер — дешевле, чем конкатенировать bytes",
+      "bytearray неизменяем как bytes",
+      "только для строк Unicode",
+      "замена memoryview всегда"
     ],
     "answer": 0,
-    "explain": "Эффективная сборка — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
+    "explain": "append/extend в bytearray; в конце bytes(buf). Конкатенация bytes в цикле создаёт много копий.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m562",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "YAGNI",
-    "q": "Программист добавляет поддержку 10 валют «на всякий случай» — что нарушено?",
+    "q": "Добавили поддержку 10 валют «на всякий случай» без запроса — что нарушено?",
     "options": [
       "YAGNI",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "только DRY",
+      "HTTP",
+      "GIL"
     ],
     "answer": 0,
-    "explain": "YAGNI. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "You Aren't Gonna Need It: не строй фичи до реальной нужды.",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m563",
-    "fixed": true
+    "fixed": true,
+    "topic": "YAGNI",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "collections",
     "q": "Что вернёт Counter.elements()?",
     "options": [
       "итератор с повторами по счёту",
@@ -9139,29 +9139,29 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — итератор с повторами по счёту. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m564",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
       "1",
-      "утверждение про другой уровень стека",
-      "ошибка",
-      "поведение, которого здесь нет"
+      "0",
+      "True",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "1. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Морж := присваивает и сразу отдаёт значение в выражении → 1.",
     "kind": "single",
     "code": "if (x := 1):\n    print(x)\nelse:\n    print('no')",
-    "group": "Typing и dataclasses",
     "id": "m565",
-    "fixed": true
+    "fixed": true,
+    "topic": "walrus",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Зачем нужен circuit breaker при вызове внешнего сервиса?",
     "options": [
       "временно перестаёт звать падающую зависимость и даёт ей «остыть»",
@@ -9172,28 +9172,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Circuit breaker после серии ошибок открывается и быстро отказывает без реальных вызовов. Через паузу пробует снова (half-open). Так не устраивают retry storm и не тратят бюджет на заведомо мёртвый сервис.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m566",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "тесты",
     "q": "Что такое snapshot testing?",
     "options": [
-      "сравнение с эталонным выводом",
-      "property based",
-      "load test",
-      "утверждение про другой уровень стека"
+      "сравнение текущего вывода с сохранённым эталоном",
+      "нагрузочный тест RPS",
+      "проверка только типов",
+      "fuzzing без эталона"
     ],
     "answer": 0,
-    "explain": "Сравнение с эталонным выводом. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Удобно для UI/сериализации. Минус — эталоны надо осознанно обновлять при намеренных изменениях.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m567",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "pathlib",
     "q": "Что вернёт Path('a') / 'b' / 'c' даст?",
     "options": [
       "Path с платформенными разделителями",
@@ -9204,28 +9204,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — Path с платформенными разделителями. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m568",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "DRY",
-    "q": "Что такое DRY относится к?",
+    "q": "К чему относится DRY?",
     "options": [
-      "дублированию логики и знаний",
-      "только к именам переменных",
-      "только к тестам",
-      "количеству файлов"
+      "к дублированию логики и знаний в системе",
+      "только к копипасте строк без смысла",
+      "к запрету функций",
+      "к HTTP-кэшу"
     ],
     "answer": 0,
-    "explain": "Дублированию логики и знаний. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Don't Repeat Yourself — одно знание в одном месте. Не путать с «никогда не повторять символы».",
     "kind": "single",
-    "group": "Архитектура и дизайн",
     "id": "m569",
-    "fixed": true
+    "fixed": true,
+    "topic": "DRY",
+    "group": "Архитектура и дизайн"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[1, 2, 0, 1, 2, 3]",
@@ -9237,61 +9237,61 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Chain склеивает итерируемые — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(4)))))",
-    "group": "Collections и itertools",
     "id": "m570",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Как вызвать f?",
+    "q": "Как вызвать f при positional-only сигнатуре из кода?",
     "options": [
       "f(1)",
       "f(a=1)",
-      "ошибка",
-      "None"
+      "f()",
+      "f(1,2,3)"
     ],
     "answer": 0,
-    "explain": "F(1). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "После / аргумент нельзя передать по имени — только позиционно f(1).",
     "kind": "single",
     "code": "def f(a, /):\n    return a",
-    "group": "Typing и dataclasses",
     "id": "m571",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
-    "q": "Что такое индекс ускоряет?",
+    "q": "Что ускоряет индекс в БД?",
     "options": [
-      "поиск/фильтр ценой записи",
-      "всегда inserts",
-      "json dumps",
-      "утверждение про другой уровень стека"
+      "поиск/фильтр/join по ключу ценой замедления записей и места на диске",
+      "только INSERT без SELECT",
+      "удаление нормализации",
+      "обязательный full scan"
     ],
     "answer": 0,
-    "explain": "Tradeoff — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Индекс — структура для lookup. UPDATE/INSERT должны поддерживать индекс.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m572",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "mock",
     "q": "Что проверяет assert_called_once_with(...)?",
     "options": [
-      "ровно один вызов с аргументами",
+      "ровно один вызов мока с этими аргументами",
+      "что мок не вызывался",
       "любое число вызовов",
-      "только тип",
-      "утверждение про другой уровень стека"
+      "только тип возвращаемого значения"
     ],
     "answer": 0,
-    "explain": "Ровно один вызов с аргументами. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Из unittest.mock: once + точные args/kwargs. Иначе AssertionError.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m573",
-    "fixed": true
+    "fixed": true,
+    "topic": "mock",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "performance",
     "q": "В чём разница: join vs + для N строк?",
     "options": [
       "join обычно предпочтительнее",
@@ -9302,93 +9302,93 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Линейная сборка — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m574",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "6",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "0",
+      "3",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "P(3,2) = 6 — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "range(start, stop[, step]) не включает stop. list(range(...)) → 6.",
     "kind": "single",
     "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 2))))",
-    "group": "Collections и itertools",
     "id": "m575",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Зачем нужен field(default_factory=list)?",
+    "q": "Зачем field(default_factory=list)?",
     "options": [
-      "избежать shared mutable default",
-      "ускорить",
-      "сделать frozen",
-      "валидацию"
+      "избежать общего мутабельного default на все экземпляры",
+      "сделать поле ClassVar",
+      "запретить list",
+      "ускорить hash"
     ],
     "answer": 0,
-    "explain": "Избежать shared mutable default. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Как и в обычных def: default=[] шарится. default_factory вызывает list() каждый раз.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m576",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что такое миграция Alembic?",
     "options": [
-      "версионирование схемы",
-      "ORM query cache",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "версионирование схемы БД (upgrade/downgrade)",
+      "бэкап данных только",
+      "ORM без SQLAlchemy",
+      "HTTP-роутер"
     ],
     "answer": 0,
-    "explain": "Эволюция БД — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Alembic поверх SQLAlchemy: скрипты миграций в репозитории, применение на окружениях.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m577",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "тесты",
-    "q": "Что такое pytest.raises ловит?",
+    "q": "Что ловит pytest.raises?",
     "options": [
-      "ожидаемое исключение",
-      "любые silently",
-      "warnings only",
-      "SystemExit ban"
+      "ожидаемое исключение внутри блока",
+      "любой print",
+      "успешное завершение без исключений",
+      "segfault"
     ],
     "answer": 0,
-    "explain": "Ожидаемое исключение. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Если исключения не было или тип другой — тест падает. Можно проверить message через match=.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m578",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "копирование",
-    "q": "Что верно про copy.deepcopy нужен когда?",
+    "q": "Когда нужен copy.deepcopy?",
     "options": [
-      "есть вложенные изменяемые",
-      "всегда вместо =",
-      "для int",
-      "для None"
+      "когда есть вложенные изменяемые структуры и нужна полная независимость",
+      "всегда вместо присваивания a=b",
+      "только для int",
+      "никогда — shallow всегда достаточно"
     ],
     "answer": 0,
-    "explain": "Есть вложенные изменяемые. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "shallow копирует верхний контейнер; вложенный list останется общим. deepcopy — весь граф (с memo на циклы).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m579",
-    "fixed": true
+    "fixed": true,
+    "topic": "копирование",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[10, 20]",
@@ -9400,28 +9400,28 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Islice — ленивый срез — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import islice\nprint(list(islice([10, 20, 30, 40], 2)))",
-    "group": "Collections и itertools",
     "id": "m580",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Что вернёт Positional-only до /?",
+    "q": "Что значит параметр до / (positional-only)?",
     "options": [
-      "нельзя передать по имени",
+      "нельзя передать этот аргумент по имени",
       "можно только по имени",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "это kwargs",
+      "запрещён в 3.x"
     ],
     "answer": 0,
-    "explain": "Результат выражения — нельзя передать по имени. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "PEP 570: def f(a, /): f(1) ок, f(a=1) — TypeError.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m581",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 409 — кратко?",
     "options": [
       "конфликт состояния",
@@ -9432,77 +9432,77 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 409: конфликт состояния. В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m582",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "тесты",
-    "q": "Что верно про monkeypatch / mock патчат?",
+    "q": "Что патчат monkeypatch / mock в тестах?",
     "options": [
-      "атрибуты/окружение на время теста",
-      "продакшен БД",
-      "утверждение про другой уровень стека",
-      "байткод"
+      "атрибуты, env, dict — на время теста с откатом",
+      "байткод интерпретатора навсегда",
+      "версию Python",
+      "схему БД в проде"
     ],
     "answer": 0,
-    "explain": "Атрибуты/окружение на время теста. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Изоляция теста: подменил зависимость, проверил, откатил.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m583",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "performance",
-    "q": "Что верно про Для многих membership checks лучше?",
+    "q": "Для многих membership checks (x in …) что лучше?",
     "options": [
-      "set",
-      "утверждение про другой уровень стека",
-      "tuple всегда",
-      "поведение, которого в CPython нет"
+      "set (среднее O(1))",
+      "list всегда O(1)",
+      "только tuple",
+      "строка из repr"
     ],
     "answer": 0,
-    "explain": "Среднее O(1) у set — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
+    "explain": "x in list — O(n). x in set/dict — амортизированно O(1).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m584",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "11",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "ошибка"
+      "5",
+      "6",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "11. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "functools.partial фиксирует часть аргументов; полный вызов даёт 11.",
     "kind": "single",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 10)(1))",
-    "group": "Collections и itertools",
     "id": "m585",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "В чём разница: Protocol (structural) vs ABC?",
+    "q": "Чем Protocol отличается от ABC?",
     "options": [
-      "Protocol — утиная типизация; ABC — номинальная",
-      "одно и то же",
-      "Protocol только runtime",
-      "ABC только stubs"
+      "Protocol — структурная (утиная) типизация; ABC — номинальная (явное наследование/регистрация)",
+      "разницы нет",
+      "Protocol только runtime, ABC только checker",
+      "ABC запрещён в 3.11+"
     ],
     "answer": 0,
-    "explain": "Protocol — утиная типизация; ABC — номинальная. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Protocol: «есть методы» без subclass. ABC: isinstance через иерархию/@abstractmethod.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m586",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что верно про SELECT … LIMIT 50 без ORDER BY?",
     "options": [
       "набор из N строк без стабильного порядка",
@@ -9513,28 +9513,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Без ORDER BY порядок не гарантирован. SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m587",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "mock",
-    "q": "Что ограничивает spec=True?",
+    "q": "Что даёт Mock(spec=True) / spec=obj?",
     "options": [
-      "атрибуты мока интерфейсом",
-      "скорость",
-      "утверждение про другой уровень стека",
-      "patch target"
+      "ограничивает атрибуты мока интерфейсом оригинала",
+      "ускоряет мок",
+      "запрещает assert",
+      "делает мок реальным объектом"
     ],
     "answer": 0,
-    "explain": "Атрибуты мока интерфейсом. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Обращение к несуществующему атрибуту падает — ловит опечатки в тестах.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m588",
-    "fixed": true
+    "fixed": true,
+    "topic": "mock",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "f-string",
     "q": "Что вернёт f'{x=!r}' покажет?",
     "options": [
       "имя и repr значения",
@@ -9545,28 +9545,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — имя и repr значения. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m589",
-    "fixed": true
+    "fixed": true,
+    "topic": "f-string",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
-    "q": "Что верно про deque.popleft() сложность?",
+    "q": "Какова сложность deque.popleft()?",
     "options": [
       "O(1)",
-      "O(n) как list.pop(0)",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "O(n)",
+      "O(n log n)",
+      "O(n²)"
     ],
     "answer": 0,
-    "explain": "O(1). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "У deque оба конца O(1). list.pop(0) — O(n).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m590",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт TypeVarTuple / Unpack?",
     "options": [
       "вариативные типы кортежей",
@@ -9577,12 +9577,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — вариативные типы кортежей. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m591",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 204 — кратко?",
     "options": [
       "успех без тела",
@@ -9593,188 +9593,188 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 204: успех без тела — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m592",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "testing",
-    "q": "Зачем нужен pytest.mark.parametrize?",
+    "q": "Зачем pytest.mark.parametrize?",
     "options": [
       "один тест — много наборов вход/ожидание",
-      "параллель на GPU",
-      "coverage 100%",
-      "mock всего"
+      "пропустить тест",
+      "создать фикстуру session",
+      "включить coverage"
     ],
     "answer": 0,
-    "explain": "Один тест — много наборов вход/ожидание. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Параметризация даёт отдельные test cases в отчёте без копипасты тела теста.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m593",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "hashlib",
-    "q": "Что вернёт pbkdf2_hmac / scrypt?",
+    "q": "Для чего pbkdf2_hmac / scrypt?",
     "options": [
-      "KDF для паролей",
-      "быстрый checksum",
-      "ошибка",
-      "утверждение про другой уровень стека"
+      "KDF для паролей (замедление перебора + соль)",
+      "быстрый checksum файла",
+      "шифрование AES само по себе",
+      "подпись JWT без ключа"
     ],
     "answer": 0,
-    "explain": "Результат выражения — KDF для паролей. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Не храни пароль как sha256(password). Используй KDF/argon2/bcrypt с солью и параметрами стоимости.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m594",
-    "fixed": true
+    "fixed": true,
+    "topic": "hashlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что такое singledispatch?",
+    "q": "Что такое functools.singledispatch?",
     "options": [
-      "мультиметод по типу 1-го аргумента",
-      "async gather",
-      "утверждение про другой уровень стека",
-      "partial only"
+      "мультиметод по типу первого аргумента",
+      "кэш LRU",
+      "partial аргументов",
+      "async lock"
     ],
     "answer": 0,
-    "explain": "Мультиметод по типу 1-го аргумента. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "@singledispatch def f(x): ...; @f.register(int) def _(x): ...",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m595",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "enum",
-    "q": "Что такое Enum члены сравниваются?",
+    "q": "Как сравниваются члены Enum?",
     "options": [
-      "по идентичности/значению члена, не как «сырые» int без mixin",
-      "всегда как int",
-      "только по имени str",
-      "утверждение про другой уровень стека"
+      "по идентичности/члену Enum, не как «сырые» int (если не IntEnum)",
+      "всегда как int даже у чистого Enum",
+      "только по имени строки без value",
+      "сравнение запрещено"
     ],
     "answer": 0,
-    "explain": "По идентичности/значению члена, не как «сырые» int без mixin. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Color.RED == Color.RED True; Color.RED == 1 обычно False у Enum (у IntEnum — иначе).",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m596",
-    "fixed": true
+    "fixed": true,
+    "topic": "enum",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
-    "q": "Что такое идемпотентный PUT?",
+    "q": "Что значит идемпотентный PUT?",
     "options": [
-      "повтор того же эффекта",
-      "всегда создаёт новый ресурс",
-      "утверждение про другой уровень стека",
-      "только DELETE"
+      "повтор того же запроса даёт тот же эффект на ресурсе",
+      "каждый повтор создаёт новый ресурс",
+      "запрещены повторы",
+      "только для DELETE"
     ],
     "answer": 0,
-    "explain": "Семантика — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "Идемпотентность: N одинаковых PUT ≈ один. POST часто не идемпотентен.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m597",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "logging",
     "q": "Что делает Logger.propagate?",
     "options": [
-      "передача родителям",
-      "stop all",
-      "change level",
-      "утверждение про другой уровень стека"
+      "передаёт записи родительским логгерам при True",
+      "удаляет handlers",
+      "меняет уровень на CRITICAL",
+      "пишет только в файл"
     ],
     "answer": 0,
-    "explain": "Иерархия — Модуль logging пишет структурированные сообщения с уровнями важности; print для продакшена обычно недостаточен.",
+    "explain": "По умолчанию True: запись идёт вверх к root. Иногда ставят False, чтобы не дублировать.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m598",
-    "fixed": true
+    "fixed": true,
+    "topic": "logging",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "is",
-    "q": "Что означает: Обычно (257 is 257) для литералов в одном выражении?",
+    "q": "Верно ли, что (257 is 257) в одном выражении всегда контракт языка?",
     "options": [
-      "часто True из-за peephole, но не контракт",
-      "всегда False",
-      "ошибка",
-      "None"
+      "часто True из‑за peephole/кэша, но is — не контракт равенства чисел",
+      "да, для любых int is обязателен",
+      "нет, всегда False",
+      "только для float"
     ],
     "answer": 0,
-    "explain": "Часто True из-за peephole, но не контракт. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Сравнивай int через ==. is — идентичность объектов. Интернирование маленьких int — деталь реализации.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m599",
-    "fixed": true
+    "fixed": true,
+    "topic": "is",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что верно про lru_cache(maxsize=2) хранит?",
+    "q": "Что хранит lru_cache(maxsize=2)?",
     "options": [
-      "до 2 результатов вызовов",
-      "только последний вызов всегда",
-      "на диске",
-      "в Redis"
+      "до 2 последних результатов вызовов (LRU)",
+      "бесконечный кэш",
+      "только ошибки",
+      "байткод функции"
     ],
     "answer": 0,
-    "explain": "До 2 результатов вызовов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "При переполнении вытесняется least recently used. maxsize=None — без лимита (осторожно с памятью).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m600",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Зачем нужен Generic[T]?",
+    "q": "Зачем Generic[T]?",
     "options": [
-      "параметризуемых классов",
-      "это ускорение байткода в runtime",
-      "это обязательная проверка типов на каждом вызове",
-      "обязательная проверка типов на каждом вызове в CPython"
+      "описать параметризуемый класс для type checker",
+      "ускорить runtime",
+      "создать процесс",
+      "заменить dataclass"
     ],
     "answer": 0,
-    "explain": "Параметризуемых классов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "class Box(Generic[T]): ... — Box[int] проверяется статически, в runtime T стирается.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m601",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
-    "q": "Уровень изоляции READ UNCOMMITTED — что верно?",
+    "q": "Что характерно для READ UNCOMMITTED?",
     "options": [
-      "разные аномалии чтения/записи; знай свою СУБД",
-      "все уровни идентичны в PostgreSQL",
-      "только про DDL",
-      "отключает индексы"
+      "возможен dirty read чужих незакоммиченных данных (где СУБД это допускает)",
+      "строго serializable без аномалий",
+      "то же, что SNAPSHOT всегда",
+      "запрет SELECT"
     ],
     "answer": 0,
-    "explain": "Разные аномалии чтения/записи; знай свою СУБД. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Самый слабый классический уровень. В PostgreSQL фактически не даёт dirty read как в теории — знай свою СУБД.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m602",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "тесты",
     "q": "Что делает hypothesis.given?",
     "options": [
-      "property-based входы",
-      "утверждение про другой уровень стека",
-      "fixture data fixed only",
-      "поведение, которого в CPython нет"
+      "генерирует property-based входы для теста",
+      "фиксирует один seed без генерации",
+      "заменяет pytest",
+      "мерит coverage"
     ],
     "answer": 0,
-    "explain": "Property-based входы. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Hypothesis гоняет много случайных примеров по стратегиям; ищет минимальный failing case.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m603",
-    "fixed": true
+    "fixed": true,
+    "topic": "тесты",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "True (shallow)",
@@ -9783,49 +9783,49 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в True (shallow). Пройди выражение слева направо с учётом типов.",
+    "explain": "copy.copy — shallow: вложенный list общий, изменение видно в обоих → True.",
     "kind": "single",
     "code": "import copy\na = [[0, 0], [1]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m604",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "6",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "0",
+      "1",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "P(3,3) = 6 — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "range(start, stop[, step]) не включает stop. list(range(...)) → 6.",
     "kind": "single",
     "code": "from itertools import permutations\nprint(len(list(permutations(range(3), 3))))",
-    "group": "Collections и itertools",
     "id": "m605",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
       "2",
-      "утверждение про другой уровень стека",
-      "ошибка",
-      "поведение, которого здесь нет"
+      "1",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "2. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Морж := присваивает и сразу отдаёт значение в выражении → 2.",
     "kind": "single",
     "code": "if (x := 2):\n    print(x)\nelse:\n    print('no')",
-    "group": "Typing и dataclasses",
     "id": "m606",
-    "fixed": true
+    "fixed": true,
+    "topic": "walrus",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 401 — кратко?",
     "options": [
       "нужна аутентификация",
@@ -9836,28 +9836,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 401: нужна аутентификация. В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m607",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "mock",
-    "q": "Что такое patch.dict(os.environ)?",
+    "q": "Что делает patch.dict(os.environ)?",
     "options": [
-      "временно меняет env",
-      "утверждение про другой уровень стека",
-      "удаляет OS",
-      "поведение, которого в CPython нет"
+      "временно меняет переменные окружения с откатом",
+      "навсегда пишет в /etc/environment",
+      "только читает env",
+      "патчит sys.path"
     ],
     "answer": 0,
-    "explain": "Временно меняет env. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Удобно в тестах: with patch.dict(os.environ, {'A':'1'}, clear=...): ...",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m608",
-    "fixed": true
+    "fixed": true,
+    "topic": "mock",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "регулярки",
     "q": "Какой стандартный модуль отвечает за regex?",
     "options": [
       "re",
@@ -9868,45 +9868,45 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Регулярки в stdlib — модуль re. Отдельного встроенного /regex/ синтаксиса в Python нет.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m609",
-    "fixed": true
+    "fixed": true,
+    "topic": "регулярки",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что вернёт reduce(lambda a,b:a+b, [1,2,3])?",
+    "q": "Что вернёт reduce(lambda a,b: a+b, [1,2,3])?",
     "options": [
       "6",
+      "123",
       "[1,2,3]",
-      "ошибка",
-      "утверждение про другой уровень стека"
+      "TypeError без initializer всегда"
     ],
     "answer": 0,
-    "explain": "Результат выражения — 6. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "(((1+2)+3)=6). Для пустой последовательности нужен initializer.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m610",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что выведет код?",
     "options": [
       "one",
-      "утверждение про другой уровень стека",
-      "ошибка",
-      "None"
+      "1",
+      "default",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "One. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "match/case выбирает первую подходящую ветку. Здесь срабатывает случай → one.",
     "kind": "single",
     "code": "x = 1\nmatch x:\n    case 1:\n        print('one')\n    case _:\n        print('other')",
-    "group": "Typing и dataclasses",
     "id": "m611",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что такое Типичная роль `WHERE`?",
     "options": [
       "фильтр строк до группировки",
@@ -9917,77 +9917,77 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "WHERE в SQL — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m612",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "testing",
-    "q": "Что такое Пирамида тестирования рекомендует?",
+    "q": "Что рекомендует пирамида тестирования?",
     "options": [
       "много unit, меньше integration, ещё меньше e2e",
       "только e2e",
-      "без unit",
-      "только manual QA"
+      "только ручное тестирование",
+      "равное число всех слоёв всегда"
     ],
     "answer": 0,
-    "explain": "Много unit, меньше integration, ещё меньше e2e. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Дешёвые быстрые unit внизу; дорогие UI/e2e на вершине — точечно.",
     "kind": "single",
-    "group": "Тесты и качество",
     "id": "m613",
-    "fixed": true
+    "fixed": true,
+    "topic": "testing",
+    "group": "Тесты и качество"
   },
   {
-    "topic": "performance",
-    "q": "Что верно про много append затем join для str частей?",
+    "q": "Хороший паттерн для многих кусков строк?",
     "options": [
-      "хороший паттерн",
-      "хуже += всегда в CPython без оговорок? не опирайся",
-      "утверждение про другой уровень стека",
-      "только bytearray"
+      "накапливать в list и ''.join(...)",
+      "s += piece в огромном цикле как лучший вариант",
+      "только bytes +",
+      "обязательный StringIO без исключений"
     ],
     "answer": 0,
-    "explain": "Читаемо и предсказуемо — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
+    "explain": "join один раз аллоцирует результат. Много += на огромных строках создаёт лишние копии (хотя CPython иногда оптимизирует).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m614",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
       "2",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "1",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "2. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "bisect_left/right — индекс вставки в отсортированную последовательность → 2.",
     "kind": "single",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 4))",
-    "group": "Collections и itertools",
     "id": "m615",
-    "fixed": true
+    "fixed": true,
+    "topic": "bisect",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "attrs/pydantic",
-    "q": "Что верно про Pydantic в отличие от dataclass часто?",
+    "q": "Чем Pydantic часто отличается от dataclass?",
     "options": [
-      "валидирует данные на runtime",
-      "только генерирует __init__",
-      "заменяет GIL",
-      "компилирует C"
+      "валидирует и приводит данные на runtime",
+      "только аннотации без runtime",
+      "запрещает вложенные модели",
+      "медленнее писать модели всегда бесполезно"
     ],
     "answer": 0,
-    "explain": "Валидирует данные на runtime. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "dataclass — хранение полей. Pydantic/attrs с валидацией — проверка на входе (API, конфиг).",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m616",
-    "fixed": true
+    "fixed": true,
+    "topic": "attrs/pydantic",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "В чём риск lazy load в ORM?",
     "options": [
       "N+1 запросов",
@@ -9998,28 +9998,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Явный join/options — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m617",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "pathlib",
-    "q": "В чём разница: PurePath vs Path?",
+    "q": "Чем PurePath отличается от Path?",
     "options": [
-      "Pure без I/O",
-      "одно и то же",
-      "Pure только Windows",
-      "Path без строк"
+      "PurePath — чистая работа с путём без I/O; Path умеет читать/писать диск",
+      "Path нельзя использовать на Windows",
+      "разницы нет",
+      "PurePath только для URL"
     ],
     "answer": 0,
-    "explain": "Pure без I/O. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "PurePosixPath/PureWindowsPath — парсинг и join. Path.open/read_text — уже FS.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m618",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что выведет код?",
     "options": [
       "[('a', 2), ('b', 1)]",
@@ -10028,15 +10028,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [('a', 2), ('b', 1)]. Пройди выражение слева направо с учётом типов.",
+    "explain": "Counter считает частоты; most_common даёт топ пар (элемент, счёт) → [('a', 2), ('b', 1)].",
     "kind": "single",
     "code": "from collections import Counter\nprint(Counter('aab').most_common(2))",
-    "group": "Collections и itertools",
     "id": "m619",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт Callable[[int], str] описывает?",
     "options": [
       "функцию из int в str",
@@ -10047,12 +10047,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — функцию из int в str. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m620",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что такое Типичная роль `JOIN`?",
     "options": [
       "связь таблиц",
@@ -10063,12 +10063,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "JOIN в SQL — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m621",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "struct",
     "q": "Что возвращает struct.calcsize(fmt)?",
     "options": [
       "размер в байтах для данного формата упаковки",
@@ -10079,12 +10079,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Struct.calcsize(fmt) считает, сколько байт займёт pack(fmt, ...). Нужно для буферов и бинарных протоколов.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m622",
-    "fixed": true
+    "fixed": true,
+    "topic": "struct",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что вернёт accumulate с func=operator.mul?",
     "options": [
       "накопительное произведение",
@@ -10095,12 +10095,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Кастомная свёртка — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m623",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что выведет код?",
     "options": [
       "empty",
@@ -10109,64 +10109,64 @@ window.QUESTIONS_MIDDLE = [
       "False"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в empty. Пройди выражение слева направо с учётом типов.",
+    "explain": "match/case выбирает первую подходящую ветку. Здесь срабатывает случай → empty.",
     "kind": "single",
     "code": "x = []\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
-    "group": "Typing и dataclasses",
     "id": "m624",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 502 обычно значит?",
+    "q": "Что обычно значит HTTP 502?",
     "options": [
-      "Bad Gateway",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Bad Gateway — прокси/шлюз получил плохой ответ апстрима",
+      "успех",
+      "клиентский Bad Request",
+      "Not Found"
     ],
     "answer": 0,
-    "explain": "502 — Bad Gateway — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "502 — проблема между gateway и upstream (упал бэкенд, оборванный ответ).",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m625",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "a/b",
-      "a/b/",
-      "ошибка",
-      "None"
+      "ab",
+      "a\\b",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "A/b. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "pathlib склеивает части пути через /. Результат: a/b.",
     "kind": "single",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('a', 'b'))",
-    "group": "Stdlib и производительность",
     "id": "m626",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что такое lru_cache?",
+    "q": "Что такое functools.lru_cache?",
     "options": [
-      "мемоизация с лимитом",
-      "LRU список",
-      "async lock",
-      "GC hint"
+      "мемоизация результатов функции с LRU-лимитом",
+      "кэш HTTP",
+      "пул потоков",
+      "сериализатор"
     ],
     "answer": 0,
-    "explain": "Мемоизация с лимитом. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Кэширует по аргументам (должны быть hashable). Есть cache_info/cache_clear.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m627",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "enum",
     "q": "Для чего нужны Flag / IntFlag?",
     "options": [
       "для битовых флагов, которые можно комбинировать через |",
@@ -10177,60 +10177,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Flag/IntFlag — enum с битовыми масками: |, & и проверки членства. Обычный Enum/StrEnum — про другие сценарии.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m628",
-    "fixed": true
+    "fixed": true,
+    "topic": "enum",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
-    "q": "Уровень изоляции REPEATABLE READ — что верно?",
+    "q": "Что характерно для REPEATABLE READ?",
     "options": [
-      "разные аномалии чтения/записи; знай свою СУБД",
-      "все уровни идентичны в PostgreSQL",
-      "только про DDL",
-      "отключает индексы"
+      "повторное чтение тех же строк в транзакции стабильнее; аномалии зависят от СУБД",
+      "то же, что READ UNCOMMITTED",
+      "запрет UPDATE",
+      "полный serializable во всех СУБД одинаково"
     ],
     "answer": 0,
-    "explain": "Разные аномалии чтения/записи; знай свою СУБД. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "В PostgreSQL RR близко к snapshot; phantom/write skew — нюансы. Учи документацию своей БД.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m629",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "weakref",
-    "q": "Что верно про WeakValueDictionary забывает значение когда?",
+    "q": "Когда WeakValueDictionary забывает значение?",
     "options": [
-      "не осталось сильных ссылок на объект",
-      "всегда через 1с",
-      "при hash collision",
-      "никогда"
+      "когда не осталось сильных ссылок на объект-значение",
+      "никогда",
+      "только при reboot",
+      "при любом чтении ключа"
     ],
     "answer": 0,
-    "explain": "Не осталось сильных ссылок на объект. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Слабая ссылка не удерживает объект; после GC ключ пропадает из mapping.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m630",
-    "fixed": true
+    "fixed": true,
+    "topic": "weakref",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что делает deque.rotate(2) на 5 элементах?",
     "options": [
-      "цикл сдвиг на 2 вправо (отриц. — влево)",
-      "сортирует",
-      "удаляет k",
-      "ошибка всегда"
+      "циклический сдвиг на 2 вправо (отрицательное — влево)",
+      "сортировку",
+      "удаление двух элементов",
+      "реверс всего deque"
     ],
     "answer": 0,
-    "explain": "Цикл сдвиг на 2 вправо (отриц. — влево). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "rotate(n): элементы с правого конца переносятся влево на n (для положительного n).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m631",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
       "True",
@@ -10242,12 +10242,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде истинно. Пройди операторы и типы операндов по шагам.",
     "kind": "single",
     "code": "print(isinstance((1,), tuple))",
-    "group": "Typing и dataclasses",
     "id": "m632",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Какая Популярная sync HTTP библиотека?",
     "options": [
       "requests",
@@ -10258,28 +10258,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "De facto — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m633",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "sort",
-    "q": "Что такое Timsort хорошо для?",
+    "q": "Для чего Timsort особенно хорош?",
     "options": [
-      "частично упорядоченных данных",
-      "только random",
-      "linked list C",
-      "утверждение про другой уровень стека"
+      "частично упорядоченных данных (находит runs)",
+      "только полностью случайных массивов хуже любого O(n log n)",
+      "только строк",
+      "сортировки на GPU"
     ],
     "answer": 0,
-    "explain": "Частично упорядоченных данных. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Timsort в CPython использует уже отсортированные куски — часто быстрее на реальных данных.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m634",
-    "fixed": true
+    "fixed": true,
+    "topic": "sort",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[(1, 2), (3, 4)]",
@@ -10291,12 +10291,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Batched(n) группирует по n (3.12+). Если нет — skip? Better use classic::.",
     "kind": "single",
     "code": "from itertools import islice\nit = iter([1, 2, 3, 4])\nprint([tuple(islice(it, 2)), tuple(islice(it, 2))])",
-    "group": "Collections и itertools",
     "id": "m635",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт TypeAlias (3.10+/3.12 type)?",
     "options": [
       "явный алиас типа",
@@ -10307,12 +10307,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — явный алиас типа. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m636",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое POST обычно?",
     "options": [
       "не идемпотентен",
@@ -10323,45 +10323,45 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Побочные эффекты — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m637",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "regex",
     "q": "Что выведет код?",
     "options": [
       "'42'",
-      "'42'",
-      "ошибка",
-      "None"
+      "'4'",
+      "42",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "'42'. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Регулярка ищет совпадение по паттерну. Результат группы/поиска: '42'.",
     "kind": "single",
     "code": "import re\nm = re.search('^\\\\d+$', '42')\nprint(None if m is None else m.group())",
-    "group": "Stdlib и производительность",
     "id": "m638",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
-    "q": "Что такое groupby требует?",
+    "q": "Что часто требуют перед itertools.groupby?",
     "options": [
-      "часто предварительной сортировки по ключу",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "предварительную сортировку (или группировку) по тому же ключу",
+      "обязательный list() всего мира",
+      "удаление дубликатов set()",
+      "reverse=True всегда"
     ],
     "answer": 0,
-    "explain": "Группирует подряд идущие — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "groupby группирует только подряд идущие равные ключи — как uniq в Unix.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m639",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт Annotated[int, Ge(0)] идея?",
     "options": [
       "метаданные валидации/инструментов",
@@ -10372,44 +10372,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — метаданные валидации/инструментов. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m640",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "WSGI",
     "q": "Что такое WSGI?",
     "options": [
-      "интерфейс sync веб-приложений",
-      "async сервер",
-      "утверждение про другой уровень стека",
-      "шаблонизатор"
+      "стандартный интерфейс sync Python веб-приложений и серверов",
+      "только async интерфейс (это ASGI)",
+      "протокол БД",
+      "формат JSON"
     ],
     "answer": 0,
-    "explain": "Интерфейс sync веб-приложений. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "PEP 3333: callable(environ, start_response). ASGI — наследник для async/websocket.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m641",
-    "fixed": true
+    "fixed": true,
+    "topic": "WSGI",
+    "group": "Веб и API"
   },
   {
-    "topic": "регулярки",
-    "q": "Что верно про re.compile полезен когда?",
+    "q": "Когда полезен re.compile?",
     "options": [
-      "паттерн переиспользуется",
-      "один раз",
-      "вместо str.find нельзя",
-      "для bytes только"
+      "когда один паттерн переиспользуется много раз",
+      "всегда обязателен для одной проверки",
+      "только для bytes",
+      "ускоряет str.find"
     ],
     "answer": 0,
-    "explain": "Паттерн переиспользуется. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Скомпилированный Pattern переиспользует автомат. Для одноразового поиска выигрыш мал.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m642",
-    "fixed": true
+    "fixed": true,
+    "topic": "регулярки",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[1, 3, 6]",
@@ -10421,44 +10421,44 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Накопительная сумма — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 4))))",
-    "group": "Collections и itertools",
     "id": "m643",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Что вернёт def f(a, b=1, /, c=2, *, d=3): — b?",
+    "q": "В def f(a, b=1, /, c=2, *, d=3) чем является b?",
     "options": [
-      "positional-only с default",
+      "positional-only параметр с default",
       "keyword-only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "**kwargs",
+      "запрещённый синтаксис"
     ],
     "answer": 0,
-    "explain": "Результат выражения — positional-only с default. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "До / — только позиционно, даже с default. После * — только по имени (d).",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m644",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про idempotent методы HTTP обычно?",
+    "q": "Какие методы HTTP обычно идемпотентны?",
     "options": [
-      "GET PUT DELETE",
-      "POST только",
-      "PATCH always",
-      "утверждение про другой уровень стека"
+      "GET, PUT, DELETE (и др. по семантике)",
+      "только POST",
+      "только PATCH всегда",
+      "никакие"
     ],
     "answer": 0,
-    "explain": "Семантика HTTP — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "Идемпотентность по RFC: повтор безопасен по эффекту. POST — обычно нет. PATCH — зависит.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m645",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "True (shallow)",
@@ -10467,112 +10467,112 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в True (shallow). Пройди выражение слева направо с учётом типов.",
+    "explain": "Shallow copy: вложенный dict тот же объект → изменение видно с обеих сторон.",
     "kind": "single",
     "code": "import copy\na = [{'a': 1}]\nb = copy.copy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m646",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
-    "q": "Что вернёт cycle([1,2])?",
+    "q": "Что делает itertools.cycle([1,2])?",
     "options": [
-      "бесконечно повторяет",
-      "один проход",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "бесконечно циклически отдаёт 1,2,1,2,…",
+      "один проход и StopIteration",
+      "сортирует",
+      "случайную перестановку"
     ],
     "answer": 0,
-    "explain": "Бесконечный итератор — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "cycle — бесконечный итератор; обычно режут islice или break.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m647",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что означает: @dataclass class Cell: x: int = -1 — экземпляры делят x?",
+    "q": "@dataclass class Cell: x: int = -1 — делят ли экземпляры x?",
     "options": [
-      "нет, int immutable default ок",
-      "да, как list",
-      "ошибка синтаксиса",
-      "только frozen"
+      "нет — immutable default int безопасен",
+      "да — один int на всех как list",
+      "ошибка dataclass",
+      "x станет ClassVar"
     ],
     "answer": 0,
-    "explain": "Нет, int immutable default ок. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Проблема shared default — у мутабельных (list/dict). int/str/None ок.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m648",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "FastAPI",
-    "q": "Что такое BackgroundTasks?",
+    "q": "Что такое BackgroundTasks в FastAPI?",
     "options": [
-      "работа после ответа",
-      "celery cluster",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "задачи, которые выполняются после отправки ответа клиенту",
+      "замена Celery для тяжёлого CPU всегда",
+      "websocket pool",
+      "миграции БД"
     ],
     "answer": 0,
-    "explain": "Работа после ответа. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Лёгкая пост-обработка в том же процессе. Для надёжных очередей — RQ/Celery/Arq.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m649",
-    "fixed": true
+    "fixed": true,
+    "topic": "FastAPI",
+    "group": "Веб и API"
   },
   {
-    "topic": "pathlib",
     "q": "Что делает Path.write_text?",
     "options": [
-      "записывает str в файл",
-      "bytes only",
-      "append always",
-      "утверждение про другой уровень стека"
+      "записывает строку в файл (кодировка/newline настраиваются)",
+      "только читает",
+      "создаёт symlink",
+      "пишет bytes без encode"
     ],
     "answer": 0,
-    "explain": "Записывает str в файл. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Удобный one-liner поверх open. Для bytes — write_bytes.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m650",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "10",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
+      "5",
+      "0",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "10. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "functools.partial фиксирует часть аргументов; полный вызов даёт 10.",
     "kind": "single",
     "code": "from functools import partial\nf = lambda x, y: x + y\nprint(partial(f, 5)(5))",
-    "group": "Collections и itertools",
     "id": "m651",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Чем помогает LiteralString?",
+    "q": "Чем помогает typing.LiteralString?",
     "options": [
-      "SQL/shell injection на уровне типов",
-      "это ускорение байткода в runtime",
-      "медленного str",
-      "UTF errors"
+      "ловить смешивание «чистых» литералов и пользовательского ввода (SQL/shell) на уровне типов",
+      "ускорять строки в runtime",
+      "шифровать строки",
+      "заменять f-strings"
     ],
     "answer": 0,
-    "explain": "SQL/shell injection на уровне типов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "PEP 675: API, ждущий LiteralString, не примет произвольный str из запроса — защита от injection на checker.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m652",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что такое Типичная роль `RETURNING`?",
     "options": [
       "вернуть строки после INSERT/UPDATE/DELETE (PG и др.)",
@@ -10583,12 +10583,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "RETURNING в SQL — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m653",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "performance",
     "q": "Что такое интернирование вручную sys.intern?",
     "options": [
       "для повторяющихся str-ключей",
@@ -10599,12 +10599,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Память словарей — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m654",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что выведет код?",
     "options": [
       "[('a', 3), ('b', 2)]",
@@ -10613,112 +10613,112 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [('a', 3), ('b', 2)]. Пройди выражение слева направо с учётом типов.",
+    "explain": "Counter считает частоты; most_common даёт топ пар (элемент, счёт) → [('a', 3), ('b', 2)].",
     "kind": "single",
     "code": "from collections import Counter\nprint(Counter('aaabb').most_common(2))",
-    "group": "Collections и itertools",
     "id": "m655",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Что вернёт def f(*args, a) — a?",
+    "q": "В def f(*args, a) чем является a?",
     "options": [
-      "keyword-only",
-      "утверждение про другой уровень стека",
-      "optional auto",
-      "поведение, которого в CPython нет"
+      "keyword-only параметр",
+      "positional-only",
+      "**kwargs",
+      "запрещён"
     ],
     "answer": 0,
-    "explain": "Результат выражения — keyword-only. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Всё после *args — только по имени: f(1, 2, a=3).",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m656",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 200 обычно значит?",
+    "q": "Что обычно значит HTTP 200?",
     "options": [
-      "OK",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "OK — успешный запрос",
+      "Created",
+      "No Content",
+      "Bad Request"
     ],
     "answer": 0,
-    "explain": "200 — OK — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "200 — общий успех с телом (часто). 201/204 — более специфичные успехи.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m657",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "pathlib",
-    "q": "Что такое Path.glob('**/*.py')?",
+    "q": "Что делает Path.glob('**/*.py')?",
     "options": [
-      "рекурсивный поиск",
-      "только cwd non-recursive always",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "рекурсивный поиск файлов по маске",
+      "только в текущем каталоге без **",
+      "удаление .py",
+      "компиляцию"
     ],
     "answer": 0,
-    "explain": "Рекурсивный поиск. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "** — рекурсия. rglob('*.py') — удобный синоним.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m658",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "8",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "4",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "8. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "reduce последовательно сворачивает последовательность бинарной функцией → 8.",
     "kind": "single",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [2, 2, 2]))",
-    "group": "Collections и itertools",
     "id": "m659",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "В чём разница: TypedDict vs dataclass?",
+    "q": "Чем TypedDict отличается от dataclass?",
     "options": [
-      "TypedDict для dict-форм, dataclass — объекты",
-      "одно и то же",
-      "TypedDict runtime class always",
-      "dataclass только JSON"
+      "TypedDict описывает форму dict; dataclass — класс с атрибутами",
+      "разницы нет",
+      "TypedDict создаёт объекты с методами",
+      "dataclass только для JSON"
     ],
     "answer": 0,
-    "explain": "TypedDict для dict-форм, dataclass — объекты. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "TypedDict — для JSON-подобных словарей и checker. В runtime обычный dict.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m660",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "FastAPI",
-    "q": "Что такое UploadFile?",
+    "q": "Что такое UploadFile в FastAPI?",
     "options": [
-      "асинхронная работа с upload",
-      "только bytes sync read обязателен без api",
-      "S3 client",
-      "утверждение про другой уровень стека"
+      "обёртка для асинхронной работы с загружаемым файлом",
+      "только путь на диске без SpooledTemporaryFile",
+      "Base64 в query",
+      "S3 клиент"
     ],
     "answer": 0,
-    "explain": "Асинхронная работа с upload. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Можно await file.read(); крупное уходит в temp file. Не читай огромные файлы в память целиком без нужды.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m661",
-    "fixed": true
+    "fixed": true,
+    "topic": "FastAPI",
+    "group": "Веб и API"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "False",
@@ -10730,77 +10730,77 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде ложно. Проверь сравнения, пустоту коллекций и приоритет операций.",
     "kind": "single",
     "code": "import copy\na = [[1, 2, 3]]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m662",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "6",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "3",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "C(4,2) = 6 — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "range(start, stop[, step]) не включает stop. list(range(...)) → 6.",
     "kind": "single",
     "code": "from itertools import combinations\nprint(len(list(combinations(range(4), 2))))",
-    "group": "Collections и itertools",
     "id": "m663",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что делает frozen=True?",
+    "q": "Что делает dataclass(frozen=True)?",
     "options": [
-      "приблизительно immutable экземпляр",
-      "утверждение про другой уровень стека",
-      "slots+dict",
-      "поведение, которого в CPython нет"
+      "делает экземпляры приблизительно неизменяемыми",
+      "удаляет поля",
+      "включает slots всегда без опции",
+      "запрещает __init__"
     ],
     "answer": 0,
-    "explain": "Приблизительно immutable экземпляр. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Присвоение полям → FrozenInstanceError. Для hashable value objects.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m664",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "DI",
-    "q": "Что такое interface segregation в typing?",
+    "q": "Как выглядит Interface Segregation в typing?",
     "options": [
-      "узкие Protocol вместо жирных ABC",
-      "один God Protocol",
-      "Any everywhere",
-      "dict[str,Any] only"
+      "узкие Protocol вместо одного жирного интерфейса",
+      "один ABC на 50 методов всегда",
+      "запрет Protocol",
+      "только Any"
     ],
     "answer": 0,
-    "explain": "Узкие Protocol вместо жирных ABC. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "ISP: завись от маленьких контрактов Readable/Writable, а не от MegaService.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m665",
-    "fixed": true
+    "fixed": true,
+    "topic": "DI",
+    "group": "Веб и API"
   },
   {
-    "topic": "regex",
-    "q": "В чём разница: re.search vs re.match?",
+    "q": "Чем re.search отличается от re.match?",
     "options": [
-      "search — в любом месте; match — с начала строки",
-      "одинаково",
-      "match быстрее всегда",
-      "search только bytes"
+      "search ищет в любом месте; match — только с начала строки",
+      "разницы нет",
+      "match ищет везде, search — с начала",
+      "search только для bytes"
     ],
     "answer": 0,
-    "explain": "Search — в любом месте; match — с начала строки. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Классическая ловушка. Для всей строки — fullmatch.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m666",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "dict",
     "q": "Что вернёт merge |= для dict (3.9)?",
     "options": [
       "in-place update",
@@ -10811,28 +10811,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — in-place update. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m667",
-    "fixed": true
+    "fixed": true,
+    "topic": "dict",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Что такое параметр `a` в `def f(a, /)`?",
+    "q": "Что такое параметр a в def f(a, /)?",
     "options": [
       "positional-only",
       "keyword-only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "varargs",
+      "**kwargs"
     ],
     "answer": 0,
-    "explain": "Positional-only. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Слэш делает a только позиционным.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m668",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что делает HEAD по семантике HTTP?",
     "options": [
       "идемпотентный (в идеале)",
@@ -10843,44 +10843,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HEAD безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m669",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "hashlib",
-    "q": "Зачем нужен hashlib.sha256?",
+    "q": "Зачем hashlib.sha256?",
     "options": [
-      "криптографического хеша",
-      "hash() dict",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "криптографический хеш (отпечаток данных)",
+      "шифрование с ключом как AES",
+      "сжатие gzip",
+      "кодирование URL"
     ],
     "answer": 0,
-    "explain": "Криптографического хеша. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Хеш ≠ encryption. Для паролей — KDF, не голый sha256(password).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m670",
-    "fixed": true
+    "fixed": true,
+    "topic": "hashlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
-    "q": "Что такое deque rotate?",
+    "q": "Что такое deque.rotate?",
     "options": [
-      "циклический сдвиг",
-      "утверждение про другой уровень стека",
-      "reverse copy list",
-      "поведение, которого в CPython нет"
+      "циклический сдвиг элементов",
+      "сортировка",
+      "случайный shuffle",
+      "преобразование в list"
     ],
     "answer": 0,
-    "explain": "Циклический сдвиг. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "rotate(n) сдвигает кольцом; полезно для буферов/алгоритмов.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m671",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
       "True",
@@ -10892,28 +10892,28 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде истинно. Пройди операторы и типы операндов по шагам.",
     "kind": "single",
     "code": "print(isinstance({1}, set))",
-    "group": "Typing и dataclasses",
     "id": "m672",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 422 обычно значит?",
+    "q": "Что обычно значит HTTP 422?",
     "options": [
-      "Unprocessable",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Unprocessable Entity — семантически невалидные данные",
+      "успех",
+      "Not Found",
+      "Bad Gateway"
     ],
     "answer": 0,
-    "explain": "422 — Unprocessable — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "Часто в API: JSON синтаксически ок, но валидация полей провалилась (FastAPI/Pydantic).",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m673",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "performance",
     "q": "Что верно про getattr без default на горячем пути?",
     "options": [
       "дороже локальной переменной",
@@ -10924,12 +10924,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Кэшируй в локальную — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m674",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет list(islice(...))?",
     "options": [
       "[0, 1, 2]",
@@ -10941,44 +10941,44 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Первые 3 — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти:.",
     "kind": "single",
     "code": "from itertools import islice, count\nprint(list(islice(count(), 3)))",
-    "group": "Collections и itertools",
     "id": "m675",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Что верно про def f(a, /, b, *, c): — как вызвать верно?",
+    "q": "Как верно вызвать def f(a, /, b, *, c)?",
     "options": [
       "f(1, 2, c=3) или f(1, b=2, c=3)",
       "f(a=1, b=2, c=3)",
       "f(1, 2, 3)",
-      "f(c=3, 1, 2)"
+      "f(1)"
     ],
     "answer": 0,
-    "explain": "F(1, 2, c=3) или f(1, b=2, c=3). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "a только позиционно; c только по имени; b — так и так.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m676",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
-    "q": "Что вернёт ETag / If-None-Match?",
+    "q": "Для чего ETag / If-None-Match?",
     "options": [
-      "кэш-валидация",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "ошибка"
+      "кэш-валидация: клиент спрашивает, изменился ли ресурс",
+      "аутентификация Bearer",
+      "сжатие тела",
+      "CORS"
     ],
     "answer": 0,
-    "explain": "Условные запросы — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "Сервер может ответить 304 Not Modified — тело не гонять повторно.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m677",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "[1, 2, 3]",
@@ -10987,31 +10987,31 @@ window.QUESTIONS_MIDDLE = [
       "False"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [1, 2, 3]. Пройди выражение слева направо с учётом типов.",
+    "explain": "json.dumps сериализует Python-объект в JSON-строку → [1, 2, 3].",
     "kind": "single",
     "code": "import json\nprint(json.dumps([1, 2, 3]))",
-    "group": "Stdlib и производительность",
     "id": "m678",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что означает: Сколько уникальных ключей кэша у fib(4) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "q": "Сколько примерно ключей в кэше у fib(4) с lru_cache?",
     "options": [
-      "примерно 5 (0..n)",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "порядка 5 (значения 0..4)",
+      "1",
+      "2^4 без повторов",
+      "0"
     ],
     "answer": 0,
-    "explain": "Примерно 5 (0..n). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Каждый n от 0 до 4 кэшируется один раз.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m679",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что выведет код?",
     "options": [
       "single",
@@ -11020,47 +11020,47 @@ window.QUESTIONS_MIDDLE = [
       "False"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в single. Пройди выражение слева направо с учётом типов.",
+    "explain": "match/case выбирает первую подходящую ветку. Здесь срабатывает случай → single.",
     "kind": "single",
     "code": "x = [1]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
-    "group": "Typing и dataclasses",
     "id": "m680",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
-    "q": "Что такое prepared statements?",
+    "q": "Что дают prepared statements?",
     "options": [
-      "переиспользование плана + безопасность",
-      "ORM only",
-      "утверждение про другой уровень стека",
-      "миграция"
+      "переиспользование плана запроса и защиту от SQL-инъекций при биндинге",
+      "обязательный full scan",
+      "отключение индексов",
+      "только ORM без SQL"
     ],
     "answer": 0,
-    "explain": "Меньше parse/injection — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Плейсхолдеры + параметры, не f-строка с user input.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m681",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "import",
-    "q": "Что делает sys.path_hooks?",
+    "q": "Что делают sys.path_hooks?",
     "options": [
-      "как находятся импорты по path entry",
-      "утверждение про другой уровень стека",
-      "venv activate",
-      "sitecustomize only"
+      "определяют, как найти импортёр для записи в sys.path",
+      "список установленных пакетов pip",
+      "кэш .pyc путей",
+      "PYTHONPATH только для Windows"
     ],
     "answer": 0,
-    "explain": "Как находятся импорты по path entry. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Импорт: path_hooks → path_importer_cache → finder/loader. Расширяемый механизм.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m682",
-    "fixed": true
+    "fixed": true,
+    "topic": "import",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что выведет код?",
     "options": [
       "[('a', 5), ('b', 2)]",
@@ -11069,47 +11069,47 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [('a', 5), ('b', 2)]. Пройди выражение слева направо с учётом типов.",
+    "explain": "Counter считает частоты; most_common даёт топ пар (элемент, счёт) → [('a', 5), ('b', 2)].",
     "kind": "single",
     "code": "from collections import Counter\nprint(Counter('abracadabra').most_common(2))",
-    "group": "Collections и itertools",
     "id": "m683",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "операторы",
     "q": "Допустим ли синтаксис a := b := 1?",
     "options": [
-      "запрещён (SyntaxError)",
-      "допустим как a = b = 1",
-      "только в if",
-      "только 3.12"
+      "нет — SyntaxError (цепочка walrus так не пишется)",
+      "да, как a = b = 1",
+      "да только в 3.12+",
+      "да внутри class body"
     ],
     "answer": 0,
-    "explain": "Запрещён (SyntaxError). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Обычное a = b = 1 ок. Walrus не поддерживает такую цепочку.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m684",
-    "fixed": true
+    "fixed": true,
+    "topic": "операторы",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
-    "q": "Что вернёт gzip Content-Encoding?",
+    "q": "Что значит Content-Encoding: gzip?",
     "options": [
-      "сжатие тела",
-      "шифр",
-      "утверждение про другой уровень стека",
-      "мультилипарт"
+      "тело ответа сжато gzip",
+      "клиент обязан слать gzip",
+      "тип документа HTML",
+      "кодировка UTF-8"
     ],
     "answer": 0,
-    "explain": "Транспортное сжатие — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "Транспортное сжатие. Не путать с Content-Type и с Transfer-Encoding: chunked.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m685",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "performance",
     "q": "Что выведет код?",
     "options": [
       "set",
@@ -11121,28 +11121,28 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Среднее O(1) — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
     "code": "s = set(range(10000))\nprint(9999 in s)",
-    "group": "Stdlib и производительность",
     "id": "m686",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "heapq",
-    "q": "Что такое merge(*iters)?",
+    "q": "Что делает heapq.merge(*iters)?",
     "options": [
-      "слияние sorted-итераторов",
-      "sort unsorted",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "сливает уже отсортированные итераторы в один sorted-поток",
+      "сортирует произвольный unsorted list in-place",
+      "строит max-heap",
+      "удаляет дубликаты"
     ],
     "answer": 0,
-    "explain": "Слияние sorted-итераторов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Как sorted(chain(*iters)), но лениво и эффективно, если входы sorted.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m687",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что вернёт case [x, y, *rest] на tuple?",
     "options": [
       "работает для последовательности",
@@ -11153,28 +11153,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — работает для последовательности. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m688",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "FastAPI",
-    "q": "Что такое Depends()?",
+    "q": "Что такое Depends() в FastAPI?",
     "options": [
-      "внедрение зависимостей",
-      "SQL join",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "внедрение зависимостей в path-operation",
+      "SQL JOIN",
+      "фоновая очередь Celery",
+      "CORS пресет"
     ],
     "answer": 0,
-    "explain": "Внедрение зависимостей. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "DI: сессия БД, текущий пользователь, настройки — через Depends.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m689",
-    "fixed": true
+    "fixed": true,
+    "topic": "FastAPI",
+    "group": "Веб и API"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "JSONDecodeError",
@@ -11183,111 +11183,111 @@ window.QUESTIONS_MIDDLE = [
       "ошибка SyntaxError"
     ],
     "answer": 0,
-    "explain": "Код падает с ошибкой (JSONDecodeError). Смотри типы аргументов и допустимые операции.",
+    "explain": "json.loads падает с JSONDecodeError на невалидном JSON.",
     "kind": "single",
     "code": "import json\nprint(json.loads('nullish'))",
-    "group": "Stdlib и производительность",
     "id": "m690",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
-    "q": "Что такое tee(it, n)?",
+    "q": "Что делает itertools.tee(it, n)?",
     "options": [
-      "разветвляет итератор (с буфером)",
-      "копирует list",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "разветвляет один итератор на n (с буферизацией)",
+      "удаляет it",
+      "сортирует",
+      "делает list копию без буфера никогда"
     ],
     "answer": 0,
-    "explain": "Память растёт, если ветки расходятся. Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "tee копирует поток; если ветки уходят далеко друг от друга — растёт буфер. Иногда проще list(it).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m691",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
-    "q": "Что такое паттерн match case 1 | 2 | 3 в Python 3.10+?",
+    "q": "Что такое case 1 | 2 | 3 в match?",
     "options": [
-      "or-паттерн",
-      "утверждение про другой уровень стека",
-      "ошибка",
-      "поведение, которого в CPython нет"
+      "or-паттерн — совпадение с любым из вариантов",
+      "побитовое OR значений",
+      "синтаксическая ошибка",
+      "только для строк"
     ],
     "answer": 0,
-    "explain": "Or-паттерн. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "PEP 634: альтернативы через |. Можно case 1 | 2 as x.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m692",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое HTTPS termination?",
     "options": [
-      "TLS часто на proxy/load balancer",
-      "только в app forever",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "расшифровка TLS часто на proxy/load balancer перед бэкендом",
+      "обязательный TLS на каждом Python-воркере всегда",
+      "сжатие gzip",
+      "HTTP/3 только"
     ],
     "answer": 0,
-    "explain": "Инфра-паттерн — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "Клиент ↔ LB по HTTPS; дальше часто HTTP во внутренней сети. Нужна аккуратность с заголовками X-Forwarded-*.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m693",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "performance",
-    "q": "Что верно про __slots__ + weakref нужен?",
+    "q": "Как включить weakref при __slots__?",
     "options": [
-      "явный '__weakref__' в slots",
-      "автоматически always",
-      "утверждение про другой уровень стека",
-      "только PyPy"
+      "явно добавить '__weakref__' в slots",
+      "weakref работает без слотов всегда",
+      "только через __dict__",
+      "нельзя никак"
     ],
     "answer": 0,
-    "explain": "Иначе нельзя weakref — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
+    "explain": "Без __dict__ и без '__weakref__' в slots слабые ссылки недоступны.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m694",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что верно про lru_cache(maxsize=8) хранит?",
+    "q": "Сколько результатов хранит lru_cache(maxsize=8)?",
     "options": [
-      "до 8 результатов вызовов",
-      "только последний вызов всегда",
-      "на диске",
-      "в Redis"
+      "до 8 последних (LRU)",
+      "ровно бесконечно",
+      "только 1",
+      "8 МБ памяти фиксированно"
     ],
     "answer": 0,
-    "explain": "До 8 результатов вызовов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "maxsize — число кэшированных вызовов, не байты.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m695",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Что верно про Positional-only полезен для?",
+    "q": "Зачем positional-only параметры?",
     "options": [
-      "стабильного API имён параметров",
-      "скорости GIL",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "стабильный API: можно переименовать параметр без ломания вызовов по имени",
+      "запретить позиционные вызовы",
+      "ускорить GIL",
+      "только для async"
     ],
     "answer": 0,
-    "explain": "Стабильного API имён параметров. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Как у len(obj): нельзя len(obj=...). Имена внутренних параметров свободны.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m696",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что показывает EXPLAIN?",
     "options": [
       "план запроса",
@@ -11298,28 +11298,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Оптимизация SQL — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m697",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "subprocess",
-    "q": "Что такое capture_output=True эквивалент?",
+    "q": "Чему эквивалентен capture_output=True в subprocess.run?",
     "options": [
-      "stdout/err PIPE",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "stdout=PIPE и stderr=PIPE",
+      "stdout=DEVNULL",
+      "shell=True",
+      "check=True"
     ],
     "answer": 0,
-    "explain": "Stdout/err PIPE. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Удобный флаг 3.7+: результат в CompletedProcess.stdout/stderr.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m698",
-    "fixed": true
+    "fixed": true,
+    "topic": "subprocess",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[1, 2, 0, 1, 2]",
@@ -11331,60 +11331,60 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Chain склеивает итерируемые — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(3)))))",
-    "group": "Collections и itertools",
     "id": "m699",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что такое @dataclass генерирует?",
+    "q": "Что генерирует @dataclass?",
     "options": [
-      "__init__, __repr__ и др.",
-      "только __slots__",
-      "SQL схему",
-      "JSON автоматом"
+      "__init__, __repr__, __eq__ и др. по флагам",
+      "только __slots__ всегда",
+      "ORM-таблицу",
+      "async методы"
     ],
     "answer": 0,
-    "explain": "__init__, __repr__ и др. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Декоратор пишет шаблонные методы из аннотаций полей. frozen/order/slots — опции.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m700",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что такое N+1 проблема?",
     "options": [
-      "1 запрос списка + N запросов на связанные сущности",
-      "один огромный JOIN всегда bad",
-      "только NoSQL",
-      "утверждение про другой уровень стека"
+      "1 запрос списка + N запросов на каждую связанную сущность",
+      "N индексов на одну таблицу",
+      "N+1 потоков GIL",
+      "ошибка HTTP 501"
     ],
     "answer": 0,
-    "explain": "Лечится join/eager load/IN — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "Классика ORM: for u in users: u.orders лениво бьёт БД. Лечится eager load / join.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m701",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "sqlite",
     "q": "Что такое sqlite3 в stdlib?",
     "options": [
-      "встроенная БД в файле/памяти",
-      "клиент Postgres",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "драйвер встроенной SQLite БД (файл или :memory:)",
+      "клиент PostgreSQL",
+      "NoSQL документная БД",
+      "ORM как SQLAlchemy"
     ],
     "answer": 0,
-    "explain": "Встроенная БД в файле/памяти. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Лёгкая встроенная СУБД в процессе. Для продвинутого SQL/пулов часто берут другие стеки.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m702",
-    "fixed": true
+    "fixed": true,
+    "topic": "sqlite",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что вернёт lru_cache(typed=True)?",
     "options": [
       "различает типы аргументов",
@@ -11395,12 +11395,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — различает типы аргументов. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m703",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что выведет код?",
     "options": [
       "other",
@@ -11409,31 +11409,31 @@ window.QUESTIONS_MIDDLE = [
       "False"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в other. Пройди выражение слева направо с учётом типов.",
+    "explain": "match/case выбирает первую подходящую ветку. Здесь срабатывает случай → other.",
     "kind": "single",
     "code": "x = 2\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
-    "group": "Typing и dataclasses",
     "id": "m704",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "ASGI",
     "q": "Что такое ASGI?",
     "options": [
-      "async интерфейс Python веб-приложений",
-      "старый CGI",
-      "замена TCP",
-      "тип list"
+      "асинхронный интерфейс Python веб-приложений (наследник идей WSGI)",
+      "только sync CGI",
+      "протокол БД",
+      "формат логов"
     ],
     "answer": 0,
-    "explain": "Async интерфейс Python веб-приложений. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "ASGI поддерживает async, websocket, lifespan. FastAPI/Starlette/Django ASGI.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m705",
-    "fixed": true
+    "fixed": true,
+    "topic": "ASGI",
+    "group": "Веб и API"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "x/y/z/w",
@@ -11442,15 +11442,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в x/y/z/w. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: x/y/z/w.",
     "kind": "single",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('x', 'y', 'z', 'w'))",
-    "group": "Stdlib и производительность",
     "id": "m706",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[0, 1, 2, 3]",
@@ -11462,12 +11462,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Islice — ленивый срез — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import islice\nprint(list(islice([0, 1, 2, 3, 4, 5], 4)))",
-    "group": "Collections и itertools",
     "id": "m707",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт isinstance([1], tuple[int, ...]) в обычном CPython?",
     "options": [
       "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
@@ -11478,173 +11478,173 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m708",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "DI",
     "q": "Чем помогает Dependency Injection?",
     "options": [
-      "тестируемости и слабой связанности",
-      "ускорить GIL",
-      "уменьшить RAM магией",
-      "заменить типы"
+      "тестируемости и слабой связанности (зависимости снаружи)",
+      "ускорению CPU обязательно",
+      "скрытию всех зависимостей в глобалах",
+      "замене типов"
     ],
     "answer": 0,
-    "explain": "Тестируемости и слабой связанности. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Передаёшь db/client в конструктор — в тесте подменяешь моком. Против жёсткого new Inside.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m709",
-    "fixed": true
-  },
-  {
-    "topic": "struct",
-    "q": "Что такое struct.pack упаковывает?",
-    "options": [
-      "значения в bytes по формату",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
-    ],
-    "answer": 0,
-    "explain": "Значения в bytes по формату. Соседние варианты обычно про другой механизм или уровень стека.",
-    "kind": "single",
-    "group": "Stdlib и производительность",
-    "id": "m710",
-    "fixed": true
-  },
-  {
-    "topic": "functools",
-    "q": "Что такое wraps копирует?",
-    "options": [
-      "__module__, __name__, __doc__, …",
-      "утверждение про другой уровень стека",
-      "defaults only",
-      "поведение, которого в CPython нет"
-    ],
-    "answer": 0,
-    "explain": "__module__, __name__, __doc__, …. Соседние варианты обычно про другой механизм или уровень стека.",
-    "kind": "single",
-    "group": "Collections и itertools",
-    "id": "m711",
-    "fixed": true
-  },
-  {
-    "topic": "dataclasses",
-    "q": "Что означает: @dataclass class Node: x: int = 1 — экземпляры делят x?",
-    "options": [
-      "нет, int immutable default ок",
-      "да, как list",
-      "ошибка синтаксиса",
-      "только frozen"
-    ],
-    "answer": 0,
-    "explain": "Нет, int immutable default ок. Соседние варианты обычно про другой механизм или уровень стека.",
-    "kind": "single",
-    "group": "Typing и dataclasses",
-    "id": "m712",
-    "fixed": true
-  },
-  {
+    "fixed": true,
     "topic": "DI",
-    "q": "Что верно про ambient context антипаттерн когда?",
+    "group": "Веб и API"
+  },
+  {
+    "q": "Что делает struct.pack?",
     "options": [
-      "скрытые глобальные зависимости",
-      "явный init",
-      "typed ports",
-      "tests fakes"
+      "упаковывает значения в bytes по format-строке",
+      "парсит JSON",
+      "сжимает gzip",
+      "кодирует URL"
     ],
     "answer": 0,
-    "explain": "Скрытые глобальные зависимости. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Бинарные протоколы/файлы: pack/unpack с endianness и типами C.",
     "kind": "single",
-    "group": "Веб и API",
+    "id": "m710",
+    "fixed": true,
+    "topic": "struct",
+    "group": "Stdlib и производительность"
+  },
+  {
+    "q": "Что копирует functools.wraps?",
+    "options": [
+      "__module__, __name__, __doc__, __annotations__, …",
+      "только байткод",
+      "только closure",
+      "ничего — wraps пустой"
+    ],
+    "answer": 0,
+    "explain": "@wraps(f) на обёртке декоратора сохраняет метаданные исходной функции.",
+    "kind": "single",
+    "id": "m711",
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
+  },
+  {
+    "q": "@dataclass class Node: x: int = 1 — шарится ли default между экземплярами?",
+    "options": [
+      "нет — int immutable, default безопасен",
+      "да как у list",
+      "ошибка dataclass",
+      "x станет shared dict"
+    ],
+    "answer": 0,
+    "explain": "Опасны мутабельные defaults. int/str/None/tuple из иммутабельного — ок.",
+    "kind": "single",
+    "id": "m712",
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
+  },
+  {
+    "q": "Когда ambient context — антипаттерн?",
+    "options": [
+      "когда зависимости спрятаны в скрытых глобалах/thread-locals без явного контракта",
+      "всегда при любом contextvars",
+      "только в C",
+      "никогда"
+    ],
+    "answer": 0,
+    "explain": "Неявный «текущий пользователь» усложняет тесты и рассуждения. Contextvars уместны осознанно.",
+    "kind": "single",
     "id": "m713",
-    "fixed": true
+    "fixed": true,
+    "topic": "DI",
+    "group": "Веб и API"
   },
   {
-    "topic": "subprocess",
-    "q": "Что такое DEVNULL?",
+    "q": "Для чего subprocess.DEVNULL?",
     "options": [
-      "подавить stdout/stderr",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "подавить stdout/stderr (как /dev/null)",
+      "обязательный pipe",
+      "интерактивный TTY",
+      "файл логов с ротацией"
     ],
     "answer": 0,
-    "explain": "Подавить stdout/stderr. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "stdout=DEVNULL — не копим вывод, не видим его.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m714",
-    "fixed": true
+    "fixed": true,
+    "topic": "subprocess",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "heapq",
-    "q": "Что делает `heapq.nsmallest`?",
+    "q": "Что делает heapq.nsmallest?",
     "options": [
-      "k наименьших",
-      "полная сортировка обязательна внешне",
-      "max heap",
-      "утверждение про другой уровень стека"
+      "возвращает k наименьших элементов",
+      "строит max-heap",
+      "сортирует только уникальные",
+      "удаляет минимум из list in-place всегда"
     ],
     "answer": 0,
-    "explain": "K наименьших. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Эффективнее полной сортировки при малом k. Есть nlargest.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m715",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
       "10",
-      "утверждение про другой уровень стека",
-      "ошибка",
-      "поведение, которого здесь нет"
+      "0",
+      "1",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "10. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Морж := присваивает и сразу отдаёт значение в выражении → 10.",
     "kind": "single",
     "code": "if (x := 10):\n    print(x)\nelse:\n    print('no')",
-    "group": "Typing и dataclasses",
     "id": "m716",
-    "fixed": true
+    "fixed": true,
+    "topic": "walrus",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "DI",
     "q": "Что такое constructor injection?",
     "options": [
-      "зависимости через __init__",
-      "global import only",
-      "monkeypatch prod",
-      "env только"
+      "зависимости передаются через __init__",
+      "поиск сервиса в глобальном registry внутри метода",
+      "только setter injection",
+      "import внутри функции всегда"
     ],
     "answer": 0,
-    "explain": "Зависимости через __init__. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Явные аргументы конструктора — самый прямой и тестируемый вид DI.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m717",
-    "fixed": true
+    "fixed": true,
+    "topic": "DI",
+    "group": "Веб и API"
   },
   {
-    "topic": "JSON",
-    "q": "Что верно про json не сериализует напрямую?",
+    "q": "Что json не сериализует напрямую?",
     "options": [
-      "set, сложные объекты",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "set, bytes, произвольные объекты без default=",
+      "dict и list",
+      "str и int",
+      "bool и None"
     ],
     "answer": 0,
-    "explain": "Set, сложные объекты. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Нужен default= callable или заранее привести к JSON-типам.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m718",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[(1, 1), (2, 1), (1, 1)]",
@@ -11656,93 +11656,93 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Groupby группирует только подряд идущие одинаковые. Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([1, 2, 1])])",
-    "group": "Collections и itertools",
     "id": "m719",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что такое replace(obj, **changes)?",
+    "q": "Что делает dataclasses.replace(obj, **changes)?",
     "options": [
-      "новый объект с заменами",
-      "мутирует obj",
-      "утверждение про другой уровень стека",
-      "slots destroy"
+      "возвращает новый объект с заменами полей",
+      "меняет obj in-place",
+      "удаляет dataclass",
+      "только для frozen=False запрещён"
     ],
     "answer": 0,
-    "explain": "Новый объект с заменами. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Особенно полезно с frozen=True — «копия с правками».",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m720",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "FastAPI",
-    "q": "Что такое FastAPI строится вокруг?",
+    "q": "Вокруг чего строится FastAPI?",
     "options": [
-      "type hints + ASGI",
-      "только Flask sync",
-      "GIL removal",
-      "утверждение про другой уровень стека"
+      "type hints + ASGI (Pydantic/Starlette)",
+      "только sync WSGI без типов",
+      "GUI Tkinter",
+      "multiprocessing Pool"
     ],
     "answer": 0,
-    "explain": "Type hints + ASGI. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Аннотации → валидация/OpenAPI. ASGI — async-сервер.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m721",
-    "fixed": true
+    "fixed": true,
+    "topic": "FastAPI",
+    "group": "Веб и API"
   },
   {
-    "topic": "regex",
     "q": "Что делает re.IGNORECASE?",
     "options": [
-      "флаг i",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "делает поиск без учёта регистра (флаг i)",
+      "включает DOTALL",
+      "отключает Unicode",
+      "только ASCII"
     ],
     "answer": 0,
-    "explain": "Флаг i. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "re.I / re.IGNORECASE. Можно inline (?i).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m722",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "16",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "4",
+      "8",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "16. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "itertools строит комбинаторный итератор; len(...) здесь 16.",
     "kind": "single",
     "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=4))))",
-    "group": "Collections и itertools",
     "id": "m723",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что такое KW_ONLY sentinel?",
+    "q": "Что такое KW_ONLY в dataclass?",
     "options": [
-      "поля после — keyword-only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "поля после маркера — только keyword-only в __init__",
+      "запрет kwargs",
+      "только ClassVar",
+      "удаление полей"
     ],
     "answer": 0,
-    "explain": "Поля после — keyword-only. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "dataclasses.KW_ONLY (3.10+): удобно смешивать позиционные и kw-only поля.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m724",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 201 — кратко?",
     "options": [
       "ресурс создан",
@@ -11753,206 +11753,206 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 201: ресурс создан — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m725",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "\"hi\"",
-      "ошибка",
-      "ошибка",
-      "None"
+      "hi",
+      "dict",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "\"hi\". Не путай с соседними похожими терминами из той же темы.",
+    "explain": "json.dumps строки даёт JSON-строку с кавычками \"hi\".",
     "kind": "single",
     "code": "import json\nprint(json.dumps('hi'))",
-    "group": "Stdlib и производительность",
     "id": "m726",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что верно про lru_cache(maxsize=None (безлимит)) хранит?",
+    "q": "Что хранит lru_cache(maxsize=None)?",
     "options": [
-      "неограниченно (осторожно с RAM)",
-      "ровно 0 записей",
-      "на диске",
-      "в Redis"
+      "неограниченный кэш (осторожно с RAM)",
+      "ровно 128 элементов",
+      "ничего",
+      "только ошибки"
     ],
     "answer": 0,
-    "explain": "Неограниченно (осторожно с RAM). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Безлимит растёт с уникальными аргументами. Для чистой мемоизации иногда cache().",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m727",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "protocols",
-    "q": "Что такое @runtime_checkable ограничен?",
+    "q": "Чем ограничен @runtime_checkable Protocol?",
     "options": [
-      "наличием методов, не сигнатур глубоко",
-      "полной проверкой типов args",
-      "скоростью C",
-      "ABC ban"
+      "isinstance проверяет наличие методов, не глубокие сигнатуры",
+      "полной проверкой типов аргументов в runtime",
+      "только статическим checker без runtime",
+      "запретом isinstance"
     ],
     "answer": 0,
-    "explain": "Наличием методов, не сигнатур глубоко. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "runtime_checkable — поверхностно. Для строгости — type checker.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m728",
-    "fixed": true
+    "fixed": true,
+    "topic": "protocols",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
-    "q": "Что верно про HTTP 403 обычно значит?",
+    "q": "Что обычно значит HTTP 403?",
     "options": [
-      "Forbidden",
-      "всегда успех",
-      "только редирект",
-      "утверждение про другой уровень стека"
+      "Forbidden — доступ запрещён",
+      "Unauthorized (это ближе к 401)",
+      "Not Found",
+      "OK"
     ],
     "answer": 0,
-    "explain": "403 — Forbidden — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
+    "explain": "403: личность известна (или нет смысла аутентифицировать), но права нет. 401 — «представься».",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m729",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "regex",
     "q": "Что выведет код?",
     "options": [
       "'a'",
-      "'stack'",
-      "ошибка",
-      "None"
+      "'A'",
+      "None",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "'a'. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Регулярка ищет совпадение по паттерну. Результат группы/поиска: 'a'.",
     "kind": "single",
     "code": "import re\nm = re.search('[aeiou]', 'stack')\nprint(None if m is None else m.group())",
-    "group": "Stdlib и производительность",
     "id": "m730",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
-    "q": "Что такое itertools.chain склеивает?",
+    "q": "Что делает itertools.chain?",
     "options": [
-      "итерируемые лениво",
-      "только list",
-      "утверждение про другой уровень стека",
-      "строки обязательно"
+      "лениво склеивает несколько итерируемых в один поток",
+      "создаёт декартово произведение",
+      "сортирует",
+      "удаляет дубликаты"
     ],
     "answer": 0,
-    "explain": "Последовательная итерация — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "chain(a,b,c) — как последовательный for. chain.from_iterable для списка списков.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m731",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "enum",
-    "q": "Что такое auto() в Enum?",
+    "q": "Что такое enum.auto()?",
     "options": [
-      "автозначения",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "автоматическая подстановка значений членов Enum",
+      "случайное значение каждый раз",
+      "только строки",
+      "запрет Flag"
     ],
     "answer": 0,
-    "explain": "Enum.auto — Enum задаёт именованные константы с фиксированным набором значений.",
+    "explain": "auto() даёт 1,2,3… (или по правилам кастомного _generate_next_value_).",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m732",
-    "fixed": true
+    "fixed": true,
+    "topic": "enum",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "FastAPI",
-    "q": "Зачем нужен Depends()?",
+    "q": "Зачем Depends() в FastAPI?",
     "options": [
-      "внедрения зависимостей (DI) в эндпоинты",
-      "SQL only",
-      "утверждение про другой уровень стека",
-      "замены pydantic"
+      "внедрение зависимостей в эндпоинты",
+      "SQL migration",
+      "gzip middleware",
+      "генерация JWT ключа"
     ],
     "answer": 0,
-    "explain": "Внедрения зависимостей (DI) в эндпоинты. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Общие ресурсы (сессия, user) объявляешь один раз и переиспользуешь.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m733",
-    "fixed": true
+    "fixed": true,
+    "topic": "FastAPI",
+    "group": "Веб и API"
   },
   {
-    "topic": "struct",
-    "q": "Что такое iter_unpack?",
+    "q": "Что делает struct.iter_unpack?",
     "options": [
-      "лениво распаковывает буфер",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "лениво распаковывает буфер кусками по format",
+      "только один unpack всего файла в tuple",
+      "пакует в JSON",
+      "сжимает"
     ],
     "answer": 0,
-    "explain": "Лениво распаковывает буфер. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Удобно читать бинарный поток записей фиксированного размера.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m734",
-    "fixed": true
+    "fixed": true,
+    "topic": "struct",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
-    "q": "Что такое UserList?",
+    "q": "Что такое collections.UserList?",
     "options": [
-      "обёртка для кастомного list API",
-      "быстрее list",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "обёртка-база для кастомного list-like API",
+      "быстрее list всегда",
+      "deque",
+      "только для JSON"
     ],
     "answer": 0,
-    "explain": "Обёртка для кастомного list API. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Наследование от list исторически кавернозно; UserList.data — данные.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m735",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что делает asdict(obj)?",
+    "q": "Что делает dataclasses.asdict(obj)?",
     "options": [
-      "рекурсивно в dict",
-      "json string",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "рекурсивно превращает dataclass в dict",
+      "меняет obj in-place в dict",
+      "только JSON string",
+      "удаляет вложенность"
     ],
     "answer": 0,
-    "explain": "Рекурсивно в dict. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Вложенные dataclass/list/tuple тоже обходятся. Для JSON потом dumps.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m736",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
-    "q": "Что такое session.rollback в SQLAlchemy?",
+    "q": "Что делает session.rollback в SQLAlchemy?",
     "options": [
-      "отменяет транзакцию",
-      "drop table",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "отменяет текущую транзакцию",
+      "коммитит",
+      "удаляет engine",
+      "создаёт миграцию"
     ],
     "answer": 0,
-    "explain": "Откат — SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
+    "explain": "После ошибки или отмены — rollback, иначе сессия в плохом состоянии.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m737",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "True (shallow)",
@@ -11961,31 +11961,31 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в True (shallow). Пройди выражение слева направо с учётом типов.",
+    "explain": "Shallow: внутренний list общий между a и b.",
     "kind": "single",
     "code": "import copy\na = [[1, 2, 3]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m738",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что такое partial(f, 1)(2) эквивалентно?",
+    "q": "Чему эквивалентно partial(f, 1)(2)?",
     "options": [
       "f(1, 2)",
       "f(2, 1)",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "f(1)",
+      "f()"
     ],
     "answer": 0,
-    "explain": "F(1, 2). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "partial фиксирует ведущие позиционные аргументы.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m739",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт Union[int, str] эквивалент 3.10+?",
     "options": [
       "int | str",
@@ -11996,44 +11996,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — int | str. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m740",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "FastAPI",
-    "q": "Что такое APIRouter?",
+    "q": "Что такое APIRouter в FastAPI?",
     "options": [
-      "модульные маршруты",
-      "утверждение про другой уровень стека",
-      "GIL router",
-      "поведение, которого в CPython нет"
+      "модульные группы маршрутов, подключаемые к приложению",
+      "ORM router",
+      "Celery beat",
+      "WSGI server"
     ],
     "answer": 0,
-    "explain": "Модульные маршруты. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Дроби API по модулям: users.router, include_router с prefix/tags.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m741",
-    "fixed": true
+    "fixed": true,
+    "topic": "FastAPI",
+    "group": "Веб и API"
   },
   {
-    "topic": "regex",
     "q": "Что делает re.DOTALL?",
     "options": [
-      "точка включает \\n",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "точка `.` совпадает и с переводом строки",
+      "игнорирует регистр",
+      "только ASCII",
+      "отключает группы"
     ],
     "answer": 0,
-    "explain": "Точка включает \\n. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "По умолчанию `.` не ест `\\n`. DOTALL/S — ест.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m742",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[(0, 2), (1, 2), (0, 1)]",
@@ -12045,29 +12045,29 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Groupby группирует только подряд идущие одинаковые. Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([0, 0, 1, 1, 0])])",
-    "group": "Collections и itertools",
     "id": "m743",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что выведет код?",
     "options": [
       "many",
-      "ошибка",
-      "None",
-      "[1, 2, 3]"
+      "one",
+      "none",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Many. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "match/case попадает в ветку many.",
     "kind": "single",
     "code": "x = [1, 2, 3]\nmatch x:\n    case []:\n        print('empty')\n    case [_]:\n        print('single')\n    case [_, _]:\n        print('pair')\n    case _:\n        print('many')",
-    "group": "Typing и dataclasses",
     "id": "m744",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что делает OPTIONS по семантике HTTP?",
     "options": [
       "идемпотентный (в идеале)",
@@ -12078,12 +12078,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "OPTIONS безопасен к повтору на уровне семантики спеки (кэш/прокси учитывай).",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m745",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "pathlib",
     "q": "Что получится?",
     "options": [
       "Path('a/b') или a\\b",
@@ -12092,48 +12092,48 @@ window.QUESTIONS_MIDDLE = [
       "list"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в Path('a/b') или a\\b. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: Path('a/b') или a\\b.",
     "kind": "single",
     "code": "from pathlib import Path\nprint(Path('a') / 'b')",
-    "group": "Stdlib и производительность",
     "id": "m746",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что делает deque.rotate(4) на 7 элементах?",
     "options": [
-      "цикл сдвиг на 4 вправо (отриц. — влево)",
+      "циклический сдвиг на 4 вправо (отриц. — влево)",
+      "удаляет 4 элемента",
       "сортирует",
-      "удаляет k",
-      "ошибка всегда"
+      "оставляет без изменений"
     ],
     "answer": 0,
-    "explain": "Цикл сдвиг на 4 вправо (отриц. — влево). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "rotate переносит элементы кольцом.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m747",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что выведет код?",
     "options": [
       "one",
-      "ошибка",
-      "None",
-      "False"
+      "two",
+      "many",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "One. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "match выбирает ветку one.",
     "kind": "single",
     "code": "x = 1\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
-    "group": "Typing и dataclasses",
     "id": "m748",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 503 — кратко?",
     "options": [
       "сервис недоступен",
@@ -12144,60 +12144,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 503: сервис недоступен — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m749",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "import",
     "q": "Что делает pkgutil.iter_modules?",
     "options": [
-      "перечисляет модули пакета",
-      "ставит pip",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "перечисляет модули/пакеты в пути пакета",
+      "устанавливает pip-пакеты",
+      "компилирует .pyc",
+      "удаляет __init__.py"
     ],
     "answer": 0,
-    "explain": "Перечисляет модули пакета. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Удобно для плагинов: найти все подмодули пакета.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m750",
-    "fixed": true
+    "fixed": true,
+    "topic": "import",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что верно про lru_cache(maxsize=1) хранит?",
+    "q": "Сколько результатов хранит lru_cache(maxsize=1)?",
     "options": [
-      "до 1 результатов вызовов",
-      "только последний вызов всегда",
-      "на диске",
-      "в Redis"
+      "до 1 результата (последний вызов)",
+      "128",
+      "безлимит",
+      "0"
     ],
     "answer": 0,
-    "explain": "До 1 результатов вызовов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Любой новый уникальный аргумент вытесняет предыдущий.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m751",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
-    "q": "Что такое параметр `a` в `def f(*, a)`?",
+    "q": "Что такое параметр a в def f(*, a)?",
     "options": [
       "keyword-only",
       "positional-only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "*args",
+      "**kwargs"
     ],
     "answer": 0,
-    "explain": "Keyword-only. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "После голого * все параметры только по имени: f(a=1).",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m752",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "SQL",
     "q": "Что верно про SELECT … LIMIT 500 без ORDER BY?",
     "options": [
       "набор из N строк без стабильного порядка",
@@ -12208,61 +12208,61 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Без ORDER BY порядок не гарантирован. SQL-запросы лучше параметризовать: склейка строк с пользовательским вводом открывает инъекции.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m753",
-    "fixed": true
+    "fixed": true,
+    "topic": "SQL",
+    "group": "Веб и API"
   },
   {
-    "topic": "weakref",
-    "q": "Что такое getweakrefcount?",
+    "q": "Что показывает weakref.getweakrefcount?",
     "options": [
-      "число слабых ссылок",
-      "refcount сильных",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "число слабых ссылок на объект",
+      "сильный refcount",
+      "размер объекта",
+      "поколение GC"
     ],
     "answer": 0,
-    "explain": "Число слабых ссылок. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Сколько WeakRef/прокси сейчас смотрят на объект.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m754",
-    "fixed": true
+    "fixed": true,
+    "topic": "weakref",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "7",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "3",
+      "4",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "7. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "reduce последовательно сворачивает последовательность бинарной функцией → 7.",
     "kind": "single",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [5, 1, 1]))",
-    "group": "Collections и itertools",
     "id": "m755",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что верно про InitVar не попадает в?",
+    "q": "Куда не попадает InitVar как обычное поле?",
     "options": [
-      "repr/eq хранимые поля как обычное поле",
-      "утверждение про другой уровень стека",
-      "аннотации",
-      "поведение, которого в CPython нет"
+      "в хранимые поля экземпляра / обычный repr/eq набор полей",
+      "в аргументы __init__",
+      "в __post_init__",
+      "никогда никуда не передаётся"
     ],
     "answer": 0,
-    "explain": "Repr/eq хранимые поля как обычное поле. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "InitVar только для инициализации; после конструктора как атрибут не живёт.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m756",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "HTTP",
     "q": "Что такое Статус 429 — кратко?",
     "options": [
       "лимит запросов",
@@ -12273,92 +12273,92 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "HTTP 429: лимит запросов — В вебе важны статус-коды, идемпотентность методов и аккуратная работа с телом запроса.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m757",
-    "fixed": true
+    "fixed": true,
+    "topic": "HTTP",
+    "group": "Веб и API"
   },
   {
-    "topic": "struct",
-    "q": "Что такое endianness в format?",
+    "q": "Как задать endianness в struct format?",
     "options": [
-      "< little > big",
-      "только native",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "< little-endian, > big-endian (есть и =, !)",
+      "только через sys.byteorder без format",
+      "endianness нельзя задать",
+      "только UTF-8"
     ],
     "answer": 0,
-    "explain": "< little > big. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Первый символ format задаёт порядок байт и выравнивание.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m758",
-    "fixed": true
+    "fixed": true,
+    "topic": "struct",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что вернёт cache (3.9) = lru_cache без?",
+    "q": "Чему равен functools.cache (3.9+)?",
     "options": [
-      "maxsize limit (безлимит)",
-      "утверждение про другой уровень стека",
-      "ключ",
-      "ошибка"
+      "lru_cache(maxsize=None) — безлимитный кэш",
+      "lru_cache(maxsize=128)",
+      "частичный partial",
+      "weakref кэш"
     ],
     "answer": 0,
-    "explain": "Результат выражения — maxsize limit (безлимит). Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Синтаксический сахар для безлимитной мемоизации.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m759",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что верно про compare=False исключает поле из?",
+    "q": "Что делает field(compare=False)?",
     "options": [
-      "сравнений",
-      "утверждение про другой уровень стека",
-      "repr always",
-      "поведение, которого в CPython нет"
+      "исключает поле из сравнений __eq__/order",
+      "удаляет поле",
+      "запрещает hash всего класса",
+      "делает InitVar"
     ],
     "answer": 0,
-    "explain": "Сравнений. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Полезно для кэшей/служебных полей, которые не должны влиять на равенство.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m760",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "DI",
-    "q": "В чём разница: service locator vs injection?",
+    "q": "Чем injection лучше service locator?",
     "options": [
-      "injection явнее и тестируемее",
-      "locator всегда лучше",
-      "одно и то же",
-      "GIL pattern"
+      "зависимости явнее и обычно тестируемее",
+      "locator всегда быстрее",
+      "разницы нет",
+      "injection запрещён в Python"
     ],
     "answer": 0,
-    "explain": "Injection явнее и тестируемее. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Service locator прячет зависимости внутри — сложнее видеть контракт. DI передаёт их снаружи.",
     "kind": "single",
-    "group": "Веб и API",
     "id": "m761",
-    "fixed": true
+    "fixed": true,
+    "topic": "DI",
+    "group": "Веб и API"
   },
   {
-    "topic": "JSON",
-    "q": "В чём разница: json.loads vs load?",
+    "q": "Чем json.loads отличается от json.load?",
     "options": [
-      "строка vs file object",
-      "нет разницы",
-      "bytes vs path",
-      "утверждение про другой уровень стека"
+      "loads — из str/bytes; load — из file-like",
+      "разницы нет",
+      "load только из URL",
+      "loads только из Path"
     ],
     "answer": 0,
-    "explain": "Строка vs file object. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Аналогично dumps vs dump.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m762",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[1, 3, 6, 10, 15]",
@@ -12370,77 +12370,77 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Накопительная сумма — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 6))))",
-    "group": "Collections и itertools",
     "id": "m763",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Что такое TypedDict inheritance?",
+    "q": "Можно ли наследовать TypedDict?",
     "options": [
-      "можно расширять/переопределять ключи по правилам",
-      "запрещено",
-      "как dataclass frozen auto",
-      "обязательная проверка типов на каждом вызове в CPython"
+      "да — расширять/сужать ключи по правилам total/Required",
+      "нет никогда",
+      "только от dataclass",
+      "только в runtime isinstance"
     ],
     "answer": 0,
-    "explain": "Можно расширять/переопределять ключи по правилам. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Наследование TypedDict поддерживается; следи за total=False и переопределениями.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m764",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "subprocess",
-    "q": "Что такое capture_output=True в run?",
+    "q": "Что делает capture_output=True в run?",
     "options": [
-      "собирает stdout/stderr",
-      "shell=True",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "собирает stdout и stderr в результат",
+      "печатает на консоль принудительно",
+      "включает shell",
+      "игнорирует код возврата"
     ],
     "answer": 0,
-    "explain": "Собирает stdout/stderr. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "См. CompletedProcess.stdout/stderr. Часто вместе с text=True.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m765",
-    "fixed": true
+    "fixed": true,
+    "topic": "subprocess",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "dict",
-    "q": "Что вернёт dict.fromkeys(['a','b'], []) — опасность?",
+    "q": "Опасность dict.fromkeys(['a','b'], [])?",
     "options": [
       "один и тот же list на все ключи",
-      "утверждение про другой уровень стека",
-      "нет опасности",
-      "глубокая копия"
+      "ключи не создаются",
+      "всегда deepcopy",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "Результат выражения — один и тот же list на все ключи. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Мутабельный value шарится. Нужны отдельные list на ключ.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m766",
-    "fixed": true
+    "fixed": true,
+    "topic": "dict",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
     "q": "Что выведет код?",
     "options": [
       "[1]",
-      "ошибка",
-      "ошибка shared",
-      "None"
+      "[]",
+      "[1,1]",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "[1]. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "default_factory=list даёт новый list на экземпляр; после append остаётся [1].",
     "kind": "single",
     "code": "from dataclasses import dataclass, field\n@dataclass\nclass A:\n    xs: list = field(default_factory=list)\na, b = A(), A()\na.xs.append(1)\nprint(b.xs)",
-    "group": "Typing и dataclasses",
     "id": "m767",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "GC",
     "q": "Что делает gc.disable()?",
     "options": [
       "отключает cyclic GC",
@@ -12451,12 +12451,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Refcount остаётся — Сборка мусора сочетает подсчёт ссылок и отдельный проход для циклов ссылок.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m768",
-    "fixed": true
+    "fixed": true,
+    "topic": "GC",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[1, 3]",
@@ -12468,12 +12468,12 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Накопительная сумма — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import accumulate\nprint(list(accumulate(range(1, 3))))",
-    "group": "Collections и itertools",
     "id": "m769",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что такое TypedDict total=False?",
     "options": [
       "ключи опциональны",
@@ -12484,44 +12484,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Ключи опциональны. Это про проверку типов/сигнатуры, не про ускорение runtime.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m770",
-    "fixed": true
-  },
-  {
-    "topic": "регулярки",
-    "q": "Что такое (?=...)?",
-    "options": [
-      "positive lookahead",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "non-greedy"
-    ],
-    "answer": 0,
-    "explain": "Positive lookahead. Не путай с соседними похожими терминами из той же темы.",
-    "kind": "single",
-    "group": "Stdlib и производительность",
-    "id": "m771",
-    "fixed": true
-  },
-  {
-    "topic": "functools",
-    "q": "Что такое cached_property?",
-    "options": [
-      "кэш на экземпляре",
-      "lru глобальный",
-      "classmethod",
-      "утверждение про другой уровень стека"
-    ],
-    "answer": 0,
-    "explain": "Кэш на экземпляре. Не путай с соседними похожими терминами из той же темы.",
-    "kind": "single",
-    "group": "Collections и itertools",
-    "id": "m772",
-    "fixed": true
-  },
-  {
+    "fixed": true,
     "topic": "typing",
+    "group": "Typing и dataclasses"
+  },
+  {
+    "q": "Что такое (?=...) в regex?",
+    "options": [
+      "positive lookahead — проверка вперёд без захвата",
+      "positive lookbehind",
+      "именованная группа",
+      "жадный квантификатор"
+    ],
+    "answer": 0,
+    "explain": "(?=\\d) — дальше цифра, но в match она не входит. Есть (?!...), (?<=...), (?<!...).",
+    "kind": "single",
+    "id": "m771",
+    "fixed": true,
+    "topic": "регулярки",
+    "group": "Stdlib и производительность"
+  },
+  {
+    "q": "Что такое functools.cached_property?",
+    "options": [
+      "свойство, кэширующее результат на экземпляре после первого доступа",
+      "LRU на функцию модуля",
+      "classmethod кэш",
+      "weakref property"
+    ],
+    "answer": 0,
+    "explain": "Пишется в __dict__ экземпляра. Для async/мультипотока — нюансы.",
+    "kind": "single",
+    "id": "m772",
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
+  },
+  {
     "q": "Что вернёт isinstance([1], list[int]) в обычном CPython?",
     "options": [
       "TypeError (или False в отдельных случаях) — generic alias не для isinstance так",
@@ -12532,62 +12532,62 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Для generics нужен typing.get_origin / runtime_checkable Protocol осторожно.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m773",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "regex",
     "q": "Что выведет код?",
     "options": [
       "None",
-      "'42a'",
-      "ошибка",
-      "True"
+      "'a'",
+      "''",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "None. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Регулярка ищет совпадение по паттерну. Результат группы/поиска: None.",
     "kind": "single",
     "code": "import re\nm = re.search('^\\\\d+$', '42a')\nprint(None if m is None else m.group())",
-    "group": "Stdlib и производительность",
     "id": "m774",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "24",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "12",
+      "6",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "24. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "reduce последовательно сворачивает последовательность бинарной функцией → 24.",
     "kind": "single",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a * b, [1, 2, 3, 4]))",
-    "group": "Collections и itertools",
     "id": "m775",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
-    "q": "Что такое Required/NotRequired в TypedDict?",
+    "q": "Что делают Required/NotRequired в TypedDict?",
     "options": [
-      "тонкая настройка обязательности ключей",
-      "валидация pydantic",
-      "это ускорение байткода в runtime",
-      "это обязательная проверка типов на каждом вызове"
+      "тонко задают обязательность отдельных ключей",
+      "удаляют ключи в runtime",
+      "валидируют JSON автоматически",
+      "заменяют total="
     ],
     "answer": 0,
-    "explain": "Тонкая настройка обязательности ключей. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "PEP 655: при total=False/True можно точечно пометить ключи.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m776",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "True (shallow)",
@@ -12596,31 +12596,31 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в True (shallow). Пройди выражение слева направо с учётом типов.",
+    "explain": "copy.copy — поверхностная копия: контейнер новый, вложения общие. Здесь: True (shallow).",
     "kind": "single",
     "code": "import copy\na = [[]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m777",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что такое lru_cache(maxsize=None)?",
     "options": [
-      "безлимитный кэш (осторожно с памятью)",
-      "без кэша",
-      "TTL cache",
-      "disk cache"
+      "безлимитный кэш (смотри за памятью)",
+      "кэш на 128",
+      "отключённый кэш",
+      "кэш только ошибок"
     ],
     "answer": 0,
-    "explain": "Безлимитный кэш (осторожно с памятью). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Растёт неограниченно с уникальными вызовами.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m778",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что такое Optional[X]?",
     "options": [
       "X | None",
@@ -12631,61 +12631,61 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "X | None. Это про проверку типов/сигнатуры, не про ускорение runtime.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m779",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "42",
-      "ошибка",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет"
+      "'42'",
+      "None",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "42. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "json.loads числа даёт int 42.",
     "kind": "single",
     "code": "import json\nprint(json.dumps(42))",
-    "group": "Stdlib и производительность",
     "id": "m780",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что такое lru_cache не для?",
+    "q": "Для чего lru_cache не подходит?",
     "options": [
-      "нехешируемых аргументов",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "для нехешируемых аргументов (list, dict)",
+      "для int и str",
+      "для tuple из hashable",
+      "для frozenset"
     ],
     "answer": 0,
-    "explain": "Нехешируемых аргументов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Ключ кэша строится из аргументов → нужны hashable. Иначе TypeError.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m781",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
-    "q": "Что такое паттерн match case [x, *rest] в Python 3.10+?",
+    "q": "Что делает case [x, *rest] в match?",
     "options": [
-      "матчит последовательность",
-      "только list тип строго runtime class",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "матчит последовательность: первый элемент и хвост",
+      "только словари",
+      "синтаксическая ошибка",
+      "только строки посимвольно без *"
     ],
     "answer": 0,
-    "explain": "Матчит последовательность. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Sequence pattern с starred захватом остатка.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m782",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "is",
     "q": "Что выведет код?",
     "options": [
       "True",
@@ -12697,29 +12697,29 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде истинно. Пройди операторы и типы операндов по шагам.",
     "kind": "single",
     "code": "print(256 is 256)",
-    "group": "Stdlib и производительность",
     "id": "m783",
-    "fixed": true
+    "fixed": true,
+    "topic": "is",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
       "4",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "3",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "4. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "bisect_left/right — индекс вставки в отсортированную последовательность → 4.",
     "kind": "single",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 8))",
-    "group": "Collections и itertools",
     "id": "m784",
-    "fixed": true
+    "fixed": true,
+    "topic": "bisect",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что такое get_type_hints?",
     "options": [
       "резолвит аннотации",
@@ -12730,44 +12730,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Резолвит аннотации. Это про проверку типов/сигнатуры, не про ускорение runtime.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m785",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "JSON",
-    "q": "Что такое object_hook?",
+    "q": "Что такое object_hook в json.loads?",
     "options": [
-      "постпроцесс dict при loads",
-      "dumps only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "постобработка каждого JSON-объекта (dict) при разборе",
+      "сериализация в dumps",
+      "сжатие",
+      "сортировка ключей"
     ],
     "answer": 0,
-    "explain": "Постпроцесс dict при loads. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Можно превращать dict в свои классы на лету.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m786",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что означает: Сколько уникальных ключей кэша у fib(5) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "q": "Сколько примерно ключей кэша у fib(5) с lru_cache?",
     "options": [
-      "примерно 6 (0..n)",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "порядка 6 (0..5)",
+      "1",
+      "32 без повторов",
+      "0"
     ],
     "answer": 0,
-    "explain": "Примерно 6 (0..n). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Каждое n от 0 до 5 один раз.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m787",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
     "q": "Как вызвать f?",
     "options": [
       "f(a=1)",
@@ -12776,31 +12776,31 @@ window.QUESTIONS_MIDDLE = [
       "никак"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в f(a=1). Пройди выражение слева направо с учётом типов.",
+    "explain": "Выполнение кода даёт f(a=1). Разбери операции по строкам: присваивания, вызовы и то, что реально печатает print.",
     "kind": "single",
     "code": "def f(*, a):\n    return a",
-    "group": "Typing и dataclasses",
     "id": "m788",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "GC",
-    "q": "Что такое Сборщик циклических ссылок?",
+    "q": "Что собирает циклические ссылки в CPython?",
     "options": [
-      "gc модуль / cyclic GC",
-      "только refcount",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "циклический GC модуля gc (поверх refcounting)",
+      "только refcount без циклов",
+      "только ОС swap",
+      "pickle"
     ],
     "answer": 0,
-    "explain": "Refcount + periodic cycle detection. Сборка мусора сочетает подсчёт ссылок и отдельный проход для циклов ссылок.",
+    "explain": "refcount не разрывает циклы A↔B; за это отвечает generational GC.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m789",
-    "fixed": true
+    "fixed": true,
+    "topic": "GC",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что выведет код?",
     "options": [
       "[('i', 4), ('s', 4)]",
@@ -12809,63 +12809,63 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [('i', 4), ('s', 4)]. Пройди выражение слева направо с учётом типов.",
+    "explain": "Counter считает частоты; most_common даёт топ пар (элемент, счёт) → [('i', 4), ('s', 4)].",
     "kind": "single",
     "code": "from collections import Counter\nprint(Counter('mississippi').most_common(2))",
-    "group": "Collections и itertools",
     "id": "m790",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
-    "q": "Что означает: паттерн match case Point(x=0, y=0): при наличии __match_args__/dataclass в Python 3.10+?",
+    "q": "Что значит case Point(x=0, y=0) при __match_args__?",
     "options": [
-      "positional/keyword patterns",
-      "только dict",
-      "утверждение про другой уровень стека",
-      "ошибка всегда"
+      "positional/keyword patterns по полям класса",
+      "вызов конструктора Point",
+      "только сравнение id",
+      "ошибка без dataclass"
     ],
     "answer": 0,
-    "explain": "Positional/keyword patterns. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Class pattern матчит тип и поля. __match_args__ задаёт позиционный порядок.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m791",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "pathlib",
     "q": "Что делает Path.home()?",
     "options": [
-      "домашняя директория",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "возвращает домашнюю директорию пользователя",
+      "текущий cwd",
+      "корень /",
+      "temp dir"
     ],
     "answer": 0,
-    "explain": "Домашняя директория. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Кроссплатформенно через pathlib, не хардкодь /home/...",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m792",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
-    "q": "Что вернёт defaultdict(list)['k'].append(1)?",
+    "q": "Что делает defaultdict(list)['k'].append(1)?",
     "options": [
-      "создаёт list автоматически",
-      "утверждение про другой уровень стека",
-      "None append error",
-      "dict"
+      "создаёт list для 'k' фабрикой и делает append → [1]",
+      "KeyError",
+      "ничего",
+      "создаёт dict"
     ],
     "answer": 0,
-    "explain": "Результат выражения — создаёт list автоматически. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "default_factory вызывается при отсутствии ключа.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m793",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что вернёт Never (3.11)?",
     "options": [
       "низший тип, недостижимость",
@@ -12876,142 +12876,142 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — низший тип, недостижимость. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m794",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "memoryview",
-    "q": "Зачем нужен memoryview?",
+    "q": "Зачем memoryview?",
     "options": [
-      "работы со срезами bytes без копирования",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "async sleep"
+      "срезы/переинтерпретация буфера без копирования байт",
+      "ускорение str",
+      "замена bytes полностью",
+      "JSON парсер"
     ],
     "answer": 0,
-    "explain": "Работы со срезами bytes без копирования. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Нулевое копирование кусков большого bytes/bytearray; cast меняет вид элементов.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m795",
-    "fixed": true
+    "fixed": true,
+    "topic": "memoryview",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
-    "q": "Что вернёт batched (3.12)?",
+    "q": "Что делает itertools.batched (3.12+)?",
     "options": [
-      "чанки по n",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "режет итерируемое на чанки по n",
+      "сортирует батчами",
+      "параллелит CPU",
+      "читает HTTP batch"
     ],
     "answer": 0,
-    "explain": "Группировка элементов — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "batched('ABCDEF', 2) → AB CD EF. Раньше писали сами через islice.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m796",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
-    "q": "Что такое case _ :?",
+    "q": "Что такое case _:?",
     "options": [
-      "wildcard / default",
-      "утверждение про другой уровень стека",
-      "None only",
-      "ellipsis object"
+      "wildcard / default ветка match",
+      "захват имени _",
+      "ошибка синтаксиса",
+      "только для чисел"
     ],
     "answer": 0,
-    "explain": "Wildcard / default. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "_ не связывает имя. Ставь последней веткой.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m797",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "copy",
-    "q": "В чём разница: copy.copy vs deepcopy?",
+    "q": "Чем copy.copy отличается от deepcopy?",
     "options": [
-      "shallow копирует верх, nested — ссылки; deep — рекурсивно",
-      "синонимы",
-      "copy всегда deep",
-      "deepcopy только list"
+      "shallow: новый верх, вложения общие; deep: полный граф",
+      "разницы нет",
+      "copy всегда глубже",
+      "deepcopy только для int"
     ],
     "answer": 0,
-    "explain": "Shallow копирует верх, nested — ссылки; deep — рекурсивно. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Выбирай deep, когда вложенные mutable должны стать независимыми.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m798",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что означает: cached_property не thread-safe из коробки идеально?",
+    "q": "cached_property идеально thread-safe из коробки?",
     "options": [
-      "да, нюансы гонок",
-      "полностью safe всегда",
-      "async only safe",
-      "process safe"
+      "нет — возможны гонки при первом вычислении в потоках",
+      "да, полностью lock-free контракт",
+      "да только на Windows",
+      "кэш запрещён в потоках"
     ],
     "answer": 0,
-    "explain": "Да, нюансы гонок. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Два потока могут оба начать считать. Для строгой безопасности — свои lock/разработка.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m799",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
       "5",
-      "утверждение про другой уровень стека",
-      "ошибка",
-      "поведение, которого здесь нет"
+      "0",
+      "True",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "5. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Морж := присваивает и сразу отдаёт значение в выражении → 5.",
     "kind": "single",
     "code": "if (x := 5):\n    print(x)\nelse:\n    print('no')",
-    "group": "Typing и dataclasses",
     "id": "m800",
-    "fixed": true
+    "fixed": true,
+    "topic": "walrus",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "struct",
-    "q": "Что такое native size alignment @?",
+    "q": "Что значит @ в начале struct format?",
     "options": [
-      "зависит от платформы",
-      "всегда packed",
-      "network always",
-      "утверждение про другой уровень стека"
+      "native size/alignment платформы",
+      "всегда network big-endian",
+      "UTF-16",
+      "JSON"
     ],
     "answer": 0,
-    "explain": "Зависит от платформы. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "@ — native. = native order без alignment padding quirks; < > ! — явный endian.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m801",
-    "fixed": true
+    "fixed": true,
+    "topic": "struct",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
       "2",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "1",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "2. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "bisect_left/right — индекс вставки в отсортированную последовательность → 2.",
     "kind": "single",
     "code": "import bisect\nprint(bisect.bisect_left([2, 4, 6], 5))",
-    "group": "Collections и itertools",
     "id": "m802",
-    "fixed": true
+    "fixed": true,
+    "topic": "bisect",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что проверяет cast не?",
     "options": [
       "да, no-op",
@@ -13022,28 +13022,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Да, no-op. Это про проверку типов/сигнатуры, не про ускорение runtime.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m803",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "tempfile",
-    "q": "Что такое gettempdir()?",
+    "q": "Что возвращает tempfile.gettempdir()?",
     "options": [
-      "каталог временных файлов",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "путь к каталогу временных файлов",
+      "открытый файл",
+      "UUID",
+      "домашнюю папку"
     ],
     "answer": 0,
-    "explain": "Каталог временных файлов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Учитывает TMPDIR/TEMP и платформу.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m804",
-    "fixed": true
+    "fixed": true,
+    "topic": "tempfile",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что такое repeat(x, 3)?",
     "options": [
       "x x x",
@@ -13054,60 +13054,60 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Повтор — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m805",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что вернёт slots=True (3.10+) у dataclass?",
+    "q": "Что даёт slots=True у dataclass (3.10+)?",
     "options": [
-      "генерирует __slots__",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "ошибка"
+      "генерирует __slots__ для экземпляров",
+      "запрещает методы",
+      "включает ORM",
+      "делает frozen"
     ],
     "answer": 0,
-    "explain": "Результат выражения — генерирует __slots__. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Экономия памяти/чуть быстрее attribute access; без __dict__ по умолчанию.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m806",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "import",
     "q": "Что делает importlib.util.find_spec?",
     "options": [
-      "ищет спецификацию модуля",
-      "exec module",
-      "pip show",
-      "утверждение про другой уровень стека"
+      "ищет ModuleSpec модуля по имени",
+      "устанавливает пакет",
+      "удаляет из sys.modules",
+      "компилирует C"
     ],
     "answer": 0,
-    "explain": "Ищет спецификацию модуля. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Можно проверить существование модуля без полного import побочных эффектов (с оговорками).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m807",
-    "fixed": true
+    "fixed": true,
+    "topic": "import",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что такое partialmethod?",
+    "q": "Что такое functools.partialmethod?",
     "options": [
-      "partial для методов",
-      "classmethod",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "partial для методов (дескриптор на классе)",
+      "замена partial для функций модуля",
+      "async lock",
+      "LRU кэш"
     ],
     "answer": 0,
-    "explain": "Partial для методов. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Фиксирует аргументы метода так, чтобы дескриптор корректно работал на классе.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m808",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что выведет код?",
     "options": [
       "False",
@@ -13119,28 +13119,28 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде ложно. Проверь сравнения, пустоту коллекций и приоритет операций.",
     "kind": "single",
     "code": "print(isinstance([1], dict))",
-    "group": "Typing и dataclasses",
     "id": "m809",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "GC",
     "q": "Что делает gc.get_referrers?",
     "options": [
-      "кто ссылается на объект",
-      "refcount exact только",
-      "disk refs",
-      "утверждение про другой уровень стека"
+      "возвращает объекты, которые ссылаются на данный",
+      "считает refcount точно как getrefcount",
+      "удаляет ссылки",
+      "включает GC"
     ],
     "answer": 0,
-    "explain": "Отладка утечек — Сборка мусора сочетает подсчёт ссылок и отдельный проход для циклов ссылок.",
+    "explain": "Отладка утечек/циклов. Может быть медленно и «шумным».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m810",
-    "fixed": true
+    "fixed": true,
+    "topic": "GC",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[1, 2, 0, 1, 2, 3, 4]",
@@ -13152,157 +13152,157 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Chain склеивает итерируемые — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
     "code": "from itertools import chain\nprint(list(chain([1, 2], list(range(5)))))",
-    "group": "Collections и itertools",
     "id": "m811",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "walrus",
-    "q": "Что такое := запрещён в?",
+    "q": "Где := (walrus) ограничен?",
     "options": [
-      "некоторых позиций (напр. лямбда без скобок нюансы)",
-      "везде в if",
-      "comprehension полностью",
-      "функциях"
+      "в ряде позиций синтаксиса (например, нюансы с лямбдами/выражениями без скобок)",
+      "запрещён полностью в 3.11+",
+      "только в async def",
+      "только в class body всегда ок без ограничений"
     ],
     "answer": 0,
-    "explain": "Некоторых позиций (напр. лямбда без скобок нюансы). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Не везде, где =. Часто нужны скобки. Цепочки := := запрещены.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m812",
-    "fixed": true
+    "fixed": true,
+    "topic": "walrus",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "pathlib",
-    "q": "Что делает expanduser()?",
+    "q": "Что делает Path.expanduser()?",
     "options": [
-      "раскрывает ~",
-      "env $VAR всегда полностью как shell",
-      "symlink resolve",
-      "утверждение про другой уровень стека"
+      "раскрывает ~ в домашний каталог",
+      "раскрывает $VAR окружения (это expandvars)",
+      "делает путь абсолютным всегда (это resolve)",
+      "удаляет файл"
     ],
     "answer": 0,
-    "explain": "Раскрывает ~. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "~/docs → /Users/.../docs. Для env — os.path.expandvars.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m813",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что верно про reduce без initial на пустом?",
+    "q": "Что будет у reduce без initializer на пустой последовательности?",
     "options": [
       "TypeError",
-      "True",
-      "False",
-      "утверждение про другой уровень стека"
+      "None",
+      "0",
+      "[]"
     ],
     "answer": 0,
-    "explain": "TypeError. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Некуда взять начальное значение. Передай initializer или проверь пустоту.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m814",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что такое list[int] в runtime (3.9+)?",
     "options": [
-      "generic alias; isinstance ограниченно",
-      "точный runtime gate всегда",
-      "удаляется",
-      "только mypy"
+      "generic alias; isinstance(x, list[int]) ограничен/не то, что кажется",
+      "runtime-валидатор элементов",
+      "создаёт только int-списки",
+      "синтаксическая ошибка"
     ],
     "answer": 0,
-    "explain": "Generic alias; isinstance ограниченно. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Аннотации для checker. В 3.9+ aliases есть как объекты, но не полноценная runtime-проверка элементов.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m815",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "subprocess",
-    "q": "Что такое check=True в run?",
+    "q": "Что делает check=True в subprocess.run?",
     "options": [
-      "бросит CalledProcessError при ненулевом коде",
-      "игнор код",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "бросит CalledProcessError при ненулевом коде возврата",
+      "игнорирует код возврата",
+      "включает shell",
+      "таймаут"
     ],
     "answer": 0,
-    "explain": "Бросит CalledProcessError при ненулевом коде. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Без check=True нужно самому смотреть returncode.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m816",
-    "fixed": true
+    "fixed": true,
+    "topic": "subprocess",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "array",
-    "q": "Что верно про array('i') хранит?",
+    "q": "Что хранит array.array('i')?",
     "options": [
-      "signed int компактно",
-      "произвольные объекты",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "signed int в компактном C-массиве",
+      "произвольные Python-объекты",
+      "только float",
+      "строки Unicode"
     ],
     "answer": 0,
-    "explain": "Signed int компактно. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Типкод 'i' — signed int. Экономнее list[int] по памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m817",
-    "fixed": true
+    "fixed": true,
+    "topic": "array",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "walrus",
     "q": "Что выведет код?",
     "options": [
       "no",
-      "ошибка",
-      "ошибка",
-      "None"
+      "yes",
+      "5",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "No. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Морж := присваивает и сразу отдаёт значение в выражении → no.",
     "kind": "single",
     "code": "if (x := 0):\n    print(x)\nelse:\n    print('no')",
-    "group": "Typing и dataclasses",
     "id": "m818",
-    "fixed": true
+    "fixed": true,
+    "topic": "walrus",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "secrets",
-    "q": "Что верно про secrets модуль лучше random для?",
+    "q": "Когда secrets лучше random?",
     "options": [
-      "токенов/криптографии",
-      "shuffle колоды в игре ok всегда",
-      "math sim",
-      "утверждение про другой уровень стека"
+      "для токенов, паролей, криптографии",
+      "для симуляций Монте-Карло всегда",
+      "для shuffle колоды в тестах с seed",
+      "random запрещён совсем"
     ],
     "answer": 0,
-    "explain": "Токенов/криптографии. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "random — PRNG для игр/симуляций. secrets — OS entropy для безопасности.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m819",
-    "fixed": true
+    "fixed": true,
+    "topic": "secrets",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
-    "q": "Что делает OrderedDict.move_to_end?",
+    "q": "Зачем OrderedDict.move_to_end?",
     "options": [
-      "LRU-подобные структуры",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "явно двигать ключ в конец/начало (LRU-подобные структуры)",
+      "сортировать значения",
+      "удалять dict",
+      "только для JSON"
     ],
     "answer": 0,
-    "explain": "LRU-подобные структуры. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Обычный dict с 3.7 упорядочен, но move_to_end и equality-с-порядком — фичи OrderedDict.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m820",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "match",
     "q": "Что выведет код?",
     "options": [
       "other",
@@ -13311,96 +13311,96 @@ window.QUESTIONS_MIDDLE = [
       "False"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в other. Пройди выражение слева направо с учётом типов.",
+    "explain": "match/case выбирает первую подходящую ветку. Здесь срабатывает случай → other.",
     "kind": "single",
     "code": "x = 99\nmatch x:\n    case 0:\n        print('zero')\n    case 1:\n        print('one')\n    case _:\n        print('other')",
-    "group": "Typing и dataclasses",
     "id": "m821",
-    "fixed": true
+    "fixed": true,
+    "topic": "match",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "memoryview",
-    "q": "Что такое cast('I')?",
+    "q": "Что делает memoryview.cast('I')?",
     "options": [
-      "переинтерпретация буфера",
-      "копия list",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "переинтерпретирует буфер как массив unsigned int",
+      "копирует в list[int] всегда",
+      "кодирует UTF-8",
+      "сжимает"
     ],
     "answer": 0,
-    "explain": "Переинтерпретация буфера. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "cast меняет формат элементов zero-copy (с требованиями выравнивания/размера).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m822",
-    "fixed": true
+    "fixed": true,
+    "topic": "memoryview",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что вернёт Counter('aab')['a']?",
     "options": [
       "2",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "ошибка"
+      "0",
+      "3",
+      "KeyError"
     ],
     "answer": 0,
-    "explain": "Результат выражения — 2. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Считает 'a' дважды. Отсутствующий ключ у Counter даёт 0, не KeyError.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m823",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "dataclasses",
-    "q": "Что вернёт kw_only=True (3.10)?",
+    "q": "Что даёт kw_only=True у dataclass (3.10+)?",
     "options": [
-      "поля только keyword",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "все поля только как keyword-only в __init__",
+      "запрет полей",
+      "только slots",
+      "frozen"
     ],
     "answer": 0,
-    "explain": "Результат выражения — поля только keyword. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Вызов только Class(x=1, y=2), не Class(1,2) — если все поля kw-only.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m824",
-    "fixed": true
+    "fixed": true,
+    "topic": "dataclasses",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "регулярки",
-    "q": "Что такое группы (?P<name>…)?",
+    "q": "Что такое (?P<name>…) в regex?",
     "options": [
-      "именованные группы",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "именованная группа",
+      "lookahead",
+      "комментарий",
+      "possessive quantifier"
     ],
     "answer": 0,
-    "explain": "Именованные группы. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Доступ: match.group('name'). Также (?P=name) — backreference.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m825",
-    "fixed": true
+    "fixed": true,
+    "topic": "регулярки",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "4",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "2",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "4. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "itertools строит комбинаторный итератор; len(...) здесь 4.",
     "kind": "single",
     "code": "from itertools import product\nprint(len(list(product([0, 1], repeat=2))))",
-    "group": "Collections и itertools",
     "id": "m826",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "args",
     "q": "Что вернёт Keyword-only после *?",
     "options": [
       "обязательно по имени",
@@ -13411,28 +13411,28 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — обязательно по имени. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m827",
-    "fixed": true
+    "fixed": true,
+    "topic": "args",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "subprocess",
-    "q": "В чём риск shell=True?",
+    "q": "В чём риск shell=True в subprocess?",
     "options": [
-      "инъекции через строку",
-      "только slow",
-      "безопаснее list",
-      "утверждение про другой уровень стека"
+      "инъекции команд через пользовательскую строку",
+      "обязательное ускорение",
+      "запрет PIPE",
+      "только на Windows безопаснее"
     ],
     "answer": 0,
-    "explain": "Инъекции через строку. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Передавай список аргументов без shell. shell=True — только для доверенных строк.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m828",
-    "fixed": true
+    "fixed": true,
+    "topic": "subprocess",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что выведет код?",
     "options": [
       "[('x', 1), ('y', 1)]",
@@ -13441,31 +13441,31 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [('x', 1), ('y', 1)]. Пройди выражение слева направо с учётом типов.",
+    "explain": "Counter считает частоты; most_common даёт топ пар (элемент, счёт) → [('x', 1), ('y', 1)].",
     "kind": "single",
     "code": "from collections import Counter\nprint(Counter('xyz').most_common(2))",
-    "group": "Collections и itertools",
     "id": "m829",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "enum",
-    "q": "Что такое auto() значения?",
+    "q": "Как auto() выбирает значения?",
     "options": [
-      "по правилам Enum/Flag",
-      "random uuid",
-      "hash id",
-      "утверждение про другой уровень стека"
+      "по правилам Enum/Flag (_generate_next_value_)",
+      "случайно из os.urandom",
+      "всегда 0",
+      "только UUID"
     ],
     "answer": 0,
-    "explain": "Инкремент обычно — Enum задаёт именованные константы с фиксированным набором значений.",
+    "explain": "Можно переопределить генерацию в своём Enum.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m830",
-    "fixed": true
+    "fixed": true,
+    "topic": "enum",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "usr/bin/python",
@@ -13474,32 +13474,32 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в usr/bin/python. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: usr/bin/python.",
     "kind": "single",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('usr', 'bin', 'python'))",
-    "group": "Stdlib и производительность",
     "id": "m831",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "heapq",
     "q": "Что выведет код (минимум на [0])?",
     "options": [
       "1",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
+      "9",
+      "0",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "1. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "После heapify минимум в корне (h[0]). Здесь: 1.",
     "kind": "single",
     "code": "import heapq\nh = [5, 1, 3]\nheapq.heapify(h)\nprint(h[0])",
-    "group": "Collections и itertools",
     "id": "m832",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "typing",
     "q": "Что такое Literal['a','b']?",
     "options": [
       "только эти значения",
@@ -13510,92 +13510,92 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Только эти значения. Это про проверку типов/сигнатуры, не про ускорение runtime.",
     "kind": "single",
-    "group": "Typing и dataclasses",
     "id": "m833",
-    "fixed": true
+    "fixed": true,
+    "topic": "typing",
+    "group": "Typing и dataclasses"
   },
   {
-    "topic": "регулярки",
-    "q": "Что верно про re.findall(r'\\d+', 'a12b3')?",
+    "q": "Что вернёт re.findall(r'\\d+', 'a12b3')?",
     "options": [
       "['12', '3']",
       "['1','2','3']",
       "['a12b3']",
-      "утверждение про другой уровень стека"
+      "[]"
     ],
     "answer": 0,
-    "explain": "['12', '3']. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "findall всех непересекающихся совпадений цифр.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m834",
-    "fixed": true
+    "fixed": true,
+    "topic": "регулярки",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "heapq",
     "q": "Что реализует heapq?",
     "options": [
-      "бинарную кучу на list",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "бинарную min-кучу на list",
+      "balanced BST",
+      "hash table",
+      "max-кучу по умолчанию без трюков"
     ],
     "answer": 0,
-    "explain": "Бинарную кучу на list. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "h[0] — минимум. Для max — инверсия ключей/отрицания.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m835",
-    "fixed": true
-  },
-  {
-    "topic": "пакеты",
-    "q": "Что такое __init__.py historically?",
-    "options": [
-      "делает каталог пакетом",
-      "обязателен всегда в 3.3+",
-      "запускает pip",
-      "утверждение про другой уровень стека"
-    ],
-    "answer": 0,
-    "explain": "Делает каталог пакетом. Соседние варианты обычно про другой механизм или уровень стека.",
-    "kind": "single",
-    "group": "Stdlib и производительность",
-    "id": "m836",
-    "fixed": true
-  },
-  {
-    "topic": "itertools",
-    "q": "Что вернёт pairwise (3.10)?",
-    "options": [
-      "(a,b),(b,c),…",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
-    ],
-    "answer": 0,
-    "explain": "Соседние пары — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
-    "kind": "single",
-    "group": "Collections и itertools",
-    "id": "m837",
-    "fixed": true
-  },
-  {
-    "topic": "weakref",
-    "q": "Что такое ReferenceType callback?",
-    "options": [
-      "при смерти объекта",
-      "при создании",
-      "при hash",
-      "при print"
-    ],
-    "answer": 0,
-    "explain": "При смерти объекта. Не путай с соседними похожими терминами из той же темы.",
-    "kind": "single",
-    "group": "Stdlib и производительность",
-    "id": "m838",
-    "fixed": true
-  },
-  {
+    "fixed": true,
     "topic": "heapq",
+    "group": "Collections и itertools"
+  },
+  {
+    "q": "Зачем исторически __init__.py?",
+    "options": [
+      "делать каталог пакетом Python",
+      "обязательный код main",
+      "компиляция C",
+      "только для namespace packages запрещён"
+    ],
+    "answer": 0,
+    "explain": "С 3.3 есть namespace packages без файла, но __init__.py всё ещё обычен и полезен.",
+    "kind": "single",
+    "id": "m836",
+    "fixed": true,
+    "topic": "пакеты",
+    "group": "Stdlib и производительность"
+  },
+  {
+    "q": "Что возвращает itertools.pairwise (3.10+)?",
+    "options": [
+      "пары (a,b), (b,c), … подряд",
+      "все комбинации C(n,2)",
+      "zip длинного и короткого без overlap",
+      "декартово произведение"
+    ],
+    "answer": 0,
+    "explain": "Удобно для последовательных рёбер/разниц.",
+    "kind": "single",
+    "id": "m837",
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
+  },
+  {
+    "q": "Что делает callback у weakref.ref?",
+    "options": [
+      "вызывается при смерти объекта",
+      "при каждом чтении",
+      "увеличивает refcount",
+      "запрещает GC"
+    ],
+    "answer": 0,
+    "explain": "Можно подчистить реестр. finalize — более удобный API для многих случаев.",
+    "kind": "single",
+    "id": "m838",
+    "fixed": true,
+    "topic": "weakref",
+    "group": "Stdlib и производительность"
+  },
+  {
     "q": "Что выведет код?",
     "options": [
       "[1, 3]",
@@ -13604,15 +13604,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [1, 3]. Пройди выражение слева направо с учётом типов.",
+    "explain": "После heapify минимум в корне (h[0]). Здесь: [1, 3].",
     "kind": "single",
     "code": "import heapq\nprint(heapq.nsmallest(2, [5, 1, 3]))",
-    "group": "Collections и itertools",
     "id": "m839",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "{\"x\": [1, 2]}",
@@ -13621,47 +13621,47 @@ window.QUESTIONS_MIDDLE = [
       "False"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в {\"x\": [1, 2]}. Пройди выражение слева направо с учётом типов.",
+    "explain": "json.dumps сериализует Python-объект в JSON-строку → {\"x\": [1, 2]}.",
     "kind": "single",
     "code": "import json\nprint(json.dumps({'x': [1, 2]}))",
-    "group": "Stdlib и производительность",
     "id": "m840",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "bisect",
-    "q": "Что такое bisect модуль для?",
+    "q": "Для чего модуль bisect?",
     "options": [
-      "бинарного поиска/вставки в sorted list",
-      "быстрой сортировки",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "бинарный поиск и вставка в отсортированный list",
+      "построение heap",
+      "хеш-таблицы",
+      "парсинг CSV"
     ],
     "answer": 0,
-    "explain": "Бинарного поиска/вставки в sorted list. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "O(log n) поиск позиции; сама вставка в list всё ещё O(n).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m841",
-    "fixed": true
+    "fixed": true,
+    "topic": "bisect",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "sort",
-    "q": "Что такое key= должен быть?",
+    "q": "Каким должен быть key= в sort?",
     "options": [
-      "вызываемым, вызывается раз на элемент (декоратор)",
-      "cmp как в Py2 обязателен",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "вызываемым; вызывается раз на элемент (decorate-sort-undecorate)",
+      "строкой с именем поля всегда",
+      "только lambda без исключений",
+      "компаратором cmp как в Py2 обязательно"
     ],
     "answer": 0,
-    "explain": "Вызываемым, вызывается раз на элемент (декоратор). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "key(x) один раз → сортировка по ключам. cmp_to_key — мост из старого cmp.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m842",
-    "fixed": true
+    "fixed": true,
+    "topic": "sort",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "из кэша, без print work",
@@ -13670,15 +13670,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в из кэша, без print work. Пройди выражение слева направо с учётом типов.",
+    "explain": "Выполнение кода даёт из кэша, без print work. Разбери операции по строкам: присваивания, вызовы и то, что реально печатает print.",
     "kind": "single",
     "code": "from functools import lru_cache\n@lru_cache\ndef heavy(x):\n    print('work')\n    return x*x\nheavy(2)\nheavy(2)",
-    "group": "Collections и itertools",
     "id": "m843",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "'.JSON'",
@@ -13687,32 +13687,32 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в '.JSON'. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: '.JSON'.",
     "kind": "single",
     "code": "from pathlib import PurePath\nprint(PurePath('B.JSON').suffix)",
-    "group": "Stdlib и производительность",
     "id": "m844",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "3",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "0",
+      "1",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "C(3,2) = 3 — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "range(start, stop[, step]) не включает stop. list(range(...)) → 3.",
     "kind": "single",
     "code": "from itertools import combinations\nprint(len(list(combinations(range(3), 2))))",
-    "group": "Collections и itertools",
     "id": "m845",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "tmp/x",
@@ -13721,64 +13721,64 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в tmp/x. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: tmp/x.",
     "kind": "single",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('tmp', 'x'))",
-    "group": "Stdlib и производительность",
     "id": "m846",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "6",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "3",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "6. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "functools/выражение даёт 6.",
     "kind": "single",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [2, 2, 2]))",
-    "group": "Collections и itertools",
     "id": "m847",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "import",
-    "q": "Что верно про circular import — проблема когда?",
+    "q": "Когда circular import — проблема?",
     "options": [
-      "модули импортируют друг друга на top-level",
-      "есть venv",
-      "много функций",
-      "утверждение про другой уровень стека"
+      "когда модули импортируют друг друга на top-level и используют атрибуты при загрузке",
+      "всегда при любом import внутри функции",
+      "только в Jupyter",
+      "никогда в 3.x"
     ],
     "answer": 0,
-    "explain": "Модули импортируют друг друга на top-level. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Частично инициализированный модуль → AttributeError. Лечи отложенным import/рефакторингом.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m848",
-    "fixed": true
+    "fixed": true,
+    "topic": "import",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
-    "q": "Что верно про OrderedDict всё ещё нужен после 3.7?",
+    "q": "Нужен ли OrderedDict после 3.7?",
     "options": [
-      "для move_to_end / equality по порядку и явного API",
-      "нет никогда",
-      "только PyPy",
-      "для set"
+      "иногда да — move_to_end, equality с учётом порядка, явный контракт",
+      "нет, полностью мёртв",
+      "да, иначе dict неупорядочен",
+      "только для JSON"
     ],
     "answer": 0,
-    "explain": "Для move_to_end / equality по порядку и явного API. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "dict сохраняет порядок вставки, но API OrderedDict шире.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m849",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "False",
@@ -13790,28 +13790,28 @@ window.QUESTIONS_MIDDLE = [
     "explain": "Выражение в коде ложно. Проверь сравнения, пустоту коллекций и приоритет операций.",
     "kind": "single",
     "code": "import copy\na = [{'a': 1}]\nb = copy.deepcopy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m850",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что делает partial(f, 1)?",
     "options": [
-      "новую функцию с зафиксированным аргументом",
-      "вызов f",
-      "копию кода f",
-      "декоратор класса"
+      "новую callable с зафиксированным первым аргументом",
+      "вызывает f сразу",
+      "кэширует f",
+      "удаляет f"
     ],
     "answer": 0,
-    "explain": "Новую функцию с зафиксированным аргументом. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "partial(f, 1)(2,3) → f(1,2,3).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m851",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "'.txt'",
@@ -13820,81 +13820,81 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в '.txt'. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: '.txt'.",
     "kind": "single",
     "code": "from pathlib import PurePath\nprint(PurePath('a.txt').suffix)",
-    "group": "Stdlib и производительность",
     "id": "m852",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "heapq",
     "q": "Что выведет код (минимум на [0])?",
     "options": [
       "5",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
+      "1",
+      "9",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "5. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "После heapify минимум в корне (h[0]). Здесь: 5.",
     "kind": "single",
     "code": "import heapq\nh = [10, 20, 5, 30]\nheapq.heapify(h)\nprint(h[0])",
-    "group": "Collections и itertools",
     "id": "m853",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "import",
     "q": "Что позволяет zipimport?",
     "options": [
-      "импорт из zip",
-      "только wheel build",
-      "pip download",
-      "утверждение про другой уровень стека"
+      "импортировать модули прямо из .zip архива",
+      "ставить wheels через pip",
+      "сжимать .pyc",
+      "импорт только C-расширений"
     ],
     "answer": 0,
-    "explain": "Импорт из zip. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "sys.path может содержать zip; zipimport загружает оттуда .py/.pyc.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m854",
-    "fixed": true
+    "fixed": true,
+    "topic": "import",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "bisect",
     "q": "Что выведет код?",
     "options": [
       "0",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
+      "1",
+      "2",
       "ошибка"
     ],
     "answer": 0,
-    "explain": "0. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "bisect_left/right — индекс вставки в отсортированную последовательность → 0.",
     "kind": "single",
     "code": "import bisect\nprint(bisect.bisect_left([1, 3, 5, 7], 0))",
-    "group": "Collections и itertools",
     "id": "m855",
-    "fixed": true
+    "fixed": true,
+    "topic": "bisect",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "pickle",
-    "q": "Что верно про protocol=5 полезен для?",
+    "q": "Для чего полезен pickle protocol=5?",
     "options": [
-      "out-of-band буферов (bytes large)",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "out-of-band буферы для больших bytes (меньше копий)",
+      "только человекочитаемый формат",
+      "JSON совместимость",
+      "шифрование"
     ],
     "answer": 0,
-    "explain": "Out-of-band буферов (bytes large). Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "PEP 574: крупные бинарные куски можно передавать отдельно от pickle-потока.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m856",
-    "fixed": true
+    "fixed": true,
+    "topic": "pickle",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "heapq",
     "q": "Что выведет код?",
     "options": [
       "[1, 4]",
@@ -13903,80 +13903,80 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [1, 4]. Пройди выражение слева направо с учётом типов.",
+    "explain": "После heapify минимум в корне (h[0]). Здесь: [1, 4].",
     "kind": "single",
     "code": "import heapq\nprint(heapq.nsmallest(2, [4, 4, 1]))",
-    "group": "Collections и itertools",
     "id": "m857",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "copy",
-    "q": "Что верно про __deepcopy__ можно определить для?",
+    "q": "Для чего определяют __deepcopy__?",
     "options": [
-      "кастомной глубокой копии",
-      "только pickle",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "кастомная логика глубокого копирования объекта",
+      "запрет copy",
+      "только shallow",
+      "сериализация JSON"
     ],
     "answer": 0,
-    "explain": "Кастомной глубокой копии. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "deepcopy вызывает __deepcopy__(memo), если он есть.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m858",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "10",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "5",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "10. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "functools/выражение даёт 10.",
     "kind": "single",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [1, 2, 3, 4]))",
-    "group": "Collections и itertools",
     "id": "m859",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "import",
-    "q": "Что верно про circular import часто лечат?",
+    "q": "Как часто лечат circular import?",
     "options": [
-      "локальным import / разнесением",
-      "удалением типов",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "локальным import внутри функции / разнесением общего кода",
+      "удалением всех модулей",
+      "увеличением sys.path",
+      "shell=True"
     ],
     "answer": 0,
-    "explain": "Локальным import / разнесением. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Вынеси общее в третий модуль или импортируй поздно, когда цикл не нужен на load.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m860",
-    "fixed": true
+    "fixed": true,
+    "topic": "import",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
-    "q": "Что верно про namedtuple удобен тем, что?",
+    "q": "Чем удобен namedtuple?",
     "options": [
-      "immutable + доступ по имени поля",
-      "мутабельный dict",
-      "замена list",
-      "async queue"
+      "immutable + доступ по имени поля и индексу",
+      "мутабельность как list",
+      "наследование как dataclass без ограничений",
+      "JSON автоматом"
     ],
     "answer": 0,
-    "explain": "Immutable + доступ по имени поля. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Лёгкие записи-кортежи. Для методов/defaults чаще NamedTuple typing или dataclass.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m861",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "pathlib",
     "q": "Что вернёт Path.read_text()?",
     "options": [
       "читает файл как str",
@@ -13987,141 +13987,141 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — читает файл как str. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m862",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "heapq",
-    "q": "Что вернёт heappush / heappop?",
+    "q": "Что дают heappush / heappop?",
     "options": [
-      "мин-куча",
-      "макс-куча по умолчанию",
-      "sort stable extra",
-      "утверждение про другой уровень стека"
+      "операции min-кучи",
+      "max-кучу по умолчанию",
+      "сортировку ключей dict",
+      "бинарный поиск"
     ],
     "answer": 0,
-    "explain": "Результат выражения — мин-куча. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "push сохраняет инвариант кучи; pop забирает минимум.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m863",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "tempfile",
     "q": "Что такое TemporaryDirectory?",
     "options": [
-      "автоочистка каталога",
-      "вечный /tmp",
-      "только файл",
-      "утверждение про другой уровень стека"
+      "контекстный менеджер: временный каталог с автоочисткой",
+      "вечный каталог в /",
+      "только файл без каталога",
+      "RAM-диск ОС"
     ],
     "answer": 0,
-    "explain": "Автоочистка каталога. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "with TemporaryDirectory() as d: ... — после выхода каталог удаляется.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m864",
-    "fixed": true
+    "fixed": true,
+    "topic": "tempfile",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "[(5, 3)]",
-      "ошибка",
-      "ошибка",
-      "None"
+      "[(5, 1), (5, 1), (5, 1)]",
+      "[]",
+      "TypeError"
     ],
     "answer": 0,
-    "explain": "Groupby группирует только подряд идущие одинаковые. Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "groupby склеивает только подряд идущие равные ключи. Три пятёрки подряд → одна группа длины 3.",
     "kind": "single",
     "code": "from itertools import groupby\nprint([(k, len(list(g))) for k, g in groupby([5, 5, 5])])",
-    "group": "Collections и itertools",
     "id": "m865",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "subprocess",
     "q": "Что делает Popen.communicate?",
     "options": [
-      "обмен с процессом + wait",
-      "nonblocking forever без wait",
+      "отправляет input, читает stdout/stderr и ждёт завершения",
       "только kill",
-      "утверждение про другой уровень стека"
+      "меняет cwd",
+      "включает shell"
     ],
     "answer": 0,
-    "explain": "Обмен с процессом + wait. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Избегает дедлоков PIPE. Возвращает (stdout, stderr).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m866",
-    "fixed": true
+    "fixed": true,
+    "topic": "subprocess",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "heapq",
-    "q": "Что вернёт heapify in-place?",
+    "q": "Что делает heapq.heapify?",
     "options": [
-      "линейно строит кучу",
-      "O(n log n) sort copy",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "in-place линейно строит кучу из list",
+      "сортирует полностью O(n log n) всегда как единственный смысл",
+      "создаёт новый list обязательно",
+      "строит BST"
     ],
     "answer": 0,
-    "explain": "Результат выражения — линейно строит кучу. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "heapify O(n) vs n раз heappush O(n log n).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m867",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "weakref",
-    "q": "Что верно про WeakValueDictionary хранит?",
+    "q": "Что хранит WeakValueDictionary?",
     "options": [
-      "слабые ссылки на значения",
-      "сильные на ключи и значения",
+      "сильные ключи и слабые ссылки на значения",
+      "слабые ключи и сильные значения (это WeakKeyDictionary)",
       "только int",
-      "утверждение про другой уровень стека"
+      "сильные всё"
     ],
     "answer": 0,
-    "explain": "Слабые ссылки на значения. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Когда значение уничтожено GC — запись пропадает.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m868",
-    "fixed": true
+    "fixed": true,
+    "topic": "weakref",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
-    "q": "Что верно про ChainMap полезен для?",
+    "q": "Для чего полезен ChainMap?",
     "options": [
-      "слоя переопределений mapping",
-      "SQL join",
-      "async gather",
-      "утверждение про другой уровень стека"
+      "слои переопределений нескольких mapping (lookup по цепочке)",
+      "глубокое слияние dict в один новый всегда",
+      "сортировка ключей",
+      "JSON Schema"
     ],
     "answer": 0,
-    "explain": "Слоя переопределений mapping. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Поиск идёт от первого mapping к следующим. Запись по умолчанию — в первый.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m869",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "pathlib",
     "q": "Что даёт Path('a') / 'b'?",
     "options": [
-      "Path('a/b')",
-      "утверждение про другой уровень стека",
-      "str 'a/b'",
-      "поведение, которого в CPython нет"
+      "Path('a/b') (с учётом OS-сепаратора)",
+      "строку 'a/b' всегда без Path",
+      "ошибку типов",
+      "Path('ab')"
     ],
     "answer": 0,
-    "explain": "Path('a/b'). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Оператор / у Path склеивает части пути.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m870",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что вернёт defaultdict без factory при []?",
     "options": [
       "TypeError/нужен factory",
@@ -14132,29 +14132,29 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — TypeError/нужен factory. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m871",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "[1]",
-      "ошибка",
-      "ошибка",
-      "None"
+      "[]",
+      "[1, 2]",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "[1]. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "append добавляет элемент в конец (in-place, возвращает None). Список становится [1].",
     "kind": "single",
     "code": "import copy\na = [[]]\nb = copy.copy(a)\na[0].append(1)\nprint(b[0])",
-    "group": "Stdlib и производительность",
     "id": "m872",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что вернёт list(product('ab', repeat=2))?",
     "options": [
       "[('a', 'a'), ('a', 'b'), ('b', 'a'), ('b', 'b')]",
@@ -14165,12 +14165,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Декартово произведение — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m873",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "performance",
     "q": "В чём разница: Генератор vs list для большого потока?",
     "options": [
       "генератор экономит память",
@@ -14181,44 +14181,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Ленивость — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m874",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
     "q": "Что такое namedtuple?",
     "options": [
-      "легковесный immutable с именами полей",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "легковесный immutable тип с именами полей",
+      "мутабельный dict",
+      "ORM модель",
+      "async queue"
     ],
     "answer": 0,
-    "explain": "Легковесный immutable с именами полей. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "collections.namedtuple / typing.NamedTuple — кортеж с .field доступом.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m875",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "weakref",
-    "q": "Что такое proxy не поднимает?",
+    "q": "Что не делает weakref.proxy?",
     "options": [
-      "refcount как сильная ссылка",
-      "исключения",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "не удерживает объект сильной ссылкой (как обычная переменная)",
+      "не позволяет вызывать методы пока объект жив",
+      "не существует в stdlib",
+      "увеличивает refcount как сильная ссылка"
     ],
     "answer": 0,
-    "explain": "Refcount как сильная ссылка. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "proxy ведёт себя как объект, но слабо; после смерти — ReferenceError.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m876",
-    "fixed": true
+    "fixed": true,
+    "topic": "weakref",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет list(itertools.chain([1], [2, 3]))?",
     "options": [
       "[1, 2, 3]",
@@ -14229,29 +14229,29 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Chain склеивает итерируемые подряд. Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m877",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "dict",
-      "ошибка",
-      "None",
-      "tuple"
+      "list",
+      "str",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Dict. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "json.loads объекта → dict.",
     "kind": "single",
     "code": "import json\nprint(type(json.loads('{\"a\": 1}')).__name__)",
-    "group": "Stdlib и производительность",
     "id": "m878",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что вернёт list(combinations('abc', 2))?",
     "options": [
       "[('a', 'b'), ('a', 'c'), ('b', 'c')]",
@@ -14262,12 +14262,12 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Сочетания без повтора — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m879",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "'.gz'",
@@ -14276,32 +14276,32 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в '.gz'. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: '.gz'.",
     "kind": "single",
     "code": "from pathlib import PurePath\nprint(PurePath('archive.tar.gz').suffix)",
-    "group": "Stdlib и производительность",
     "id": "m880",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что выведет код?",
     "options": [
       "12",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "6",
+      "0",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "12. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "functools/выражение даёт 12.",
     "kind": "single",
     "code": "from functools import reduce\nprint(reduce(lambda a, b: a + b, [10, 2]))",
-    "group": "Collections и itertools",
     "id": "m881",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "copy",
     "q": "Что выведет код?",
     "options": [
       "True (shallow)",
@@ -14310,48 +14310,48 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в True (shallow). Пройди выражение слева направо с учётом типов.",
+    "explain": "copy.copy — поверхностная копия: контейнер новый, вложения общие. Здесь: True (shallow).",
     "kind": "single",
     "code": "import copy\na = [[1], [2]]\nb = copy.copy(a)\nprint(a[0] is b[0])",
-    "group": "Stdlib и производительность",
     "id": "m882",
-    "fixed": true
+    "fixed": true,
+    "topic": "copy",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "itertools",
     "q": "Что выведет код?",
     "options": [
       "12",
-      "утверждение про другой уровень стека",
-      "поведение, которого здесь нет",
-      "опасное упрощение без связи с темой"
+      "6",
+      "3",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "P(4,2) = 12 — Itertools даёт ленивые комбинаторы для итераторов без лишних списков в памяти.",
+    "explain": "range(start, stop[, step]) не включает stop. list(range(...)) → 12.",
     "kind": "single",
     "code": "from itertools import permutations\nprint(len(list(permutations(range(4), 2))))",
-    "group": "Collections и itertools",
     "id": "m883",
-    "fixed": true
+    "fixed": true,
+    "topic": "itertools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "JSON",
-    "q": "Что такое ensure_ascii=False?",
+    "q": "Что делает ensure_ascii=False в dumps?",
     "options": [
-      "сохраняет unicode как есть",
-      "только ascii escapes always",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "оставляет Unicode-символы как есть, не \\uXXXX",
+      "запрещает non-ASCII",
+      "включает UTF-16",
+      "сортирует ключи"
     ],
     "answer": 0,
-    "explain": "Сохраняет unicode как есть. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Для читаемых русских текстов в JSON часто False + encoding utf-8 при записи.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m884",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "heapq",
     "q": "Что выведет код?",
     "options": [
       "[5, 10]",
@@ -14360,47 +14360,47 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в [5, 10]. Пройди выражение слева направо с учётом типов.",
+    "explain": "После heapify минимум в корне (h[0]). Здесь: [5, 10].",
     "kind": "single",
     "code": "import heapq\nprint(heapq.nsmallest(2, [10, 20, 5, 30]))",
-    "group": "Collections и itertools",
     "id": "m885",
-    "fixed": true
+    "fixed": true,
+    "topic": "heapq",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "subprocess",
-    "q": "Что вернёт text=True (universal_newlines)?",
+    "q": "Что даёт text=True в subprocess?",
     "options": [
-      "str вместо bytes",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "stdout/stderr как str (декодирование), не bytes",
+      "обязательный TTY",
+      "shell=True",
+      "UTF-32"
     ],
     "answer": 0,
-    "explain": "Результат выражения — str вместо bytes. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Раньше universal_newlines=True. encoding= можно задать явно.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m886",
-    "fixed": true
+    "fixed": true,
+    "topic": "subprocess",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "collections",
-    "q": "Что верно про ChainMap пишет по умолчанию в?",
+    "q": "Куда ChainMap пишет по умолчанию?",
     "options": [
-      "первый mapping",
-      "последний",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "в первый mapping",
+      "во все сразу",
+      "только в последний",
+      "создаёт новый dict всегда"
     ],
     "answer": 0,
-    "explain": "Первый mapping. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "cm['k']=v обновляет maps[0]. Lookup идёт по всем.",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m887",
-    "fixed": true
+    "fixed": true,
+    "topic": "collections",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "etc/passwd",
@@ -14409,31 +14409,31 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в etc/passwd. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: etc/passwd.",
     "kind": "single",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('etc', 'passwd'))",
-    "group": "Stdlib и производительность",
     "id": "m888",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
     "q": "Что такое singledispatchmethod?",
     "options": [
-      "диспетчеризация методов по типу",
-      "только функции модуля",
-      "утверждение про другой уровень стека",
-      "classmethod ban"
+      "диспетчеризация методов экземпляра по типу аргумента",
+      "только для module-level функций",
+      "LRU кэш метода",
+      "partialmethod"
     ],
     "answer": 0,
-    "explain": "Диспетчеризация методов по типу. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Как singledispatch, но корректно работает как метод (self отдельно).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m889",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "hashlib",
     "q": "Что вернёт blake2 / sha3?",
     "options": [
       "современные хеш-функции",
@@ -14444,44 +14444,44 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Результат выражения — современные хеш-функции. Сверь литералы, методы и то, что они реально возвращают.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m890",
-    "fixed": true
+    "fixed": true,
+    "topic": "hashlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "functools",
-    "q": "Что означает: Сколько уникальных ключей кэша у fib(2) с lru_cache при наивной рекурсии fib(n)=fib(n-1)+fib(n-2)?",
+    "q": "Сколько примерно ключей кэша у fib(2) с lru_cache?",
     "options": [
-      "примерно 3 (0..n)",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "порядка 3 (0..2)",
+      "1",
+      "4 без повторов степеней 2",
+      "0"
     ],
     "answer": 0,
-    "explain": "Примерно 3 (0..n). Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Кэшируются fib(0), fib(1), fib(2).",
     "kind": "single",
-    "group": "Collections и itertools",
     "id": "m891",
-    "fixed": true
+    "fixed": true,
+    "topic": "functools",
+    "group": "Collections и itertools"
   },
   {
-    "topic": "bytes",
-    "q": "Что такое encode/decode связывает?",
+    "q": "Что связывают encode/decode?",
     "options": [
-      "str ↔ bytes",
-      "list ↔ tuple",
+      "str ↔ bytes через кодировку",
       "int ↔ float",
-      "json ↔ dict"
+      "list ↔ tuple",
+      "JSON ↔ pickle"
     ],
     "answer": 0,
-    "explain": "Str ↔ bytes. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "s.encode('utf-8') → bytes; b.decode('utf-8') → str.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m892",
-    "fixed": true
+    "fixed": true,
+    "topic": "bytes",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "JSON",
     "q": "Что будет с set?",
     "options": [
       "TypeError без default",
@@ -14490,15 +14490,15 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в TypeError без default. Пройди выражение слева направо с учётом типов.",
+    "explain": "Множество хранит уникальные элементы. Результат: TypeError без default.",
     "kind": "single",
     "code": "import json\njson.dumps({1, 2})",
-    "group": "Stdlib и производительность",
     "id": "m893",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "performance",
     "q": "Что верно про Конкатенация много str в цикле?",
     "options": [
       "лучше join",
@@ -14509,29 +14509,29 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "''.join(parts) эффективнее — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m894",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "list",
-      "ошибка",
-      "None",
-      "tuple"
+      "dict",
+      "str",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "List. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "json.loads массива → list.",
     "kind": "single",
     "code": "import json\nprint(type(json.loads('[1, 2, 3]')).__name__)",
-    "group": "Stdlib и производительность",
     "id": "m895",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "home/user/docs",
@@ -14540,31 +14540,31 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в home/user/docs. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: home/user/docs.",
     "kind": "single",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('home', 'user', 'docs'))",
-    "group": "Stdlib и производительность",
     "id": "m896",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "weakref",
-    "q": "Что такое WeakKeyDictionary ключи?",
+    "q": "Какие ключи у WeakKeyDictionary?",
     "options": [
-      "слабые, должны быть hashable weakrefable",
-      "сильные list",
-      "int only always immortal",
-      "str intern mandatory"
+      "слабые; объекты должны быть hashable и weakly referenceable",
+      "только str",
+      "сильные навсегда",
+      "только int"
     ],
     "answer": 0,
-    "explain": "Слабые, должны быть hashable weakrefable. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Когда ключ собран GC — запись исчезает. Не все объекты поддерживают weakref.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m897",
-    "fixed": true
+    "fixed": true,
+    "topic": "weakref",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "var/log/app.log",
@@ -14573,31 +14573,31 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в var/log/app.log. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: var/log/app.log.",
     "kind": "single",
     "code": "from pathlib import PurePosixPath\nprint(PurePosixPath('var', 'log', 'app.log'))",
-    "group": "Stdlib и производительность",
     "id": "m898",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "regex",
-    "q": "Что такое \\b граница слова?",
+    "q": "Что такое \\b в regex?",
     "options": [
-      "word boundary",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "граница слова (word boundary)",
+      "backspace символ всегда",
+      "начало строки только",
+      "любая буква"
     ],
     "answer": 0,
-    "explain": "Word boundary. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Граница между \\w и \\W. Не путать с \\B (не граница).",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m899",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "pathlib",
     "q": "Что выведет код?",
     "options": [
       "'.PNG'",
@@ -14606,31 +14606,31 @@ window.QUESTIONS_MIDDLE = [
       "None"
     ],
     "answer": 0,
-    "explain": "Код вычисляется в '.PNG'. Пройди выражение слева направо с учётом типов.",
+    "explain": "pathlib склеивает части пути через /. Результат: '.PNG'.",
     "kind": "single",
     "code": "from pathlib import PurePath\nprint(PurePath('photo.PNG').suffix)",
-    "group": "Stdlib и производительность",
     "id": "m900",
-    "fixed": true
+    "fixed": true,
+    "topic": "pathlib",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "JSON",
-    "q": "Что такое default= в dumps?",
+    "q": "Зачем default= в json.dumps?",
     "options": [
-      "сериализатор неизвестных типов",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет",
-      "опасное упрощение, ломающее корректность"
+      "функция сериализации типов, которые JSON не знает",
+      "значение по умолчанию для loads",
+      "indent",
+      "сортировка"
     ],
     "answer": 0,
-    "explain": "Сериализатор неизвестных типов. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "default=str или свой encoder для datetime/set/…",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m901",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "performance",
     "q": "Что верно про много мелких объектов — смотри?",
     "options": [
       "аллокации/GC, slots, interning осторожно",
@@ -14641,106 +14641,107 @@ window.QUESTIONS_MIDDLE = [
     "answer": 0,
     "explain": "Профилируй память — Производительность измеряют профайлером и оптимизируют горячие участки, а не «на глаз».",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m902",
-    "fixed": true
+    "fixed": true,
+    "topic": "performance",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "sort",
-    "q": "Что вернёт key=str.lower?",
+    "q": "Что даёт sort(key=str.lower)?",
     "options": [
-      "case-insensitive sort",
-      "утверждение про другой уровень стека",
-      "by len default",
-      "поведение, которого в CPython нет"
+      "сортировку без учёта регистра",
+      "удаление строк",
+      "обязательный locale collation всегда",
+      "reverse=True"
     ],
     "answer": 0,
-    "explain": "Результат выражения — case-insensitive sort. Сверь литералы, методы и то, что они реально возвращают.",
+    "explain": "Ключ — нижний регистр; исходные строки не меняются.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m903",
-    "fixed": true
+    "fixed": true,
+    "topic": "sort",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "regex",
     "q": "Что выведет код?",
     "options": [
       "'12'",
-      "'ab12cd'",
-      "ошибка",
+      "'1'",
+      "12",
       "None"
     ],
     "answer": 0,
-    "explain": "'12'. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Регулярка ищет совпадение по паттерну. Результат группы/поиска: '12'.",
     "kind": "single",
     "code": "import re\nm = re.search('\\\\d+', 'ab12cd')\nprint(None if m is None else m.group())",
-    "group": "Stdlib и производительность",
     "id": "m904",
-    "fixed": true
+    "fixed": true,
+    "topic": "regex",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "tempfile",
     "q": "Что такое SpooledTemporaryFile?",
     "options": [
-      "сначала RAM, потом диск",
-      "только диск",
-      "только RAM forever",
-      "утверждение про другой уровень стека"
+      "сначала держит данные в RAM, при росте — на диск",
+      "только диск сразу",
+      "только RAM без спула",
+      "сетевой сокет"
     ],
     "answer": 0,
-    "explain": "Сначала RAM, потом диск. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "max_size порог переключения. Удобно для загрузок неизвестного размера.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m905",
-    "fixed": true
+    "fixed": true,
+    "topic": "tempfile",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "JSON",
     "q": "Что выведет код?",
     "options": [
       "dict",
-      "ошибка",
-      "None",
-      "tuple"
+      "list",
+      "str",
+      "ошибка"
     ],
     "answer": 0,
-    "explain": "Dict. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "разбор JSON-объекта → dict.",
     "kind": "single",
     "code": "import json\nprint(type(json.loads('{\"ok\": true, \"n\": null}')).__name__)",
-    "group": "Stdlib и производительность",
     "id": "m906",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "JSON",
-    "q": "Что такое JSONEncoder subclass?",
+    "q": "Зачем subclass JSONEncoder?",
     "options": [
-      "кастом default",
-      "loads only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "кастомный default для своих типов",
+      "ускорение C парсера",
+      "сжатие",
+      "валидация schema"
     ],
     "answer": 0,
-    "explain": "Кастом default. Не путай с соседними похожими терминами из той же темы.",
+    "explain": "Переопредели default() и передай cls=MyEncoder в dumps.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m907",
-    "fixed": true
+    "fixed": true,
+    "topic": "JSON",
+    "group": "Stdlib и производительность"
   },
   {
-    "topic": "import",
     "q": "Что такое MetaPathFinder?",
     "options": [
-      "поиск модулей на meta_path",
-      "path entry only",
-      "утверждение про другой уровень стека",
-      "поведение, которого в CPython нет"
+      "искатель модулей в sys.meta_path",
+      "парсер HTML",
+      "установщик pip",
+      "тип Path"
     ],
     "answer": 0,
-    "explain": "Поиск модулей на meta_path. Соседние варианты обычно про другой механизм или уровень стека.",
+    "explain": "Импорт сначала спрашивает finders на meta_path (и path_hooks). Кастомный finder — плагины импорта.",
     "kind": "single",
-    "group": "Stdlib и производительность",
     "id": "m908",
-    "fixed": true
+    "fixed": true,
+    "topic": "import",
+    "group": "Stdlib и производительность"
   }
 ];

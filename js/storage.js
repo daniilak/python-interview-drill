@@ -6,6 +6,7 @@
   const STORAGE_KEY = "python-drill-v3";
   const LEGACY_KEYS = ["python-drill-v2", "python-drill-stats-v1"];
   const SCHEMA_VERSION = 4;
+  const MAX_PROGRESS_ITEMS = 5000;
 
   function defaultStore() {
     return {
@@ -168,16 +169,24 @@
     const base = defaultStore();
     const mistakes = {};
     const src = data.mistakes && typeof data.mistakes === "object" ? data.mistakes : {};
-    for (const [k, v] of Object.entries(src)) {
+    for (const [k, v] of Object.entries(src).slice(0, MAX_PROGRESS_ITEMS)) {
       const norm = normalizeMistakeEntry(k, v);
       if (norm) mistakes[norm.key] = norm;
+    }
+    const topicStats = {};
+    const srcStats = data.topicStats && typeof data.topicStats === "object" ? data.topicStats : {};
+    for (const [key, value] of Object.entries(srcStats).slice(0, MAX_PROGRESS_ITEMS)) {
+      if (!value || typeof value !== "object") continue;
+      const total = Math.max(0, Number(value.total) || 0);
+      const correct = Math.min(total, Math.max(0, Number(value.correct) || 0));
+      topicStats[String(key).slice(0, 120)] = { total, correct };
     }
     const next = {
       ...base,
       bestStreak: Number(data.bestStreak) || 0,
       totalAnswered: Number(data.totalAnswered) || 0,
       mistakes,
-      topicStats: data.topicStats && typeof data.topicStats === "object" ? data.topicStats : {},
+      topicStats,
       settings: {
         ...base.settings,
         ...(data.settings && typeof data.settings === "object" ? data.settings : {}),

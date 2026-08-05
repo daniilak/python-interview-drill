@@ -1,0 +1,1376 @@
+{
+  "junior": [
+    {
+      "topic": "алгоритмы",
+      "file": "algorithms.js",
+      "count": 10,
+      "group": "Алгоритмы и структуры данных"
+    },
+    {
+      "topic": "all",
+      "file": "all.js",
+      "count": 15,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "any",
+      "file": "any.js",
+      "count": 15,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "assert",
+      "file": "assert.js",
+      "count": 2,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "bool",
+      "file": "bool.js",
+      "count": 5,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "встроенные",
+      "file": "builtins-01.js",
+      "count": 100,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "встроенные",
+      "file": "builtins-02.js",
+      "count": 14,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "Встроенные функции",
+      "file": "builtins-intro.js",
+      "count": 1,
+      "group": "Условия и циклы"
+    },
+    {
+      "topic": "байты",
+      "file": "bytes.js",
+      "count": 18,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "коллекции",
+      "file": "collections.js",
+      "count": 1,
+      "group": "Словари и множества"
+    },
+    {
+      "topic": "комментарии",
+      "file": "comments.js",
+      "count": 2,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "сравнения",
+      "file": "comparisons.js",
+      "count": 51,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "comprehension",
+      "file": "comprehension.js",
+      "count": 1,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "comprehensions",
+      "file": "comprehensions.js",
+      "count": 1,
+      "group": "Синтаксис и структуры данных"
+    },
+    {
+      "topic": "условия",
+      "file": "conditionals.js",
+      "count": 23,
+      "group": "Условия и циклы"
+    },
+    {
+      "topic": "copy",
+      "file": "copy.js",
+      "count": 2,
+      "group": "Списки и кортежи"
+    },
+    {
+      "topic": "копирование",
+      "file": "copying.js",
+      "count": 2,
+      "group": "Списки и кортежи"
+    },
+    {
+      "topic": "время",
+      "file": "datetime.js",
+      "count": 2,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "dict",
+      "file": "dict.js",
+      "count": 8,
+      "group": "Словари и множества"
+    },
+    {
+      "topic": "dictcomp",
+      "file": "dictcomp.js",
+      "count": 6,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "словари",
+      "file": "dictionaries.js",
+      "count": 40,
+      "group": "Словари и множества"
+    },
+    {
+      "topic": "dir",
+      "file": "dir.js",
+      "count": 1,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "enumerate",
+      "file": "enumerate.js",
+      "count": 7,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "ошибки",
+      "file": "errors.js",
+      "count": 18,
+      "group": "Исключения и файлы"
+    },
+    {
+      "topic": "исключения",
+      "file": "exceptions.js",
+      "count": 17,
+      "group": "Исключения и файлы"
+    },
+    {
+      "topic": "f-string",
+      "file": "f-string.js",
+      "count": 13,
+      "group": "Строки"
+    },
+    {
+      "topic": "файлы",
+      "file": "files.js",
+      "count": 15,
+      "group": "Исключения и файлы"
+    },
+    {
+      "topic": "filter",
+      "file": "filter.js",
+      "count": 6,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "функции",
+      "file": "functions.js",
+      "count": 27,
+      "group": "Функции и область видимости"
+    },
+    {
+      "topic": "git",
+      "file": "git.js",
+      "count": 10,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "hash",
+      "file": "hash.js",
+      "count": 2,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "help",
+      "file": "help.js",
+      "count": 1,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "id",
+      "file": "id.js",
+      "count": 1,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "идентичность",
+      "file": "identity.js",
+      "count": 16,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "in",
+      "file": "in.js",
+      "count": 12,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "ввод",
+      "file": "input.js",
+      "count": 4,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "JSON",
+      "file": "json.js",
+      "count": 6,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "lambda",
+      "file": "lambda.js",
+      "count": 1,
+      "group": "Функции и область видимости"
+    },
+    {
+      "topic": "list",
+      "file": "list.js",
+      "count": 1,
+      "group": "Списки и кортежи"
+    },
+    {
+      "topic": "listcomp",
+      "file": "listcomp.js",
+      "count": 20,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "списки",
+      "file": "lists.js",
+      "count": 96,
+      "group": "Списки и кортежи"
+    },
+    {
+      "topic": "логические операции",
+      "file": "logical-operators.js",
+      "count": 1,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "циклы",
+      "file": "loops.js",
+      "count": 34,
+      "group": "Условия и циклы"
+    },
+    {
+      "topic": "map",
+      "file": "map.js",
+      "count": 10,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "math",
+      "file": "math.js",
+      "count": 3,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "min",
+      "file": "min.js",
+      "count": 1,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "модули",
+      "file": "modules.js",
+      "count": 11,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "None",
+      "file": "none.js",
+      "count": 2,
+      "group": "Функции и область видимости"
+    },
+    {
+      "topic": "ООП",
+      "file": "oop.js",
+      "count": 27,
+      "group": "ООП"
+    },
+    {
+      "topic": "операторы",
+      "file": "operators-01.js",
+      "count": 100,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "операторы",
+      "file": "operators-02.js",
+      "count": 100,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "операторы",
+      "file": "operators-03.js",
+      "count": 100,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "операторы",
+      "file": "operators-04.js",
+      "count": 79,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "пакеты",
+      "file": "packages.js",
+      "count": 2,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "pass",
+      "file": "pass.js",
+      "count": 2,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "path",
+      "file": "path.js",
+      "count": 2,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "pep8",
+      "file": "pep8.js",
+      "count": 6,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "print",
+      "file": "print.js",
+      "count": 3,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "random",
+      "file": "random.js",
+      "count": 3,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "реверс",
+      "file": "reverse.js",
+      "count": 1,
+      "group": "Встроенные функции"
+    },
+    {
+      "topic": "области",
+      "file": "scope.js",
+      "count": 8,
+      "group": "Функции и область видимости"
+    },
+    {
+      "topic": "set",
+      "file": "set.js",
+      "count": 4,
+      "group": "Словари и множества"
+    },
+    {
+      "topic": "множества",
+      "file": "sets.js",
+      "count": 52,
+      "group": "Словари и множества"
+    },
+    {
+      "topic": "срезы",
+      "file": "slices.js",
+      "count": 12,
+      "group": "Списки и кортежи"
+    },
+    {
+      "topic": "строки",
+      "file": "strings-01.js",
+      "count": 100,
+      "group": "Строки"
+    },
+    {
+      "topic": "строки",
+      "file": "strings-02.js",
+      "count": 100,
+      "group": "Строки"
+    },
+    {
+      "topic": "строки",
+      "file": "strings-03.js",
+      "count": 48,
+      "group": "Строки"
+    },
+    {
+      "topic": "swap",
+      "file": "swap.js",
+      "count": 1,
+      "group": "Списки и кортежи"
+    },
+    {
+      "topic": "truthiness",
+      "file": "truthiness.js",
+      "count": 1,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "кортежи",
+      "file": "tuples.js",
+      "count": 15,
+      "group": "Списки и кортежи"
+    },
+    {
+      "topic": "типы",
+      "file": "types.js",
+      "count": 20,
+      "group": "Типы и операторы"
+    },
+    {
+      "topic": "unpack",
+      "file": "unpack.js",
+      "count": 15,
+      "group": "Списки и кортежи"
+    },
+    {
+      "topic": "venv",
+      "file": "venv.js",
+      "count": 4,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "zip",
+      "file": "zip.js",
+      "count": 8,
+      "group": "Встроенные функции"
+    }
+  ],
+  "middle": [
+    {
+      "topic": "ABC",
+      "file": "abc.js",
+      "count": 9,
+      "group": "ООП продвинутый"
+    },
+    {
+      "topic": "алгоритмы",
+      "file": "algorithms.js",
+      "count": 10,
+      "group": "Алгоритмы и структуры данных"
+    },
+    {
+      "topic": "args",
+      "file": "args.js",
+      "count": 12,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "array",
+      "file": "array.js",
+      "count": 2,
+      "group": "Collections и itertools"
+    },
+    {
+      "topic": "ASGI",
+      "file": "asgi.js",
+      "count": 4,
+      "group": "Веб и API"
+    },
+    {
+      "topic": "async",
+      "file": "async.js",
+      "count": 3,
+      "group": "Asyncio"
+    },
+    {
+      "topic": "asyncio",
+      "file": "asyncio.js",
+      "count": 32,
+      "group": "Asyncio"
+    },
+    {
+      "topic": "attrs/pydantic",
+      "file": "attrs-pydantic.js",
+      "count": 1,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "bisect",
+      "file": "bisect.js",
+      "count": 9,
+      "group": "Collections и itertools"
+    },
+    {
+      "topic": "bytes",
+      "file": "bytes.js",
+      "count": 2,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "classmethod",
+      "file": "classmethod.js",
+      "count": 3,
+      "group": "Контекст и магические методы"
+    },
+    {
+      "topic": "замыкания",
+      "file": "closures-advanced.js",
+      "count": 14,
+      "group": "Декораторы и замыкания"
+    },
+    {
+      "topic": "closures",
+      "file": "closures.js",
+      "count": 2,
+      "group": "Декораторы и замыкания"
+    },
+    {
+      "topic": "cohesion",
+      "file": "cohesion.js",
+      "count": 3,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "collections",
+      "file": "collections.js",
+      "count": 34,
+      "group": "Collections и itertools"
+    },
+    {
+      "topic": "comprehensions",
+      "file": "comprehensions.js",
+      "count": 4,
+      "group": "Генераторы и итераторы"
+    },
+    {
+      "topic": "concurrency",
+      "file": "concurrency.js",
+      "count": 1,
+      "group": "Потоки, процессы, GIL"
+    },
+    {
+      "topic": "context",
+      "file": "context.js",
+      "count": 20,
+      "group": "Исключения и контекст"
+    },
+    {
+      "topic": "copy",
+      "file": "copy.js",
+      "count": 15,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "копирование",
+      "file": "copying.js",
+      "count": 2,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "coroutines",
+      "file": "coroutines.js",
+      "count": 2,
+      "group": "Генераторы и итераторы"
+    },
+    {
+      "topic": "csv",
+      "file": "csv.js",
+      "count": 1,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "dataclasses",
+      "file": "dataclasses.js",
+      "count": 24,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "декораторы",
+      "file": "decorators.js",
+      "count": 13,
+      "group": "Декораторы и замыкания"
+    },
+    {
+      "topic": "дескрипторы",
+      "file": "descriptors.js",
+      "count": 3,
+      "group": "Контекст и магические методы"
+    },
+    {
+      "topic": "DI",
+      "file": "di.js",
+      "count": 6,
+      "group": "Веб и API"
+    },
+    {
+      "topic": "dict",
+      "file": "dict.js",
+      "count": 3,
+      "group": "Collections и itertools"
+    },
+    {
+      "topic": "DRY",
+      "file": "dry.js",
+      "count": 5,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "EAFP",
+      "file": "eafp.js",
+      "count": 1,
+      "group": "Тесты и качество"
+    },
+    {
+      "topic": "enum",
+      "file": "enum.js",
+      "count": 9,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "исключения",
+      "file": "exceptions-handling.js",
+      "count": 5,
+      "group": "Исключения и контекст"
+    },
+    {
+      "topic": "exceptions",
+      "file": "exceptions.js",
+      "count": 11,
+      "group": "Исключения и контекст"
+    },
+    {
+      "topic": "f-string",
+      "file": "f-string.js",
+      "count": 2,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "FastAPI",
+      "file": "fastapi.js",
+      "count": 8,
+      "group": "Веб и API"
+    },
+    {
+      "topic": "functools",
+      "file": "functools.js",
+      "count": 40,
+      "group": "Collections и itertools"
+    },
+    {
+      "topic": "GC",
+      "file": "gc.js",
+      "count": 3,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "генераторы",
+      "file": "generators-syntax.js",
+      "count": 25,
+      "group": "Генераторы и итераторы"
+    },
+    {
+      "topic": "generators",
+      "file": "generators.js",
+      "count": 2,
+      "group": "Генераторы и итераторы"
+    },
+    {
+      "topic": "GIL",
+      "file": "gil.js",
+      "count": 12,
+      "group": "Потоки, процессы, GIL"
+    },
+    {
+      "topic": "git",
+      "file": "git.js",
+      "count": 5,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "hashlib",
+      "file": "hashlib.js",
+      "count": 3,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "heapq",
+      "file": "heapq.js",
+      "count": 14,
+      "group": "Collections и itertools"
+    },
+    {
+      "topic": "HTTP",
+      "file": "http.js",
+      "count": 49,
+      "group": "Веб и API"
+    },
+    {
+      "topic": "import",
+      "file": "import.js",
+      "count": 9,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "is",
+      "file": "is.js",
+      "count": 3,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "итераторы",
+      "file": "iterators.js",
+      "count": 8,
+      "group": "Генераторы и итераторы"
+    },
+    {
+      "topic": "itertools",
+      "file": "itertools.js",
+      "count": 48,
+      "group": "Collections и itertools"
+    },
+    {
+      "topic": "JSON",
+      "file": "json.js",
+      "count": 24,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "KISS",
+      "file": "kiss.js",
+      "count": 4,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "LBYL",
+      "file": "lbyl.js",
+      "count": 1,
+      "group": "Тесты и качество"
+    },
+    {
+      "topic": "listcomp",
+      "file": "listcomp.js",
+      "count": 2,
+      "group": "Генераторы и итераторы"
+    },
+    {
+      "topic": "логирование",
+      "file": "logging-basics.js",
+      "count": 1,
+      "group": "Тесты и качество"
+    },
+    {
+      "topic": "logging",
+      "file": "logging.js",
+      "count": 12,
+      "group": "Тесты и качество"
+    },
+    {
+      "topic": "магические",
+      "file": "magic-methods.js",
+      "count": 20,
+      "group": "Контекст и магические методы"
+    },
+    {
+      "topic": "match",
+      "file": "match.js",
+      "count": 21,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "memory",
+      "file": "memory.js",
+      "count": 1,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "memoryview",
+      "file": "memoryview.js",
+      "count": 2,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "mock",
+      "file": "mock.js",
+      "count": 7,
+      "group": "Тесты и качество"
+    },
+    {
+      "topic": "MRO",
+      "file": "mro.js",
+      "count": 6,
+      "group": "ООП продвинутый"
+    },
+    {
+      "topic": "multiprocessing",
+      "file": "multiprocessing.js",
+      "count": 10,
+      "group": "Потоки, процессы, GIL"
+    },
+    {
+      "topic": "ООП",
+      "file": "oop.js",
+      "count": 12,
+      "group": "ООП продвинутый"
+    },
+    {
+      "topic": "операторы",
+      "file": "operators.js",
+      "count": 1,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "пакеты",
+      "file": "packages.js",
+      "count": 1,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "pathlib",
+      "file": "pathlib.js",
+      "count": 23,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "patterns",
+      "file": "patterns.js",
+      "count": 15,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "performance",
+      "file": "performance.js",
+      "count": 14,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "pickle",
+      "file": "pickle.js",
+      "count": 3,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "принципы",
+      "file": "principles.js",
+      "count": 15,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "property",
+      "file": "property.js",
+      "count": 8,
+      "group": "Контекст и магические методы"
+    },
+    {
+      "topic": "protocols",
+      "file": "protocols.js",
+      "count": 2,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "refcount",
+      "file": "refcount.js",
+      "count": 1,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "регулярки",
+      "file": "regex-patterns.js",
+      "count": 6,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "regex",
+      "file": "regex.js",
+      "count": 11,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "secrets",
+      "file": "secrets.js",
+      "count": 4,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "slots",
+      "file": "slots.js",
+      "count": 3,
+      "group": "ООП продвинутый"
+    },
+    {
+      "topic": "SoC",
+      "file": "soc.js",
+      "count": 2,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "sort",
+      "file": "sort.js",
+      "count": 7,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "SQL",
+      "file": "sql.js",
+      "count": 30,
+      "group": "Веб и API"
+    },
+    {
+      "topic": "sqlite",
+      "file": "sqlite.js",
+      "count": 1,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "staticmethod",
+      "file": "staticmethod.js",
+      "count": 2,
+      "group": "Контекст и магические методы"
+    },
+    {
+      "topic": "строки",
+      "file": "strings.js",
+      "count": 2,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "struct",
+      "file": "struct.js",
+      "count": 6,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "subprocess",
+      "file": "subprocess.js",
+      "count": 8,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "tempfile",
+      "file": "tempfile.js",
+      "count": 5,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "testing",
+      "file": "testing.js",
+      "count": 15,
+      "group": "Тесты и качество"
+    },
+    {
+      "topic": "тесты",
+      "file": "tests.js",
+      "count": 20,
+      "group": "Тесты и качество"
+    },
+    {
+      "topic": "threading",
+      "file": "threading.js",
+      "count": 10,
+      "group": "Потоки, процессы, GIL"
+    },
+    {
+      "topic": "typing",
+      "file": "typing.js",
+      "count": 43,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "walrus",
+      "file": "walrus.js",
+      "count": 9,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "warnings",
+      "file": "warnings.js",
+      "count": 4,
+      "group": "Тесты и качество"
+    },
+    {
+      "topic": "weakref",
+      "file": "weakref.js",
+      "count": 8,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "with",
+      "file": "with.js",
+      "count": 1,
+      "group": "Исключения и контекст"
+    },
+    {
+      "topic": "WSGI",
+      "file": "wsgi.js",
+      "count": 1,
+      "group": "Веб и API"
+    },
+    {
+      "topic": "YAGNI",
+      "file": "yagni.js",
+      "count": 4,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "Zen",
+      "file": "zen.js",
+      "count": 4,
+      "group": "Архитектура и дизайн"
+    }
+  ],
+  "senior": [
+    {
+      "topic": "алгоритмы",
+      "file": "algorithms.js",
+      "count": 10,
+      "group": "Алгоритмы и структуры данных"
+    },
+    {
+      "topic": "API design",
+      "file": "api-design.js",
+      "count": 1,
+      "group": "Веб и API"
+    },
+    {
+      "topic": "api",
+      "file": "api.js",
+      "count": 29,
+      "group": "Веб и API"
+    },
+    {
+      "topic": "architecture",
+      "file": "architecture.js",
+      "count": 43,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "async",
+      "file": "async.js",
+      "count": 16,
+      "group": "Asyncio"
+    },
+    {
+      "topic": "asyncio",
+      "file": "asyncio.js",
+      "count": 23,
+      "group": "Asyncio"
+    },
+    {
+      "topic": "байткод",
+      "file": "bytecode.js",
+      "count": 13,
+      "group": "CPython и память"
+    },
+    {
+      "topic": "C-API",
+      "file": "c-api.js",
+      "count": 15,
+      "group": "Нативные расширения"
+    },
+    {
+      "topic": "cache",
+      "file": "cache.js",
+      "count": 47,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "caching",
+      "file": "caching.js",
+      "count": 2,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "cffi/pybind",
+      "file": "cffi-pybind.js",
+      "count": 2,
+      "group": "Нативные расширения"
+    },
+    {
+      "topic": "ci",
+      "file": "ci.js",
+      "count": 5,
+      "group": "Упаковка и CI"
+    },
+    {
+      "topic": "cohesion",
+      "file": "cohesion.js",
+      "count": 1,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "concurrency",
+      "file": "concurrency.js",
+      "count": 16,
+      "group": "Потоки, процессы, GIL"
+    },
+    {
+      "topic": "consistency",
+      "file": "consistency.js",
+      "count": 2,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "CPython",
+      "file": "cpython.js",
+      "count": 49,
+      "group": "CPython и память"
+    },
+    {
+      "topic": "ctypes",
+      "file": "ctypes.js",
+      "count": 8,
+      "group": "Нативные расширения"
+    },
+    {
+      "topic": "db",
+      "file": "db.js",
+      "count": 61,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "дескрипторы",
+      "file": "descriptors.js",
+      "count": 10,
+      "group": "Метаклассы и типы"
+    },
+    {
+      "topic": "design",
+      "file": "design.js",
+      "count": 20,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "distributed",
+      "file": "distributed.js",
+      "count": 44,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "errors",
+      "file": "errors.js",
+      "count": 12,
+      "group": "Исключения и контекст"
+    },
+    {
+      "topic": "events",
+      "file": "events.js",
+      "count": 2,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "exceptions",
+      "file": "exceptions.js",
+      "count": 1,
+      "group": "Исключения и контекст"
+    },
+    {
+      "topic": "fork",
+      "file": "fork.js",
+      "count": 3,
+      "group": "Потоки, процессы, GIL"
+    },
+    {
+      "topic": "GC",
+      "file": "gc.js",
+      "count": 1,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "GIL",
+      "file": "gil.js",
+      "count": 9,
+      "group": "Потоки, процессы, GIL"
+    },
+    {
+      "topic": "git",
+      "file": "git.js",
+      "count": 3,
+      "group": "Инструменты и стиль"
+    },
+    {
+      "topic": "idempotency keys",
+      "file": "idempotency-keys.js",
+      "count": 1,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "import",
+      "file": "import.js",
+      "count": 13,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "interning",
+      "file": "interning.js",
+      "count": 1,
+      "group": "CPython и память"
+    },
+    {
+      "topic": "lazy",
+      "file": "lazy.js",
+      "count": 3,
+      "group": "Метаклассы и типы"
+    },
+    {
+      "topic": "LoD",
+      "file": "lod.js",
+      "count": 2,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "память",
+      "file": "memory.js",
+      "count": 24,
+      "group": "CPython и память"
+    },
+    {
+      "topic": "метаклассы",
+      "file": "metaclasses.js",
+      "count": 19,
+      "group": "Метаклассы и типы"
+    },
+    {
+      "topic": "multiprocessing",
+      "file": "multiprocessing.js",
+      "count": 7,
+      "group": "Потоки, процессы, GIL"
+    },
+    {
+      "topic": "observability",
+      "file": "observability.js",
+      "count": 35,
+      "group": "Наблюдаемость и качество"
+    },
+    {
+      "topic": "packaging",
+      "file": "packaging.js",
+      "count": 30,
+      "group": "Упаковка и CI"
+    },
+    {
+      "topic": "patterns",
+      "file": "patterns.js",
+      "count": 17,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "perf",
+      "file": "perf.js",
+      "count": 1,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "performance",
+      "file": "performance.js",
+      "count": 48,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "pickle",
+      "file": "pickle.js",
+      "count": 6,
+      "group": "Stdlib и производительность"
+    },
+    {
+      "topic": "принципы",
+      "file": "principles.js",
+      "count": 7,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "python",
+      "file": "python.js",
+      "count": 23,
+      "group": "CPython и память"
+    },
+    {
+      "topic": "queues",
+      "file": "queues.js",
+      "count": 3,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "retries",
+      "file": "retries.js",
+      "count": 2,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "rpc",
+      "file": "rpc.js",
+      "count": 3,
+      "group": "Веб и API"
+    },
+    {
+      "topic": "runtime",
+      "file": "runtime.js",
+      "count": 4,
+      "group": "Метаклассы и типы"
+    },
+    {
+      "topic": "security",
+      "file": "security.js",
+      "count": 64,
+      "group": "Безопасность"
+    },
+    {
+      "topic": "serialization",
+      "file": "serialization.js",
+      "count": 7,
+      "group": "Данные и распределёнка"
+    },
+    {
+      "topic": "signals",
+      "file": "signals.js",
+      "count": 4,
+      "group": "Потоки, процессы, GIL"
+    },
+    {
+      "topic": "SoC",
+      "file": "soc.js",
+      "count": 1,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "SOLID",
+      "file": "solid.js",
+      "count": 28,
+      "group": "Архитектура и дизайн"
+    },
+    {
+      "topic": "string",
+      "file": "string.js",
+      "count": 1,
+      "group": "CPython и память"
+    },
+    {
+      "topic": "subinterpreters",
+      "file": "subinterpreters.js",
+      "count": 3,
+      "group": "Нативные расширения"
+    },
+    {
+      "topic": "testing",
+      "file": "testing.js",
+      "count": 24,
+      "group": "Тесты и качество"
+    },
+    {
+      "topic": "typing",
+      "file": "typing.js",
+      "count": 20,
+      "group": "Typing и dataclasses"
+    },
+    {
+      "topic": "wasm",
+      "file": "wasm.js",
+      "count": 3,
+      "group": "Нативные расширения"
+    },
+    {
+      "topic": "Zen",
+      "file": "zen.js",
+      "count": 5,
+      "group": "Архитектура и дизайн"
+    }
+  ]
+}

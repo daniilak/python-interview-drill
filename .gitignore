@@ -5,3 +5,7 @@ __pycache__/
 .vscode/
 *.log
 ТЗ_доработки.md
+.env
+*.pem
+
+.cursor/skills/edit-question-bank/

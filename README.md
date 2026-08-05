@@ -2,7 +2,7 @@
 
 Тренажёр-задачник по Python к собеседованию (Junior / Middle / Senior).
 
-**Версия:** 1.3.0 · **Автор:** [daniilak](https://github.com/daniilak)
+**Версия:** 1.3.1 · **Автор:** [daniilak](https://github.com/daniilak)
 
 ## Онлайн
 
@@ -18,55 +18,39 @@ GitHub Pages: https://daniilak.github.io/python-interview-drill/
 2. Выбери тему или «Все темы».
 3. Один вопрос на экран → сразу видно, верно или нет.
 4. **Дальше** / Enter / пробел — следующий вопрос.
-5. Клавиши **1–4** — быстрый выбор варианта (в режиме ввода — при пустом поле или с Ctrl/Alt).
+5. Клавиши **1–4** — быстрый выбор варианта.
 
-Дополнительно: таймер, режим ввода ответа, колода «Мои ошибки» (счётчик на главном + удаление одной карточки), прогресс по темам. Данные в `localStorage` (ключ `python-drill-v3`, миграция со старых ключей).
+Дополнительно: таймер, режим ввода ответа, колода «Мои ошибки», прогресс по темам (`localStorage`, ключ `python-drill-v3`).
 
 ## Банк вопросов
 
-Около **3200** карточек, включая формат «выбери все верные».
+Около **3200** карточек.
 
-| Уровень | Фокус |
-|--------|--------|
-| Junior | типы, строки, списки, dict/set, функции, исключения, OOP |
-| Middle | декораторы, генераторы, GIL, asyncio, typing, stdlib, тесты |
-| Senior | CPython, память, метаклассы, архитектура, безопасность |
+| Для | Путь | Запросов |
+|-----|------|----------|
+| Браузер / прод | `js/data/{junior,middle,senior}.js` | **3** |
+| Правки в чате | `js/data/{junior,middle,senior}/*.js` | — |
 
-На мобильных: свайп влево после ответа — следующий вопрос. Клавиши **1–4** в multi переключают чекбоксы, Enter — «Проверить».
+Topic-файлы: `topic` и `group` в шапке `@meta`, не в каждой карточке. Бандл собирает `scripts/bank.py`.
 
-Пересборка банка:
+Перед публикацией:
 
 ```bash
-python3 generate_questions.py          # merge: не удаляет и не затирает js/data; накладывает bank/overrides
-python3 generate_questions.py --append-new   # то же + дописать новые карточки из плагинов
-python3 generate_questions.py --rebuild      # полная пересборка (правки только через overrides)
-python3 tools/fix_language.py         # массовая правка языка → js/data + overrides
-python3 audit_bank.py
+python3 scripts/bank.py release
 ```
 
-Починенные карточки помечаются `"fixed": true` и дублируются в `bank/overrides/{junior,middle,senior}.json`.
-Генератор **не удаляет** существующие вопросы и **не перезаписывает** fixed/overrides.
+ТЗ для агента: [`.cursor/skills/edit-question-bank/SKILL.md`](.cursor/skills/edit-question-bank/SKILL.md).
 
 ## Структура
 
 ```
-index.html              # UI
+index.html
 css/style.css
 js/app.js, storage.js, timer.js, version.js
-js/data/{junior,middle,senior}.js   # сгенерированный банк
-
-generate_questions.py   # CLI-обёртка
-audit_bank.py           # CLI-обёртка
-
-bank/                   # Python-пакет банка
-  builder.py            # BankBuilder: плагины → polish → JS
-  groups.py             # topic → group
-  utils.py              # q / q_multi
-  polish/               # нормализация q и explain
-  core/                 # встроенные JUNIOR/MIDDLE/SENIOR
-  plugins/              # волны и вариации карточек
-
-tools/                  # те же CLI (можно звать отсюда)
+js/data/{junior,middle,senior}.js   # бандлы для браузера
+js/data/{junior,middle,senior}/     # topic-файлы (правки)
+scripts/bank.py
+.cursor/skills/edit-question-bank/
 ```
 
 ## Лицензия

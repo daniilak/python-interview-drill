@@ -3,6 +3,7 @@
 
   const ROUND_SIZE = 20;
   const RECENT_LIMIT = 40;
+  const MAX_IMPORT_BYTES = 1024 * 1024;
 
   /** Полные подписи для коротких topic-ключей в бейджах */
   const TOPIC_LABELS = {
@@ -592,7 +593,7 @@
     if (!el.dataError) return;
     el.dataError.hidden = false;
     el.dataError.textContent =
-      "Не удалось загрузить банк вопросов (js/data/*.js). Проверь, что файлы на месте, и открой страницу через локальный сервер или напрямую из папки проекта.";
+      "Не удалось загрузить банк вопросов (js/data/junior.js, middle.js, senior.js). Проверь, что файлы на месте, и открой страницу через локальный сервер или напрямую из папки проекта.";
     document.querySelectorAll(".level-card:not([data-level='mistakes'])").forEach((btn) => {
       btn.disabled = true;
     });
@@ -1519,6 +1520,9 @@
 
   async function handleImportFile(file) {
     try {
+      if (file.size > MAX_IMPORT_BYTES) {
+        throw new Error("файл прогресса слишком большой");
+      }
       const text = await file.text();
       const data = JSON.parse(text);
       importProgress(data);
@@ -1727,7 +1731,7 @@
   );
 
   if (el.appVersion) {
-    const ver = (window.Drill && window.Drill.APP_VERSION) || "1.3.0";
+    const ver = (window.Drill && window.Drill.APP_VERSION) || "1.3.1";
     el.appVersion.textContent = `PyСобес v${ver}`;
   }
 
