@@ -1727,7 +1727,7 @@
   );
 
   if (el.appVersion) {
-    const ver = (window.Drill && window.Drill.APP_VERSION) || "1.2.0";
+    const ver = (window.Drill && window.Drill.APP_VERSION) || "1.3.0";
     el.appVersion.textContent = `PyСобес v${ver}`;
   }
 

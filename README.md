@@ -2,7 +2,7 @@
 
 Тренажёр-задачник по Python к собеседованию (Junior / Middle / Senior).
 
-**Версия:** 1.2.0 · **Автор:** [daniilak](https://github.com/daniilak)
+**Версия:** 1.3.0 · **Автор:** [daniilak](https://github.com/daniilak)
 
 ## Онлайн
 
